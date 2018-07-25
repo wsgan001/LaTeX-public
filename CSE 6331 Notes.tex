@@ -1,0 +1,1452 @@
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842o
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass[reqno]{amsbook}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}[chapter]
+\numberwithin{section}{chapter}
+\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+%    For a single index; for multiple indexes, see the manual
+%    "Instructions for preparation of papers and monographs:
+%    AMS-LaTeX" (instr-l.pdf in the AMS-LaTeX distribution).
+\makeindex
+
+\begin{document}
+
+\frontmatter
+
+\title{ALGORITHMS I NOTES}
+
+%    Remove any unused author tags.
+
+%    author one information
+\author{BRENDAN WHITAKER}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+%    author two information
+\author{}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+\subjclass[2010]{12-XX}
+
+\keywords{}
+
+\date{SP18}
+
+\begin{abstract}
+A comprehensive set of notes for Professor Lai's Algorithms I course, taken SP18 at The Ohio State University. 
+\end{abstract}
+
+\maketitle
+
+%    Dedication.  If the dedication is longer than a line or two,
+%    remove the centering instructions and the line break.
+%\cleardoublepage
+%\thispagestyle{empty}
+%\vspace*{13.5pc}
+%\begin{center}
+%  Dedication text (use \\[2pt] for line break if necessary)
+%\end{center}
+%\cleardoublepage
+
+%    Change page number to 6 if a dedication is present.
+\setcounter{page}{4}
+
+\tableofcontents
+
+%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+%\include{}
+
+
+
+\mainmatter
+%    Include main chapters here.
+%\include{}
+\setcounter{part}{0}
+\part{}
+\setcounter{chapter}{0}
+\chapter{Mathematical Foundations}
+
+\textbf{Tuesday, January 9th}
+
+The following is correct: 
+$$
+9n^2 + 6n + 9 = O(n^2),
+$$
+But the equality in this case is ordered, it is meaningless to write: 
+$$
+O(n^2) = 9n^2 + \cdots,
+$$
+\textbf{so don't!}. Don't ever write the $O(n^2)$ on the left. 
+
+\begin{Thm}
+If $f_1(n) \in O(g_1(n))$ and $f_2(n) \in O(g_2(n))$, then: 
+\begin{enumerate}
+\item $f_1(n) + f_2(n) \in O(g_1(n) + g_2(n))$
+\item $f_1(n) + f_2(n) \in O(\text{max}(g_1(n),g_2(n))$
+\item $f_1(n) \cdot f_2(n) \in O(g_1(n) \cdot g_2(n))$.
+\end{enumerate}
+\end{Thm}
+
+There is a similar theorem for $\Omega$ and $\Theta$, and both use max. 
+
+\begin{rem}
+Take note of the \textbf{approximating summations by integrals} slide, and the formulas on it. It is new material. 
+\end{rem}
+
+Solve the running time for binary search with a recurrence relation. You should know how to work with his notation. 
+
+\textbf{Tuesday, January 16th}
+
+We do exercises from 1.2 Example Analysis. 
+\setcounter{e}{4}
+\begin{e}
+\end{e}
+The inner for loop executes $2n^3/i$. So we have: 
+$$
+T(n) = \sum_{i = 1}^3n^2 = 2n^3\left(\sum_{i = 1}^3n^2\right) = \Theta(n^3log_n). 
+$$
+But consider if we make the inner for loop go to $2n^3/i$. Then doing the above analysis again, we would get $nlogn$, but this is wrong. You need the running time of the inner for loop to always be at least 1, because it is always at least 1. So we write: 
+$$
+\sum_{i = 1}^3n^2 \left( 2n/i + 1\right) = \cdots = \Theta(n^2).
+$$
+
+Now we discuss divide and conquer. You should remember that quicksort and mergesort are divide and conquer algorithms. 
+
+Be careful of floor and ceilings. Professor Lai wants us to assume that $n$ is some power, and then apply Theorem 7 to then generalize to all $n$. Note that the function must be asymptotically non-decreasing for us to apply this theorem. 
+
+You should know your $o(f(n))$ and $\omega(g(n))$ definitions. Are they stronger or weaker than their capital counterparts? They have something to do with limits. If the limit goes to 0 or $\infty$. 
+
+In order of strength: 
+$O(f(n)), o(f(n)), <<f(n)$, where this last one denotes "polynomially smaller". 
+
+When using Master Theorem, you can just ignore the floor or ceiling functions. 
+
+You can basically always assume the weird condition for case 2 is satisfied without checking it. 
+
+\textbf{Wednesday, January 18th}
+
+When recurrences involve roots, it suffices to only consider powers of the parameter of the root. 
+
+Given:
+$$
+T(n) = \begin{cases}
+2T(\sqrt{n}) + logn & n > 2\\
+c & otherwise
+\end{cases}
+$$
+So we define $S(m) = T(2^m) = T(n)$. We then get: 
+$$
+S(m) = \begin{cases}
+2S(m/2) + m  & m > 1\\
+c & otherwise
+\end{cases}
+$$
+then by master theorem, we get $S(m) \in \Theta(mlog(m))$, so $T(n) \in \Theta(logn loglogn)$. (Why?)
+
+\begin{rem}
+If you're trying to find the running time of a recursive algorithm and you have no idea how to do it, use a recursion tree. 
+\end{rem}
+\section{2331 HW2}
+The inner while loop executes $\frac{i^2 - 6}{\sqrt{i}}$ times and thus takes $ci^{3/2}$ time. Let $k = 7^{3/2}$. 
+
+\begin{equation}
+\begin{aligned}
+T(n) &= 25c(1 + k + k^2 + k^3 + \cdots + k^{log_7(n^3 - 25)})\\
+&= 25c \frac{1 - k^{log_7(n^3 - 25) + 1}}{1 - k}\\
+&= \frac{25c}{k  -1} \left(k^{log_7(n^3 - 25) + 1} - 1 \right)\\
+& \leq  \frac{25ck}{k  -1}\left(k^{log_7(n^3 - 25)}\right)\\
+& \leq c'k^{3log_7n}\\
+& = c'(k^{log_7n})^3\\
+& =c'((7^{3/2})^{log_7n})^3\\
+&= c'n^{9/2} \in O(n^{9/2})\\
+T(n) &\geq 25c(7^{3/2})^{log_7(n^3 - 25)} = 25c(7^{log_7(n^3 - 25)})^{3/2} \\
+&= 25c(n^3 - 25)^{3/2} \in \Omega (n^{9/2})\\
+&\approx (k^{log_7n})^3  = (7^{log_7n})^{9/2} = n^{9/2} \in \Theta(n^{9/2}).\\
+\end{aligned}
+\end{equation}
+
+\textbf{Thursday, January 25th}
+
+We discuss the convex hall problem. 
+
+\begin{Def}
+The convex hull is the smallest convex polygon that encloses all points of $A$. Our straightforward algorithm is for each line segment betweeen two points in $A$, check if every point is on one side of the line. Checking each line segment takes $n^2$ time, and checking each point for each line segment takes $n$ time, so we have a running time of $n^3$. 
+\end{Def}
+
+But we can do this by divide and conquer in $O(nlogn)$. \\
+We do this by dividing it along a vertical line into two sets if we have more than 3 points. Then we find the convex hull of the two subsets and then connect them by the upper and lower bridges (red lines). How do we find these? Note that it is note necessarily the points with the highest y coordinates. 
+
+
+\definecolor{caa0000}{RGB}{170,0,0}
+\definecolor{cd40000}{RGB}{212,0,0}
+
+\begin{center}
+
+\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-2.000000, xscale=2.000000, inner sep=0pt, outer sep=0pt]
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (46.7722,26.6569) -- (25.7915,51.2457) -- (51.7167,77.9726) --
+  (65.3474,50.3102) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (128.5566,35.6104) -- (104.9033,68.2173) -- (127.7548,85.1889) --
+  (151.6755,67.1482) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (46.7722,26.6569) .. controls (46.6707,26.8264) and (46.4800,26.9710) ..
+  (46.4752,27.1769) .. controls (46.4697,27.4112) and (46.7635,27.4431) ..
+  (46.9218,27.3255) .. controls (47.2433,27.0867) and (47.3996,26.6930) ..
+  (47.5083,26.3227) .. controls (47.6599,25.8057) and (47.8785,25.2479) ..
+  (47.7332,24.7245) .. controls (47.6905,24.5706) and (47.4755,24.4513) ..
+  (47.3303,24.5299) .. controls (47.0988,24.6553) and (47.0027,24.9263) ..
+  (46.9342,25.1640) .. controls (46.7325,25.8643) and (46.6642,26.6041) ..
+  (46.7224,27.3278) .. controls (46.7552,27.7350) and (46.8037,28.1566) ..
+  (47.0033,28.5228) .. controls (47.0860,28.6746) and (47.3319,28.8084) ..
+  (47.4403,28.6614) .. controls (47.5687,28.4873) and (47.6170,28.2653) ..
+  (47.6651,28.0578) .. controls (47.7561,27.6651) and (47.8173,27.2613) ..
+  (47.7927,26.8543) .. controls (47.7823,26.6818) and (47.6266,26.5618) ..
+  (47.4558,26.5592) .. controls (47.2237,26.5556) and (47.0037,26.6545) ..
+  (46.7722,26.6569) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (25.7915,51.2457) .. controls (25.8589,51.1869) and (25.9629,51.1819) ..
+  (25.9199,51.3088) .. controls (25.8477,51.5220) and (25.7823,51.7852) ..
+  (25.9363,51.9767) .. controls (26.0738,52.1478) and (26.2962,52.2767) ..
+  (26.5181,52.2558) .. controls (26.7568,52.2332) and (26.8975,51.9996) ..
+  (26.9590,51.7914) .. controls (27.0756,51.3969) and (27.0723,50.9709) ..
+  (26.9842,50.5699) .. controls (26.9492,50.4107) and (26.8556,50.2454) ..
+  (26.6844,50.2083) .. controls (26.4090,50.1486) and (26.1400,50.2992) ..
+  (25.9260,50.4547) .. controls (25.4857,50.7748) and (25.0956,51.1818) ..
+  (24.8454,51.6645) .. controls (24.7390,51.8697) and (24.5821,52.1094) ..
+  (24.6613,52.3392) .. controls (24.7120,52.4863) and (24.8624,52.5844) ..
+  (25.0061,52.6214) .. controls (25.2706,52.6895) and (25.5091,52.4875) ..
+  (25.6370,52.2733) .. controls (25.8186,51.9690) and (25.8758,51.5898) ..
+  (25.7915,51.2457) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (65.3474,50.3102) .. controls (65.5537,50.3271) and (65.6242,50.5493) ..
+  (65.6333,50.7324) .. controls (65.6451,50.9682) and (65.4592,51.2653) ..
+  (65.6248,51.4399) .. controls (65.7561,51.5782) and (65.9844,51.5386) ..
+  (66.1700,51.5791) .. controls (66.5101,51.6532) and (66.9190,51.8654) ..
+  (67.2182,51.6466) .. controls (67.4086,51.5074) and (67.4675,51.2559) ..
+  (67.5064,51.0372) .. controls (67.5698,50.6805) and (67.6270,50.2956) ..
+  (67.5027,49.9481) .. controls (67.4252,49.7314) and (67.1582,49.7019) ..
+  (66.9686,49.7218) .. controls (66.7538,49.7444) and (66.6270,49.5725) ..
+  (66.5068,49.4190) .. controls (66.1624,48.9795) and (65.8014,48.5300) ..
+  (65.3136,48.2390) .. controls (65.0766,48.0976) and (64.6894,48.0502) ..
+  (64.5455,48.3057) .. controls (64.4434,48.4870) and (64.4750,48.7104) ..
+  (64.4768,48.9110) .. controls (64.4807,49.3653) and (64.5564,49.8161) ..
+  (64.5209,50.2733) .. controls (64.5077,50.4424) and (64.1586,50.7453) ..
+  (64.2783,50.7111) .. controls (64.6449,50.6063) and (64.9911,50.4438) ..
+  (65.3473,50.3102) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (51.7167,77.9726) .. controls (51.6245,77.6387) and (51.2703,76.6672) ..
+  (51.4324,76.9730) .. controls (51.5607,77.2150) and (51.6163,77.4920) ..
+  (51.7017,77.7532) .. controls (51.7560,77.9195) and (51.6687,78.0660) ..
+  (51.5952,78.2129) .. controls (51.4361,78.5314) and (51.2531,78.8597) ..
+  (51.2374,79.2235) .. controls (51.2273,79.4542) and (51.4700,79.5983) ..
+  (51.6731,79.6105) .. controls (52.0703,79.6343) and (52.4329,79.4041) ..
+  (52.7163,79.1507) .. controls (53.1152,78.7940) and (53.4733,78.3472) ..
+  (53.5943,77.8171) .. controls (53.6462,77.5893) and (53.6624,77.2374) ..
+  (53.4279,77.1523) .. controls (53.1885,77.0653) and (52.8582,77.2432) ..
+  (52.6807,77.0583) .. controls (52.5797,76.9530) and (52.7501,76.7599) ..
+  (52.5219,76.6883) .. controls (52.1855,76.5828) and (51.8229,76.6609) ..
+  (51.4962,76.7606) .. controls (51.2524,76.8350) and (50.9060,76.8133) ..
+  (50.7812,77.0372) .. controls (50.7002,77.1825) and (50.7490,77.3602) ..
+  (50.7908,77.5097) .. controls (50.8481,77.7147) and (50.5684,77.8535) ..
+  (50.6035,78.0386) .. controls (50.6321,78.1898) and (50.8981,78.0952) ..
+  (51.0163,78.0801) .. controls (51.2507,78.0502) and (51.4822,78.0019) ..
+  (51.7167,77.9726) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (104.9033,68.2173) .. controls (104.8353,68.2364) and (104.5088,68.2496) ..
+  (104.6802,68.1674) .. controls (104.8490,68.0865) and (104.9274,68.2056) ..
+  (104.8439,68.3796) .. controls (104.5780,68.9337) and (104.1986,69.4552) ..
+  (104.1013,70.0731) .. controls (104.0681,70.2840) and (104.0812,70.6488) ..
+  (104.3241,70.6699) .. controls (104.5953,70.6936) and (104.8371,70.5193) ..
+  (105.0382,70.3606) .. controls (105.6065,69.9121) and (106.0883,69.3373) ..
+  (106.3816,68.6734) .. controls (106.5775,68.2301) and (106.6869,67.6785) ..
+  (106.4132,67.2460) .. controls (106.2072,66.9204) and (105.8499,66.7011) ..
+  (105.4756,66.6250) .. controls (105.1903,66.5670) and (104.9160,66.7494) ..
+  (104.7868,66.9992) .. controls (104.5424,67.4721) and (104.5055,68.0195) ..
+  (104.5027,68.5417) .. controls (104.5007,68.9736) and (104.3782,70.2524) ..
+  (104.4957,69.8377) .. controls (104.6474,69.3019) and (104.7670,68.7572) ..
+  (104.9034,68.2173) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (129.0912,62.4710) .. controls (129.0749,62.7512) and (129.0656,63.0553) ..
+  (129.2124,63.3073) .. controls (129.3141,63.4818) and (129.5505,63.4475) ..
+  (129.6853,63.3229) .. controls (129.9767,63.0536) and (129.9817,62.5842) ..
+  (129.7760,62.2535) .. controls (129.7047,62.1388) and (129.5771,61.9553) ..
+  (129.4274,62.0920) .. controls (129.1944,62.3047) and (129.0513,62.5979) ..
+  (128.9417,62.8878) .. controls (128.8238,63.1996) and (128.7284,63.5298) ..
+  (128.7388,63.8689) .. controls (128.7458,64.1081) and (129.0363,64.2770) ..
+  (129.2471,64.1597) .. controls (129.5163,64.0099) and (129.6509,63.7037) ..
+  (129.7266,63.4194) .. controls (129.8723,62.8722) and (129.7808,62.2203) ..
+  (129.3584,61.8209) .. controls (129.1620,61.6352) and (128.9190,61.4632) ..
+  (128.6417,61.4475) .. controls (128.3442,61.4306) and (128.1047,61.6643) ..
+  (127.9781,61.9119) .. controls (127.8023,62.2556) and (127.7494,62.6535) ..
+  (127.7816,63.0413) .. controls (127.7948,63.2005) and (127.9034,63.2997) ..
+  (128.0798,63.2952) .. controls (128.1945,63.2923) and (128.3085,63.2782) ..
+  (128.4230,63.2728);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (128.5566,35.6104) .. controls (128.4829,35.4931) and (128.2109,34.9224) ..
+  (128.3785,35.1846) .. controls (128.5351,35.4297) and (128.4402,35.7766) ..
+  (128.3511,36.0357) .. controls (128.2673,36.2793) and (128.2610,36.5354) ..
+  (128.3035,36.7894) .. controls (128.4523,37.6776) and (128.6645,38.5758) ..
+  (129.0948,39.3675) .. controls (129.2265,39.6097) and (129.3220,39.9815) ..
+  (129.6074,40.0265) .. controls (129.8853,40.0703) and (130.0795,39.7655) ..
+  (130.2015,39.5605) .. controls (130.5070,39.0470) and (130.7131,38.4724) ..
+  (130.8202,37.8841) .. controls (130.8943,37.4771) and (130.7144,37.0927) ..
+  (130.5368,36.7344) .. controls (130.3756,36.4090) and (130.1309,36.0847) ..
+  (130.1331,35.7177) .. controls (130.1341,35.4735) and (130.1241,35.2213) ..
+  (129.7799,35.1752) .. controls (129.1941,35.0966) and (128.4592,34.5444) ..
+  (128.0220,34.9422) .. controls (127.7513,35.1886) and (127.5628,35.5185) ..
+  (127.4132,35.8482) .. controls (127.2442,36.2205) and (126.9902,36.6458) ..
+  (127.1268,37.0520) .. controls (127.2354,37.3746) and (127.6513,37.4756) ..
+  (127.9436,37.3397) .. controls (128.4574,37.1009) and (128.8511,36.6366) ..
+  (129.0707,36.1287) .. controls (129.1588,35.9250) and (129.3592,35.6447) ..
+  (129.2013,35.4663) .. controls (129.0271,35.2694) and (128.7259,35.5191) ..
+  (128.5566,35.6104) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (154.7491,67.0146) .. controls (154.2997,66.7372) and (153.7030,66.3622) ..
+  (153.2394,66.6223) .. controls (152.6963,66.9269) and (152.2312,67.3554) ..
+  (151.7823,67.7821) .. controls (151.1873,68.3475) and (150.4905,68.8579) ..
+  (150.1012,69.5854) .. controls (149.8715,70.0149) and (150.6150,69.8657) ..
+  (150.8374,69.8418) .. controls (151.4725,69.7737) and (152.2626,70.0282) ..
+  (152.7462,69.5608) .. controls (153.0294,69.2870) and (153.1667,68.8941) ..
+  (153.2997,68.5322) .. controls (153.6362,67.6164) and (153.9095,66.6355) ..
+  (153.7954,65.6499) .. controls (153.7294,65.0800) and (153.3141,64.6542) ..
+  (152.9535,64.2490) .. controls (152.6799,63.9415) and (152.5110,63.4176) ..
+  (152.1056,63.3419) .. controls (151.6865,63.2636) and (151.2876,63.5086) ..
+  (150.9523,63.7262) .. controls (150.4430,64.0566) and (149.5413,64.2661) ..
+  (149.5373,64.8764) .. controls (149.5353,65.1582) and (149.5032,65.4331) ..
+  (149.3480,65.7058) .. controls (148.9903,66.3344) and (148.4422,66.9107) ..
+  (148.4682,67.6827);
+\path[draw=black,fill=caa0000,line join=miter,line cap=butt,line width=0.056pt]
+  (127.7548,85.1889) .. controls (128.0363,85.2659) and (127.9020,85.6090) ..
+  (127.8296,85.8000) .. controls (127.7204,86.0881) and (127.4949,86.3461) ..
+  (127.4813,86.6579) .. controls (127.4733,86.8334) and (127.6803,86.7920) ..
+  (127.7952,86.7925) .. controls (128.3892,86.7951) and (128.9845,86.7578) ..
+  (129.5770,86.7966) .. controls (130.0452,86.8272) and (130.5320,86.9738) ..
+  (130.9863,86.8418) .. controls (131.2209,86.7736) and (131.2856,86.4784) ..
+  (131.2588,86.2654) .. controls (131.1987,85.7872) and (130.9687,85.3040) ..
+  (130.5856,85.0170) .. controls (130.3271,84.8234) and (129.9764,84.8249) ..
+  (129.6684,84.8466) .. controls (128.9853,84.8946) and (128.3398,85.2269) ..
+  (127.6503,85.1840) .. controls (127.2850,85.1612) and (126.9599,84.8910) ..
+  (126.5965,84.9324) .. controls (126.3009,84.9661) and (126.2900,85.3331) ..
+  (126.2850,85.5622) .. controls (126.2820,85.7182) and (126.0453,86.2514) ..
+  (126.1838,85.9939) .. controls (126.2895,85.7974) and (126.5041,85.7083) ..
+  (126.6889,85.6029) .. controls (126.9842,85.4343) and (127.3079,85.2025) ..
+  (127.3388,84.8336) .. controls (127.3610,84.5698) and (127.2287,83.9977) ..
+  (127.0043,84.1450) .. controls (126.8657,84.2359) and (127.1286,84.4991) ..
+  (127.2203,84.6101) .. controls (127.3877,84.8127) and (127.5694,85.0029) ..
+  (127.7549,85.1889) -- cycle;
+\path[draw=cd40000,line join=miter,line cap=butt,line width=0.056pt]
+  (46.7722,26.6569) -- (128.5566,35.6104);
+\path[draw=cd40000,line join=miter,line cap=butt,line width=0.056pt]
+  (51.7167,77.9726) -- (127.7548,85.1889);
+
+\end{tikzpicture}
+
+\end{center}
+
+We give a counterexample: 
+
+\begin{center}
+
+\definecolor{cff0000}{RGB}{255,0,0}
+\definecolor{c0000ff}{RGB}{0,0,255}
+
+
+\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-2.000000, xscale=2.000000, inner sep=0pt, outer sep=0pt]
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (51.0485,29.3296) -- (79.5127,60.3328) -- (34.4778,92.5388) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (121.0731,73.8299) -- (168.1125,86.1243) -- (122.8103,115.5240) -- cycle;
+\path[draw=cff0000,fill=cff0000,line join=miter,line cap=butt,line
+  width=0.056pt] (51.0485,29.3296) -- (121.0731,73.8299);
+\path[draw=c0000ff,fill=c0000ff,line join=miter,line cap=butt,line
+  width=0.056pt] (51.0485,29.3296) -- (168.1125,86.1243);
+
+\end{tikzpicture}
+
+\end{center}
+Note that the red line is between the two points with highest y coordinate, but the blue line is the actual upper bridge. 
+
+Now we describe an algorithm for finding the upper/lower bridge. We first start with the line between the points with closest x coordinates between the two sets, and then we move each point counterclockwise on the left set and clockwise on the right side until the new points no longer lie above the line between the previous: 
+
+\begin{center}
+
+\definecolor{ce9afaf}{RGB}{233,175,175}
+\definecolor{cd35f5f}{RGB}{211,95,95}
+\definecolor{ca02c2c}{RGB}{160,44,44}
+\definecolor{c782121}{RGB}{120,33,33}
+\definecolor{cff00ff}{RGB}{255,0,255}
+
+
+\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-2.000000, xscale=2.000000, inner sep=0pt, outer sep=0pt]
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (61.4720,22.3806) -- (80.5818,35.2095) -- (88.0653,60.3328) --
+  (76.3054,86.6589) -- (47.5740,97.4833) -- (24.8561,69.9545) --
+  (29.2660,37.4813) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (156.8872,21.5787) -- (137.3765,34.2740) -- (128.2894,50.7111) --
+  (136.1738,76.1017) -- (162.4999,93.4742) -- (187.0887,79.1753) --
+  (189.0932,53.7847) -- cycle;
+\path[draw=ce9afaf,line join=miter,line cap=butt,line width=0.056pt]
+  (88.0653,60.3328) -- (128.2894,50.7111);
+\path[draw=cd35f5f,line join=miter,line cap=butt,line width=0.056pt]
+  (80.5818,35.2095) -- (128.2894,50.7111);
+\path[draw=ca02c2c,line join=miter,line cap=butt,line width=0.056pt]
+  (137.3765,34.2740) -- (80.5818,35.2095);
+\path[draw=c782121,line join=miter,line cap=butt,line width=0.056pt]
+  (61.4720,22.3806) -- (137.3765,34.2740);
+\path[draw=cff00ff,line join=miter,line cap=butt,line width=0.056pt]
+  (156.8872,21.5787) -- (61.4720,22.3806);
+
+\end{tikzpicture}
+
+\end{center}
+
+Observe that we start with the lightest pink line, and move upwards until we find the upper bridge, outline in magenta. A good question for the midterm exam is why if we randomly pick $v,w$ why it doesn't work. Ask about this. 
+
+So what data structure do we want to use to represent the points in each set. We want to use a \textbf{linked list}. Where a point points to the next counterclockwise point and so on, and it is cyclic. So to find the leftmost and rightmost points, we could just run over all $n$, or we could initialize two pointers, one to the leftmost, and one to the rightmost. We found the upper bridge up $O(n)$ time, so the running time is given by: 
+$$
+T(n)  = 2T(n/2) + O(n).
+$$
+
+If we want to check whether a point is above or below the line, we can write the equation of the line between points $u,v$ as $f(x,y) = ax + by + c = 0$, and compute $f(x_0,y_0)$. If it has the same sign as $b$, it is above the line, and if it has opposite sign, it is below. 
+
+So now we relax the assumption that no 3 points are colinear, and that they all have distinct x coordinates. So we have the situation: 
+
+\begin{center}
+
+
+
+\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-2.000000, xscale=2.000000, inner sep=0pt, outer sep=0pt]
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (84.7244,25.5878) -- (84.5908,49.5084) -- (84.5908,73.5627) --
+  (84.4572,92.2715) -- (54.5230,105.3677) -- (29.5333,82.6498) --
+  (32.2060,37.7485) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (169.3152,54.7202) -- (140.1829,63.8073) -- (145.1273,78.5072) --
+  (167.8453,77.5717) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (84.7244,25.5878) .. controls (84.9026,25.2760) and (85.2429,24.2931) ..
+  (85.2590,24.6523) .. controls (85.2733,24.9725) and (85.2806,25.3038) ..
+  (85.1901,25.6133) .. controls (85.1058,25.9020) and (84.8163,25.4378) ..
+  (84.7380,25.5694) .. controls (84.6088,25.7867) and (84.7307,26.0420) ..
+  (84.8083,26.2536) .. controls (84.9185,26.5544) and (84.8119,26.8700) ..
+  (84.7758,27.1742) .. controls (84.7332,27.5334) and (84.6856,27.9033) ..
+  (84.7749,28.2618) .. controls (84.8264,28.4689) and (85.0572,28.5040) ..
+  (85.2504,28.4544) .. controls (85.5280,28.3831) and (85.6781,28.1160) ..
+  (85.7701,27.8651) .. controls (85.8920,27.5330) and (85.9696,27.1846) ..
+  (85.9742,26.8291) .. controls (85.9805,26.3444) and (85.9565,25.8488) ..
+  (85.7992,25.3843) .. controls (85.7350,25.1948) and (85.5563,25.0109) ..
+  (85.3310,25.0750) .. controls (85.1291,25.1324) and (85.0084,25.3113) ..
+  (84.8925,25.4728) .. controls (84.7582,25.6601) and (84.5135,25.5715) ..
+  (84.3249,25.5286) .. controls (84.1925,25.4985) and (83.9450,25.3497) ..
+  (83.8867,25.4967) .. controls (83.7371,25.8737) and (83.6136,26.2773) ..
+  (83.6236,26.6810) .. controls (83.6279,26.8546) and (83.5089,27.1815) ..
+  (83.7098,27.2238) .. controls (83.9674,27.2780) and (84.2299,27.1844) ..
+  (84.4726,27.1051) .. controls (84.9136,26.9610) and (85.2158,26.5279) ..
+  (85.2506,26.0712) .. controls (85.2762,25.7349) and (85.2426,25.3556) ..
+  (85.0180,25.0941) .. controls (84.8495,24.8977) and (84.7513,25.2005) ..
+  (84.7353,25.3534) .. controls (84.7272,25.4312) and (84.7245,25.5096) ..
+  (84.7244,25.5878) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (85.1253,55.9229) .. controls (85.0163,56.5387) and (84.9143,57.1748) ..
+  (85.0233,57.7961) .. controls (85.0682,58.0521) and (85.1717,58.3732) ..
+  (85.4516,58.4410) .. controls (85.7320,58.5090) and (86.0156,58.3685) ..
+  (86.2438,58.2169) .. controls (86.4451,58.0832) and (86.5546,57.8211) ..
+  (86.4718,57.5870) .. controls (86.3337,57.1960) and (85.9887,56.9170) ..
+  (85.6373,56.7251) .. controls (85.2547,56.5162) and (84.8049,56.3269) ..
+  (84.3671,56.4286) .. controls (84.2044,56.4664) and (84.0276,56.5632) ..
+  (83.9978,56.7539) .. controls (83.9661,56.9566) and (84.0639,57.1989) ..
+  (83.9412,57.3668) .. controls (83.8182,57.5351) and (83.6460,57.7146) ..
+  (83.6554,57.9274) .. controls (83.6644,58.1320) and (83.9301,58.0588) ..
+  (84.0512,58.0039) .. controls (84.4998,57.8004) and (84.8810,57.4475) ..
+  (85.1276,57.0211) .. controls (85.3143,56.6984) and (85.3632,56.2670) ..
+  (85.1430,55.9502) .. controls (85.0033,55.7492) and (84.8569,55.4833) ..
+  (84.5997,55.4475) .. controls (84.3814,55.4172) and (84.2471,55.6353) ..
+  (84.1790,55.8084) .. controls (83.9689,56.3430) and (83.8918,56.9245) ..
+  (83.8955,57.4938) .. controls (83.8967,57.6821) and (83.7926,57.9231) ..
+  (83.9226,58.0610) .. controls (84.1098,58.2596) and (84.4184,58.2231) ..
+  (84.6419,58.1114) .. controls (85.0651,57.8999) and (85.4384,57.5597) ..
+  (85.6468,57.1376) .. controls (85.7168,56.9958) and (85.8296,56.8019) ..
+  (85.7192,56.6628) .. controls (85.6737,56.6054) and (85.5954,56.5910) ..
+  (85.5263,56.5911);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (84.4572,92.2715) .. controls (84.7355,91.7213) and (84.9127,90.1331) ..
+  (85.2930,90.6204) .. controls (85.4370,90.8050) and (85.3014,91.2479) ..
+  (85.2821,91.5240) .. controls (85.2400,92.1267) and (85.2333,92.7566) ..
+  (85.4404,93.3318) .. controls (85.6588,93.9381) and (86.2061,94.3308) ..
+  (86.7364,94.6430) .. controls (86.9532,94.7707) and (87.3697,95.2674) ..
+  (87.4073,95.0527) .. controls (87.4679,94.7070) and (87.3262,94.3774) ..
+  (86.9823,94.2182) .. controls (86.1969,93.8547) and (85.3242,93.7185) ..
+  (84.4694,93.6612) .. controls (83.8809,93.6218) and (83.2112,93.3874) ..
+  (82.6964,93.6858) .. controls (82.4242,93.8435) and (82.8649,93.4977) ..
+  (82.9336,93.4397) .. controls (83.2632,93.1617) and (83.5123,92.7566) ..
+  (83.9088,92.5886) .. controls (84.1814,92.4731) and (84.4341,92.3312) ..
+  (84.5978,92.0564) .. controls (85.0901,91.2302) and (85.4415,90.3302) ..
+  (85.8876,89.4734) .. controls (86.0078,89.2424) and (85.9015,88.5011) ..
+  (85.6147,88.7991) .. controls (85.3016,89.1243) and (85.1685,89.5765) ..
+  (85.0357,89.9967) .. controls (84.7998,90.7430) and (84.0541,91.6008) ..
+  (84.4572,92.2715) .. controls (84.6378,92.5722) and (85.0378,92.4395) ..
+  (85.2578,92.2528) .. controls (85.6278,91.9387) and (85.9175,91.4807) ..
+  (85.9320,90.9774) .. controls (85.9422,90.6254) and (85.5860,90.6512) ..
+  (85.3133,90.6545) .. controls (84.7480,90.6614) and (84.1642,90.7522) ..
+  (83.6836,91.0723) .. controls (83.2302,91.3742) and (82.8073,91.8647) ..
+  (82.8344,92.4396) .. controls (82.8511,92.7923) and (83.2596,92.8612) ..
+  (83.5473,92.7741) .. controls (83.8817,92.6730) and (84.1786,92.4772) ..
+  (84.4572,92.2715) -- cycle;
+
+\end{tikzpicture}
+
+\end{center}
+
+So in this case, we have ties when we are picking the rightmost point in the left set, just pick a random one. And that is how we fix that problem. 
+
+New problem, what if we have this: 
+
+\begin{center}
+
+\definecolor{cff6600}{RGB}{255,102,0}
+
+
+\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-2.000000, xscale=2.000000, inner sep=0pt, outer sep=0pt]
+  \path[draw=cff6600,line join=miter,line cap=butt,line width=0.056pt]
+    (101.6960,6.4780) -- (103.0324,126.3484);
+  \path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+    (77.9091,61.6692) -- (102.0970,47.5039) -- (82.0517,15.1643) --
+    (37.2841,30.3986) -- cycle;
+  \path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+    (102.4979,80.7789) -- (157.9563,57.6601) -- (167.4444,103.7641) --
+    (134.8375,110.9804) -- (101.9633,80.9126);
+
+\end{tikzpicture}
+
+\end{center}
+
+So when we are looking for our upper bridge, how do we define whether or not the next counterclockwise point is "above" this line or not? It is vertical. So our solution is to put any points which all lie along the midpoint in the same set, either on the left or the right figure. 
+
+We treat the following case: 
+
+\begin{center}
+
+
+
+\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-1.000000, xscale=1.000000, inner sep=0pt, outer sep=0pt]
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (107.0414,25.7214) -- (37.1505,72.0927) -- (63.2092,107.3723) --
+  (134.9711,61.9364) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (101.9633,46.4348) .. controls (102.0780,46.4269) and (102.1743,46.5137) ..
+  (102.2610,46.5777) .. controls (102.4762,46.7365) and (102.6340,46.9793) ..
+  (102.8768,47.0904) .. controls (103.0089,47.1509) and (103.1632,47.1528) ..
+  (103.3045,47.1317) .. controls (103.5543,47.0944) and (103.8143,46.9879) ..
+  (103.9636,46.7741) .. controls (104.0600,46.6361) and (104.0402,46.4487) ..
+  (103.9508,46.3104) .. controls (103.8671,46.1810) and (103.7390,46.0461) ..
+  (103.5717,46.0595) .. controls (103.3534,46.0770) and (103.1643,46.2387) ..
+  (103.0714,46.4287) .. controls (103.0501,46.4723) and (103.0328,46.5194) ..
+  (103.0323,46.5684);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (90.2035,63.5401) .. controls (90.7825,63.6737) and (91.3616,63.8073) ..
+  (91.9407,63.9410);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (70.5592,72.2263) .. controls (70.5793,72.4098) and (70.7610,72.5171) ..
+  (70.9320,72.5302) .. controls (71.3169,72.5599) and (71.6956,72.4372) ..
+  (72.0421,72.2832) .. controls (72.4397,72.1065) and (72.8463,71.9052) ..
+  (73.1383,71.5772) .. controls (73.2297,71.4746) and (73.3704,71.2969) ..
+  (73.2526,71.1813) .. controls (73.1455,71.0763) and (72.9805,71.0611) ..
+  (72.8391,71.0371) .. controls (72.4911,70.9781) and (72.1371,70.9609) ..
+  (71.7824,70.9681) .. controls (71.6426,70.9709) and (71.5588,71.0891) ..
+  (71.4664,71.1758) .. controls (71.2013,71.4245) and (70.9137,71.6696) ..
+  (70.7511,72.0031) .. controls (70.6690,72.1715) and (70.7040,72.3843) ..
+  (70.8480,72.5109) .. controls (70.9983,72.6431) and (71.1850,72.7707) ..
+  (71.3825,72.7652) .. controls (71.5648,72.7601) and (71.6365,72.5446) ..
+  (71.6790,72.3960) .. controls (71.7171,72.2630) and (71.6871,72.0713) ..
+  (71.4976,72.0696) .. controls (71.3626,72.0684) and (71.2284,72.0862) ..
+  (71.0937,72.0927);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (72.2964,87.9952) .. controls (72.2701,88.2187) and (72.1147,88.3986) ..
+  (72.0050,88.5874) .. controls (71.8898,88.7856) and (71.6924,88.9814) ..
+  (71.7162,89.2176) .. controls (71.7339,89.3940) and (71.9480,89.4627) ..
+  (72.0998,89.4456) .. controls (72.4882,89.4018) and (72.8211,89.1623) ..
+  (73.1050,88.9102) .. controls (73.5673,88.4997) and (73.9874,88.0127) ..
+  (74.2145,87.4330) .. controls (74.3207,87.1620) and (74.3907,86.8202) ..
+  (74.2023,86.5641) .. controls (74.0839,86.4030) and (73.8569,86.3404) ..
+  (73.6752,86.4319) .. controls (73.3330,86.6044) and (73.1041,86.9318) ..
+  (72.9066,87.2481) .. controls (72.5574,87.8074) and (71.9649,88.3687) ..
+  (72.0406,89.0232) .. controls (72.0615,89.2047) and (72.3633,89.1780) ..
+  (72.4997,89.0992) .. controls (72.8494,88.8972) and (73.1104,88.5677) ..
+  (73.3008,88.2197) .. controls (73.3851,88.0656) and (73.4814,87.9059) ..
+  (73.4991,87.7279);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (100.2261,83.0507) .. controls (100.3556,83.0019) and (100.6118,82.9724) ..
+  (100.5841,82.8183) .. controls (100.5558,82.6611) and (100.3751,82.5937) ..
+  (100.2403,82.5599) .. controls (100.1080,82.5268) and (99.7687,82.3763) ..
+  (99.8232,82.5048) .. controls (99.9059,82.7000) and (100.2062,82.7570) ..
+  (100.2255,82.9732) .. controls (100.2421,83.1597) and (100.0972,83.3118) ..
+  (99.9845,83.4435) .. controls (99.8211,83.6346) and (99.6058,83.7912) ..
+  (99.4999,84.0265) .. controls (99.4352,84.1702) and (99.5773,84.3265) ..
+  (99.7345,84.2459) .. controls (100.0491,84.0846) and (100.3102,83.8293) ..
+  (100.5165,83.5472) .. controls (100.6724,83.3341) and (100.8498,83.0959) ..
+  (100.8377,82.8203) .. controls (100.8297,82.6349) and (100.5991,82.4838) ..
+  (100.4356,82.5970) .. controls (100.2065,82.7558) and (100.0893,83.0288) ..
+  (100.0089,83.2846) .. controls (99.9071,83.6088) and (99.8608,83.9522) ..
+  (99.8832,84.2969) .. controls (99.8942,84.4668) and (100.0686,84.5511) ..
+  (100.2243,84.4663) .. controls (100.5299,84.2999) and (100.7046,83.9871) ..
+  (100.8703,83.6963) .. controls (101.0711,83.3438) and (101.2551,82.9757) ..
+  (101.3543,82.5779) .. controls (101.3936,82.4203) and (101.3473,82.1866) ..
+  (101.1564,82.1751) .. controls (100.9455,82.1625) and (100.7833,82.3351) ..
+  (100.6646,82.4862) .. controls (100.3256,82.9181) and (100.0636,83.4215) ..
+  (99.9468,83.9561) .. controls (99.9006,84.1678) and (99.7876,84.4320) ..
+  (99.9270,84.6118) .. controls (100.1263,84.8689) and (100.4820,84.9161) ..
+  (100.7875,84.9043) .. controls (101.1817,84.8891) and (101.5683,84.7910) ..
+  (101.9633,84.7880);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (134.9711,61.9364) .. controls (134.7964,61.5123) and (134.6218,61.0706) ..
+  (134.3107,60.7261) .. controls (134.1892,60.5915) and (133.9966,60.4518) ..
+  (133.8135,60.5387) .. controls (133.5876,60.6459) and (133.4725,60.8896) ..
+  (133.3927,61.1128) .. controls (133.2478,61.5181) and (133.2160,61.9520) ..
+  (133.1777,62.3814) .. controls (133.1670,62.5018) and (133.2217,62.6911) ..
+  (133.3838,62.5880) .. controls (133.6574,62.4140) and (133.8734,62.1645) ..
+  (134.0777,61.9168) .. controls (134.3884,61.5402) and (134.6615,61.1343) ..
+  (134.9174,60.7168) .. controls (134.9857,60.6055) and (135.0061,60.4832) ..
+  (134.8705,60.3849) .. controls (134.7487,60.2966) and (134.5807,60.3430) ..
+  (134.4859,60.4513) .. controls (134.2634,60.7055) and (134.1633,61.0420) ..
+  (134.0951,61.3651) .. controls (134.0100,61.7685) and (133.9706,62.1837) ..
+  (133.9955,62.5983) .. controls (134.0056,62.7668) and (134.1469,62.8837) ..
+  (134.3001,62.9353) .. controls (134.5407,63.0164) and (134.8402,62.9237) ..
+  (134.9543,62.6841) .. controls (135.0652,62.4510) and (135.0292,62.1785) ..
+  (134.9712,61.9364) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (107.0414,25.7214) .. controls (107.0597,26.0598) and (107.0891,26.4147) ..
+  (107.2570,26.7185) .. controls (107.3470,26.8814) and (107.5455,26.9706) ..
+  (107.7267,26.9159) .. controls (108.0348,26.8229) and (108.2723,26.5837) ..
+  (108.4627,26.3357) .. controls (108.6870,26.0439) and (108.8892,25.7191) ..
+  (108.9638,25.3544) .. controls (108.9889,25.2317) and (108.9630,25.1000) ..
+  (108.8607,25.0065) .. controls (108.7229,24.8806) and (108.5102,24.8738) ..
+  (108.3534,24.9702) .. controls (108.0509,25.1562) and (107.8539,25.4697) ..
+  (107.6985,25.7791) .. controls (107.5287,26.1171) and (107.3366,26.4672) ..
+  (107.3144,26.8468) .. controls (107.3054,26.9999) and (107.2764,27.1783) ..
+  (107.3657,27.3066) .. controls (107.4619,27.4450) and (107.6051,27.2599) ..
+  (107.6631,27.1742) .. controls (107.9226,26.7912) and (108.1098,26.3620) ..
+  (108.2484,25.9227) .. controls (108.3260,25.6768) and (108.4005,25.4257) ..
+  (108.4126,25.1656) .. controls (108.4196,25.0050) and (108.2041,24.9138) ..
+  (108.0809,25.0113) .. controls (107.8551,25.1901) and (107.7231,25.4544) ..
+  (107.5979,25.7060) .. controls (107.5433,25.8159) and (107.4289,25.8858) ..
+  (107.2994,25.8129) .. controls (107.2219,25.7692) and (107.0536,25.5975) ..
+  (107.0277,25.7667) .. controls (106.9871,26.0323) and (107.0749,26.2964) ..
+  (107.1198,26.5569) .. controls (107.1323,26.6292) and (107.1989,26.8022) ..
+  (107.1703,26.6277) .. controls (107.1210,26.3266) and (107.0846,26.0235) ..
+  (107.0415,25.7214) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (72.6973,48.8402) .. controls (73.1856,48.8814) and (73.6782,49.1181) ..
+  (74.1673,48.9739) .. controls (74.5771,48.8530) and (74.9281,48.4969) ..
+  (74.9595,48.0554) .. controls (75.0024,47.4528) and (74.5427,46.9221) ..
+  (74.0028,46.7094) .. controls (73.5405,46.5274) and (73.0283,46.5669) ..
+  (72.5426,46.6250) .. controls (72.2943,46.6547) and (72.1705,46.8776) ..
+  (72.0769,47.0912) .. controls (71.9788,47.3151) and (71.7143,47.3833) ..
+  (71.5569,47.5525) .. controls (71.3587,47.7656) and (71.5091,48.0770) ..
+  (71.5788,48.3250) .. controls (71.6231,48.4827) and (71.7906,48.5086) ..
+  (71.7874,48.3054) .. controls (71.7839,48.0794) and (71.8208,47.8377) ..
+  (71.7395,47.6275) .. controls (71.6487,47.3927) and (71.3469,47.4355) ..
+  (71.1582,47.5096) .. controls (70.7823,47.6572) and (70.4234,47.9211) ..
+  (70.2525,48.2988) .. controls (70.1483,48.5291) and (70.2993,48.7779) ..
+  (70.5128,48.8821) .. controls (70.9382,49.0897) and (71.4318,49.0993) ..
+  (71.8955,49.1075);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (37.1505,72.0927) .. controls (37.1231,71.7990) and (36.9957,71.5185) ..
+  (36.8331,71.2753) .. controls (36.7131,71.0960) and (36.4950,70.9129) ..
+  (36.2671,71.0014) .. controls (36.0390,71.0900) and (35.9482,71.3493) ..
+  (35.8868,71.5635) .. controls (35.7699,71.9716) and (35.6584,72.4105) ..
+  (35.7688,72.8338) .. controls (35.8339,73.0835) and (36.0802,73.2462) ..
+  (36.3337,73.2468) .. controls (36.7953,73.2479) and (37.2436,73.0403) ..
+  (37.5844,72.7437) .. controls (37.7540,72.5961) and (37.9792,72.4255) ..
+  (37.9736,72.1861) .. controls (37.9683,71.9606) and (37.6804,71.9527) ..
+  (37.5205,71.9860) .. controls (37.3685,72.0176) and (37.1455,72.0070) ..
+  (37.1325,72.2389) .. controls (37.1065,72.7005) and (37.1421,73.1628) ..
+  (37.1742,73.6267) .. controls (37.1882,73.8284) and (37.4028,73.9149) ..
+  (37.5817,73.8730) .. controls (37.9157,73.7947) and (38.1451,73.5023) ..
+  (38.3106,73.2229) .. controls (38.5478,72.8227) and (38.6317,72.3570) ..
+  (38.7754,71.9104) .. controls (38.8234,71.7614) and (38.7459,71.5098) ..
+  (38.5704,71.7147) .. controls (38.4592,71.8445) and (38.4541,72.0829) ..
+  (38.2426,72.1128) .. controls (37.8793,72.1642) and (37.5144,72.0925) ..
+  (37.1505,72.0927) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (63.2092,107.3723) .. controls (63.7908,106.9697) and (64.4574,106.6361) ..
+  (64.8640,106.0336) .. controls (65.0243,105.7961) and (65.2283,105.2359) ..
+  (64.9286,105.2090) .. controls (64.6991,105.1884) and (64.5503,105.4706) ..
+  (64.4298,105.6375) .. controls (64.1108,106.0790) and (63.8021,106.5308) ..
+  (63.5486,107.0119) .. controls (63.4216,107.2528) and (63.2553,107.6050) ..
+  (63.4731,107.8306) .. controls (63.7092,108.0751) and (64.1137,107.9063) ..
+  (64.2284,107.5823) .. controls (64.3100,107.3520) and (63.9934,106.9341) ..
+  (63.8300,107.1723) .. controls (63.6761,107.3965) and (63.3849,107.2027) ..
+  (63.2092,107.3723) .. controls (62.7704,107.7960) and (62.4658,108.3352) ..
+  (62.1557,108.8548) .. controls (61.9692,109.1672) and (61.7591,109.4553) ..
+  (61.5720,109.7751) .. controls (61.4898,109.9155) and (61.0689,110.3043) ..
+  (61.3384,110.3122) .. controls (61.8773,110.3281) and (62.4318,110.0924) ..
+  (62.7363,109.6336) .. controls (63.1744,108.9734) and (63.2050,108.1381) ..
+  (63.2092,107.3723) -- cycle;
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (29.2660,63.1392) .. controls (29.1217,61.5535) and (29.2895,59.9517) ..
+  (29.7194,58.4082) .. controls (29.8947,57.7788) and (29.8496,57.0057) ..
+  (30.3096,56.5357) .. controls (30.5711,56.2685) and (30.7264,56.9099) ..
+  (30.7582,57.1101) .. controls (30.8889,57.9320) and (30.9921,58.7578) ..
+  (31.1261,59.5807) .. controls (31.2327,60.2359) and (31.3848,60.8884) ..
+  (31.7016,61.4803) .. controls (32.0685,62.1660) and (32.4110,62.8576) ..
+  (32.7155,63.5812) .. controls (32.9277,64.0853) and (33.0122,64.8406) ..
+  (33.5515,65.0099) .. controls (33.9889,65.1473) and (34.0190,64.4649) ..
+  (34.0458,64.1784) .. controls (34.0698,63.9218) and (34.0766,63.6640) ..
+  (34.0769,63.4064);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (32.0723,61.2683) .. controls (31.3118,61.2564) and (30.5501,61.2615) ..
+  (29.7910,61.3082) .. controls (29.4922,61.3266) and (29.0211,61.1105) ..
+  (28.8951,61.3829) .. controls (28.8363,61.5098) and (28.9199,61.7161) ..
+  (28.9530,61.8669) .. controls (29.0465,62.2936) and (29.1678,62.7136) ..
+  (29.2660,63.1392);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (63.8774,43.3612) .. controls (63.8815,43.6263) and (63.6849,44.4950) ..
+  (63.6736,44.1821) .. controls (63.6592,43.7841) and (63.7290,43.3836) ..
+  (63.7619,42.9820) .. controls (63.8098,42.3970) and (63.7966,41.8156) ..
+  (63.6688,41.2268) .. controls (63.3875,39.9306) and (63.6101,38.6050) ..
+  (63.6101,37.2940) .. controls (63.6101,36.9555) and (63.2743,36.3206) ..
+  (63.6101,36.2786) .. controls (64.8200,36.1271) and (66.3290,36.2014) ..
+  (67.0846,37.2140) .. controls (67.3308,37.5439) and (67.0935,38.1787) ..
+  (67.5503,38.3262) .. controls (67.9337,38.4501) and (68.1083,38.7826) ..
+  (67.9658,39.1972) .. controls (67.8211,39.6186) and (67.8713,40.5406) ..
+  (67.4428,40.4433) .. controls (67.1241,40.3709) and (67.0999,40.6043) ..
+  (66.7558,40.7746) .. controls (66.1949,41.0524) and (65.5804,41.2477) ..
+  (64.9608,41.3288) .. controls (64.5622,41.3810) and (63.6852,41.6540) ..
+  (63.7438,41.2231) .. controls (63.7855,40.9159) and (64.3693,40.9442) ..
+  (64.6492,40.9175) .. controls (65.6667,40.8205) and (66.7551,40.7020) ..
+  (67.7000,41.1951) .. controls (68.5691,41.6486) and (69.2529,42.5280) ..
+  (69.3740,43.4786) .. controls (69.4264,43.8901) and (69.4935,44.3389) ..
+  (68.8911,44.4187) .. controls (67.8073,44.5624) and (66.4954,44.2075) ..
+  (65.6415,44.9111) .. controls (65.3086,45.1854) and (64.8950,45.1974) ..
+  (64.4702,45.1792) .. controls (64.0937,45.1630) and (63.7193,45.1143) ..
+  (63.3429,45.0985);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (107.1751,15.8324) .. controls (106.7820,16.1072) and (106.2743,16.3013) ..
+  (106.0400,16.7250) .. controls (105.4939,17.7123) and (105.0160,18.7434) ..
+  (104.6617,19.8135) .. controls (104.5253,20.2256) and (104.1430,20.6832) ..
+  (104.3343,21.0786) .. controls (104.4835,21.3869) and (104.9420,21.3403) ..
+  (105.2444,21.3488) .. controls (106.5248,21.3847) and (107.7989,21.1997) ..
+  (109.0768,21.1219) .. controls (109.6609,21.0863) and (110.0946,20.6431) ..
+  (110.4594,20.2328) .. controls (110.5719,20.1063) and (110.6830,19.9780) ..
+  (110.7832,19.8415);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (140.3165,66.8809) .. controls (140.3095,67.3231) and (139.9468,68.4741) ..
+  (140.2909,68.2094) .. controls (140.4620,68.0779) and (140.3156,67.6781) ..
+  (140.3165,67.4159) .. controls (140.3265,64.3709) and (139.4597,61.4016) ..
+  (139.4671,58.3257) .. controls (139.4680,57.9461) and (138.9093,57.3631) ..
+  (139.3106,57.1595) .. controls (139.8659,56.8777) and (140.6150,56.4928) ..
+  (141.1661,56.9408) .. controls (141.7021,57.3764) and (142.2946,57.7453) ..
+  (143.0047,57.7693) .. controls (143.7122,57.7932) and (144.0261,58.4819) ..
+  (144.2387,59.0566) .. controls (144.6172,60.0799) and (144.8166,61.1762) ..
+  (145.4266,62.1065) .. controls (145.8655,62.7758) and (146.2452,63.4877) ..
+  (146.4383,64.2679) .. controls (146.5583,64.7527) and (146.9207,65.4080) ..
+  (146.4488,65.8173) .. controls (145.5905,66.5616) and (144.9264,67.9196) ..
+  (143.7910,67.9500) .. controls (143.1255,67.9678) and (142.8081,68.5841) ..
+  (142.3861,69.0056) .. controls (141.9414,69.4497) and (141.3701,69.8313) ..
+  (140.7174,69.8209);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (105.5715,88.6634) .. controls (105.4326,89.0321) and (105.7578,89.3310) ..
+  (105.8951,89.6430) .. controls (106.0412,89.9748) and (106.0360,90.3492) ..
+  (106.0612,90.7053) .. controls (106.1787,92.3644) and (105.9759,94.0486) ..
+  (106.2396,95.6913) .. controls (106.2582,95.8074) and (106.1746,96.2118) ..
+  (106.1456,95.9402) .. controls (106.1240,95.7380) and (106.2358,95.5463) ..
+  (106.2396,95.3451);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (108.9123,88.2625) .. controls (108.5596,88.2217) and (108.2027,88.2624) ..
+  (107.8510,88.2966) .. controls (106.7885,88.4000) and (105.7387,88.6131) ..
+  (104.6755,88.7101) .. controls (104.5932,88.7176) and (104.4011,88.7706) ..
+  (104.5914,88.7582) .. controls (104.9189,88.7369) and (105.2452,88.6984) ..
+  (105.5715,88.6634);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (108.5114,91.7370) .. controls (108.0021,91.8783) and (107.4790,91.9987) ..
+  (107.0085,92.2488) .. controls (106.7081,92.4084) and (106.5054,92.7086) ..
+  (106.4315,93.0374) .. controls (106.3033,93.6075) and (106.3001,94.1952) ..
+  (106.2705,94.7760) .. controls (106.2605,94.9658) and (106.2508,95.1555) ..
+  (106.2396,95.3451);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (110.6496,95.8797) .. controls (109.3450,95.7825) and (108.0399,95.8772) ..
+  (106.7435,96.0145) .. controls (106.4496,96.0457) and (106.1573,96.3925) ..
+  (105.8986,96.2521) .. controls (105.7351,96.1634) and (105.9315,95.9144) ..
+  (105.9979,95.7894) .. controls (106.0770,95.6405) and (106.1642,95.4960) ..
+  (106.2396,95.3451);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (65.7483,115.6576) .. controls (65.8706,116.4721) and (65.6231,117.2873) ..
+  (65.7832,118.1078) .. controls (66.0320,119.3822) and (66.0511,120.6842) ..
+  (66.1550,121.9781) .. controls (66.1940,122.4639) and (66.2884,122.9433) ..
+  (66.2828,123.4340) .. controls (66.2797,123.7040) and (66.3115,123.1985) ..
+  (66.3251,123.1304) .. controls (66.3686,122.9135) and (66.4190,122.6956) ..
+  (66.4165,122.4730);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (69.4901,116.1922) .. controls (68.3241,116.1931) and (67.1389,115.9831) ..
+  (65.9922,116.1932) .. controls (65.7500,116.2376) and (65.2997,116.7472) ..
+  (65.3427,116.5108) .. controls (65.3677,116.3733) and (65.4860,116.2079) ..
+  (65.5554,116.0623) .. controls (65.6197,115.9273) and (65.6814,115.7910) ..
+  (65.7483,115.6573);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (68.4210,118.9985) .. controls (67.5961,119.3138) and (66.7169,119.4762) ..
+  (65.8372,119.5229) .. controls (65.7186,119.5289) and (65.5998,119.5330) ..
+  (65.4810,119.5330);
+
+\end{tikzpicture}
+
+\end{center}
+
+If all points in $A$ are colinear, we call it the base case. 
+
+In finding the upper bridge, we loop over moving the points of the line $(u,v)$, and if we choose to move if the neighbor is on or above the line, we get (A,C,D,F), but if we only move when the neighbor is above the line, we get (A,C,B,D,E,F) in the above diagram. 
+
+
+\begin{rem}
+Orientation of three points. $(p_1,p_2,p_3)$ in that order is counterclockwise if:
+$$
+\left|
+\begin{matrix}
+x_1 & y_1 & 1\\
+x_2 & y_2 & 1\\
+x_3 & y_3 & 1
+\end{matrix}
+\right| > 0.
+$$
+Clockwise if the determinant is negative, and colinear of the determinant is zero. 
+\end{rem}
+
+We discuss Homework 4, question 5. The two arrays have been sorted, we can assume distinct integers. We want to find the $n$-th smallest. We are looking for the element which is bigger than $n-1$ elements, and smaller than exactly $n$ elements. This should be very similar to binary search. 
+
+
+\chapter{Dynamic Programming}
+
+Note every problem can be solved by dynamic programming. The ones that these work for are typically optimization problems. We will usually by optimizing an objective function. The \textbf{closest pair} problem is an optimization problem. The \textbf{convex hull} problem is also one. 
+
+\begin{Def}
+\textbf{Optimization problem: } Construct a set/sequence of elements $\Set{y_1,...,y_k}$ that satisfies a given constraint and optimizes an objective function. 
+\end{Def}
+
+\begin{rem}
+The closest pair problem takes a set $\Set{p_1,...,p_n}$ of points and finds a subset $\Set{p_i,p_j}$ such that $p_i \neq p_j$ (constraint) and minimizes the distance between them (objective function). 
+\end{rem}
+
+\begin{rem}
+The convex hull problem takes a set of points $\Set{y_1,...,y_n}$ and finds a subset $\Set{y_i,...,y_l}$ such that this set forms a convex polygon that contains all points. Our objective function $f(y_i,...,y_l)$ is the area of the polygon, and we are trying to minimize it. 
+\end{rem}
+
+\textbf{Dynamic Programming for Shortest Path Problem.}
+
+Consider the directed acyclic graph (DAG): 
+\begin{center}
+\begin{tikzcd}
+ & a \arrow[rr, "11"] &  & d \arrow[rdd] &  \\
+ & b \arrow[rrrd, "13", bend left] \arrow[rrd] &  &  &  \\
+u \arrow[ru, "4"] \arrow[ruu, "2"] \arrow[rd, "2"] &  &  & x \arrow[r] & v \\
+ & c \arrow[uu] \arrow[rru] \arrow[rrru, "10"', bend right] &  &  & 
+\end{tikzcd}.
+\end{center}
+So for $x_1$, we have $j$ options, in this case nodes $a,b,c$. Each of these options lead to a subproblem. So define $P(u,v)$ as the problem of finding a shortest path from $u \to v$. Then if we choose $a$ as $x_1$ our problem becomes $P(a,v)$ and the second parameter will always be $v$, so we can represent each problem as $P(s)$ where $s$ is the current node, and the destination node of $v$ is implicit. Now we want to define the objective function to be optimized using these parameters. Let $f(x)$ denote the distance from node $x \to v$. So we have the problem $P(s)$ and the function $f(s)$. Now we formulate a recurrence relation: 
+\bee 
+f(x) = \min(\Set{d(x,y) + f(y):(x,y) \in E}),
+ \eee 
+ if $x \neq v$ and out-degree$(x) \neq 0$. So we can also define: 
+ \bee 
+ f(x) = \begin{cases}
+ 0 & \text{ if } x = v\\
+ \infty & \text{ if } x \neq v \text{ and out-degree}(x) = 0
+ \end{cases}. 
+ \eee 
+ Our goal is to compute $f(u)$ then it will be easy to construct the shortest path. \textbf{Compute the objective function first!}
+ 
+ So we immediately have the following algorithm for computing $f(u)$:
+ 
+ \begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+%\KwData{$a,n$ both positive integers. }
+%\KwResult{$a^n$ a positive integer. }
+\Begin{
+\textbf{global} $d[1..n,1..n]$\;
+\uIf{$x  =v$}{
+	\Return 0\;
+}\uElseIf{out-degree$(x) = 0$}{
+	\Return $\infty$\;
+}\Else{
+	\Return $\min\Set{d(x,y) + shortest(y):(x,y) \in E}$\;
+}
+}
+\caption{shortest$(x)$}
+\end{algorithm}
+\end{restoretext}
+
+Consider the DAG: 
+
+\begin{center}
+\begin{tikzcd}
+ & a \arrow[rdd] \arrow[r] & b \arrow[rdd] \arrow[r] & c \arrow[rdd] \arrow[r] & \cdots \arrow[rd] &  \\
+u \arrow[ru] \arrow[rd] &  &  &  &  & v \\
+ & x \arrow[r] \arrow[ruu] & y \arrow[ruu] \arrow[r] & z \arrow[ruu] \arrow[r] & \cdots \arrow[ru] & 
+\end{tikzcd}
+\end{center}
+
+So note that our function is called once at $u$, once at $a,x$ and twice at each of $b,y$ and 4 times at each of $c,z$ and so on. So Since there are about $\fracc{n}{2}$ levels, we know that the worst case running time is actually exponential, since we have $1,2,4,8,16,...$ and other shit. So we revise our algorithm: 
+
+ \begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+%\KwData{$a,n$ both positive integers. }
+%\KwResult{$a^n$ a positive integer. }
+\Begin{
+\textbf{global} $d[1..n,1..n],F[1..n],Next[1..n]$\;
+\If{$F[x] = -1$}{
+\uIf{$x  =v$}{
+	$F[x] \longleftarrow 0$\;
+}\uElseIf{out-degree$(x) = 0$}{
+	$F[x] \longleftarrow \infty$\;
+}\Else{
+	$F[x] \longleftarrow \min\Set{d(x,y) + shortest(y):(x,y) \in E}$\;
+	$Next[x] \longleftarrow $the node $y$ that yielded the min\;
+}
+}
+\Return $F[x]$\;
+}
+\caption{shortest$(x)$}
+\end{algorithm}
+\end{restoretext}
+
+
+\vspace{10mm}
+\textbf{Thursday, February 1st}
+
+Dynamic programming overview. We have $x_1,x_2,...,x_k$. And we have several options $a,b,c...$ for $x_1$. And we choose the best option out of these, and we describe the original problem as a function using minimal parameters. 
+
+Steps for dynamic programming on exam. 
+\begin{enumerate}
+\item Define $f()$. 
+\item Write a recurrence: 
+$$
+f(x) = min\Set{...}.
+$$
+\item Boundary conditions. This is "like" the base case, when you know the value of $f$ immediately.
+\item goal: Compute $f(u)$.  
+\item Algorithms (implement). 
+
+Algorithm 1: write a procedure to actually compute $f(x),\forall x$ (shortest distance). 
+
+Algorithm 2: print the shortest path.
+
+\item Time complexity. 
+\end{enumerate}
+
+How many times is shortest called. Consider:
+\begin{center}
+\begin{tikzcd}
+u \arrow[r] \arrow[rrrd] & . \arrow[r] & . \arrow[r] & v \arrow[d] \\
+ &  &  & . \arrow[d] \\
+ &  &  & .
+\end{tikzcd}
+\end{center}
+Note we might want to say the number of edges reachable from $u$, but if they are after $v$ in a path, we won't get to them. So then we might want to say number of edges reachable from $u$ but not from $v$, but the path in the above diagram is reachable from both and we still call it. So we should write the number of edges reachable from $u$ such that we do not pass $v$. 
+
+So how long does it take? The running time for $shortest(x)$ is broken into two cases:
+$$
+T(n) = 
+\begin{cases}
+c + \text{ time to find outgoing edges of x } & \text{ first call }\\
+c & \text{ subsequent calls }
+\end{cases}
+$$
+
+So the overall worst case running time is given by $O(|E|)\cdot O(1) + $ the time to find all nodes' outgoing edges. 
+
+To find this, with adjacency matrix this takes $O(|V|^2|)$ time. But if we use an adjacency list we need only $O(|V| + |E|)$. We really only need the number of edges time $|E|$, but what if there are no edges in the graph? Then we still need to iterate over the whole adjacency list, so we need $|V| + |E|$. 
+
+Consider $u \to x_1 \to \cdots x_k \to v$. What is $x_k$ in general? In the following diagram it is one of $a,b,c$:
+\begin{center}
+\begin{tikzcd}
+ & \circ \arrow[r] & \circ \arrow[r] \arrow[rd] & a \arrow[rd] &  \\
+u \arrow[ru] \arrow[rd] &  &  & b \arrow[r] & v \\
+ & \circ \arrow[r] & \circ \arrow[ru] \arrow[r] & c \arrow[ru] & 
+\end{tikzcd}.
+\end{center}
+
+So this is different, now $f$ is defined from the back, we are starting with the nodes next to $v$, but before we were choosing nodes next to $u$. There are TWO DIFFERENT FRIGGIN WAYS TO DO IT! Basically left to right or right to left, or forward/backward. 
+
+\begin{enumerate}
+\item Let $f(x)$ denote the shortest distance from $u \to x$. 
+\item $f(x) = \min\Set{f(y) + d(y,x):(y,x) \in E}$. 
+\end{enumerate}
+
+ \bee 
+ f(x) = \begin{cases}
+ 0 & \text{ if } x = u\\
+ \infty & \text{ if } x \neq v \text{ and in-degree}(x) = 0
+ \end{cases}. 
+ \eee 
+ 
+ We have this distinction for any dynamic programming problem, not just shortest path. We call them forward/backward approach. It is possible for one of them to work and one of them to not, but mostly both do. And sometimes one is easier. But it's up to discretion. 
+ 
+ 
+ 
+For the Matrix-chain multiplication problem we have $n$ matrices: 
+$$
+M_1,...,M_n.
+$$
+Where the dimensions of $M_i$ are $d_{i - 1} \times d_i$. We use backward approach. Let $x_i$ be the problem of the $i$-th matrix multiplication that we compute. So we have $n - 1$ $x$'s. So we know $x_{n - 1}$ is the last one. And we have $n - 1$ cuts we can make in the multiplication:
+$$
+(M_1 \times \cdots \times M_k) \times (M_{k + 1} \times \cdots \times M_n).
+$$
+
+
+\textbf{Tuesday, February 13th}
+
+Let $A = \Set{4,6,3,9,2}$, $M = 15$. Given a positive integer $M$ and a multiset (allow repetition) of positive integers $A$, determine if there is a subset $B \sub A$ such that $Sum(B) = M$. 
+
+Consider:
+$$
+a_1,a_2,...,a_n.
+$$
+We have:
+
+\begin{center}
+\begin{tikzcd}
+ & f(n - 1,M - a_n) \\
+f(n,M) \arrow[ru, "\text{take }a_n"] \arrow[rd, "\text{don't take }a_n"] &  \\
+ & f(n - 1,M)
+\end{tikzcd}
+\end{center}
+
+So let $f(i,K)$ denote whether there is a subset of $\Set{a_1,...,a_n}$ with sum equal to $K$. 
+
+So we have: 
+$$
+f(i,K) = \begin{cases}
+\max \begin{cases}
+f(i - 1,K - a_i)\\
+f(i - 1,K)
+\end{cases} & a_i \leq K\\
+f(i - 1,K) & else
+\end{cases}
+$$
+
+Boundary conditions: $f(i,0) = T$ for $i > 0$ and $f(0,K) = F$ for all $K$. 
+
+The running time is $O(n \cdot M)$ is \textbf{pseudo-polynomial}. Whenever the running time involves an actual value of input, then it's pseudo-polynomial. 
+
+
+
+\bb
+\bb
+\bb
+
+Job scheduling on two machines. We decide that the $x_i$'s should denote the choice of machine to run job $i$. Let $f(i,t_A,t_B)$ denote the min completion time for jobs $i,i + 1,...,n$ with machine $A$ available after time $t_A$ and same for machine $B$. Recurrence given by: 
+$$
+f(i,t_A,t_B) = \begin{cases}
+f(i + 1,t_A + a_i, t_B)\\
+f(i + 1,t_A,t_B + b_i)
+\end{cases}
+$$
+Boundary conditions: $f(n + 1,t_A,t_B) = max(t_A,t_B)$. Goal: $f(1,0,0)$. The running time is pseudopolynomial because it depends on $a_i,b_i$. 
+
+
+\bb
+\bb
+\bb
+\bb
+We go over HW4 question 5. We want to find the $n$-th smallest element. We know the $n$-th smallest element is: n - 1 elements $<$ nth smallest < n elements. Pretty sure I did it correctly. 
+
+
+
+\bb
+\bb\bb\bb\bb\bb\bb
+We discuss the typesetting problem. We define $x_i$ as the location of the $i$-th line break. Let $f(i)$ denote the minimum cost of typesetting $w_i,...,w_n$. So:
+$$
+f(k) = \min_{1 \leq k \leq n} \Set{Cost(i,j) + f(k + 1)}.
+$$
+
+\chapter{Greedy algorithms}
+
+What is a partial solution?
+
+
+
+\chapter{Graph algorithms}
+
+If you need to determine semiconnectedness for a graph that is not acyclic, use graph of strongly connected components, and then run top sort on this, because this graph will be acyclic. 
+
+
+\chapter{Maximum Flow}
+
+\begin{lem} \label{lem6}
+In Edmonds-Karp, for all non-source/sink nodes $v$, $\delta(v)$ is nondecreasing, where $\delta(v)$ is the shortest distance in number of edges from $s$ to $v$.
+\end{lem}
+
+\begin{proof}
+Assume that it does decrease. So consider the first augmentation that decreases it. Out of all nodes for which $\delta$ decreases, let $v$ be the node with smallest $\delta_{f'}$, where $f'$ is the flow after this augmentation, and $f$ is the flow before. So after the augmentation, $v$ is closest to $s$ out of all the nodes that had decreased $\delta$s. Then we know:
+\bee
+\delta_f(v) > \delta_{f'}(v).
+\eee
+Let $p$ be a shortest path from $s$ to $v$ in the residual network $G_{f'}$ after the augmentation. Let $u$ be the node just before $v$ in this path. So since $p$ is in the residual network $G_{f'}$, and $(u,v)$ is in $p$, we know $(u,v) \in E_{f'}$, it's an edge in the residual network. Also, since the shortest distance from $s$ to $v$ is $\delta_{f'}(v)$, we know:
+\bee\label{eqn52}
+\delta_{f'}(u) + 1 = \delta_{f'}(v),
+\eee
+since the shortest distance from $s$ to $v$ in the new residual network certainly can't be longer than $\delta_{f'}(u) + 1$ since we have a path of this length through $(u,v)$ which we already showed was in the residual network $G_{f'}$. And it can't be shorter than $\delta_{f'}(u) + 1$ otherwise this would violate our assumption that $(u,v)$ is the last edge in $p$, the shortest path from $s$ to $v$ in $G_{f'}$. We also know:
+\bee\label{eqn53}
+\delta_f(u) \leq \delta_{f'}(u).
+\eee
+So we're claiming that shortest distance from $s$ to $u$ cannot decrease, or that $u$ is a green node. This is because we know from (\ref{eqn52}) that $\delta_{f'}(u) < \delta_{f'}(v)$, so if $u$ decreased, this would violate our construction of $v$, in which we said that among all nodes that decrease, $v$ is closest to $s$ after the augmentation. 
+
+\textbf{Case 1: }We assume $(u,v)$ was in the residual network $G_f$ before the augmentation. Then we know:
+\bee\label{eqn54}
+\delta_{f}(u) + 1 \geq \delta_{f}(v). 
+\eee
+This simply says that since we have a path to $u$ with length $\delta_f(u)$, then the shortest path to $v$ must be shorter than the path to $u$ plus 1, since we know $(u,v) \in G_f$. Now we have:
+\bee
+\delta_{f'}(v) &= \delta_{f'}(u) + 1 \geq \delta_{f}(u) + 1 \geq \delta_f(v) > \delta_{f'}(v).
+\eee
+The first equality is (\ref{eqn52}), the second is (\ref{eqn53}), the third is (\ref{eqn54}), and the last is since distance to $v$ is decreasing. But this is a contradiction since we are saying:
+\bee
+\delta_{f'}(v) > \delta_{f'}(v).
+\eee
+
+\textbf{Case 2: }Now we assume $(u,v)$ is not in $E_f$. Since we already know $(u,v) \in E_{f'}$, we know that we must augment along a path that contains $(v,u)$ to get from $f$ to $f'$. This means that the augmenting path used to construct $f'$ contains $(v,u)$. Since Edmonds-Karp always augments along shortest paths, this means the shortest path from $s$ to $u$ contains $v$. This means:
+\bee
+\delta_{f}(v) + 1 = \delta_{f}(u).
+\eee
+But we have:
+\bee
+\delta_{f'}(v) + 1 < \delta_{f}(v) + 1 = \delta_{f}(u) \leq \delta_{f'}(u) = \delta_{f'}(v) - 1.
+\eee
+Which is a contradiction. 
+\end{proof}
+
+\begin{theorem}
+The total number of flow augmentations in Edmonds-Karp is $O(VE)$, and thus the running time is $O(VE^2)$. 
+\end{theorem}
+
+\begin{proof}
+Strategy is to show that at most $2|E|$ edges can become critical. Then show that each of these edges may become critical at most $|V|/2$ times. So we have $O(VE)$ augmentations. Then augmenting takes $O(E)$ time. So we get $O(VE^2)$. 
+
+
+
+We say an edge is \textbf{critical} on an augmenting path if its capacity is equal to the capacity of the augmenting path. Suppose an edge $(u,v)$ becomes critical twice. Before the first augmentation we have:
+\bee \label{59}
+\delta_f(u) + 1 &= \delta_f(v).
+\eee
+Then later it becomes critical again. This means that it has to have positive capacity again, but it had zero capacity coming out of the first augmentation, so we needed to have augmented along $(v,u)$ in between. Since Edmonds-Karp augments along shortest path, we know:
+\bee
+\delta_{f'}(u) &= \delta_{f'}(v) + 1
+\eee
+before the backwards augmentation. But since $\delta$ is nondecreasing by Lemma \ref{lem6}, we know:
+\bee
+\delta_{f'}(u) &= \delta_{f'}(v) + 1 \\
+&\geq \delta_f(v) + 1 && \text{by Lemma \ref{lem6}}\\
+&= \delta_f(u) + 2. && \text{by (\ref{59})}
+\eee
+Thus between any two instances of $(u,v)$ becoming critical, $\delta(u)$ increases by at least 2, meaning that since $\delta(u) \leq |V|$ we know that we have at most $|V|/2$ times each edge becomes critical. 
+\bb
+
+Since we have one augmentation per time any edge becomes critical, we know we have $O(VE)$ augmentations, and since augmentations take $O(E)$ time, the running time of Edmonds-Karp is $O(VE^2)$. 
+\end{proof}
+
+
+
+
+\begin{rem}
+There is a set of $k$ edge-disjoint paths if and only if there is a flow of value $k$ when all edges have capacity 1. 
+\end{rem}
+
+\begin{rem}
+To find the max number of node-disjoint paths, replace each node with a pair of nodes and a capacity 1 edge between them. All other edges are replaced with capacity one edges as well. 
+\end{rem}
+
+\begin{rem}
+Push is applicable when $c(u,v) > 0$ and $e(u) > 0$ and $h(u) = h(v) + 1$. 
+\end{rem}
+
+
+\section{Generic Push-Relabel}
+
+\begin{lem}\label{lem56}
+If $u \neq t$ is overflowing, then we can Push or Relabel. 
+\end{lem}
+
+\begin{proof}
+If there are any edges $(u,v)$ with positive capacity and $h(u) = h(v) + 1$, then we can push. So suppose there are no such edges. Then all edges $(u,v)$ are such that $h(u) \leq h(v)$ which means we can relabel. 
+\end{proof}
+
+\begin{lem}
+When we relabel $u$, its height increases by at least 1. 
+\end{lem}
+
+\begin{proof}
+Since we are relabelling, we know:
+\bee
+h(u) \leq h(v)
+\eee
+ for all edges $(u,v)$. Let $v'$ be the edge with minimum height. Then 
+ \bee
+ h(u) \leq h(v').
+ \eee 
+ And after the relabel, 
+ 
+ \bee
+ h(u) = h(v') + 1 \geq h(u) + 1.
+ \eee
+\end{proof}
+
+\begin{lem}\label{lem58}
+$h$ is always a height function. 
+\end{lem}
+
+\begin{proof}
+Relabel makes sure $h(u) \leq h(v) + 1$ for all outgoing edges since it chooses the minimum height $v$, and this is the only time the height function is modified. 
+\end{proof}
+
+\begin{lem}\label{lem59}
+$f$ is always a preflow. 
+\end{lem}
+
+\begin{proof}
+Note we only push the minimum of $\Set{c(u,v),e(u)}$, so the relaxed flow conversation is never violated. 
+\end{proof}
+
+\begin{lem}\label{lem510}
+If $f$ is a preflow and we have a height function relative to $f$, then there is no augmenting path in $G_f$. 
+\end{lem}
+
+\begin{proof}
+let $p$ be a simple path (any path can be shortened to a simple one, and will be by the algorithm since we use BFS).  
+Note we have:
+\bee
+h(s) - h(t) &\leq length(p) && \text{since height function decreases by at most 1 in an edge $(u,v)$}\\
+&\leq |V| - 1. && \text{since it's simple}
+\eee
+\end{proof}
+
+\begin{theorem}
+When Generic Push-Relabel terminates, the preflow is a max flow. 
+\end{theorem}
+
+\begin{proof}
+Note $f$ is a preflow by Lemma \ref{lem59}. And no vertex is overflowing by Lemma \ref{lem56}. So $f$ is a flow. And $h$ is a height function by Lemma \ref{lem58}. And there is no augmenting path in $G_f$ by Lemma \ref{lem510}. So $f$ is a max flow. 
+\end{proof}
+
+\section{Analysis of Generic}
+
+\begin{lem}
+Let $f$ be a preflow, then for any overflowing vertex $u$, there is a path from $u$ to $s$ in $G_f$. We used up positive capacities to get to $u$, and we zeroed them all out on the way, so we now have capacity going back. 
+\end{lem}
+
+
+\textbf{Relabel-to-Front}
+
+\begin{rem}
+Preceeding each relabel, there may be at most $O(V)$ discharges. 
+\end{rem}
+
+\begin{proof}
+This is saying that we may have at most $O(V)$ discharges which do NOT relabel anything before we must have a discharge that relabels. This is because $L$, the linked list of all nodes, has length $O(V)$ and for each discharge we move to the next node in $L$, until we hit then end, and then we must either relabel to move to the front of $L$ again, or terminate. So either way there are at most $O(V)$ discharges between relabels. Similarly, there are $O(V)$ discharges after the last relabel. 
+\end{proof}
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\appendix
+%    Include appendix "chapters" here.
+%\include{}
+
+\backmatter
+%    Bibliography styles amsplain or harvard are also acceptable.
+\bibliographystyle{amsalpha}
+\bibliography{}
+%    See note above about multiple indexes.
+\printindex
+
+\end{document}
+
+%-----------------------------------------------------------------------
+% End of amsbook-template.tex
+%-----------------------------------------------------------------------

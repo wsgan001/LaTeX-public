@@ -1,0 +1,127 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+\usepackage{braket}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\newtheorem*{e}{Exercise}
+\newtheorem{ee}{Exercise}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+
+
+
+\begin{document}
+
+\title{Math 5576H Final Review}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{e}[]
+Prove that $\forall m,n \in \mathbb{N}$, $a = m^2 - n^2$, $b = 2mn$, and $c = m^2 + n^2$ give a Pythagorean triple, and that all primitive triples are of this form. 
+\end{e}
+\begin{proof}
+Trivial to prove it is a triple.\\\\
+One of $a,b$ is odd, else all 3 are even, not primitive. \\\\
+One of $a,b$ is even, else $a^2,b^2 \equiv 1 \mod 4$. \\\\
+Then $c^2 \equiv 2 \mod 4$, impossible since even squares are $0 \mod 4$. \\\\
+Choose $b$ even. Write:
+$$
+b^2 = c^2 - a^2 = (c - a)(c + a). 
+$$
+Since $a,c$ are both odd, $(a - c),(a + c)$ are both even. \\\\
+We divide both sides by $4$:
+$$
+\frac{b^2}{4} = \left(\frac{b}{2}\right)^2 = \frac{(c - a)}{2}\frac{(c + a)}{2}. 
+$$
+$\frac{(c - a)}{2},\frac{(c + a)}{2}$ are relatively prime, else their sum and difference $a,c$ would have a common factor, which they don't because triple is primitive. \\\\
+Since these two numbers are relatively prime and their product is a square, unique factorization (FTA) gives us:
+$$
+\frac{(c - a)}{2} = n^2,
+$$
+$$
+\frac{(c + a)}{2} = m^2,
+$$
+for positive integers $m,n$. And $m,n$ relatively prime. \\\\
+Adding and subtracting the two above equations, we get: 
+$$
+m^2 - n^2 = a,
+$$
+$$
+m^2 + n^2 = c,
+$$
+So we have:
+$$
+\left(\frac{b}{2}\right)^2 = n^2m^2,
+$$
+$$
+b^2 = 4n^2m^2,
+$$
+$$
+b = 2mn. 
+$$
+
+
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

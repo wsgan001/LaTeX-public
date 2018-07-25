@@ -1,0 +1,86 @@
+% \bib, bibdiv, biblist are defined by the amsrefs package.
+\begin{bibdiv}
+\begin{biblist}
+
+\bib{sec_2000}{misc}{
+       title={Market maker},
+   publisher={sec.gov},
+        date={2000},
+         url={https://www.sec.gov/fast-answers/answersmktmakerhtm.html},
+}
+
+\bib{fontinelle_2015}{misc}{
+      author={Fontinelle, Amy},
+       title={Economic value},
+   publisher={investopedia.com},
+        date={2015},
+         url={https://www.investopedia.com/terms/e/economic-value.asp},
+}
+
+\bib{o'brien_2014}{misc}{
+      author={O'Brien, Matthew},
+       title={Everything you need to know about high-frequency trading},
+   publisher={Atlantic Media Company},
+        date={2014},
+  url={https://www.theatlantic.com/business/archive/2014/04/everything-you-need-to-know-about-high-frequency-trading/360411/},
+}
+
+\bib{freemarket}{misc}{
+      author={Rothbard, Murray~N},
+       title={Free market},
+   publisher={econlib.org},
+        date={2008},
+         url={http://www.econlib.org/library/Enc/FreeMarket.html},
+}
+
+\bib{smith_2017}{misc}{
+      author={Smith, Noah},
+       title={Market liquidity is great, until it isn't},
+   publisher={Bloomberg},
+        date={2017},
+  url={https://www.bloomberg.com/view/articles/2017-01-24/market-liquidity-is-great-until-it-isn-t},
+}
+
+\bib{hft}{misc}{
+      author={Staff, Investopedia},
+       title={High-frequency trading - hft},
+   publisher={investopedia.com},
+        date={2009},
+         url={https://www.investopedia.com/terms/h/high-frequency-trading.asp},
+}
+
+\bib{asset}{misc}{
+      author={Staff, Investopedia},
+       title={Asset},
+   publisher={investopedia.com},
+        date={2016},
+         url={https://www.investopedia.com/terms/a/asset.asp},
+}
+
+\bib{fungible}{misc}{
+      author={Staff, Investopedia},
+       title={Fungibility},
+   publisher={investopedia.com},
+        date={2016},
+         url={https://www.investopedia.com/terms/f/fungibility.asp},
+}
+
+\bib{security}{misc}{
+      author={Staff, Investopedia},
+       title={Security},
+   publisher={investopedia.com},
+        date={2017},
+         url={https://www.investopedia.com/terms/s/security.asp},
+}
+
+\bib{worstall_2017}{misc}{
+      author={Worstall, Tim},
+       title={Don't worry, be happy - high frequency trading is over, dead,
+  it's done},
+   publisher={Forbes Magazine},
+        date={2017},
+  url={https://www.forbes.com/sites/timworstall/2017/03/25/dont-worry-be-happy-high-frequency-trading-is-over-dead-its-done/},
+}
+
+\end{biblist}
+\end{bibdiv}

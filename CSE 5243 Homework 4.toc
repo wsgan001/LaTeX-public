@@ -1,0 +1,3 @@
+\contentsline {section}{\tocsection {}{1}{Exploratory data analysis}}{1}{section.1}
+\contentsline {section}{\tocsection {}{2}{Data transformations}}{4}{section.2}
+\contentsline {section}{\tocsection {}{3}{Model development}}{5}{section.3}

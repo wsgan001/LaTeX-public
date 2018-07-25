@@ -1,0 +1,218 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Homework 1}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17
+\footnotetext[1]{Professor Close, MWF 12:40pm}}
+\documentclass[10pt]{article}
+
+\usepackage{graphicx}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem2}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{prop}{Proposition}
+\newtheorem{comb}{Combinatorial Formula for the Coefficients}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+
+\item
+
+\begin{enumerate}
+
+
+\item Contingency, not a logical equivalence. \\
+\begin{tabular}{cc|cccc|c|ccc}
+P & Q & $( \neg P$ & $\vee$ & $\neg Q)$ & $\Leftarrow$ & $\Leftrightarrow$ & $\Rightarrow$ & $\neg$&$(P \vee Q)$ \\
+\hline
+T & T & F & F & F & T & T & T & F & T\\
+T & F & F & T & T & T & F & F & F & T\\
+F & T & T & T & F & T & F & F & F & T\\
+F & F & T & T & T & T & T & T & T & F\\
+
+\end{tabular}\\\\\
+
+\item Tautology, logical equivalence. \\
+\begin{tabular}{cc|cccc|c|ccc}
+P & Q & $(  P$ & $\wedge$ & $\neg Q)$ & $\Leftarrow$ & $\Leftrightarrow$ & $\Rightarrow$ & $\neg$&$(P \Rightarrow Q)$ \\
+\hline
+T & T &  & F & F & T & T & T & F & T\\
+T & F &  & T & T & T & T & T & T & F\\
+F & T &  & F & F & T & T & T & F & T\\
+F & F &  & F & T & T & T & T & F & T\\
+
+\end{tabular}\\\\\
+
+\item Contingency, not a logical equivalence. 
+
+\begin{tabular}{cc|ccccccc|c}
+P & Q & $\neg$ & $(  P\vee Q)$ & $ \wedge$ &  $(\neg$& $((  P\vee Q))$ & $ \wedge$ & $ (\neg P)$ & LEFT $\wedge$ MIDDLE $\wedge$ RIGHT \\
+\hline
+T & T & F & T & F & F & T & F & F & F\\
+T & F & F & T & F & F & T & F & F & F\\
+F & T & F & T & F & F & T & F & T & F\\
+F & F & T & F & T & T & F & T & T & T\\
+
+\end{tabular}\\\\\
+
+\item Contingency, not a logical equivalence. 
+
+\begin{tabular}{ccc|cccc|c|ccccc}
+P & Q & R & $(P$ & $ \Rightarrow$ & $(Q \Rightarrow R))$ & $\Leftarrow$ & $\Leftrightarrow$ & $\Rightarrow$ & $((P \Rightarrow Q)$ & $ \vee$ & $\neg$ & $(Q \Rightarrow R))$ \\
+\hline
+T & T & T & & T & T & T & T & T & T & T & F & T\\
+T & T & F & & F & F & F & F & T & T & T & T & F\\
+T & F & T & & T & T & T & F & F & F & F & F & T\\
+T & F & F & & T & T & T & F & F & F & F & F & T\\
+\hline
+F & T & T & & T & T & T & T & T & T & T & F & T\\
+F & T & F & & T & F & T & T & T & T & T & T & F\\
+F & F & T & & T & T & T & T & T & T & T & F & T\\
+F & F & F & & T & T & T & T & T & T & T& F & T\\
+
+
+\end{tabular}\\\\\\
+
+\item Contingency, not a logical equivalence. 
+
+\begin{tabular}{ccc|cccc|c|ccccc}
+P & Q & R & $(P$ & $ \Rightarrow$ & $(Q \Rightarrow R))$ & $\Leftarrow$ & $\Leftrightarrow$ & $\Rightarrow$ & $((P \Rightarrow Q)$ & $ \Rightarrow$ & $ R)$ \\
+\hline
+T & T & T & & T & T & T & T & T & T & T \\
+T & T & F & & F & F & T & T & T & T & F \\
+T & F & T & & T & T & T & T & T & F & T\\
+T & F & F & & T & T & T & T & T & F & T\\
+\hline
+F & T & T & & T & T & T & T & T & T & T\\
+F & T & F & & T & F & T & F & F & T & F\\
+F & F & T & & T & T & T & T & T & T & T\\
+F & F & F & & T & T & T & F & F & T & F\\
+
+
+\end{tabular}\\\\\\
+
+\item Contingency, not a logical equivalence. 
+
+\tiny
+
+
+
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c}
+P & Q & R & S & P $\vee$ R & $Q \vee S$ & $(P \vee R) \Rightarrow( Q \vee S)$  & $\neg (P \vee R \Rightarrow Q \vee S)$ & $P \Rightarrow Q$ & $R \Rightarrow S$ & $(P \Rightarrow Q) \wedge (R \Rightarrow S)$  & LHS $\Rightarrow$ RHS\\
+\hline
+T & T & T & T & T & T & T & F & T & T & T & T \\
+T & T & T & F & T & T & T & F & T & F & F & T \\
+T & T & F & T & T & T & T & F & T & T & T & T \\
+T & T & F & F & T & T & T & F & T & T & T & T \\
+T & F & T & T & T & T & T & F & F & T & F & T \\
+T & F & T & F & T & F & F & T & F & F & F & F \\
+T & F & F & T & T & T & T & F & F & T & F & T \\
+T & F & F & F & T & F & F & T & F & T & F & F \\
+F & T & T & T & T & T & T & F & T & T & T & T \\
+F & T & T & F & T & T & T & F & T & F & F & T \\
+F & T & F & T & F & T & T & F & T & T & T & T \\
+F & T & F & F & F & T & T & F & T & T & T & T \\
+F & F & T & T & T & T & T & F & T & T & T & T \\
+F & F & T & F & T & F & F & T & T & F & F & F \\
+F & F & F & T & F & T & T & F & T & T & T & T \\
+F & F & F & F & F & F & T & F & T & T & T & T
+
+
+\end{tabular}\\\\\
+
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item $\neg S \wedge \neg Q$. 
+\item $\neg Q \wedge P$. 
+\item $Q \Rightarrow R$. 
+\item $\neg R \Leftarrow Q$. 
+\item $P \vee (\neg S \wedge \neg R)$. 
+\item $(S \wedge \neg R) \Rightarrow \neg P$. 
+\item Ann went to the park and Ann got ice cream but Ann's family didn't play tennis. 
+\item If Ann didn't go to the park or Ann's family went to the park on Saturday, then Ann got ice cream but Ann's family didn't play tennis. 
+\item If Ann got ice cream , then Ann went to the park. 
+\item If Ann's family didn't go to the park on Saturday and Ann's family didn't play tennis, then Ann got ice cream. 
+
+
+
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item \textbf{Inverse: } If it rains, then I'm not going. \\
+\textbf{Contrapositive: } If I don't go, then it will rain. 
+
+
+\item \textbf{Inverse: } If he won't be king, then Arthur won't pull the sword from the stone.  \\
+\textbf{Contrapositive: } If he doesn't pull the sword from the stone, then he won't be king. 
+
+\item \textbf{Inverse: } If you aren't a CSE major, then you don't study computers. \\
+\textbf{Contrapositive: } If you don't study computers, then you aren't a CSE major. 
+
+\item \textbf{Inverse: } If you play, then you'll win. \\
+\textbf{Contrapositive: } If you win, then you played. 
+
+\item \textbf{Inverse: } If I don't take my umbrella, then it won't rain.\\
+\textbf{Contrapositive: } If it doesn't rain, then I won't take my umbrella.  
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

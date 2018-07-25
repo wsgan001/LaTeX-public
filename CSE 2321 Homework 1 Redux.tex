@@ -1,0 +1,92 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Homework 1}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt]{article}
+
+\usepackage{graphicx}
+\usepackage[margin=0.20in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem2}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{prop}{Proposition}
+\newtheorem{comb}{Combinatorial Formula for the Coefficients}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\maketitle
+
+
+
+\tiny
+
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c}
+P & Q & R & S & P $\vee$ R & $Q \vee S$ & $(P \vee R) \Rightarrow( Q \vee S)$  & $\neg (P \vee R \Rightarrow Q \vee S)$ & $P \Rightarrow Q$ & $R \Rightarrow S$ & $(P \Rightarrow Q) \wedge (R \Rightarrow S)$  & $\neg (P \vee R \Rightarrow Q \vee S) \Rightarrow (P \Rightarrow Q) \wedge (R \Rightarrow S)$\\
+\hline
+T & T & T & T & T & T & T & F & T & T & T & T \\
+T & T & T & F & T & T & T & F & T & F & F & T \\
+T & T & F & T & T & T & T & F & T & T & T & T \\
+T & T & F & F & T & T & T & F & T & T & T & T \\
+T & F & T & T & T & T & T & F & F & T & F & T \\
+T & F & T & F & T & F & F & T & F & F & F & F \\
+T & F & F & T & T & T & T & F & F & T & F & T \\
+T & F & F & F & T & F & F & T & F & T & F & F \\
+F & T & T & T & T & T & T & F & T & T & T & T \\
+F & T & T & F & T & T & T & F & T & F & F & T \\
+F & T & F & T & F & T & T & F & T & T & T & T \\
+F & T & F & F & F & T & T & F & T & T & T & T \\
+F & F & T & T & T & T & T & F & T & T & T & T \\
+F & F & T & F & T & F & F & T & T & F & F & F \\
+F & F & F & T & F & T & T & F & T & T & T & T \\
+F & F & F & F & F & F & T & F & T & T & T & T
+
+
+\end{tabular}\\\\\
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

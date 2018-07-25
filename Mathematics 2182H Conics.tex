@@ -1,0 +1,124 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Honors Calculus II: Chapter 15 Conics}
+\author{Brendan Whitaker}
+\date{11 January 2016}
+
+\documentclass[10pt]{article}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+
+\begin{document}
+
+\maketitle
+
+\part{Introduction}
+Greeks - visual, real world oriented. \\
+Symmetry: 
+\begin{center}
+	\includegraphics[scale=1.0]{conic3.png} 
+\end{center}
+\begin{enumerate}
+\item front/back symmetry in P1
+\item top/bottom symmetry in P2
+\end{enumerate}
+
+\begin{itemize}
+\item Plane parallel to P1 gives intersection "hyperbola"
+\item Plane parallel to P2 gives intersection "circle"
+\item Plane transverse to P1 gives intersection "parabola"
+\item Plane transverse to P2 gives intersection "ellipse"
+\end{itemize}
+Descartes - introduced the coordinate system\\*
+\\*
+Cartesian plane or 3-space:\\*
+\\*
+Cone: \[ x^2+y^2=z^2\]\\
+Plane: \[ax+by+cz=d\]\\
+Intersection: quadratic in 2-space (found by solving intersection of cone and plane equation). 
+
+\section{Point/Line}
+Cartesian coordinates in 2-space
+
+Euclidian distance: 
+\[d(P1,P2)=\sqrt{(x_{1}-x_{2})^{2}+(y_{1}-y_{2})^{2}}\]
+Describe the locus of points P, such that \[e|PL|=|PF|\]
+Where \textbf{e} is some constant describing the eccentricity of the conic section, \textbf{L} is the directrix and \textbf{F} is the focus or foci of the conic. \medskip
+
+\subsection{Algebraic Expression of Conics}
+
+Rotate and Translate to Standard Form: \medskip
+
+(Rotations will not be covered in this course)
+\medskip
+\begin{center}
+	\includegraphics[scale=0.7]{conic4.png} 
+\end{center}
+Note: Uppercase P denotes a point, while lowercase p denotes a length value.\\*
+\begin{equation}
+\begin{aligned}
+|PF|&=\\*
+\sqrt{(x-p)^{2}+(y-0)^{2}}&=e|PL|\\*
+\sqrt{(x-p)^{2}+(y-0)^{2}}&=e|x+p|\\*
+(\sqrt{(x-p)^{2}+(y)^{2}})^{2}&=(e|x+p|)^{2}\\*
+(x-p)^{2}+y^{2}&=e^{2}(x^{2}+2xp+p^{2})\\*
+x^{2}-2xp+p^{2}+y^2&=e^2(x^2+2xp+p^2)\\*
+\end{aligned}
+\end{equation}
+\subsubsection{Case 1: Parabola (e=1)}
+
+\begin{equation}
+\begin{aligned}
+x^{2}-2xp+p^{2}+y^2&=(1)^2(x^2+2xp+p^2)\\*
+x^{2}-2xp+p^{2}+y^2&=(x^2+2xp+p^2)\\*
+\cancel{x^{2}}-2xp+\cancel{p^{2}}+y^2&=\cancel{x^2}+2xp+\cancel{p^2}
+\end{aligned}
+\end{equation}
+\textbf{Equation of a Parabola:}
+\[\boxed{y^2=4px}\]
+\begin{center}
+Standard Graph:\\*
+\bigskip
+\includegraphics[scale=0.6]{ellipse1.png}\\*
+\bigskip
+\bigskip
+Variations:\\*
+\bigskip
+\includegraphics[scale=0.2]{ellipse2.png} 
+\includegraphics[scale=0.2]{ellipse3.png} 
+\includegraphics[scale=0.2]{ellipse4.png}\\*
+
+\end{center}
+\subsubsection{Case 2: Ellipse (0<1<e)}
+\bigskip
+\begin{center}
+Same Picture:
+\end{center}
+\begin{center}
+
+\bigskip
+	\includegraphics[scale=0.4]{conic4.png} 
+\end{center}
+\bigskip
+\[x^{2}-2xp+p^{2}+y^2=e^2(x^2+2xp+p^2)\]\\*
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

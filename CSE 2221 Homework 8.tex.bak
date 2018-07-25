@@ -1,0 +1,171 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge CSE 2221 Homework 8 \linebreak \\\\ \Large Professor Bucci}
+
+\date{14 February 2017}
+\documentclass[10pt]{article}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{listings}
+%\usepackage[margin=1in]{geometry}&
+
+
+\begin{document}
+\maketitle
+
+
+\paragraph{1-1}
+Some of the components that would be used to assemble the car are the chassis, the tires, rims, steering wheel, transmission, gas tank, windows. The chassis is likely manufactured at the assembly plant, the tires are not likely to be made there. 
+\begin{lstlisting}
+\end{lstlisting}
+\paragraph{1-2}
+Some of the things that were assembled to build my room are the shelves for clothes, the bed frame, the refrigerator-microwave assembly. 
+
+\paragraph{1-3}
+I would need a tower, memory, storage, a CPU, a motherboard, a GPU, a cooling system, ports, a power adapter, a monitor, a keyboard, and a mouse. The tower and monitor are probably manufactured by the computer company, the GPU and CPU are probably manufactured by a third party (Intel, Nvidia). 
+
+\paragraph{2-1}
+The import command "orders" components from available libraries such that they may be used in code. 
+
+\paragraph{2-2}
+The difference between primitive and component types is that primitive types are built in and can be used directly while component types must usually be ordered from a  library by importing them from the appropriate package. 
+
+\paragraph{2-3} The program would likely use a boolean variable which is a primitive type, since the water valve can only be in one of two states, open, or closed. 
+
+\paragraph{2-4}
+
+\vspace{30mm}
+We modify the given code segment: 
+\begin{lstlisting}
+import components.simplereader.SimpleReader;
+import components.simplereader.SimpleReader1L;
+import components.simplewriter.SimpleWriter;
+import components.simplewriter.SimpleWriter1L;
+
+public class FirstProgram {
+	
+	 public static void main(String[] args) {
+	 
+		 SimpleReader input;
+		 SimpleWriter output;
+		 
+		 String yourName;
+		 int yourAge;
+		 input = new SimpleReader1L();
+		 output = new SimpleWriter1L();
+		 
+		 output.print("What is your name? ");
+		 yourName = input.nextLine();
+		 output.print("What is your age? ");
+		 yourAge = input.nextInteger();
+		 output.println("Hi " + yourName);
+		 
+		 if ((0 <= yourAge) && (yourAge <= 3)) {
+			 output.println("My, just 2 years old! ");
+			 output.println("What a cute little baby." );
+		 } 
+		 
+		 else {
+			 output.println("Thanks for entering your age.");
+		 }
+		 input.close();
+		 output.close();
+	 }
+} 
+
+
+\end{lstlisting}
+
+\paragraph{2-5}
+Since only one of the two statements must evaluate to true for the program to print the teenager statement: 
+For the input 4, the program prints the teenager statement since 4 is less than or equal to 18. For the input 15, the program again prints the same statement since 18 is greater than or equal to 15. For the input 102, the program does the same thing for the same reason (102 is greater than 15). 
+
+\paragraph{3-1} Two things I know how to use but don't know how they work are: Touchscreens, and the Windows 10 operating system. 
+
+\paragraph{3-2} I think people learn how to use things before they learn how they work in general in society. It would be advisable to learn how things work before using them in software engineering because this insight gives us better insight into how best to implement said components. 
+
+\paragraph{3-3} The interest formula A = P(1 + rt) is a mathematical model of financial interest, and Gauss's Law for Magnetism $\oint_S {E_n dA = \frac{1}{{\varepsilon _0 }}} Q_{inside}$ which is a mathematical model for the relationship between the electric flux across the closed surface of a solid and the enclosed charge. 
+
+\paragraph{3-4} Scientists and engineers use mathematics to describe and model things because it is very precise and also universally understood, i.e. is not affected by the language barrier. 
+\paragraph{3-5} 5,6,7
+\paragraph{3-6} There is no constraint in the AM\_PM\_CLOCK\_MODEL definition because it defines an 4 tuple within which there are constraints for each of the mathematical types corresponding to the components of any variable of type AM\_PM\_CLOCK\_MODEL. 
+\paragraph{4-1} A client should be able to increment a clock variable by units of time. 
+
+\paragraph{4-2} We know that variables described by AMPMClock are 4 tuples because AMPMClock is modeled by AM\_PM\_CLOCK\_MODEL which defines a 4 tuple. 
+
+\paragraph{4-3} Incoming values. The requires clauses are defined as what conditions must be met by the code that calls the method, which is also the code that determines the incoming values of the parameters. There is no \# before the new\_hours parameter because the \# symbol denotes outgoing parameters. 
+\paragraph{4-4}
+Values of myClock and newHours: 
+\begin{lstlisting}
+myClock = (3,25,48,true)
+newHours = 3
+\end{lstlisting}
+
+\vspace{30mm}
+
+\paragraph{4-5} Client description for setSeconds
+\begin{lstlisting}
+// ------------------------------------------
+void setSeconds(int newSeconds)
+ Sets this.seconds to newSeconds.
+ Parameters:
+ newSeconds – the new Seconds for this
+ Updates:
+ this.seconds
+ Ensures:
+ this.seconds = newSeconds 
+\end{lstlisting}
+
+\paragraph{4-6}The new values will be: 
+\begin{lstlisting}
+myClock = (11,31,48,true)
+newMinutes = 31
+
+myClock = (11,52,48,true)
+newMinutes = 31
+
+\end{lstlisting}
+
+\paragraph{4-7}The new values will be: 
+\begin{lstlisting}
+myClock = (11,25,48,true)
+am = true
+
+\end{lstlisting}
+
+\paragraph{4-8} The type of the return value is boolean because the method ensures that isAM = this.am, which is a boolean variable. 
+
+\paragraph{4-9} The variable this.am is ensured to be equal to the boolean parameter am. 
+
+\paragraph{4-10} The outgoing value of this is the original value of this with the boolean parameter changed accordingly. 
+
+\paragraph{4-11} Complete client description of minut
+
+\begin{lstlisting}
+void setMinutes(int newMinutes)
+ Sets this.minutes to newMinutes.
+ Parameters:
+ newMinutes – the new minutes for this
+ Updates:
+ this.minutes
+ Requires:
+ 0 <= newMinutes <= 59
+ Ensures:
+ this.minutes = newMinutes 
+ 
+\end{lstlisting}
+
+
+
+
+\end{document}
+
+

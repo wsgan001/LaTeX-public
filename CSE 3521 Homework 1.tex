@@ -1,0 +1,119 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 3521 Homework 1}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt]{article}
+
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{array}
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem2}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{prop}{Proposition}
+\newtheorem{comb}{Combinatorial Formula for the Coefficients}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+\item The goal must be the first step in turning a problem into a search formulation because we need it to define each of the elements of such a formulation. In particular, the state space must contain at least our starting point and our goal state, and so we cannot determine if it's scope is appropriate without knowing our goal. Similarly, we cannot define our successor function without knowledge of the state space, and so it too depends on the definition of the goal. And of course the goal test can't be defined without first defining the goal. 
+
+\item Let $n = 6$, then the $n \times n$ grid below represents the state space of the search problem. 
+
+\begin{center}
+
+
+\newcolumntype{P}{%
+>{\rule[-0.6cm]{0pt}{1.5cm}\centering$}p{1cm}<{$}}
+
+
+
+\noindent\begin{tabular}{!{\vrule width 2pt}P|P!{\vrule width 0.5pt}P|P|P|P!{\vrule width 2pt}}
+\noalign{\hrule height 2pt}
+start &    pit&  &&&\tabularnewline
+\hline
+ &  &  & && \tabularnewline
+\noalign{\hrule height 0.5pt}
+ &  &  & && \tabularnewline
+\hline
+ &  &  & pit&& \tabularnewline
+ \hline
+ &  &pit  & && \tabularnewline
+ \hline
+ &  &   &&pit& \tabularnewline
+\noalign{\hrule height 2pt}
+\end{tabular}
+\end{center}
+
+All floors not containing a pit are unpainted. The pits are labeled, as well as the starting point in the upper left corner, with coordinates $(1,1)$. The successor function allows painting the square beneath you, or movement in the four cardinal directions aligned with the grid, given that there is a space in that direction (i.e. is not a wall). The cost of a single movement is $1$, and the cost of moving into a pit is $999,999$. Painting a square costs nothing. the goal test is whether or not all squares unoccupied by pits have been painted. The reward for painting all squares is $20$. 
+
+\item The state space of this problem is the set of all permutations of the positioning of scientists and killbots on either side of the river. There are 15 possible states, given by : 
+
+s\\
+ss\\
+sss\\
+k\\
+kk\\
+kkk\\
+sk\\
+ssk\\
+sssk\\
+skk\\
+sskk\\
+ssskk\\
+skkk\\
+sskkk\\
+ssskkk\\
+
+Where $s$ denotes a scientist, and $k$ denotes a killbot. The one-line set notation represents the number of entities on the starting side of river (hence order of symbols is irrelevant). Since there are $6$ total entities, any entities not appearing in the notation are assumed to be on the opposite side of the river. The successor function may add or subtract $1$ or $2$ symbols to the previous state's set. However if the set of all entities is  $A = \{ssskkk\}$ (where each letter is a distinct element), for each state set $S$, we must have $S \subset A$. The cost of making one boat trip is $1$, and the cost of leaving move killbots than scientists on one side of the river is $999,999$. We assume entities can be left in the boat while the exchange is being made, so the killbots only murder the scientists if the boat is on the opposite side of the river, and they outnumber the scientists. The goal state is all 6 entities on the side of the river opposite the start side. This presents a reward of $20$. 
+
+\item We could formulate the search for a cure for cancer as a search problem if we enumerate all research laboratories and hospitals in which medical professionals are actively searching for a cure. This set would be our state space. The start state would be the condition of these facilities at present date. The agents would be the individual researchers, and the problem would be cooperative, although there could be some minor elements of competitiveness involved due to monetary or social motivations. It is dynamic, since the state of the world's pursuit of a cure does change while an individual is deciding on their course of action. A useful heuristic would be the rate of recovery in test animals or test patients given a proposed treatment. 
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

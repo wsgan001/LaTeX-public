@@ -1,0 +1,82 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Homework 6}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+\usepackage{braket}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\newtheorem*{e}{Exercise}
+\newtheorem{ee}{Exercise}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+
+
+
+\begin{document}
+
+\title{CSE 3521 Deep Residual Nets}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+I attender the seminar titled \textit{Representation, Optimization, and Generalization in Deep Learning} by \textbf{Peter Bartlett} on October 19th, 2017. The problem being addressed was in general any application of deep learning, but most of the examples used by the speaker were centered around computer vision. The deep learning method ties into our course as a part of machine learning which focuses on optimal data representation. For example, the speaker discussed the CIFAR10 datasets used for computer vision testing. Datasets of this type consist of a number of relatively poor-quality images of several categories (i.e. trucks, cats, horses, ships,...). The problem is to learn how to sort these images into the correct categories below a specified error rate in as few training episodes as possible. \\
+
+The first half of the talk consisted of an introduction to deep residual networks, which are characterized by large numbers of layers of nonlinear function compositions 
+\[h = h_m \circ h_{m - 1} \circ \cdots \circ h_1\] used to approximate an empirical risk minimizer $h^*$. In this method, all layers compute near-identity functions: 
+\[||h_i - \text{Id}|| = O\left(\frac{logm}{m}\right),\]
+and we see that as $m$, the number of layers, tends to infinity, the layer functions become arbitrarily close to the identity. This is responsible for the improvement in error rate as the number of layers increases during training of deep residual nets. The speaker detailed how as the number of layers increased from 20 to 110 in training, the performance increased as opposed to the case with deep plain nets, in which the error rate actually increased from 20 to 56 layers. \\
+
+This method is entirely dissimilar to that of Watson playing Jeopardy, since the approach of deep learning was in its infancy when Watson was first being developed, and wasn't implemented in Watson when it competed on the show. I learning a lot about what direction researchers are pushing to break new group on current AI methods, and I discovered how heavily the fields of linear algebra, statistical theory, and machine learning are intertwined. 
+
+
+
+
+
+
+
+\end{document}
+
+

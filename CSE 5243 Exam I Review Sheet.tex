@@ -1,0 +1,726 @@
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{amsbook}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=.5in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}[chapter]
+\numberwithin{section}{chapter}
+\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\inlinecode}{\texttt}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+%    For a single index; for multiple indexes, see the manual
+%    "Instructions for preparation of papers and monographs:
+%    AMS-LaTeX" (instr-l.pdf in the AMS-LaTeX distribution).
+\makeindex
+
+\begin{document}
+
+\frontmatter
+
+\title{DATA MINING NOTES}
+
+%    Remove any unused author tags.
+
+%    author one information
+\author{BRENDAN WHITAKER}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+%    author two information
+\author{}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+\subjclass[2010]{12-XX}
+
+\keywords{}
+
+\date{SP18}
+
+\begin{abstract}
+A comprehensive set of notes for Data Mining course, taken SP18 at The Ohio State University. 
+\end{abstract}
+
+  \maketitle
+
+%    Dedication.  If the dedication is longer than a line or two,
+%    remove the centering instructions and the line break.
+%\cleardoublepage
+%\thispagestyle{empty}
+%\vspace*{13.5pc}
+%\begin{center}
+%  Dedication text (use \\[2pt] for line break if necessary)
+%\end{center}
+%\cleardoublepage
+
+%    Change page number to 6 if a dedication is present.
+\setcounter{page}{4}
+
+\tableofcontents
+
+%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+
+
+
+
+\mainmatter
+%    Include main chapters here.
+
+\setcounter{part}{0}
+\part{}
+\setcounter{chapter}{0}
+\chapter{Introduction}
+
+\textbf{Wednesday, January 10th}
+
+Note $class = label = category$. These are the dependent variables, the stuff that our work is determining. 
+
+Ratio variables are your typical real-valued numbers, i.e. zero is meaningful. Interval variables have 0 as just another possible value, it is not the additive identity in this case. 
+
+
+\textbf{Monday, January 22nd}
+
+Review of stuff up to now. 
+
+\adjustbox{scale = 0.78,center}{
+\begin{tikzcd}
+ & Data \arrow[rr] \arrow[rd, no head] &  & Insights &  \\
+ &  & CRISP-DM \arrow[ru, no head] &  &  \\
+ &  & \text{Business Understanding} \arrow[r] & Data/Prep \arrow[rd] \arrow[ld] &  \\
+ &  & \text{Proximity Measures} \arrow[d] \arrow[rd] \arrow[ld] \arrow[lld] &  & Statistics \arrow[d] \\
+Cosine & Binary \arrow[d] \arrow[ld] & \text{Euclidean Distance} & \text{Minkowski Distance} & Univariate/Multivariate \arrow[d] \\
+SMC & Jacard &  &  & \text{Variety of datatypes} \\
+ & \text{Exploratory Data Analysis} \arrow[r] & Visualization &  & 
+\end{tikzcd}
+}
+
+Imputation: replacing missing data with the mean is one way we could do it. We could also use regression imputation to estimate the value of the missing variable using the data from other variables. You could also use a random value. 
+
+\textbf{Monday, January 29th}
+
+PCA - principal component analysis. 
+
+\textbf{Monday, Febrary 5th}
+We have: 
+$$
+P(+ | x) = \fracc{1}{1 + e^{-\beta_0 - \beta_1x_1 - \beta_2x_2}}.
+$$
+
+Okay so last time, we talked about how you might compute a ROC curve. Recall that a ROC curve plots false positive rate (FPR) on the $x$-axis and true positive rate (TPR) on the $y$-axis. So we are going to set our $t = 0$.
+
+
+
+\section{Exam 1}
+
+Need to know proximity measures, types of data (ratio). 
+
+\begin{itemize}
+\item Won't ask to compute covariance, that's mean. 
+\item Know bayes theorem for bayes classifiers. 
+\item PROXIMITY MEASURES, INFER IF WE'RE TALKING ABOUT A SIMILARITY VS DISSIMILARITY. 
+\item know minkowski distance. 
+\item don't know mahalaboni distance. 
+\item simple matching and jaccard coefficients, and cosine. 
+\item you use jacard when data is SPARSE, otherwise SMC. 
+\item Make a reference sheet to use on exam. 
+\item You'd use cosine when it is no longer binary data, but it can be used for anything. 
+\item SMC and Jaccard are for BINARY ONLY. 
+\item Know that the end of boxplots are 90 and 10. 
+\item Interpret this scatterplot or boxplot on exam. Any of the data vis types. 
+\item What is the difference between noise and outliers?
+\item Principal component analysis is going to be fair game, or part of the calculation, how do you do it, what does it mean, what are you trying to accomplish. 
+\item how many principal components do you keep given some type of data loss requirement. 
+\item Difference between dimensionality reduction, and feature subset selection. 
+\item Dimensionality reduction creates new features, no longer interpretable, the values are meaningless, each of the new dimensions are combinations/transformations of the old ones. 
+\item Feature subset selection just removes a subset of the n dimensions and uses those, which preserves the meaning of the dimensions/features. 
+\item When you run PCA, you aren't doing anything related to the class variable.
+\item But Feature subset selection on the other hand, is usually done relative to a classifier. 
+\end{itemize}
+
+
+Now let's talk about classification. 
+
+\begin{itemize}
+\item What is objective of classification: create a generalizeable, predictive model. It has to GENERALIZE!
+\item As you train your model and it becomes more complex, training error keeps dropping, but test error find a local min and then goes up again. 
+\item Producing a classification label is a two step process. 
+\begin{Ex}
+Suppose we're doing a binary classification. 
+
+\textbf{Step 1: }
+
+For a given record $x$, define:
+\bee
+P(+|x) &= 0.64\\
+P(-|x) &= 0.36
+\eee
+For logistic regression, we have:
+$$
+P(+|x) = \fracc{1}{1 + e^{-*\beta_0 + \beta_1x)}}.
+$$
+So x enters our model and get the the above posterior out of it. 
+
+\textbf{Step 2:}
+
+We set some threshold $t$ and say $x \in +$ if the posterior is $\geq t$ and in $-$ otherwise. And $0.5$ is our default $t$ value. You get an ROC curve only by varying $t$. Note the confusion matrix is dependent on the value of $t$. 
+\end{Ex}
+\item A ROC curve has FPR on x axis and TPR on y axis. 
+\item When we increase $t$, precision generally goes up because we expect the model to work better than random. 
+\item Recall precision is TP/(TP + FP), it is the top left box over the sum of the left half of the matrix. 
+\item You should know DECISION TREES, NAIVE BAYES, kNN. Ensembles just a little bit. Rule based classifier. 
+\item \textbf{What is reduced-error pruning? }
+Before we talk about that, normal pruning is just computing error for all nodes and removing nodes that don't give you lift (reduction of error rate). Reduced error pruning using validation data, you compute error rates for each node on the TEST DATA instead, then compute lift and decide to prune any nodes that don't give you a reduction in error. 
+\item for notes sheet just print a shitton of these pages. 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+\section{Transcript}
+
+
+Jason Van Hulse
+Data Mining
+Introduction
+Spring 2018
+1
+Data Mining: Why?  
+Commercial Viewpoint
+
+\begin{itemize}
+\item
+Lots of data is being collected and 
+warehoused 
+\item
+Web, image, voice, video, 
+text data
+\item
+purchases at department/grocery 
+stores
+\item
+Bank/Credit Card transactions
+\item
+Internet of Things
+\item
+Computers have become cheaper and more 
+powerful
+\item
+Competitive Pressure is Strong 
+\item
+Provide a competitive advantage in the 
+marketplace
+\item
+Creation of data products
+2
+Scientific Viewpoint
+:
+\item
+Data collected and stored at enormous 
+speeds (GB+
+/hour)
+\item
+remote sensors on a satellite
+\item
+telescopes scanning the skies
+\item
+microarrays generating gene 
+expression data
+\item
+scientific simulations
+\item
+Traditional techniques infeasible for 
+raw data
+\item
+Data mining may help scientists 
+\item
+in classifying and segmenting data
+\item
+in hypothesis f
+ormation
+Data Mining: Why?  
+\item
+There is often information “hidden” in the data that is 
+not readily evident
+\item
+Human analysts may take weeks to discover useful 
+information
+\item
+Much of the data is never analyzed at all
+3
+What is Data Mining?
+\item
+Data mining is the 
+non-trivial extraction
+ of 
+implicit
+, 
+previously 
+unknown
+ and 
+potentially useful
+ information from data
+\item
+Data mining is a technology that blends 
+data analysis
+ methods 
+with 
+sophisticated algorithms
+ for processing large volumes of 
+data.
+\item
+Data mining is a key step in the 
+knowledge discovery process
+. 
+Data contains value and knowledge!
+But to extract knowledge, data must be 
+\item
+Stored
+\item
+Managed
+\item
+Analyzed
+4
+The Origins of Data Mining
+\item
+Data mining draws ideas from statistics, artificial intelligence, 
+machine learning, and data systems. 
+\item
+Traditional techniques 
+may be unsuitable due to 
+\item
+Enormity of data
+\item
+High dimensionality of data
+\item
+Heterogeneous, distributed nature 
+of data
+Artificial 
+Intelligence/Machine 
+Learning
+Statistic
+s
+Data 
+Mining
+Data 
+systems
+5
+The Origins of Data Mining
+\item
+Data Mining borrows different concepts from a number of 
+different domains, and is very cross-disciplinary in approach:
+\item
+Data Mining is a type of 
+induction
+, e.g., proceeding from very 
+specific knowledge to a more general concept
+\item
+Data Mining is a type of 
+compression 
+since it allows detailed data to 
+be abstracted or summarized in an interesting and meaningful way
+\item
+Data Mining can be viewed as a type of complex 
+query
+ of  a 
+database
+\item
+Data Mining can describe a large set of data by an 
+approximation
+\item
+Data mining can be thought of as a type of 
+search problem - 
+finding 
+some structure in a large and complex set of data
+6
+Data Mining Tasks
+\item
+Prediction Methods
+: 
+Use some variables to 
+predict unknown or future values of other 
+variables.
+\item
+Classification 
+\item
+Regression
+\item
+Deviation Detection
+7
+\item
+Description Methods
+: Find human-
+interpretable patterns that describe the data
+\item
+Clustering
+\item
+Association Rule Discovery 
+\item
+Sequential Pattern Discovery
+
+\end{itemize}
+\tiny
+
+
+
+\bb\bb\bb\bb\bb\bb\bb
+\vspace{300mm}
+\textbf{Types of attributes:} We have \textbf{nominal}, which only has distinctness ($=,\neq$). We have \textbf{ordinal}, which has distinctness and order ($<>$) (letter grades), we have \textbf{interval}, which has distinct, order, addition (temp in celsius), and we have \textbf{ratio}, which has all including multiplication (age). \\
+$s_{xy} = Cov(X,Y) = \fracc{1}{n - 1}\sum_{i = 1}^n[(x_i - \bar{x})(y_i - \bar{y})]$. $s_x = StdDev(x) = \sqrt{\fracc{1}{n - 1}\sum_{i  =1}^n(x_i - \bar{x})^2}$. $Corr(X,Y) = \fracc{s_{xy}}{s_xs_y}$. Note SMC and Jaccard Coefficient  are for Binary data only. $J(x,y) = \fracc{f_{11}}{f_{01}f_{10}f_{11}}$. $f_{11}$ is the number of entries which are nonzero in both $x,y$ and $f_{10}$ is entries nonzero in $x$ only. We discuss similarity measures for 4 data types. Similarity is [0,1], and dissimilarity, min is 0, max varies. For nominal use binary for sim and 1- binary for dissim. FOr ordinal use  dissim $d = \fracc{|p - q|}{n - 1}$, where $n$ is the number of values. For sim use $1 - d$. For interval/ratio use dissim $d = |p - q|$ and sim is $s = \fracc{1}{1 - d}$ or $-d$ or $\fracc{d - min_d}{max_d - min_d}$. \textbf{Minkowski: } $dist = \lpar \sum_{k = 1}^n|p_k - q_k|^r \rpar^{1/r}$. $r = 1$ is city block distance. $r = 2$ is euclidean. Distances must be $\geq 0$ for all and 0 iff $p =q$ pos def, symmetric, and triangle ineq all three gives us a metric. \textbf{SMC s}imple matching is number of matches over number of attributes (binary). Ends of boxplot are 10 and 90 percent. Use jaccard for sparse, use euclidean for cts dense. \textbf{Representation} is how data is mapped to visual format. \textbf{Selection} is elimination or demphasis of certain objects atrobutes. \textbf{Arrangement} is placing of visual eleemnts in display. \textbf{Noise} refers to modification of original values (distorion of voice on phone, static on screeen) (measurement error, flaws in data colelction). \textbf{Outliers are data objects with characterisitcs that are vastly different from most of data in set. }\textbf{Curse of dimensionality} num dimensions/attributes increases volume increases so fast that everything gets hella sparse. Types of dimensionality reduction: \textbf{PCA} find a lower dimensional representation that captures the largest amount of variation in the data, does not preserve meaning of axes. \textbf{INSERT PICTURE FROM SLIDES}. (Find new basis by diagonalization). \textbf{Feature subset selection} you just cut off axes that aren't that valuable, preserves the meaning of remaining axes. Brute force it by trying every possible combination of removal, embedded approach does it naturally as part of data mining algo (stepwise regression) and filter appraoches filters before mining begins. When you run PCA, you aren't doing anything related to the class variable, but in feature subset selection, you're doing it relative to the class variable. \textbf{Bayes Theorem} $P(Y|X) = \fracc{P(X|Y)}{P(X)}P(Y)$ the fraction is called the support, if support is greater than 1, then observed data $X$ will increase your belief in $Y$. \\
+\textbf{CLASSIFICATION}\\
+Objective of classficiation is to find a \textbf{GENERALIZEABLE} predictive model which does better than random selection. We have the graph that he drew on the board where as you train your model and the model becomes more complex, the training error  rate continues to drop off, but at a certain point, the test error rate finds a local min and then begins to rise again, so the optimal model is at this local min. Producing a classification label is a two step process: \textbf{STEP 1:} Suppose we're given a record $x$ and we're going to do logistic regression on it. Then our equation is $P(+|x) = \fracc{1}{1 + e^{-(\beta_0 + \beta_1x)}}$. So we get the posteriors $P(+|x) = 0.64,P(-|x) = 0.36$. Now we have \textbf{STEP 2: } We set some threshold $t$ and say $x \in +$ if the posterior is $\geq t$ and in $-$ otherwise. And $0.5$ is our default $t$. You get a ROC curve by only varying $t$ and plotting $FPR,TRP$. Note the confusion matrix is dependent on $t$. A \textbf{ROC CURVE} has $FPR$ on $x$ axis and $TPR$ on $y$-axis. When we increase $t$, precision generally goes up because we expect the model to work better than random. Recall \textbf{precision } is $\fracc{TP}{TP + FP}$. it is the top left box over the sum of the left half of the matrix. \textbf{linear regression} is when we try to fit a linear model to the observed (usually cts) data. Equation is $f(x) = w_1x + w_0$. We minimize the sum of squared errors $E = \sum_i(y_i - f(x_i))^2 = \sum_i(y_i - w_1x_i - w_0))^2$. To actually do it, you take the partial with respect to $w_0,w_1$ and get two equations set to zero, then solve for the weights. \textbf{Total sum of squares} $SST = \sum_i(y_i - mean(y))^2$. \textbf{model sum of squares} $SSM = \sum_i(f(x_i) - mean(y))^2$. Total sum of squares can be partitioned into model and error terms $SST = SSM + SSE$. And Goodness of fit $R^2 = SSM/SST$. Multiple linear regression has $x_1,...,x_n$ and $n + 1$ weights and a single target $f(x) = w_0 + w_1x_1 + \cdots + w_nx_n$. \textbf{Logisitc regression} is for binary classification problem. Define $p(x) = P(Y = 1|x)$. then $p(X) = \fracc{e^{\beta_0 + \beta_1 X}}{1 + e^{\beta_0 + \beta_1 X}}$. And $\log\lpar \fracc{p(X)}{1 - p(X)} \rpar  = \beta_0 + \beta_1 X$. SO the logit of p(x) is linear. For several variables, make the $\beta$ linear comb longer on top and bottom. \textbf{Confusion Matrix}. Predicted class on top, actual class on left. Top left is TP, top right is FN, bottom left is FP, bottom right is TN. \textbf{Accuracy} $\fracc{TP + TN}{TP + TN + FP + FN}$. \textbf{Error Rate: } $1 - Accuracy$. TPR (sensitivity) $\fracc{TP}{TP + FN}$. TNR (specificity) $= \fracc{TN}{TN + FP}$. FPR $= \fracc{FP}{FP + TN} = 1 - TNR$. FNR $= \fracc{FN}{FN + TP} = 1 - TPR$. \textbf{kNN} Add a new point, take majority vote of class labels among $k$ nearest neighbors, or compute the posterior $P(+|x)$ as the proportion of $K$ nearsest neighbors that are positive. You could also weight the vote according to distance $w= \fracc{1}{d^2}$. if $K$ is too small sensitive to noise points, if too large, neighborhood may include points form other classes. Lazy learners. \textbf{Cost sensitive measures}. \textbf{Precision} $ = \fracc{TP}{TP + FP}$. \textbf{Recall} $= \fracc{TP}{TP + FN}$.(same as TPR). \textbf{F-measure} $ = 2(precision)(recall)/(precision + recall) = \fracc{2TP}{2TP + FN + FP}$. We talk about \textbf{ROC curve}. Lift is improvement over random class. 0,0 declares everything to be negative, 1,1 declares evryting positive, 0,1 is ideal perfect. Just compute $TPR$ and $FPR$ for each threshold t value and graph it. easy. \textbf{Resubstitution errors} $\sum e(t)$ error on training data. \textbf{Generalization errors} $\sum e'(t)$ error on test data. Optimistic approach assumes $e(t) = e'(t)$. So assume test error is training error. Occams razor is prefer simpler models all else equal. Single holdout is reserve 2/3 for training rest for test. Random subsampling is repeat singleholdout k times. Cross validation is partition data into $K$ subsets and train on $k - 1$ partitions, test on remaining. Average the results. Stratified is class distribition kept equal across each test partition. Leave one out is $k = n$. Bootstrap is sampling with replacement to obtain distinct datasets, $N$ observation bootstrap of size $N$ has on average 63.2 percent of observations in it. Overfitting is when model is too complex, doesn't generalize. Underfitting doesnt capture enough complexity.  Homogeneous nodes are better, mostly all one class. $GINI(t) = 1 - \sum_i[p(j|t)]^2$, where $p(j|t)$ is the relative frequency of class $j$ at node $t$. It has a maximum of $1 - \fracc{1}{n_c}$ when records equally distributed among classes, min of 0, when all 1 class, most interesting. When a node $p$ is split into $k$ partitions, children, the quality of split is $GINI_{split} = \sum_{i = 1}^k\fracc{n_i}{n}GINI(i)$. where $n_i$ is number of records at child $i$ and $n$ is number of records at node $p$. Use gini to choose best two way split. \textbf{Entropy} at node $t$ is $ENTROPY(t) = -\sum_jp(j|t)\log_2 p(j|t)$. \textbf{Info gain} is $GAIN_{split} = Entropy(p) - \lpar \sum_{i = 1}^k \fracc{n_i}{n}Entropy(i) \rpar$. $n_i$ is records in node $i$. Want to maximize gain. Disadvantage is tends to prefer small but pure splits. So we use $GAINRATIO_{split} = \fracc{GAIN_{split}}{SPLITINFO}$ where $SPLITINFO = -\sum_{i  =1}^k \fracc{n_i}{n}\log_2 \fracc{n_i}{n}$. Classification error at node $t$ is $Error(t) = 1 - \max P(i|t)$. \textbf{When to stop splitting. } Pre-pruning is the early stopping rule, stop before it becomes fully grown tree. 1. Stop if all instances belong to same class, 2. stop if all attribute values are the same. \textbf{More restrictive conditions}: Stop if number of instances is less than some threshold. Stop if class distribution of instances are independent of available features using $\chi^2$ test. Stop if expanding the current node does not improve impurity measures (Gini or info gain). \textbf{Post pruning.} Grow tree to it's entirety. Trim nodes of decision tree bottom up. If generalization error improves after trimming, replace subtree by a leaf node. Class label of leaf node is determined by majority class of instances in subtree. Reduced Error pruning, uses a holdout dataset to estimate genrealization error. Pessimistic error rate is total errors $e'(T) = e(T) + N(0.5)$ where $N$ is number of leaf nodes. \textbf{Naive bayes} all effects are independent given common cause (class). So attributes indep given class. \textbf{Rule based classifier} uses a collection of if then statements. (atomic logic). Rule $r$ covers instance $x$ if it satisfies conditions of rule. Accuracy of rule is fraction of instances that satisfy the condition and resulto frule. \textbf{Rule evaluation} \textbf{Accuracy} $= \fracc{n_+}{n}$ and Laplace is $= \fracc{n_+ + 1}{n + k}$ and $M-estimate$ is $=\fracc{n_+ + kp}{n + k}$. $n$ is number of instances covered by rule, $n_+$ is number of positive instances covered by rule, $k$ is number of classes, and $p$ is prior prob.  Ensemble classfiers are effective when the aggregate many DIFFERENT classifiers. They must be independent. 
+
+
+\begin{enumerate}
+\item \textit{We compute the Gini index of overall collection. }
+Let $t_0$ be the root node of the entire collection of training examples. Observe:
+$
+Gini(t_0) = 1 - \sum_{i = 0}^1[p(i|t_0)]^2
+= 1 - \lpar \lpar \fracc{1}{2} \rpar ^2 + \lpar \fracc{1}{2} \rpar ^2 \rpar
+= 1 - \lpar \fracc{1}{4} + \fracc{1}{4} \rpar 
+= 1 - \fracc{1}{2}
+= \fracc{1}{2}. 
+$
+
+\item \textit{We compute the Gini index of \inlinecode{Customer ID}. }
+
+Let $t_j$ be the $j$-th \inlinecode{Customer ID} node. Since each node only has a single data point, the sum will be equal to 1, since one of the probabilities $p(i|t_j)$ will be 1, and the other 0. So $Gini(t_j) = 0$ for all $j$. Hence the Gini index is 0. 
+
+\item \textit{We compute the Gini index of \inlinecode{gender}. }
+
+Let $t_M$ be the male node and $t_F$ be the female node. We have:
+$
+Gini(t_M) = 1 - \sum_{i = 0}^1[p(i|t_M)]^2
+= 1 - \lpar \lpar \fracc{4}{10} \rpar ^2 + \lpar \fracc{6}{10} \rpar^2 \rpar
+= 1 - \lpar \fracc{4}{25} + \fracc{9}{25} \rpar 
+= 1 - \fracc{13}{25}
+= \fracc{12}{25}. 
+Gini(t_F) = 1 - \sum_{i = 0}^1[p(i|t_F)]^2
+= 1 - \lpar \lpar \fracc{4}{10} \rpar ^2 + \lpar \fracc{6}{10} \rpar^2 \rpar
+= 1 - \lpar \fracc{4}{25} + \fracc{9}{25} \rpar 
+= 1 - \fracc{13}{25}
+= \fracc{12}{25}. 
+$
+So the Gini index is $\fracc{10}{20}\fracc{12}{25} + \fracc{10}{20}\fracc{12}{25} = \fracc{12}{25} = 0.48$. 
+
+
+\item \textit{We compute the Gini index of \inlinecode{car type}. }
+
+Let $t_F$ be the family node and $t_S$ be the sports node, and let $t_L$ be the luxury node. We have:
+$
+Gini(t_S) = 1 - \sum_{i = 0}^1[p(i|t_S)]^2
+= 1 - \lpar \lpar \fracc{10}{10} \rpar ^2 + \lpar \fracc{0}{10} \rpar^2 \rpar
+= 1 - 1 
+= 0. 
+Gini(t_F) = 1 - \sum_{i = 0}^1[p(i|t_F)]^2
+= 1 - \lpar \lpar \fracc{1}{4} \rpar ^2 + \lpar \fracc{3}{4} \rpar^2 \rpar
+= 1 - \lpar \fracc{1}{16} + \fracc{9}{16} \rpar 
+= 1 - \fracc{5}{8}
+= \fracc{3}{8}. 
+Gini(t_L) = 1 - \sum_{i = 0}^1[p(i|t_L)]^2
+= 1 - \lpar \lpar \fracc{1}{8} \rpar ^2 + \lpar \fracc{7}{8} \rpar^2 \rpar
+= 1 - \lpar \fracc{1}{64} + \fracc{49}{64} \rpar 
+= 1 - \fracc{25}{32}
+= \fracc{7}{32}. 
+$
+So the Gini index is $\fracc{8}{20}0+ \fracc{4}{20}\fracc{3}{8} + \fracc{8}{20}\fracc{7}{32} = 0.1625$. 
+
+
+
+
+
+
+
+
+
+\item \textit{We compute the Gini index of \inlinecode{shirt size}. }
+
+Let $t_S$ be the small node and $t_M$ be the medium node, and let $t_L$ be the large node, and $t_E$ be the extra large node. We have:
+$
+Gini(t_S) = 1 - \sum_{i = 0}^1[p(i|t_S)]^2
+= 1 - \lpar \lpar \fracc{3}{5} \rpar ^2 + \lpar \fracc{2}{5} \rpar^2 \rpar
+= 1 - \lpar \fracc{9}{25} + \fracc{4}{25} \rpar
+= 1 - \fracc{13}{25} 
+= \fracc{12}{25}.
+Gini(t_M) = 1 - \sum_{i = 0}^1[p(i|t_M)]^2
+= 1 - \lpar \lpar \fracc{3}{7} \rpar ^2 + \lpar \fracc{4}{7} \rpar^2 \rpar
+= 1 - \lpar \fracc{9}{49} + \fracc{16}{49} \rpar 
+= 1 - \fracc{25}{49}
+= \fracc{24}{49}. 
+Gini(t_L) = 1 - \sum_{i = 0}^1[p(i|t_L)]^2
+= 1 - \lpar \lpar \fracc{2}{4} \rpar ^2 + \lpar \fracc{2}{4} \rpar^2 \rpar
+= 1 - \lpar \fracc{1}{4} + \fracc{1}{4} \rpar 
+= 1 - \fracc{1}{2}
+= \fracc{1}{2}. 
+Gini(t_E) = 1 - \sum_{i = 0}^1[p(i|t_E)]^2
+= 1 - \lpar \lpar \fracc{2}{4} \rpar ^2 + \lpar \fracc{2}{4} \rpar^2 \rpar
+= 1 - \lpar \fracc{1}{4} + \fracc{1}{4} \rpar 
+= 1 - \fracc{1}{2}
+= \fracc{1}{2}. 
+$
+So the Gini index is $\fracc{5}{20}\fracc{12}{25}+ \fracc{7}{20}\fracc{24}{49} + \fracc{4}{20}\fracc{1}{2} + \fracc{4}{20}\fracc{1}{2}= 0.3914$. 
+
+\item \textit{Which of these 3 is preferred?}
+
+Car type is preferred since its Gini index is lowest at 0.1625.
+
+\item \textit{Explain why \inlinecode{customer ID} should not be used even though it's genie index is zero. }
+
+\inlinecode{customer ID} should not be used since it only has a single data point per node, so it's likely that the customer ID's in any test data will not be ones we have already seen, assuming customer ID is unique, so we won't be able to use our model to gain any new information about the test set. 
+
+
+\end{enumerate}
+
+
+\begin{enumerate}
+\item \textit{Find entropy of examples with respect to positive class. }
+Observe:
+$
+Entropy = -\sum_{i = 0}^1 p(i)\log_2 p(i)
+= -\lpar \fracc{4}{9}\log_2\fracc{4}{9}  + \fracc{5}{9}\log_2\fracc{5}{9}\rpar
+= -\lpar -.52 - .471 \rpar
+= 0.991.
+$
+
+\item \textit{What are the information gains of $a_1$ and $a_2$ relative to these training examples? }
+Let $I$ be entropy. 
+Recall:
+$
+\Delta_{info} = I - \sum_{j = 1}^k \fracc{N(v_j)}{N}I(v_j)
+$
+So we have:
+$
+\Delta_{info} = 0.991 - \sum_{j = 1}^2 \fracc{N(a_i)}{9}I(a_i)
+$
+We compute:
+$
+I(a_1 = T) = -\sum_{i = 0}^1 p(i|a_1 = F)\log_2 p(i|a_1= F)
+= -\lpar -.5  - .311\rpar
+= 0.811.
+I(a_1 = F) = -\sum_{i = 0}^1 p(i|a_1=F)\log_2 p(i|a_1=F)
+= 0.971
+I(a_2=T) = -\sum_{i = 0}^1 p(i|a_2=T)\log_2 p(i|a_2=T)
+= -\lpar -.529  - .442\rpar
+= 0.971
+I(a_2=F) = -\sum_{i = 0}^1 p(i|a_2=F)\log_2 p(i|a_2=F)
+= 1.
+$
+Then:
+$
+\Delta_{info}(a_1) = 0.991 - \sum_{j = 1}^2 \fracc{N(a_i)}{9}I(a_i)
+= 0.991 - \lpar \fracc{4}{9}0.811 + \fracc{5}{9}0.971 \rpar
+= 0.091.
+\Delta_{info}(a_2) = 0.991 - \sum_{j = 1}^2 \fracc{N(a_i)}{9}I(a_i)
+= 0.991 - \lpar \fracc{4}{9}1 + \fracc{5}{9}0.971 \rpar
+= 0.016.
+$
+
+\item \textit{We compute info gain for every possible split of $a_3$. }
+
+Let $\Delta_i$ denote the info gain of the split $\leq i$ and $>i$. 
+Then we have:
+$
+\Delta_{1.5} 
+= 0.991
+\Delta_2 = 0.991 - \lpar \fracc{1}{9}0 + \fracc{8}{9}(.954) \rpar
+= 0.143
+\Delta_{3.5} = 0.991 - \lpar \fracc{2}{9} + \fracc{7}{9}(.985) \rpar
+= 0.0025
+\Delta_{4.5} = 0.991 - \lpar \fracc{3}{9}(.918) + \fracc{6}{9}(.918) \rpar
+= 0.073
+\Delta_{5.5} = 0.991 - \lpar \fracc{5}{9}(.971) + \fracc{4}{9} \rpar
+= 0.0071
+\Delta_{6.5} = 0.991 - \lpar \fracc{6}{9} + \fracc{3}{9}(.918) \rpar
+= 0.018
+\Delta_{7.5} = 0.991 - \lpar \fracc{8}{9}0 + \fracc{1}{9}0 \rpar
+= 0.991
+\Delta_{8.5} 
+= 0.991.
+$
+
+\item 
+The best split of all three is $\Delta_2$ on $a_3$ because it is non trivial, and it has the highest information gain. 
+
+\item $a_1$ is better out of first two since it has a lower classification rate. 
+
+\item Gini of T for $a_1$ is 3/8. Gini of F for $a_1$ is 8/25. So $Gini(a_1) = 4/9 * 3/8 + 5/9 * 8/25 = 0.344$. 
+
+Gini of $T$ for $a_2$ is 12/25, and for $F$ is 1/2. So $Gini(a_2) = 5/9 * 12/25 + 4/9 * 1/2 = 0.489$. And so $a_1$ is better again. 
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\appendix
+%    Include appendix "chapters" here.
+%\include{}
+
+\backmatter
+%    Bibliography styles amsplain or harvard are also acceptable.
+\bibliographystyle{amsalpha}
+\bibliography{}
+%    See note above about multiple indexes.
+\printindex
+
+\end{document}
+
+%-----------------------------------------------------------------------
+% End of amsbook-template.tex
+%-----------------------------------------------------------------------

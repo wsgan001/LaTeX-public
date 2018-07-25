@@ -1,0 +1,272 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[10pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+
+
+\begin{document}
+
+\title{CSE 6331 Homework 4}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\begin{enumerate}[label=\arabic*.]
+\item \textit{Write a recursive, divide-and-conquer algorithm Power$(a,n)$ that computes the number $a^n$, where
+$a, n$
+are positive integers.  Analyze your algorithm.  Your algorithm must work in $o(n)$ time.}
+
+\begin{algorithm}\label{alg1}
+\KwData{$a,n$ both positive integers. }
+\KwResult{$a^n$ a positive integer. }
+\Begin{
+\uIf{$n = 0$}{
+\Return $1$\;
+}
+\ElseIf{$n = 1$}{
+\Return $a$\;
+}
+$rem \longleftarrow n/2 \mod 2$\;
+$n \longleftarrow \floor n/2 \rfloor$\;
+\uIf{$rem = 0$}{
+\Return Power$(a\cdot a,n)$\;
+}
+\Else{
+\Return $a \cdot$Power$(a\cdot a,n)$\;
+}
+}
+\caption{Power$(a,n)$\label{IR}}
+\end{algorithm}
+
+
+Note that lines 2-9 take constant time, so our running time is given by: 
+\bee 
+T(n) &= c + T(n/2).
+ \eee 
+ And so by the Master Theorem, since $c \approx n^{log_2(1)} = c'$, we know $T(n) \in \Theta(c logn)$. And since:
+ $$
+ \lim_{n \to \infty} \fracc{clogn}{n} = 0,
+ $$
+ we know $T(n) \in o(n)$. 
+ \vspace{1000mm}
+ 
+  \item \textit{Rewrite  your  algorithm  Power$(a,n)$  as  a  non-recursive  (iterative)  one.   (The  running  time
+must still be $o(n)$.)}\\
+
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg2}
+\KwData{$a,n$ both positive integers. }
+\KwResult{$a^n$ a positive integer. }
+\Begin{
+$b \longleftarrow a$\;
+\While{$n > 1$}{
+$rem \longleftarrow n/2 \mod 2$\;
+$n \longleftarrow \floor n/2 \rfloor$\;
+\uIf{$rem = 0$}{
+$b \longleftarrow b^2$\;
+}\Else{
+$b \longleftarrow b^3$\;
+}
+}
+\uIf{$n = 0$}{
+\Return $1$\;
+}
+\ElseIf{$n = 1$}{
+\Return $b$\;
+}
+}
+\caption{Power$(a,n)$}
+\end{algorithm}
+\end{restoretext}
+
+
+\vspace{3mm}
+Note lines 2,12-16 take constant time, and lines 3-11 take $log_2(n)$ time. So the total running time $T(n) \in\Theta(logn)$, and by the same argument used above, we know $T(n) \in o(n)$. \\
+
+\item \textit{Consider the closest-pair algorithm. Suppose we do not sort $A[i..j]$ by $y$-coordinate in Closest-Pair$(A[i..j],(p,q),ptr)$,  but  instead  we  sort  the  whole  set of $n$ points  (i.e., $A[1..n]$) by $y$-coordinate  into  a  linked  list  in  the  beginning  of  the  algorithm,  immediately  after  sorting
+them  by $x$. (The  procedure  Closest-Between-Two-Sets  remains  intact,  but  the  linked  list pointed to by $ptr$ now contains the entire set of $n$ points.)  Does the modified algorithm work
+correctly?  Justify your answer.  (If YES, explain why; if NO, give a counterexample.)}\\
+
+Yes, the algorithm is still correct \textbf{(wrong)}. Note that when the Closest-Pair algorithm calls Closest-Pair-Between-Two-Sets, we already have $ptr$ set to the point in $A[i..j]$ with the least $y$-coordinate, since our base case statments in Closest-Pair make sure that $ptr$ is set to the one with least $y$-coord of the one/two points being considered, and the Merge function sets $ptr$ to the least of the two $ptr1,ptr2$ values being considered. So $k$ is initialized to $ptr$. Now in the while loop, we check if $k$ is between $L_1,L_2$, and since only points in $A[i,j]$ will be in this range \textbf{(this is wrong because although the array $A[1..n]$ is sorted by $x$ coordinate, we can still points from outside $A[i..j]$ in the interval from $L_1$ to $L_2$. You should draw up this counterexample.} (it's centered about $m$ and has width $\leq \delta$), we know we will only be considering $k$ in $A[i..j]$. If $k$ is outside of $A[i..j]$ then still in the while loop, we assign $k \longleftarrow Link[k]$, and this point may be outside $A[i..j]$ now, since we are dealing with the entire $A[1..n]$ sorted by $y$ in the lined list now. But again, when we check if $k$ is between $L_1,L_2$ we again exclude all points outside of $A[i..j]$ so the algorithm runs correctly, since past this point it is unchanged from before. \\
+
+\item \textit{Whether the above algorithm is correct or not, what is its time complexity?}
+
+Note since we are sorting the entire set $A[1..n]$ of points before we begin Closest-Pair, we have to add the time for mergesort with a linked list to our old running time for $T(n)$, the closest pair algorithm. So our new algorithm takes $T'(n)$ time where $T'(n) \in \Theta(nlogn + T(n))$, but since $T(n) \in \Theta(nlogn)$ we know that $T'(n) \in \Theta(nlogn)$. 
+
+\item \textit{Let $A[1..n],B[1..n]$ be two arrays of integers, each sorted in nondecreasing order.  Write a
+divide-and-conquer algorithm that finds the $n$-th smallest of the $2n$ combined elements.  Your algorithm must run in $O(logn)$ time.  You may assume that all the $2n$ elements are distinct.
+(Write  your  algorithm  in  pseudo-code  and  explain  it  in  plain  English.)
+Note: The  input consists of two arrays of the same size.  When you divide the problem, make sure that the
+two (sub)arrays of each subproblem are of equal size.}
+
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg3}
+\KwData{Two sorted integer arrays:$A[i_a..j_a],B[i_b..j_b]$. }
+\KwResult{Then $n$-th smallest element of the total $2n$ elements of both arrays. }
+\Begin{
+\tcc{The $n$-th smallest element is in $A[i_a..j_a]\cup B[i_b..j_b]$.}
+\tcc{You should always keep $i_a - j_a = i_b - j_b$. }
+\textbf{global array} $A[1..n],B[1..n]$\;
+\uIf{$i_a = j_a$ and $i_b = j_b$}{
+\Return{min$(A[i_a],B[i_b])$}\; \tcc{return $A[i_a]$ or $B[i_b]$}
+}
+\Else{
+$m_a \longleftarrow i_a + \floor (j_a - i_a)/2 \rfloor $\; \tcc{$i_a \leq m_a \leq j_a$}
+$m_b \longleftarrow i_b + \floor (j_b - i_b)/2 \rfloor $\; \tcc{$i_b \leq m_b \leq j_b$}
+\uIf{$A[m_a] < B[m_b]$}{
+\Return{n-smallest$(i_a + \floor (j_a - i_a + 1)/2 \rfloor, m_a + \floor (j_a - i_a + 1)/2 \rfloor, i_b,m_b)$}\;
+\tcc{recursively call $n$-smallest}
+}
+\Else{
+\Return{n-smallest$(i_a,m_a,i_b + \floor (j_b - i_b + 1)/2 \rfloor,m_b + \floor (j_b - i_b + 1)/2 \rfloor)$}\;
+ \tcc{recursively call $n$-smallest}
+}
+}
+}
+\caption{$n$-smallest$(i_a,j_a,i_b,j_b)$}
+\end{algorithm}
+\end{restoretext}
+\vspace{3mm}
+When $n = 1$, since we are finding the $n$-smallest element, we are just finding the smallest element, so we take the minimum of the two $1$-element arrays on line $4$. We initialize $m_a$ to be the midpoint of array $A$, taking the floor if the array has an even number of entries, and do the same for $m_b$. If $A[m_a] < A[m_b]$, this means the midpoint of $A$ is smaller than the midpoint of $B$. So in this case, when $n$ is odd, $m_a$ is at most the $n$-smallest element in the two arrays, and when $n$ is even it is at most the $n - 1$-smallest element. So when $n$ is odd, we have $j_a - i_a + 1 = n$, so $i_a + \floor (j_a - i_a + 1)/2 \rfloor = i_a + \floor n/2 \rfloor$, which is exactly the index of the center element in $A$, which is $m_a$. So since $m_a$ is at most the $n$-smallest element in this case, we know that the $n$-smallest element is still in $A[m_a..j_a]$, which is the new array being passed to the recursive call. Similarly, the elements eliminated by passing $B[i_b,m_b]$ cannot contain the $n$-smallest element since $B[m_b] > A[m_a]$, and by a similar argument, passing $A[i_a,m_a],B[i_b + \floor (j_b - i_b + 1)/2 \rfloor, m_b + \floor (j_b - i_b + 1)/2 \rfloor)]$ to the recursive call when $A[m_a] \geq B[m_b]$ also preserves the $n$-smallest element. 
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

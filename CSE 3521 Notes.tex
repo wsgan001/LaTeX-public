@@ -1,0 +1,188 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 3521 Notes}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt]{article}
+
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem2}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{prop}{Proposition}
+\newtheorem{comb}{Combinatorial Formula for the Coefficients}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Lecture: Friday, August 25th}
+
+Office Hours: 3:30 - 4:30 Monday. 1-2 Wednesday. \\\\
+Homework Assignment: Attend at least one of the AI Seminar Series talks. Write 1-2 paragraphs on what the speaker was trying to approach and were they successful. Remember that homework 1 is due on \textbf{8/30}. \\\\
+AI is making robots that think rationally and act rationally. \\\\
+Fundamental Question: \textbf{How do you turn a real-world problem into a problem that you can solve with AI?}\\
+Much of AI is concerned with \textbf{agents} that are acting on their \textbf{environment}. \\\\
+\textbf{P}erformance - measuring desired outcomes\\
+\textbf{E}nvironment - what populates the task's world?\\
+\textbf{A}ctuators - what can the agent act with?\\
+\textbf{S}ensors - how can the agent perceive the world?\\\\
+Arnold's PEAS - kill John Connor; people, weapons, vehicles; hands, feet, muscles; thermal imaging, HUD. \\\\
+Automated Taxi PEAS: \\
+\begin{itemize}
+\item Performance - Safe, fast legal, comfortable trip, maximize profits. 
+\item Environment - Roads, other traffic, pedestrians, customers
+\item Actuators - Steering, accelerator, brake, signals, horn, display
+\item Cameras, sonar, speedometer, GPS, odometer, accelerometer, engine sensors, microphone/keyboard
+\end{itemize}
+\textbf{Agent} - an entity that perceives its environment through sensors, and acts on it with actuators. \\
+percepts - are constrained by sensors and environment\\
+actions - constrained by actuators and environment\\
+A rational \textbf{agent} always acts to \textbf{maximize its expected performance measure}, given current state/percept. 
+\subsubsection*{Pacman}
+
+Percepts - squares around Pacman. \\
+Actions - move U/D/L/R.\\
+Environment - map with walls, dots, and ghosts. \\
+Model - which squares have I eaten dots in?
+\subsubsection*{Spam detector}
+
+Percepts - sender, subject line, body of current email\\
+Actions - mark Spam/not Spam\\
+Environment - your email inbox\\
+Model - per-sender message history\\\\
+Agent function: \\
+if haveExchangedEMails(sender): NOTSPAM\\
+if hasNigerianPrince(body): return SPAM\\
+else: return NOTSPAM
+
+\subsubsection*{Reflex agents: }
+\begin{itemize}
+\item Choose action based on current percept (and maybe memory)
+\item 
+\end{itemize}
+Spam detector is a good example of this. (Maybe some info about the past)
+
+\subsubsection*{Goal-based agents}
+Choose action(sequence) to get from current state to some \textbf{goal} with \textbf{maximum utility along the way}. 
+
+\subsubsection*{Pacman}
+\begin{itemize}
+\item Percepts - squares around Pacman. \\
+\item Actions - move U/D/L/R.\\
+\item Environment - map with walls, dots, and ghosts. \\
+\item Goal - Eat all the dots in as short a path as possible
+\end{itemize}
+Note that Spam Detector is not a goal based agent because it doesn't have some overarching goal that extends beyond each immediate task (email). 
+
+\subsubsection*{Types of agents}
+Reflex agents - act on current state (and maybe past). Simple - current precepts only. Model - current precept and rest of the \\
+Goal - based agents - from current state to desired future
+
+\subsubsection*{AI - agents and environments}
+
+Two different types of environments: PEAS environment (world). The \textbf{task environment} is all of PEAS. \\\\
+6 common properties to distinguish tasks (not exhaustive): 
+
+\subsubsection*{1. Fully observable vs. partially observable}
+
+Fully observable - agent is able to sense everything in the environment. \\
+Partially observable  - noisy, inaccurate, or incomplete sensors. 
+
+\subsubsection*{2. Single agent vs. multiagent}
+
+Single agent - only one dude has performance measure. \\
+Multiagent - task involves more than one agent, each with its own performance measure. (May be competitive or cooperative) (measures align or oppose)
+
+\subsubsection*{3. Deterministic vs. stochastic}
+
+
+\textbf{Deterministic} - next state of the world is fully determined by the current state and agent action. \\
+\textbf{Stochastic} - not deterministic. 
+
+
+\subsubsection*{4. Episodic vs. sequential}
+
+\textbf{Episodic} - Each step/decision is independent
+\textbf{Sequential} - missed it. 
+
+\subsubsection*{5. Static vs. dynamic}
+
+\textbf{Static} - world doesn't change while agent choosing action. \\
+\textbf{Dynamic} - decision time matters!
+
+\subsubsection*{6. Discrete vs. continuous}
+
+Self explanatory. 
+
+\subsubsection*{Bonus: level of agent knowledge}
+
+Environment is \textbf{known} - agent knows the rules of the world. \\
+Environment is \textbf{unknown} - agent has partial knowledge of the world. \\\\\
+
+\subsubsection*{Help determine how we approach problems}
+
+\textbf{Static} $\Rightarrow$ can focus on getting really high accuracy/utility\\
+\textbf{Dynamic} $\Rightarrow$ trade some utility for higher efficiency (speed!)\\\\
+\textbf{Episodic} $\Rightarrow$ reflex agent with a great model\\
+\textbf{Sequential} $\Rightarrow$ need a goal-oriented agent\\
+
+\subsection*{Homework 3}
+
+The approximate Q-function takes the following form
+\[Q(s,a) = \sum\limits_{i=1}^n f_i(s,a) w_i, \]
+where each weight $w_i$ is associated with a particular feature $f_i(s,a)$. In your code, you should implement the weight vector as a dictionary mapping features (which the feature extractors will return) to weight values. You will update your weight vectors similarly to how you updated $Q$-values
+\[w_i \leftarrow w_i + \alpha \cdot \text{difference} \cdot f_i(s,a), \]
+\[ \text{difference} = (r + \gamma \max\limits_{a'} Q(s', a')) - Q(s,a). \]
+
+
+Note that the difference term is the same as in normal Q-learning, and \( r \) is the experienced reward.
+
+Extra Credit: AI coined in 1956 in Dartmouth. \\\\\\\\
+
+MARCUS Deep Learning Overview\\
+What are systematic compositional skills. 
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

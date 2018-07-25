@@ -1,0 +1,416 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+\title{Math 5591H Homework 3}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{Section 10.4 Exercises}
+
+
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{8}
+\item \textit{Suppose $R$ is an integral domain with quotient field $Q$ and let $N$ be any $R$-module. Let $Q \tens_R N$ be the module obtained from $N$ by extension of scalars from $R$ to $Q$. Prove that the kernel of the $R$-module homomorphism $\iota: N \to Q \tens_R N$ is the torsion submodule of $N$. [Exercise 10.1.\ref{ex10.1.8},Exercise 10.4.8]}
+
+\begin{proof}
+Recall that the torsion submodule is defined as: 
+$$
+Tor(N) = \{n \in N:rn = 0 \text{ for some nonzero } r \in R\}. 
+$$
+And recall that $\iota(n) = 1 \tens n$. Let $n \in Tor(N)$. Then $\iota(n) = 1 \tens n$. Since $n \in Tor(N)$, there exists $r \neq 0$ such that $rn = 0$, and we also have $1/r \in Q$. So we have: 
+$$
+1 \tens n = 1(1 \tens n) = \fracc{1}{r}r(1 \tens n) = \frac{1}{r}(1 \tens rn) = \fracc{1}{r}(1 \tens 0) = 0.
+$$
+Thus $n \in ker\iota$, and $Tor(N) \sub ker \iota$. Now let $n \in ker\iota$. Then
+$$
+\iota(n) = 1 \tens n = 0 = 1 \tens 0. 
+$$ 
+So we must have that there exists $r \neq 0$ s.t. $rn = 0$. And by the result of Exercise 10.4.8(c), we know that $(1/d) \tens n = 0$ if and only if there exists $r \in R$ s.t. $rn = 0$. 
+\begin{comment} Then we would have:
+$$
+1 \tens n = \fracc{1}{r}r \tens n = \fracc{1}{r}\tens rn = \fracc{1}{r}\tens 0 = 0 = 1 \tens 0.
+$$
+\end{comment}
+Hence we know $n \in Tor(N)$. 
+\end{proof}
+
+\item \textit{Suppose $R$ is commutative and $N \cong R^n$ is a free $R$-module of rank $n$ with $R$-module basis $e_1,...,e_n$. }
+
+Recall the definition of a free module of rank $n$: 
+\begin{Def}
+A \textbf{free module} is a direct sum of finitely or infinitely many copies of $R$, 
+$$
+F_\Lambda = \bigoplus_{\alpha \in \Lambda}R = \{a_{\alpha_1} + \cdots + a_{\alpha_k}: k \in \n,\alpha_i \in \Lambda,a_{\alpha_i} \in R\},
+$$
+where the sum of $u$'s above is a formal sum. We can also define it as: 
+$$
+F_\Lambda = \{(a_\alpha)_{\alpha \in \Lambda}: a_\alpha \in R,\forall \alpha,a_\alpha = 0 \text{ for all but finitely many }\alpha\}.
+$$
+Note $R$ is unital here. 
+\end{Def}
+
+\begin{enumerate}
+\item \textit{For any nonzero $R$-module $M$ show that every element of $M \tens N$ can be written uniquely in the form $\sum_{i = 1}^n m_i \tens e_i$ where $m_i \in M$. Deduce that if $\sum_{i  =1}^n m_i \tens e_i = 0$ in $M \tens N$, then $m_i = 0$ for $i  = 1,...,n$. }
+
+\begin{proof}
+Let $t = a_1(u_1 \otimes v_1) + \cdots + a_l(u_l \otimes v_l) \in M \tens N$. And for each $v_i \in N$ we have: 
+$$
+v_i = r_1e_1 + \cdots + r_ne_n,
+$$
+with $r_j \in R$ uniquely by the definition of our standard basis. Then we may write: 
+\bee
+t &= a_1(u_1 \tens (r_{1,1}e_1 + \cdots + r_{1,n}e_n)) + \cdots + a_l(u_l \tens (r_{l,1}e_1 + \cdots + r_{l,n}e_n))\\
+&= (a_1u_1 \tens (r_{1,1}e_1 + \cdots + r_{1,n}e_n)) + \cdots + (a_lu_l \tens (r_{l,1}e_1 + \cdots + r_{l,n}e_n))\\
+&= ((a_1u_1 \tens r_{1,1}e_1) + \cdots + (a_1u_1 \tens r_{1,n}e_n)) + \cdots + ((a_lu_l \tens r_{l,1}e_1) + \cdots + (a_lu_l \tens r_{l,n}e_n))\\
+&= ((a_1r_{1,1}u_1 \tens e_1) + \cdots + (a_1r_{1,n}u_1 \tens e_n)) + \cdots + ((a_lr_{l,1}u_l \tens e_1) + \cdots + (a_lr_{l,n}u_l \tens e_n))\\
+&= ((a_1r_{1,1}u_1 \tens e_1) + \cdots + (a_lr_{l,1}u_l \tens e_1) ) + \cdots + ((a_1r_{1,n}u_1 \tens e_n) + \cdots + (a_lr_{l,n}u_l \tens e_n))\\
+&= ((a_1r_{1,1}u_1 \cdots + a_lr_{l,1}u_l) \tens e_1)  + \cdots + ((a_1r_{1,n}u_1  + \cdots + a_lr_{l,n}u_l) \tens e_n).
+\eee
+And since our expression for each $v_i$ was unique by definition of a basis, this expression for $t$ is unique. 
+
+So letting $m_i = (a_1r_{1,i}u_1 \cdots + a_lr_{l,i}u_l)$, we set:
+$$
+t = \sum_{i = 1}^n m_i \tens e_i = 0,
+$$
+where $m_i \in M$. But note we also have:
+$$
+\sum_{i = 1}^n 0 \tens e_i = 0.
+$$
+So since we just proved the representation above is unique, we know we must have $m_i = 0$ $\forall i$. 
+\begin{comment}
+So letting $m_i = (a_1r_{1,i}u_1 \cdots + a_lr_{l,i}u_l)$, we have:
+$$
+t = \sum_{i = 1}^n m_i \tens e_i,
+$$
+where $m_i \in M$. Assume that $\sum_{i = 1}^n m_i \tens e_i = 0$. If each term in the sum is identically zero, then the result is proved, all $m_i = 0$. So without loss of generality, assume $m_1,...,m_k \neq 0$ for some $k \leq n$. If the $m_i$'s are linearly independent, then since the $e_i$'s are also linearly independent:
+$$
+\sum_{i = 1}^n m_i \tens e_i = 0 \Rightarrow m_i = 0, \forall i,
+$$ which is a contradiction. So then we must have that the $m_i$'s are linearly dependent. So we can write: 
+$$
+\sum_{i  =1}^k m_i \tens e_i = \sum_{i  =1}^k r_i  m \tens e_i = \sum_{i  =1}^k   m \tens r_ie_i = 0.
+$$
+If $m = 0$ we are done, contradiction, since then $m_i = 0$ for all $i$. If $\sum r_ie_i = 0$ we have a contradiction, since then the basis wouldn't be linearly independent. So we must have that all $m_i = 0$. 
+\end{comment}
+\end{proof}
+
+\item \textit{Show that if $\sum m_i \tens n_i = 0$ in $M \tens N$ where the $n_i$ are merely assumed to be $R$-linearly independent, then it is not necessarily true that all the $m_i$ are 0. [Consider $R = \z,n  =1,M = \z/2\z$, and the element $1 \tens 2$.] }
+\begin{proof}
+Note that now we relax the assumption that our elements from $R^n$ generate $R^n$. So now they are only linearly independent. We have:
+$$
+1 \tens 2 = 2 \tens 1 = 0 \tens 1 = 0,
+$$
+but $1 \neq 0 \in \z/2\z$, and $2$ is just a single element of some $R$ module over $R$, so it is linearly independent. So we have found a counterexample. 
+\end{proof}
+\end{enumerate}
+
+\setcounter{enumi}{15}
+
+\begin{comment}
+\item \textit{Prove that $M \tens (N \oplus K) \cong (M \tens N) \oplus (M \tens K)$. The same is true for: 
+$$
+M \tens \left( \bigoplus_{\alpha \in \Lambda} N_\alpha \right) \cong \bigoplus_{\alpha \in \Lambda}(M \tens N_\alpha),
+$$ 
+which uses the same proof. But:
+$$
+M \tens \left( \prod_{\alpha \in \Lambda} N_\alpha \right)\cong \prod_{\alpha \in \Lambda}(M \tens N_\alpha).
+$$
+}
+
+Example: $R = \z,M = \Q,N_i = \z_{2^i},i = 1,2,...$ Consider:
+$$
+\Q \tens \left(\prod_{i = 1}^\infty \z_{2^i} \right) \neq 0,
+$$
+by 8.  But note:
+$$
+\prod_{i  =1}^\infty\left(\Q \tens \z_{2^i} \right) = 0. 
+$$
+\end{comment}
+
+\item \textit{Suppose $R$ is commutative and let $I$ and $J$ be ideals of $R$, so $R/I,R/J$ are naturally $R$-modules . }
+
+\begin{enumerate}
+\item \textit{Prove that every element of $R/I \tens_R R/J$ can be written as a simple tensor of the form $(1 \mod I) \tens (r \mod J)$. }
+
+\begin{proof}
+Let:
+ $$
+ t = a_1(b_1 \mod I \otimes c_1 \mod J) + \cdots + a_l(b_l\mod I \otimes c_l\mod J)  \in R/I \tens_R R/J,
+ $$
+ with $a_i,b_i,c_i \in R$. Then we have: 
+ \bee
+ t &= a_1b_1(1 \mod I \otimes c_1 \mod J) + \cdots + a_lb_l(1 \mod I \otimes c_l\mod J)\\
+ &= (1 \mod I \otimes a_1b_1c_1 \mod J) + \cdots + (1 \mod I \otimes a_lb_lc_l\mod J)\\
+ &= 1 \mod I \tens (a_1b_1c_1 + \cdots + a_lb_lc_l) \mod J,
+ \eee
+ so since $(a_1b_1c_1 + \cdots + a_lb_lc_l) \in R$, we have written $t$ as a simple tensor. 
+\end{proof}
+
+\item \textit{Prove that there is an $R$ module isomorphism $R/I \tens_R R/J \cong R/(I + J)$ mapping $(r \mod I) \tens (r' \mod J)$ to $rr' \mod (I + J)$. }
+
+\begin{proof}
+Let $\phi: R/I \tens_R R/J \to R/(I + J)$ be given by $\phi((r \mod I) \tens (r' \mod J)) = rr' \mod (I + J)$. We prove this is an isomorphism. Since we proved that every element of $ R/I \tens_R R/J$ can be written as a simple tensor of the form $(1 \mod I) \tens (r \mod J)$, we need only to check elements of this form.
+
+\textbf{Homomorphism: } We have: 
+\bee
+&\phi((1 \mod I) \tens (r \mod J) + (1 \mod I) \tens (s \mod J))\\
+=&\phi((1 \mod I) \tens (r + s \mod J))\\
+=&r + s \mod (I + J)\\
+=&r \mod (I + J) + s \mod (I+ J)\\
+=&\phi((1 \mod I) \tens (r \mod J)) + \phi((1 \mod I) \tens (s \mod J)).
+\eee
+So addition is preserved, and for $a \in R$, we also have: 
+\bee
+\phi(a((1 \mod I) \tens (r \mod J))) &= \phi(((a \mod I) \tens (r \mod J)))\\
+&= ar \mod (I + J)\\
+&= a(r \mod (I + J))\\
+&= a \phi((1 \mod I) \tens (r \mod J)).
+\eee
+So $\phi$ is an $R$-module homomorphism. 
+
+\textbf{Injectivity: }Observe: 
+\bee
+\phi((1 \mod I) \tens (r \mod J)) &= \phi((1 \mod I) \tens (s \mod J)),
+\eee
+which gives us: 
+\bee
+r \mod (I + J) = s \mod (I + J),
+\eee
+thus we know $r - s \in (I + J)$. So $r - s = j \mod I$ for some $j \in J$. So we have: 
+\bee
+&(1 \mod I) \tens (r \mod J) - (1 \mod I) \tens (s \mod J)\\
+=&(1 \mod I) \tens (r - s \mod J)\\
+=&(r - s \mod I) \tens (1 \mod J)\\
+=&(j \mod I) \tens (1 \mod J)\\
+=&(1 \mod I) \tens (j \mod J)\\
+=& 0.
+\eee
+So $\phi$ must be injective. 
+
+\textbf{Surjectivity: }Let $r \mod (I + J) \in R/(I+ J)$. Then $\phi((1 \mod I) \tens (r \mod J)) = r \mod (I + J)$, so $\phi$ is surjective. Hence $\phi$ is an isomorphism. 
+\end{proof} 
+\end{enumerate}
+
+\setcounter{enumi}{19}
+
+\item \textit{Let $I = (2,x)$ be the ideal generated by $2$ and $x$ in the ring $R = \z[x]$. Show that the element $2 \tens 2 + x \tens x$ in $I \tens_R I$ is not a simple tensor, i.e., cannot be written as $a \tens b$ for some $a,b \in I$. }
+
+\begin{proof}
+Define $t = 2 \tens 2 + x \tens x$. We first express $t$ as a simple tensor in $R$. We define $\beta:\z[x] \times \z[x] \to \z[x] \tens \z[x]$ given by $\beta((p(x),q(x)) = p(x) \tens q(x)$. We also define $\gamma:\z[x] \times \z[x] \to \z[x]$ given by $\gamma((p(x),q(x)) = p(x)q(x)$. This map is bilinear, so we have an induced homomorphism $\varphi:\z[x] \tens \z[x] \to \z[x]$, so altogether, we have:
+\begin{center}
+\begin{tikzcd}
+ & \mathbb{Z}[x] \times \mathbb{Z}[x] \arrow[rd, "\gamma"] \arrow[ld, "\beta"'] &  \\
+\mathbb{Z}[x] \otimes \mathbb{Z}[x] \arrow[rr, "\varphi"] &  & \mathbb{Z}[x]
+\end{tikzcd}.
+\end{center}
+ Then we would have:
+$$
+p \tens q = 2 \tens 2 + x \tens x,
+$$
+for some $p,q \in \z[x]$. But we also know: 
+$$
+2 \tens 2 + x \tens x = 4(1 \tens 1) + x \tens x = 4(1 \tens 1) + x^2(1 \tens 1) = (4 + x^2)(1 \tens 1) \in \z[x]
+$$
+But $(4 + x^2)$ is a prime in $\z[x]$. To write $t$ as a simple tensor in $\z[x]$, we must have $4 + x^2 = ab$ for some $a,b \in \z[x]$, so that we may write: 
+$$
+ab(1 \tens 1) = a \tens b \in \z[x].
+$$
+So let $4 + x^2 = ab$, and since it is a prime and we are in $\z[x]$, without loss of generality, we must have $b = 1$, but note that $1 \notin I$, so it is impossible to write $t$ as a simple tensor in $I \tens_R I$, since under the same bilinear map $\gamma$, we have:
+\begin{center}
+\begin{tikzcd}
+ & I \times I \arrow[rd, "\gamma"] \arrow[ld, "\beta"'] &  \\
+I \otimes I \arrow[rr, "\phi"] &  & I^2
+\end{tikzcd},
+\end{center}
+from which we see that the image $u \tens v \mapsto uv$ of any simple tensor is reducible. 
+\end{proof}
+\begin{comment}
+Leibman's solution: Note that when you map $I \tens I \to I^2$ and map $u \tens v \mapsto uv$, we map $2 \tens 2 + x \tens x$ to $x^2 + 4$ which is irreducible, but when we map a simple tensor, it must be irreducible. 
+\begin{center}
+\begin{tikzcd}
+ & I \times I \arrow[rd, "\gamma"] \arrow[ld, "\beta"'] &  \\
+I \otimes I \arrow[rr, "\phi"] &  & I^2
+\end{tikzcd}.
+\end{center}
+\end{comment}
+
+\item \textit{Suppose $R$ is commutative, and let $I$ and $J$ be ideals of $R$. }
+
+\begin{enumerate}
+\item \textit{Show that there is a surjective $R$-module homomorphism from $I \tens_R J$ to the product ideal $IJ$ mapping $i \tens j$ to the element $ij$. }
+
+\begin{proof}
+Let $\phi:I \tens_R J \to IJ$ be given by:
+ $$
+ \phi(r_1(i_1 \tens j_1) + \cdots + r_n(i_n \tens j_n)) = r_1i_1j_1 + \cdots + r_ni_nj_n.
+ $$
+  We show that $\phi$ is a surjective homomorphism of $R$-modules. Observe:
+\bee
+&\phi((r_1(i_1 \tens j_1) + \cdots r_n(i_n \tens j_n)) + (s_1(i_1' \tens j_1') + \cdots s_m(i_m' \tens j_m')))\\
+= &\phi(r_1(i_1 \tens j_1) + \cdots r_n(i_n \tens j_n)+ s_1(i_1' \tens j_1') + \cdots s_m(i_m' \tens j_m'))\\
+ = &r_1i_1j_1 + \cdots + r_ni_nj_n + s_1i_1'j_1' + \cdots + s_mi_m'j_m'\\
+= &\phi((r_1(i_1 \tens j_1) + \cdots r_n(i_n \tens j_n)) + \phi((s_1(i_1' \tens j_1') + \cdots s_m(i_m' \tens j_m'))).
+\eee
+So $\phi$ preserves addition. Additionally:
+\bee
+\phi(r(i \tens j)) 
+&= \phi((ri \tens j))\\
+&= rij\\
+&= r\phi((i \tens j)).
+\eee
+So $\phi$ also preserves scalar multiplication for simple tensors and thus for general tensors as well. Now we show that $\phi$ is surjective. Let $r \in IJ$. Then 
+$$
+r = \sum_{k = 1}^n i_kj_k,
+$$ 
+for $i_k \in I,j_k \in J$. Then $\phi(i_1 \tens j_1 + \cdots + i_n \tens j_n) = r$, because we already proved $\phi$ is a homomorphism and hence preserves addition, so $\phi$ is surjective. 
+\end{proof}
+
+\item \textit{Give an example to show that the map in (a) need not be injective [Exercise 10.4.17]. }
+
+
+Consider $I = (2,x)$ and $R = \z[x]$. We define a map: $\phi:I \tens_R I \to II = I$ given by $\phi(i \tens j) = ij$. By part (a), we know it is a surjective homomorphism. Note:
+$$
+\phi(2 \tens x) = \phi(x \tens 2) = 2x.
+$$
+But from Exercise 10.4.17(c), we know that $2 \tens x \neq x \tens 2$ in $I \tens_R I$. 
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

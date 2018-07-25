@@ -1,0 +1,555 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[12pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}%{chapter}
+%\numberwithin{equation}%{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+
+
+\begin{document}
+
+\title{CSE 6331 Homework 8}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\begin{enumerate}[label=\arabic*.]
+
+\item \textit{Given a directed \textbf{acyclic} graph $G = (V,E)$, write an $O(V^2)$ algorithm to determine whether for all pairs of nodes $u,v \in V$, there is a path from $u$ to $v$ or a path from $v$ to $u$. Describe your algorithm in (high-level) pseudo-code and explain it in plain English. (Hint: topological sort.) }
+
+
+Note this is not the same as checking whether or not the graph is weakly connected, this condition is stronger than weak connectedness. We give high-level pseudocode for this algorithm:
+
+
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+\KwData{The set of vertices $V = \Set{1,2,...,n}$ and edges $E$ of the given graph $G$. The 2D array adjacency matrix $A[1..n][1..n]$. }
+\KwResult{The truth value of the statement ``for all pairs of nodes $u,v \in V$, there is a path from $u$ to $v$ or a path from $v$ to $u$." }
+\Begin{
+\tcc{global array $L[1..n]$}
+\textbf{initialize} $L[1..n] \longleftarrow 0$\;
+\tcc{We first do a topological sort using DFS. }
+\tcc{Use depth-first search, with a $L$ of size $n$ initialized to $0$. }
+\tcc{At the end of procedure dfs$(v)$, insert the index of $v$ in $A$ to the front of $L$. }
+$L[1..n] \longleftarrow $ TopSort$(G)$\;
+
+
+\tcc{Then $L$ gives a topological sort of $G$. }
+\textbf{boolean} pathExists $\longleftarrow$ true\;
+\For{$i \longleftarrow 1$ \KwTo $n - 1$} {
+	
+		\If{$A[L[i]][L[i + 1]] == 0$}{
+			pathExists $\longleftarrow$ false\;
+		}
+	
+}
+\Return pathExists\;
+
+
+}
+\caption{Pathfinder$(G)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+Note that since we have a DAG, we know that we can do topological sort. So we can put a partial ordering on the nodes such that all edges go from a node with lower index in $L$ to a node with higher index in $L$. So if we want to determine whether or not there is a path from $u$ to $v$ or a path from $v$ to $u$, if $u = L[i]$ and $v = L[j]$, and if without loss of generality we let $i < j$, then there is a path from $u$ to $v$ or a path from $v$ to $u$ if and only if there is an edge from $L[i]$ to $L[j]$. So if we want to check if this holds for all $u,v$, clearly we need to check it for all pairs $L[i],L[i + 1]$. But is this sufficient? Yes because if there is an path from $L[i]$ to $L[i + 1]$ it must be a single edge, else it would contradict our definition of a topological ordering, and if we have such edges for all such $i = 1,...,n - 1$, then we must have a path $K$ that passes through every vertex, starting with $L[1]$ and ending with $L[n]$. Therefore we certainly have a path from either $u$ to $v$ or $v$ to $u$ which is a subset of $K$ for all $u,v$. So our algorithm finds a topological ordering, and then checks if there is an edge between each pair of adjacent vertices in our ordering. If there is no such edge for any of these adjacent vertices, we must have that the result is false, and else, it is true. The topological sort takes $O(V^2)$ time implemented with an adjacency matrix, and the rest of the algorithm takes $O(n) = O(V)$ time, so the whole thing takes $O(V^2)$ time. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+\KwData{The set of vertices $V$ and edges $E$ of the given graph $G$. }
+\KwResult{The list $L$ of the topological ordering of $G$. }
+%\KwResult{The truth value of the statement ``for all pairs of nodes $u,v \in V$, there is a path from $u$ to $v$ or a path from $v$ to $u$." }
+\Begin{
+\tcc{Assume $V = \Set{1,2,...,n}$. }
+\tcc{global array $visited[1..n]$}
+\tcc{global array $topSort[1..n]$}
+$visited[1..n] \longleftarrow 0$\;
+$topSort[1..n] \longleftarrow 0$\;
+\For{$i \longleftarrow 1$ \KwTo $n$}{
+	\If{$visited[i] = 0$}{
+		dfs$(v)$\;
+	}
+}
+}
+\caption{TopSort$(G)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg2}
+\KwData{The set of vertices $V$ and edges $E$ of the given graph $G$. }
+\KwResult{The list $L$ of the topological ordering of $G$. }
+%\KwResult{The truth value of the statement ``for all pairs of nodes $u,v \in V$, there is a path from $u$ to $v$ or a path from $v$ to $u$." }
+\Begin{
+\tcc{Assume $V = \Set{1,2,...,n}$. }
+\tcc{global array $visited[1..n]$}
+\tcc{global array $topSort[1..n]$}
+$visited[1..n] \longleftarrow 0$\;
+$topSort[1..n] \longleftarrow 0$\;
+\For{$i \longleftarrow 1$ \KwTo $n$}{
+	\If{$visited[i] = 0$}{
+		dfs$(v)$\;
+	}
+}
+}
+\caption{dfs$(G)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+\end{comment}
+
+
+
+
+
+
+
+
+\bb
+
+
+
+
+
+
+
+
+\item \textit{Let $G = (V,E)$ be an undirected graph. Modify the following algorithm so that it answers whether $G$ contains a cycle of odd length. Your modification must not increase the algorithm's time complexity. Do NOT rewrite the whole algorithm, just make the necessary changes. }
+
+
+\begin{comment}
+
+
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg3}
+\Begin{
+\tcc{Assume $V = \Set{1,2,...,n}$. }
+\tcc{global variables: $oddCycle$, $visited[1..n]$, $ancestorLevel$, $level$}
+\tcc{$oddCycle$ is a boolean variable, $visited$ is an integer array, $ancestorLevel$ is a Map object of type <Integer,Integer>, and $level$ is an integer.}
+$visited[1..n] \longleftarrow 0$\;
+$level \longleftarrow 0$\;
+$oddCycle \longleftarrow$ \textbf{false}\;
+\For{$i \longleftarrow 1$ \KwTo $n$}{
+	\If{$visited[i] = 0$}{
+		$ancestorLevel$.addKeyPair$(i,level)$\;
+		dfs$(i)$\;
+	}
+	$ancestorLevel$.deleteKeyPair$(i)$\;
+}
+\Return $oddCycle$\;
+}
+\caption{Search$(G = (V,E))$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg4}
+\Begin{
+$visited[v] \longleftarrow 1$\;
+$level$++\;
+\For{each node $w$ such that $(v,w) \in E$}{
+	\uIf{$visited[w] = 0$}{
+		$ancestorLevel$.addKeyPair$(w,level)$\;
+		dfs$(w)$\;
+	} \ElseIf{$(level - ancestorLevel[w]) \equiv 1 \mod 2$}{
+		$oddCycle \longleftarrow$ \textbf{true}\;
+	}
+	$ancestorLevel$.deleteKeyPair$(i)$\;
+}
+$level$- -\;
+}
+\caption{dfs$(v)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+\end{comment}
+
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg3}
+\Begin{
+\tcc{Assume $V = \Set{1,2,...,n}$. }
+\tcc{global variables: $oddCycle$, $visited[1..n]$, $ancestorLevel[1..n]$, $level$}
+$visited[1..n] \longleftarrow 0$\;
+$level \longleftarrow 0$\;
+$ancestorLevel \longleftarrow -1$\;
+$oddCycle \longleftarrow$ \textbf{false}\;
+\For{$i \longleftarrow 1$ \KwTo $n$}{
+	\If{$visited[i] = 0$}{
+		$ancestorLevel[i] \longleftarrow level$\;
+		dfs$(i)$\;
+		$ancestorLevel[i] \longleftarrow -1$\;
+	}
+	
+}
+\Return $oddCycle$\;
+}
+\caption{Search$(G = (V,E))$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg4}
+\Begin{
+$visited[v] \longleftarrow 1$\;
+$level$++\;
+\For{each node $w$ such that $(v,w) \in E$}{
+	\uIf{$visited[w] = 0$}{
+		$ancestorLevel[w] \longleftarrow level$\;
+		dfs$(w)$\;
+		$ancestorLevel[w] \longleftarrow -1$\;
+	} \ElseIf{$ancestorLevel[w] \neq -1$ \&\& $(level - ancestorLevel[w]) \equiv 1 \mod 2$}{
+		$oddCycle \longleftarrow$ \textbf{true}\;
+	}
+	
+}
+$level$- -\;
+}
+\caption{dfs$(v)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+
+\bb
+\item \textit{Let $G = (V,E)$ be a directed graph. Modify the \textbf{if statement} in the dfs procedure (and modify nothing else) to determine if $(v,w)$ is a tree, forward, back, or cross edge. Your modification must not increase the time complexity of the algorithm. Do NOT rewrite the whole algorithm, just make the necessary changes. }
+
+
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg5}
+\Begin{
+$vn[n] \longleftarrow time \longleftarrow time + 1$\;
+\For{each node $w$ such that $(v,w) \in E$}{
+	\uIf{$vn[w] = 0$}{
+		\tcc{$(v,w)$ is a tree edge. }
+		dfs$(w)$\;
+	} \uElseIf{$vn[v] < vn[w]$}{
+		\tcc{$(v,w)$ is a forward edge. }
+	} \uElseIf{$fn[w] = 0$}{
+		\tcc{$(v,w)$ is a back edge. }
+	} \Else{
+		\tcc{$(v,w)$ is a cross edge. }
+	}
+	
+}
+$level$- -\;
+}
+\caption{dfs$(v)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

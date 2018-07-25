@@ -1,0 +1,251 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Homework 7}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\title{CSE 2331 Homework 2}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*.]
+
+\item 
+\begin{equation}
+\begin{aligned}
+T(n) &= \sum_{i = 27}^{n^4} \sum_{j = 111}^{\lfloor i^{2/3}(\log_7(i))^2\rfloor} c = \sum_{i = 27}^{n^4} i^{2/3}(\log_7(i))^2c = \sum_{i = 1}^{n^4}\left( i^{2/3}(\log_7(i))^2c \right) + c_1\\
+&= \sum_{i = 1}^{(n^4/2) - 1}\left( i^{2/3}(\log_7(i))^2c \right) + \sum_{i = n^4/2}^{n^4}\left( i^{2/3}(\log_7(i))^2c \right) + c_1. 
+\end{aligned}
+\end{equation}
+We find an upper bound:
+\begin{equation}
+\begin{aligned}
+T(n) &\leq \sum_{i = 1}^{n^4}\left( (n)^{8/3}(\log_7(n^4))^2c \right) + c_1 = \sum_{i = 1}^{n^4}\left( n^{8/3}16(\log_7(n))^2c \right) + c_1\\
+&= n^4\left( n^{8/3}16(\log_7(n))^2c \right) + c_1 = \boxed{2^4c n^{20/3}(\log_7(n))^2} + c_1. 
+\end{aligned}
+\end{equation}
+And a lower bound:
+\begin{equation}
+\begin{aligned}
+T(n) & \geq \sum_{i = n^4/2}^{n^4}\left( (n^4/2)^{2/3}(\log_7(n^4/2))^2c \right) = \sum_{i = n^4/2}^{n^4}\left( (n^4/2)^{2/3}(4\log_7(n) - \log_7(2))^2c \right)\\
+&= \frac{n^4}{2}\left( (n^4/2)^{2/3}(4\log_7(n) - \log_7(2))^2c \right) =  \left(\frac{n^4}{2}\right)^{5/3}(4\log_7(n) - \log_7(2))^2c \\
+&= n^{20/3}\left(1/2\right)^{5/3}(4\log_7(n) - \log_7(2))^2c  \\
+&= cn^{20/3}\left(1/2\right)^{5/3}(16(\log_7(n))^2 - 8\log_7(n)\log_7(2) + (\log_7(2))^2)\\
+& \geq \boxed{2^{7/3}cn^{20/3}(\log_7(n))^2} - cn^{20/3}2^{4/3}\log_7(n)\log_7(2)). \\
+\end{aligned}
+\end{equation}
+Thus $T(n) = kn^{20/3}(\log_7(n))^2$, where $2^{7/3}c \leq k \leq 2^4c$. \\
+
+\item 
+\begin{equation}
+\begin{aligned}
+T(n) &= \sum_{i = 6}^{\lfloor n\log_3(n)\rfloor} \sum_{k = 1}^{\lfloor(i^3 - i)/14\rfloor}c = \frac{c}{14}\left( \sum_{i = 6}^{\lfloor n\log_3(n)\rfloor} i^3 - \sum_{i = 6}^{\lfloor n\log_3(n)\rfloor} i \right)\\
+&= \frac{c}{14}\left( \sum_{i = 1}^{\lfloor n\log_3(n)\rfloor} (i^3) + k_1 - \sum_{i = 1}^{\lfloor n\log_3(n)\rfloor} (i) + k_2 \right)\\
+&= \frac{c}{14}\left( \frac{( n\log_3(n))^2( n\log_3(n) + 1)^2}{4} + k_1 - \frac{1}{2} n\log_3(n)( n\log_3(n) + 1) + k_2 \right)\\
+&= \frac{c}{14}\left(\frac{1}{4	} ( n\log_3(n))^2( n\log_3(n) + 1)^2 + k_1 - \frac{1}{2} n\log_3(n)( n\log_3(n) + 1) + k_2 \right)\\
+&= \Theta(n^4(\log_3(n))^4). 
+\end{aligned}
+\end{equation}
+
+\item 
+
+\begin{equation}
+\begin{aligned}
+T(n) &= \sum_{i = n/2}^{n\log_7(n)}\sum_{j = i}^{n\log_7(n)}\sum_{k = 6j^2}^{6j^2 + \sqrt{n}} c = \sum_{i = n/2}^{n\log_7(n)}\sum_{j = i}^{n\log_7(n)}c(\sqrt{n} + 1)\\
+&= \Theta\left(\sum_{i = n/2}^{n\log_7(n)}\sum_{j = i}^{n\log_7(n)}c\sqrt{n}\right) = \Theta\left(\sum_{i = n/2}^{n\log_7(n)}c\sqrt{n}(n\log_7(n) - i)\right) \\
+&= \Theta\left(\sum_{i = n/2}^{n\log_7(n)}c\sqrt{n}(n\log_7(n) - i)\right) \\
+&= \Theta\left(\sum_{i = 1}^{n\log_7(n)}c\sqrt{n}(n\log_7(n) - i) - \sum_{i = 1}^{n/2}c\sqrt{n}(n\log_7(n) - i)\right)\\
+&= \Theta\left(\sum_{i = 1}^{n\log_7(n)}c\sqrt{n}n\log_7(n) - \sum_{i = 1}^{n\log_7(n)}c\sqrt{n}i - \sum_{i = 1}^{n/2}c\sqrt{n}n\log_7(n) + \sum_{i = 1}^{n/2}c\sqrt{n}i\right)\\
+&= \Theta\left(cn^{5/2}(\log_7(n))^2 - cn^{3/2}\frac{1}{2}(n(\log_7(n))^2 + \log_7(n)) - c\frac{n^{5/2}}{2}\log_7(n) + \frac{n^{3/2}}{4}(n/2 + 1)\right)\\
+&= \Theta\left(cn^{5/2}\frac{1}{2}(\log_7(n))^2 - c\frac{n^{5/2}}{2}\log_7(n) + \frac{n^{5/2}}{8}\right)\\
+&= \Theta\left(n^{5/2}(\log_7(n))^2\right). \\
+\end{aligned}
+\end{equation}
+\vspace{3mm}
+
+\item 
+\begin{equation}
+\begin{aligned}
+T(n) &= \sum_{i =(\log_8(n))^2}^{n^{3/2}\log_9(n)} \sum_{j = 1}^{i^2} \sum_{k = j}^{i^2}c = \Theta\left(\sum_{i = (\log_8(n))^2}^{n^{3/2}\log_9(n)} \sum_{j = 1}^{i^2} (i^2 - j)c\right)\\
+&= \Theta\left(\sum_{i = (\log_8(n))^2}^{n^{3/2}\log_9(n)} \left(\sum_{j = 1}^{i^2}  ci^2 - \sum_{j = 1}^{i^2}jc\right)\right) = \Theta\left(\sum_{i = (\log_8(n))^2}^{n^{3/2}\log_9(n)} \left(ci^4 - \frac{1}{2}i^2(i^2 + 1)c\right)\right)\\
+&= \Theta\left(\sum_{i = (\log_8(n))^2}^{n^{3/2}\log_9(n)} \left(ci^4 - \frac{c}{2}(i^4 + i^2)\right)\right) = \Theta\left(\sum_{i = (\log_8(n))^2}^{n^{3/2}\log_9(n)} \left( \frac{c}{2}i^4\right)\right)\\
+&= \Theta\left(\sum_{i = 1}^{n^{3/2}\log_9(n)} \left( \frac{c}{2}i^4\right) - \sum_{i = 1}^{(\log_8(n))^2} \left( \frac{c}{2}i^4\right)\right) = \Theta\left( \left( (n^{3/2}\log_9(n))^5\right) -  \left( (\log_8(n))^{10}\right)\right) \\
+&= \Theta\left( (n^{3/2}\log_9(n))^5\right). 
+\end{aligned}
+\end{equation}
+Note: we used the fact that $\sum_{i = 1}^ni^4 \in \Theta(n^5)$. \\
+
+\item 
+\begin{equation}
+\begin{aligned}
+T(n) &= \Theta \left( \sum_{k = 1}^{\log_6(n^3 - 3)} \sum_{l = 1}^{n^{1/2} - n^{-1/2}}c\right) = \Theta \left( \sum_{k = 1}^{\log_6(n^3 - 3)} (n^{1/2} - n^{-1/2})c\right)\\
+&= \Theta \left(\log_6(n^3 - 3) (n^{1/2} - n^{-1/2})c\right) = \Theta \left(3\log_6(n) (n^{1/2} - n^{-1/2})c\right)\\
+&= \Theta \left( n^{1/2}\log_6(n)\right). \\
+\end{aligned}
+\end{equation}
+\vspace{3mm}
+
+\item 
+\begin{equation}
+\begin{aligned}
+T(n) &= \Theta\left(\sum_{k = 1}^{\log_5(n^{5/4} - 8)} \sum_{l = 1}^{\frac{i^2 - 12}{7}}c \right) = \Theta\left(\sum_{k = 1}^{\log_5(n^{5/4} - 8)} \frac{i^2 - 12}{7}c \right) \\
+&=  \Theta\left(\sum_{k = 1}^{\log_5(n^{5/4} - 8)} i^2 c \right)  = \Theta\left(\sum_{k = 1}^{(1/2)\log_5(n^{5/4} - 8) - 1} i^2 c  + \sum_{k = (1/2)\log_5(n^{5/4} - 8)}^{\log_5(n^{5/4} - 8)} i^2 c \right). 
+\end{aligned}
+\end{equation}
+We find an upper bound, letting $i = n^{5/4}$:
+\begin{equation}
+\begin{aligned}
+T(n) &\leq \Theta\left(\sum_{k = 1}^{\log_5(n^{5/4} - 8)} n^{5/2} c \right) = \Theta\left(\sum_{k = 1}^{\frac{5}{4}\log_5(n)} n^{5/2} c \right) = \Theta\left( \frac{5c}{4}n^{5/2}\log_5(n) \right). 
+\end{aligned}
+\end{equation}
+And we find a lower bound, letting $i = \frac{1}{2}n^{5/4}$:
+\begin{equation}
+\begin{aligned}
+T(n) &\geq \Theta\left(\sum_{k = (1/2)\log_5(n^{5/4} - 8)}^{\log_5(n^{5/4} - 8)} \frac{1}{4} n^{5/2} c \right) = \Theta\left(\frac{1}{4}c n^{5/2}(1/2)\log_5(n^{5/4} - 8) \right)\\
+&= \Theta\left(\frac{c}{8}n^{5/2}\log_5(n) \right). \\
+\end{aligned}
+\end{equation}
+So since the upper and lower bounds have the same time complexity up to a constant, we know $t \in \Theta\left(n^{5/2}\log_5(n) \right)$. 
+
+\item 
+
+We find the number of iterations $k$ using the equation $\lfloor\frac{i^3}{8^k}\rfloor = \lfloor \sqrt{i}\rfloor + 1$. Thus the inner while loop executes $\lfloor \log_8( \frac{i^3}{\lfloor \sqrt{i} \rfloor + 1} )\rfloor$ times, and hence takes $k\log(i^{2.5})$ time for some constant $k$. The outer loop executes $\lfloor \frac{n^{3/2} - 5}{12} \rfloor$ times, and thus takes $k_1n^{3/2}$ time for some constant $k_1$. Hence we have
+\begin{equation}
+\begin{aligned}
+T(n) &= \sum_{l = 1}^{\lfloor k_1n^{3/2}\rfloor} k \log(i^{2.5}). 
+\end{aligned}
+\end{equation}
+And since $6 \leq i < n^{3/2}$, we use $n^{3/2}$ as an upper bound for $i$, and we use $n^{3/2}/2$ as a lower bound. Thus
+\begin{equation}
+\begin{aligned}
+T(n) &\leq \sum_{l = 1}^{\lfloor k_1n^{3/2}\rfloor} k \log(n^{15/4}) = k_1kn^{3/2}\log(n^{15/4}) \in O \left( n^{3/2}\log(n)\right). \\
+T(n) &\geq  \sum_{l = 1}^{\lfloor k_1n^{3/2}\rfloor} k \log(n^{15/4}/2) = kk_1n^{3/2}(\log(n^{15/4}) - \log2) \in \Omega \left( n^{3/2}\log(n) \right). 
+\end{aligned}
+\end{equation}
+Hence we know $T(n) \in \Theta \left( n^{3/2}\log(n) \right)$. \\
+
+\item Note that the inner while loop executes $\lfloor \frac{n^2 - 5}{i} \rfloor$ times, which takes $cn^2/i$ time.  
+\begin{equation}
+\begin{aligned}
+T(n) &=  \frac{cn^2}{5} + \frac{cn^2}{5 \cdot 7} + \frac{cn^2}{5 \cdot 7^2} + \cdots + \frac{cn^2}{4n}\\
+&= \frac{cn^2}{5}\left(1 + \frac{1}{7} + \frac{1}{7^2} + \cdots + \frac{1}{4n} \right)\\
+&\leq \frac{cn^2}{5}\left(1 + \frac{1}{7} + \frac{1}{7^2} + \cdots  \right)\\
+&= \frac{cn^2}{5}\left(\frac{1}{1 - \frac{1}{7}} \right) = \frac{cn^2}{5}\left(\frac{7}{6} \right) \in O\left( n^2 \right). 
+\end{aligned}
+\end{equation}
+And 
+\begin{equation}
+\begin{aligned}
+T(n) &=  \frac{cn^2}{5} + \frac{cn^2}{5 \cdot 7} + \frac{cn^2}{5 \cdot 7^2} + \cdots + \frac{cn^2}{4n}\\
+&\geq \frac{cn^2}{5}  \in \Omega(n^2). 
+\end{aligned}
+\end{equation}
+Hence $T(n) \in \Theta(n^2)$. \\
+
+\item The inner loop executes $\lfloor \sqrt{i} \rfloor$ times, and so takes $c\sqrt{i}$ time for some constant $c$. Thus we have
+\begin{equation}
+\begin{aligned}
+T(n) &=  c\sqrt{2} + c\sqrt{2\cdot 4} + c\sqrt{2\cdot 4^2} + \cdots + c\sqrt{n^5 - 1}\\
+&= c\sqrt{2} \left(1 + 2 + 2^2 + \cdots + \sqrt{\frac{n^5 - 1}{2}} \right)\\
+&= c\sqrt{2} \left(1 +  \frac{2(1- 2^{\sqrt{\frac{n^5 - 1}{2}}})}{1-2} \right)\\
+&= c\sqrt{2} \left(  2^{\sqrt{\frac{n^5 - 1}{2}} + 1} - 1 \right)\\
+&= c\sqrt{2} \left(  2 \cdot (2^{\sqrt{n^5 - 1}})^{1/\sqrt{2}}
+ - 1 \right) \in \Theta \left( \left(2^{\frac{\sqrt{2}}{2}}\right)^{n^{2.5}} \right). 
+\end{aligned}
+\end{equation}
+
+\item The innermost while loop executes $\lfloor \log_{1.5}(i^2/12)\rfloor + 1$ times, and thus takes $c\log(i)$ time for some constant $c$. The next while loop executes $\lfloor \log_{13}\left( \lfloor i^{5/2} \rfloor /8 \right) \rfloor$ times, and takes $c_1 \log(i)$ time for some constant $c_1$. Hence our running time is
+\begin{equation}
+\begin{aligned}
+T(n) &=  \sum_{i = 1}^{n^3} cc_1(\log(i))^2\\
+&=  \sum_{i = 1}^{(n^3)/2 -1} cc_1(\log(i))^2 +  \sum_{i = n^3/2}^{n^3} cc_1(\log(i))^2.
+\end{aligned}
+\end{equation}
+And thus we have
+\begin{equation}
+\begin{aligned}
+T(n) &\leq  \sum_{i = 1}^{n^3} cc_1(\log(n^3))^2\\
+ &= 9cc_1n^3(\log(n))^2 \in O \left( n^3(\log(n))^2 \right),\\
+T(n) &\geq  \sum_{i = n^3/2}^{n^3} cc_1(\log(\frac{n^3}{2}))^2 = \frac{n^3}{2}cc_1(3\log(n) - \log(2))^2\\
+&= \frac{n^3}{2}cc_1(9(\log(n))^2 - 6\log(n)\log(2) +  (\log(2))^2) \in \Omega \left( n^3(\log(n))^2 \right). 
+\end{aligned}
+\end{equation}
+So we conclude $T(n) \in \Theta \left( n^3(\log(n))^2  \right)$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

@@ -1,0 +1,85 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge CSE 2221 Homework 18 \linebreak \\\\ \Large Professor Bucci}
+
+\date{6 April 2017}
+\documentclass[10pt]{article}
+
+
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{listings}
+
+%\usepackage[margin=1in]{geometry}&
+
+
+\begin{document}
+\maketitle
+
+
+\paragraph{1. } We implement the flip method for a Stack: 
+
+\begin{lstlisting}
+    /**
+     * Reverses ("flips") {@code this}.
+     *
+     * @updates this
+     * @ensures this = rev(#this)
+     */
+    public void flip() {
+        Stack<T> temp = this.newInstance();
+        int length = this.length);
+        for(int i = 0; i < length; i++) {
+            temp.push(this.pop);
+        }
+        this.transferFrom(temp);
+    }
+\end{lstlisting}
+
+\paragraph{2. } We implement the flip method for a Sequence: 
+
+\begin{lstlisting}
+    /**
+     * Sorts {@code q} according to the ordering 
+     * provided by the {@code compare}
+     * method from {@code order}.
+     *
+     * @param q
+     *            the queue
+     * @param order
+     *            ordering by which to sort
+     * @updates q
+     * @requires [the relation computed by order.compare
+     * is a total preorder]
+     * @ensures q = [#q ordered by the relation computed
+     * by order.compare]
+     */
+    public static void sort(Queue<String> q, 
+    Comparator<String> order) {
+        Queue<String> temp = new Queue2<String>();
+        int length = q.length();
+        for (int i = 0; i < length; i++) {
+            temp.enqueue(removeMin(q, order));
+        }
+        q.transferFrom(temp);
+    }
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

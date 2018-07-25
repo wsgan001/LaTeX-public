@@ -1,0 +1,239 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Notes}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt]{article}
+
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem2}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{prop}{Proposition}
+\newtheorem{comb}{Combinatorial Formula for the Coefficients}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Lecture: Friday, August 25th}
+
+\begin{itemize}
+\item Today is Tuesday and today is Friday. \textbf{False.} 
+\item Today is Friday and I attended class. \textbf{True. }
+\item Today is Tuesday or I attended class. \textbf{True. }
+\item Either today is Friday or I attended class.  \textbf{False.} 
+\item Today is not Tuesday and today is Friday and I attended class. \textbf{True. }
+\item Today is not Tuesday or today is not Friday or I didn't attend class? \textbf{True.} 
+\end{itemize}
+
+\begin{tabular}{c|c|c|c|c|c}
+P & Q & R & $\neg$ P & $\neg$ P and Q & $\neg$ P and Q and R \\
+\hline
+T & T & T & F & F & F\\
+T & T & F & F & F & F\\
+T & F & T & F & F & F\\
+T & F & F & F & F & F\\
+\hline
+F & T & T & T & T & T\\
+F & T & F & T & T & F\\
+F & F & T & T & F & F\\
+F & F & F & T & F & F\\
+
+
+\end{tabular}\\\\\\
+
+\begin{tabular}{c|c|c|c|c|c|c|c}
+P & Q & R & $\neg$ P & $\neg$ Q & $\neg$ R & $\neg$ P or $\neg$ Q & $\neg$ P or $\neg$ Q or $\neg$ R\\
+\hline
+T & T & T & F & F & F & F & F\\
+T & T & F & F & F & T & F & T\\
+T & F & T & F & T & F & T & T\\
+T & F & F & F & T & T & T & T\\
+\hline
+F & T & T & T & F & F & T & T\\
+F & T & F & T & F & T & T & T\\
+F & F & T & T & T & F & T & T\\
+F & F & F & T & T & T & T & T\\
+
+
+\end{tabular}\\\\\
+
+\begin{Def}
+A compound proposition(statement) that is always true no matter what the truth values of the propositions that occur in it, is called a \textbf{tautology}. 
+\end{Def}
+
+\begin{Def}
+A compound proposition(statement) that is always false no matter what the truth values of the propositions that occur in it, is called a \textbf{contradiction}. 
+\end{Def}
+
+\begin{Def}
+A compound proposition(statement) that is neither a tautology nor a contradiction is called a \textbf{contingency}. 
+\end{Def}
+
+\begin{Def}
+Let P and Q be propositions. The \textbf{implication $\boldsymbol{P \Rightarrow Q}$} is the proposition that is false when P is true and Q is false and true otherwise. 
+\end{Def}
+
+
+\begin{tabular}{c|c|c|c}
+P & Q & $P \Rightarrow Q$\\
+\hline
+T & T & T\\
+T & F & F\\
+F & T & T\\
+F & F & T\\
+
+\end{tabular}\\\\\
+
+
+\begin{Def}
+The proposition $Q \Rightarrow P$ is called the \textbf{converse} of $P \Rightarrow Q$. 
+\end{Def}
+
+\begin{Def}
+The \textbf{contrapositive} of $P \Rightarrow Q$ is the proposition  $\neg Q \Rightarrow \neg P$. 
+\end{Def}
+
+\begin{Def}
+The \textbf{inverse} of $P \Rightarrow Q$ is the proposition  $\neg P \Rightarrow \neg Q$. 
+\end{Def}
+
+\begin{Def}
+Let P and Q be propositions. The \textbf{biconditional} $\boldsymbol{P \Leftrightarrow Q}$ is true precisely when both the implications $P \Rightarrow Q$ and $Q \Rightarrow P$ are true. 
+\end{Def}
+
+
+\subsection*{Lecture: Monday, August 28th}
+
+\begin{tabular}{cc|ccc|ccc|ccc}
+P & Q & $(P$ & $\Rightarrow$ & $Q)$ & $\Rightarrow$ & $\Leftrightarrow$ & $\Leftarrow$ & $( \neg Q$ & $\Rightarrow$ & $\neg P$ ) \\
+\hline
+T & T & T & T & T & T & T & T & F & T & F\\
+T & F & T & F & F & T & T & T & T & F & F\\
+F & T & F & T & T & T & T & T & F & T & T\\
+F & F & F & T & F & T & T & T & T & T & T\\
+\end{tabular}\\\\\\
+
+\begin{Thm}
+\textbf{Double Negation Laws} $\neg(\neg P) = P$. 
+\end{Thm}
+
+\begin{Thm}
+\textbf{Commutative Laws} 
+\[P \vee Q \Leftrightarrow Q \vee P\]
+\[P \wedge Q \Leftrightarrow Q \wedge P\]
+\[P \oplus Q \Leftrightarrow Q \oplus P\]
+\end{Thm}
+
+\begin{Thm}
+\textbf{Distributive Laws} 
+\[P \vee ( Q \wedge R) \Rightarrow (P \vee Q) \wedge (P \vee R)\]
+\[(P \wedge Q) \wedge R \Leftrightarrow P \wedge (Q \wedge R)\]
+\[(P \oplus Q) \oplus R \Leftrightarrow P \oplus(Q \oplus R)\]
+\end{Thm}
+
+\begin{tabular}{ccc|cc|ccc|ccc}
+P & Q & R & $P \wedge $ & $(Q \vee R)$ & $\Rightarrow$ & $\Leftrightarrow$ & $\Leftarrow$ & $ (P \wedge Q) $ & $\vee$ & $(P \wedge R)$ \\
+\hline
+T & T & T & T & T & T & T & T & T & T & T\\
+T & T & F & T & T & T & T & T & T & T & F\\
+T & F & T & T & T & T & T & T & F & T & T\\
+T & F & F & F & F & T & T & T & F & F & F\\
+
+F & T & T & F & T & T & T & T & F & F & F\\
+F & T & F & F & T & T & T & T & F & F & F\\
+F & F & T & F & T & T & T & T & F & F & F\\
+F & F & F & F & F & T & T & T & F & F & F\\
+\end{tabular}\\\\\
+
+\begin{Q}
+Suppose P = "I am a C.S. student" and Q = "I study CSE 2321", write the English statement for the following: 
+
+\begin{itemize}
+\item If I am a CS student, then I study CSE 2321. 
+\item If I am a CS student, I study CSE 2321. 
+\item I am a CS student implies I study CSE 2321. 
+\item Whenever I am a CS student, I study CSE 2321. 
+\item I am a CS student is sufficient for studying CSE 2321. 
+\item I am not a CS student unless I study CSE 2321. 
+\item I am a CS student only if I study CSE 2321. 
+\item I study CSE 2321 if I am a CS student. 
+\item I study CSE 2321 whenever I am a CS student. 
+\item Studying CSE 2321 is necessary for being a CS student. 
+\end{itemize}
+\end{Q}
+
+\subsection*{Lecture: Friday, September 1st}
+
+$D = \{cats\}$. \\
+$P(x) = $ "x has a tail"\\
+$Q(x) = $ "x has fur"\\\\
+Some cats don't have fur. \\
+$\exists x \in D$ s.t. $\neg Q(x)$. \\
+None of the cats have tails. \\
+$\neq P(x)$ $\forall x \in D$. \\
+Some cats have fur and some cats don't have tails. \\
+$\exists x \in D$ s.t. $Q(x)$ $\wedge$ $\exists y \in D$ s.t. $\neq P(y)$. 
+
+\subsection*{Lecture: Wednesday, October 4th}
+
+\begin{Def}
+Given a graph $G = (V,E)$, a \textbf{spanning tree} of $G$ is $G' = (V,E')$ where $E' \subset E$ and $G'$ is a tree. 
+\end{Def}
+
+If complete bipartite, and the partition sizes differ by one, then it has a hamiltonian path which begins in the larger one. 
+
+If not complete bipartite, and partition sizes differ by one, no hamiltonian cycle, possible hamiltonian path. 
+
+If partitions equal, not complete, then cycle or path possible. 
+
+If partitions differ by more than one in any case (complete or not) then it has neither. 
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

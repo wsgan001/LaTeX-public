@@ -1,0 +1,388 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[12pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}%{chapter}
+%\numberwithin{equation}%{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+
+
+\begin{document}
+
+\title{CSE 6331 Homework 9}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\begin{enumerate}[label=\arabic*.]
+\item \textit{Consider a flow network in which vertices, as well as edges, have capacities.  
+In addition to the 
+original edge capacity constraint, 
+there is now a new vertex capacity constraint: 
+the total positive flow 
+entering any vertex $u$ cannot exceed its capacity $c(u)$. Show that determining the maximum flow in a 
+network with edge and vertex capacities can be reduced to an ordinary maximum flow problem. }
+
+\bb
+
+\begin{proof}
+We simply replace each vertex $u$ with a pair of vertices $v_1,v_2$ and an edge $(v_1,v_2) \in E$ between them such that $c(u) = c(v_1,v_2)$. All incoming edges to $u$ now enter $v_1$, and all outgoing edges from $u$ now exit $v_2$.  
+\end{proof}
+
+\item \textit{Suppose that during an execution of Relabel-to-Front, Discharge$(u)$ is called \textbf{twice} for some particular node $u$. Prove that if an edge $(u,v)$ is inadmissible at the end/exit of the first Discharge$(u)$, then it is still inadmissible at the beginning/entry of the second Discharge$(u)$. }
+
+\bb
+
+\begin{proof}
+Let $(u,v)$ be inadmissible at the exit of the first Discharge$(u)$. Then either $c_f(u,v) = 0$ or $h(u) \leq h(v)$. 
+
+\bb
+
+
+\textbf{Case 1:} Suppose $c_f(u,v) = 0$. Then after we exit the first Discharge$(u)$, we could execute a push from $v$ to $u$ before we come back to the second Discharge$(u)$, or we could not. Suppose we push from $v$ to $u$ before starting the second Discharge$(u)$. Then we know that in order to push from $v$ to $u$, we had to have $h(v) = h(u) + 1$. So since the height of $u$ will not change since we are not discharging $u$, we know that when we enter Discharge$(u)$ for the second time $h(v) \geq h(u) + 1$, since $h(v)$ never decreases. But then we know that at the start of the second Discharge$(u)$, we have $h(u) \leq h(v) - 1 < h(v) + 1$, hence we must have that $(u,v)$ is inadmissible. 
+
+\textbf{Case 2:} Suppose $c_f(u,v) > 0$. Then we must have that $h(u) \leq h(v)$ at the exit of the first Discharge$(u)$ since we said $(u,v)$ is inadmissible. This is because since $(u,v)$ is a residual edge, we know $h(u) \leq h(v) + 1$ , and we can't have $h(u) = h(v) + 1$ since this would violate the assumption that $(u,v)$ is inadmissible. Now since $h(u)$ does not change if we are not in Discharge$(u)$, and $h(v)$ can only increase, we know that when we come back to the start of the second Discharge$(u)$, $h(u) \leq h(v)$ still, so $(u,v)$ is still inadmissible. 
+\end{proof}
+
+
+
+\item \textit{Let $G = (V,E)$ be a flow network with source $s$, sink $t$, and integer capacities. Suppose we are given a maximum flow $f$ in $G$, and suppose the capacity of a single edge $(u^*,v^*) \in E$ is \textbf{increased} by 1. Give an $O(V + E)$-time algorithm to update the maximum flow. }
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+\KwData{The set of vertices $V$ and edges $E$ of the given flow network $G$. A maximum flow $f$ in $G$. }
+\KwResult{The updated maximum flow $f$. }
+\Begin{
+\tcc{We compute the residual network $E_f$ of $G$. }
+\For{$(u,v) \in E$} {
+	\If{$c(u,v) - f(u,v) > 0$}{
+		\textbf{add} $(u,v)$ \textbf{to} $E_f$\;
+	}
+}
+\tcc{We check if $(u^*,v^*) \in E_f$. }
+\If{$(u^*,v^*) \in E_f$}{
+	\textbf{return} $f$\;
+}
+\tcc{Else, we do DFS on $s$ in residual network to find if there is a path to $t$ (augmenting path). We return a linked list of the augmenting path if it exists, and we return NULL otherwise. }
+$augPath \longleftarrow DFS(V,E_f,s,t)$\;
+\If{$augPath = NULL$} {
+	\textbf{return} $f$\;
+}
+
+$child \longleftarrow augPath.root()$\;
+\tcc{We increase the flow by 1 for each edge in the linked list (augmenting path). }
+\While{$augPath.next(child) \neq NULL$}{
+	$u \longleftarrow child$\;
+	$v \longleftarrow augPath.next(child)$\;
+	$f(u,v) \longleftarrow f(u,v) + 1$\;
+}
+\Return $f$\;
+
+
+}
+\caption{Update-Flow$(G)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+
+\item \textit{Let $G = (V,E)$ be a flow network with source $s$, sink $t$, and integer capacities. Suppose we are given a maximum flow $f$ in $G$, and suppose the capacity of a single edge $(u,v) \in E$ is decreased by 1. Give an $O(V + E)$-time algorithm to update the maximum flow. }
+
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg2}
+\KwData{The set of vertices $V$ and edges $E$ of the given flow network $G$. A maximum flow $f$ in $G$. }
+\KwResult{The updated maximum flow $f$. }
+\Begin{
+\tcc{We compute the residual network $E_f$ of $G$. }
+\For{$(u,v) \in E$} {
+	\If{$c(u,v) - f(u,v) > 0$}{
+		\textbf{add} $(u,v)$ \textbf{to} $E_f$\;
+	}
+}
+\tcc{We check if $(u^*,v^*) \in E_f$. }
+\If{$(u^*,v^*) \in E_f$}{
+	\textbf{return} $f$\;
+}
+\tcc{Else, we do DFS on $s$ in $G$ with the max flow $f$ to find if there is a path to $u^*$. We return a linked list of the path if it exists, and we return NULL otherwise. We do the same for DFS from $v^*$ to $t$. }
+$pathU \longleftarrow DFS(G,f,s,u^*)$\;
+$pathV \longleftarrow DFS(G,f,v^*,t)$\;
+\If{$pathU = NULL$ \textbf{or} $pathV = NULL$} {
+	\Return $f$\;
+}
+
+$child \longleftarrow pathU.root()$\;
+\tcc{Else, we decrease the flow by 1 for each edge in the linked lists. }
+\While{$pathU.next(child) \neq v^*$}{
+	$u \longleftarrow child$\;
+	$v \longleftarrow pathU.next(child)$\;
+	$f(u,v) \longleftarrow f(u,v) - 1$\;
+}
+\While{$pathV.next(child) \neq NULL$}{
+	$u \longleftarrow child$\;
+	$v \longleftarrow pathV.next(child)$\;
+	$f(u,v) \longleftarrow f(u,v) - 1$\;
+}
+\Return $f$\;
+
+
+}
+\caption{Update-Flow2$(G)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

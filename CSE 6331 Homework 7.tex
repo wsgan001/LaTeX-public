@@ -1,0 +1,385 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[12pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}%{chapter}
+%\numberwithin{equation}%{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+
+
+\begin{document}
+
+\title{CSE 6331 Homework 7}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\begin{enumerate}[label=\arabic*.]
+
+\item \textit{Let $A_n = \Set{a_1,...,a_n}$ be a set of distinct coin types (e.g., $a_1 = 50$ cents, $a_2 = 25$ cents, $a_3 = 10$ cents, etc). Note that $a_i$ bay be any positive integer and $a_1 > a_2 > ... a_n$. Each type is available in unlimited quantity. Given $A_n$ and an integer $C> 0$, the coin changing problem is to make up the exact amount $C$ using a minimum total number of coins. }
+\bb
+
+\begin{enumerate}
+\item \textit{Show that if $a_n \neq 1$, then there exists an $A_n$ and $C$ for which there is no solution to the changing problem. }
+
+\begin{proof}
+Let $A_n = \Set{2}$ and let $C = 1$. We have $n = 1$ and $a_n = a_1 = 2 \neq 1$, and there is clearly no solution since no integer multiple of $a_n = 2$ will give us $C = 1$. 
+\end{proof}
+
+\bb
+\item \textit{Show that if $a_n  = 1$ then there is always a solution. }
+
+\begin{proof}
+Note since $C \in \z$, and $a_n = 1$ we just take $C$ coins of type $a_n$, and since we have an unlimited quantity available, we have a solution. 
+\end{proof}
+\bb
+
+\item \textit{When $a_n = 1$ a greedy method to the problem will make change by using coin types in the order $a_1,a_2,...,a_n$. When coin type $a_i$ is being considered, as many coins of this type as possible will be used. Show that this algorithm doesn't necessarily generate an optimal solution. }
+
+\begin{proof}
+Let $C = 8$, and let $A_n = \Set{5,4,1}$. Our greedy algorithm will use one 5 cent coin, then three 1 cent coins. This is 4 total coins. But this is not optimal since we have a better solution using two 4 cent coins. 
+\end{proof}
+
+\bb
+\item \textit{Prove that if $A_n = \Set{k^{n - 1},k^{n - 2},...,k^0}$ for some $k > 1$, then the above greedy method always yields an optimal solution. 
+\textbf{Hint: } Let $X = (x_{n - 1},...,x_1,x_0)$ be the greedy solution and let $Y = (y_{n - 1},...,y_1,y_0)$ be any optimal solution such that:
+$$
+C = \sum_{i = 0}^{n - 1}x_ik^i = \sum_{i = 0}^{n - 1}y_ik^i.
+$$
+Show that $x_i = y_i$ for all $0 \leq i \leq n - 1$. Note: $k^m = 1 + \sum_{i = 0}^{m - 1}(k - 1)k^i$. }
+
+
+
+\begin{proof}
+We prove by induction on $n$. Let $n = 1$. Then $x_0 = y_0 = C$ since $k^0 = 1$. Now fix $n = l \in \n$. Suppose $x_i = y_i$ for all $0 \leq i \leq l - 1$. We prove that for $A_{l + 1} = \Set{k^l,k^{l - 1},...,k^0}$, $x_i = y_i$ for all $0 \leq i \leq l$. Suppose for contradiction that $x_l \neq y_l$. We can't have $x_l < y_l$ since the greedy algorithm uses as many coins as possible of type $k^l$. So we must have $x_l > y_l$. So set $x_l = y_l + j$. But since $k^i|k^l$ for all $i < l$, we know $\sum_{i = 0}^{l - 1} y_i \geq kj + \sum_{i = 0}^{l - 1} x_i$, since the option using the least amount of coins is by representing all $jk^l$ cents (the amount by which the sum of values of the first coin type differs between $X$ and $Y$) as $k^{l - 1}$ cent coins. But then 
+\bee
+\sum_{i = 0}^l y_i &\geq x_l - j + kj + \sum_{i = 0}^{l - 1}x_i\\
+&= (k - 1)j + \sum_{i = 0}^l x_l.
+\eee
+And thus $Y$ uses more coins than $X$, which is impossible since $Y$ is optimal, so we have a contradiction. Thus we must have that $x_l = y_l$. Then by our induction hypothesis, we have a problem with $C' = C - x_lk^l$ and $l - 1$ coins, for which we know $x_i = y_i$ for all $i \leq l - 1$. Thus $x_i = y_i$ for all $i$ with any $n \in \n$, and so the greedy method always yields an optimal solution. 
+\end{proof}
+
+\bb
+
+
+
+
+\end{enumerate}
+
+\item \textit{Let $G = (V,E)$ be an undirected graph. A subset $U \sub V$ is called a \textbf{node cover} if each edge in $E$ is incident upon at least one node in $U$. Finding a minimum node cover for a general graph is NP-hard, but if the graph is a tree, then a minimum node cover can be obtained by the greedy method. Design a greedy algorithm that always generates an optimal solution. (Explain your algorithm in plain English.)}
+
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+\KwData{The tree $T$, set $U$. }
+\KwResult{A complete and optimal node cover $U$. }
+\Begin{
+\textbf{initialize} $C \longleftarrow \text{Children}(v)$\;
+
+
+\For{$c\in C$}{
+	\textbf{initialize} $C' \longleftarrow \text{Children}(c)$\;
+	\If{$C' \neq \emptyset$}{
+		\textbf{Add} $c$ \KwTo $U$\;
+		Node-Cover(c)\;
+	}
+}
+\Return\;
+}
+\caption{Node-Cover$(v)$}
+\end{algorithm}
+\end{restoretext}
+\bb
+
+We have a global variable $T$ for the tree and a global set $U$ initialized to the empty set, and we assume our program already has access to these. Our initial call is on $v$, the root of $T$. We set $C$ to be the set of children of $v$. For each child, we set $C'$ to be the children of $c$ and if this set is nonempty, we add $c$ to $U$, the node cover, and call Node-Cover$(c)$. Thus it adds every vertex but the leaf nodes, which is exactly the optimal node cover for a tree. 
+\bb
+
+\item \textit{Consider the Activity problem discussed in class. Suppose now we want to maximize the \textbf{total sum} of selected intervals, $\sum_{i \in A}(f_i - s_i)$, where $A$ is the set of selected intervals. Solve this problem using any method. Your algorithm must be $O(n^2)$. }
+
+We assume the intervals are sorted by finish time, which takes $O(n\log n)$ time. We also assume all start and finish times are positive and real-valued. Define $F(i)$ to be the maximum total sum of selected intervals with finish time $\geq f_i$. We define:
+\bee
+F(i) = \max_{i < j \leq n + 1} \begin{cases}
+
+(f_i - s_i) + F(j) & \text{ if }s_j \geq f_i\\
+F(i + 1)\\
+\end{cases}.
+\eee
+
+Our boundary conditions are:
+\bee
+s_{n + 1} &= \infty\\
+F(n + 1) &= 0.
+\eee
+
+Our goal is to compute $F(1)$. We give an algorithm to compute our goal:
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+\KwData{Arrays of start times and end times $S[1..n + 1],E[1..n]$.}
+\KwResult{The array $F[i]$ computed for $1 \leq i \leq n$. }
+\Begin{
+\textbf{global array} $F[1..n + 1]$\;
+\textbf{initialize} $F[n + 1] \longleftarrow 0$\;
+\textbf{initialize} $S[n + 1] \longleftarrow \infty$\;
+
+\For{$i \leftarrow n$ \KwTo $1$}{
+$F[i] \longleftarrow \max_{j:S[j] \geq F[i]}\Set{E[i] - S[i] + F[j],F[i + 1]}$\;
+}
+\Return $F$\;
+}
+\caption{Activity-Compute-$F$}
+\end{algorithm}
+\end{restoretext}
+\bb
+And we give an algorithm to print out the set of selected intervals $A$:
+
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg2}
+\KwData{The computed array $F[1..n+1]$, and the arrays of start times and end times $S[1..n],E[0..n]$, global set $A$. }
+\KwResult{Computes the set $A$ of selected intervals. }
+\Begin{
+\textbf{global set} $A$\;
+\tcc{Assume $F[1..n + 1]$ has already been computed. }
+\If{$i < n + 1$}{
+	\uIf{$F[i] = E[i] - S[i] + F[i + 1]$}{
+		\textbf{Add} $i$ \KwTo $A$;
+		
+		Activity$(i + 1)$;
+	} \Else{
+		Activity$(i + 1)$;
+	}
+}
+\Return $A$\;
+}
+\caption{Activity$(i)$}
+\end{algorithm}
+\end{restoretext}
+
+\bb
+
+The sort takes $n \log n$ time, the computation of $F$ takes $O(n^2)$ time, since the max over $j$ takes at most $O(n)$ time where $i = 1$, and the computation of $A$ from $F$ takes $O(n)$ time. So the whole algorithm takes $O(n^2)$ time. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

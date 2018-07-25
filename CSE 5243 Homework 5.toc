@@ -1,0 +1,4 @@
+\contentsline {section}{\tocsection {}{1}{Data preprocessing and implementation}}{1}{section.1}
+\contentsline {section}{\tocsection {}{2}{Post processing and results}}{3}{section.2}
+\contentsline {section}{\tocsection {}{3}{The $k = 3$ case.}}{5}{section.3}
+\contentsline {section}{\tocsection {}{4}{Off-the-shelf algorithms}}{5}{section.4}

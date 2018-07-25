@@ -1,0 +1,102 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge }
+
+
+
+\author{\huge CSE 2221 Lecture Notes \linebreak \\\\ \Large Professor Bucci}
+
+\date{SP17}
+\documentclass[10pt]{article}
+
+\usepackage{graphicx}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{listings}
+
+
+
+
+
+\begin{document}
+
+\maketitle
+
+When you trace a recursive method, and you get to the recursive call, treat it like a pre-existing method. i.e. just plug in what the method contract says the method call should return/do. \\\\
+Subclasses vs superclasses. The compiler can't see methods declared in the subclass. 
+
+\subsection*{Lecture: Tuesday, April 4th}
+\paragraph*{Sequence} This component family allows you to mess with strings of entries of any type T through direct access by position. \\
+It is an alternative to an array, and is a generic container type like Queue and Set. \\\\
+Standard still has clear, newInstance, and transferFrom. The sequence type also has a SequenceKernel. \\
+The mathematical model is a string of T. You can use a sequence as a Queue with full functionality, you would prefer a Queue over a Sequence if you wanted anyone reading your code to understand that you only wanted them to modify elements at the ends. \\
+No-argument constructor yields $<>$. \\
+
+
+\paragraph{void add(int pos, T x)}:\\
+Adds x and position pos of this. \\
+x is aliased!\\
+Requires: $0 \leq pos$ and $pos \leq |this|$. \\\\
+
+\paragraph{T remove(int pos)}:\\
+removes and returns the entry at position pos of this. \\
+Updates this.\\
+Requires: $0 \leq pos$ and $pos \leq |this|$. \\\\
+
+\paragraph{T entry(int pos)}:\\
+Reports entry at pos\\
+Aliases the reference returned by entry. \\
+Requires: $0 \leq pos$ and $pos \leq |this|$. \\
+ensures $<entry> = \#this[pos, pos+1)$. \\\\
+\paragraph{T replaceEntry(int pos, T x)}:\\
+replaces the entry at pos with x\\
+aliases reference x. \\
+
+\paragraph{Stack} Model is a string of T's again. Queue gave us first in first out behavior. Stack exhibits LIFO last-in-first-out behavior, i.e. like a stack of pancakes, you can't mess with the bottom. 
+No-argument constructor yields $<>$. \\\\
+\paragraph{void push(T x)}:\\
+Adds x at the top (left end) of this. \\
+Aliases x again.\\
+Updates this.\\
+Ensures: $this = <x> + \#this$\\
+\paragraph{T pop()}:\\
+Removes and returns the entry at the top of the stack. \\
+Require $this \neq \emptyset$. \\
+\paragraph{int length()}:\\
+self-explanatory.\\
+\paragraph{T top()}:\\
+Returns the entry at the top of this. \\
+Aliases whatever it returns.\\
+Require $this \neq \emptyset$. \\
+Also restores the Stack.\\
+\paragraph{T replaceTop(T x)}:\\
+replaces the top of x with this and returns the old top. \\\\
+\paragraph{More Queue} Let's look at the secondary method "sort" for Queue. 
+\paragraph{void sort(Comparator<T>)}:\\
+This interface contains a header for only one method:\\
+ \textbf{int compare(T o1,T o2)} When we implement the interface, we are allowed to define any ordering so long as the method returns a negative integer if the first is less than the second, positive if greater, and 0 if equal. Where less, greater, equal are defined by the method and specified by the type T being used. \\
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

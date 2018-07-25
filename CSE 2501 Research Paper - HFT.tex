@@ -1,0 +1,191 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[12pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{setspace}
+\doublespacing
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\inlinecode}{\texttt}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+%\doublespacing
+
+
+
+\title{The ethics of high-frequency trading and impact on income inequality}
+\date{SP18}
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+\begin{center}
+\textsc{Jeremy Johnston, CSE 2501 SP18}\\
+\textsc{Word count: 1341}
+\end{center}
+
+
+\section{Introduction}
+
+We give some preliminary information about the nature of high-frequency trading before diving into a discussion of the ethics and consequences of the practice. High-frequency trading \cite{hft}, commonly abbreviated HFT, is a type of trading platform (software used to execute transactions on a securities market) which uses algorithms implemented on powerful computers to analyze the market and automatically execute large quantities of trades over many different securities at very fast speeds. In order to fully understand this definition, we must first define a bit of financial jargon. Firstly, an asset \cite{asset} is a resource with economic value \cite{fontinelle_2015} owned by some entity (individual, corporation, country, organization, etc...), where economic value is defined as the price the asset would hold in a free-market economy, i.e. one with no coercion or exploitation where every transaction is voluntary \cite{freemarket}. Additionally, we say an asset is fungible \cite{fungible} when it is interchangeable with any other asset of the same type/class. For example a single share of \inlinecode{AAPL} is fungible since it is interchangeable with any other single share of \inlinecode{AAPL}: there is no reason to value one specific share over another; they both have the same intrinsic value. We can then define a security \cite{security} as a fungible financial instrument (tradable asset) which holds monetary value, and represents a stock/ownership position in a publicly-traded corporation, a creditor relation in a debt (typically bonds), or a legal right to purchase a stock (a stock-option). 
+
+We now answer the question of why and how high-frequency trading works, and what, if any, are its advantages over more conventional methods of making transactions. High-frequency trading works because many profit opportunities in the market are time-sensitive, or lend themselves to rapid-scaling. For example, market incentives provided to corporations which add liquidity (ease and volume at which transactions can be made) to the market per trade make it profitable to make lot's of trades with very small profit margins. These trades take advantage of discrepancies in the bid-ask spread, which is the difference between the highest selling price and lowest buying price on the market. When this value is negative, firms can perform arbitrage by buying and then immediately selling a security, and the faster this can be done, the more profitable the opportunity can be. 
+
+\section{Market makers or market takers?}
+
+As stated above, one of the frequently cited advantages of allowing high-frequency trading to occur is the added market liquidity. More trades being executed means that more people should be able to purchase any security at the current price at any time. Markets need liquidity because without it, trade and economic exchange would be slower, which has the potential to hinder overall economic production and growth \cite{smith_2017}. Take for example the housing market for the average American homeowner. The liquidity in this market is significantly lower than that of the \inlinecode{NYSE}: it often takes weeks or months to find a house that fits all the criteria that potential buyers are looking for, and once they do, the process of making the transaction can take just as long in some cases, since the buyers need to be vetted, approved for a mortgage, and considerable paperwork needs to be filled out. Now imagine if there were high-frequency trading firms in the housing market. Since so many more homes would be going up for sale in a given time period, it would be much easier to find one that would fit a buyers needs, and because it's in the firm's best interest to minimize transaction time, it would take much less time to complete the purchase. This is the reasoning behind providing the earlier discussed incentives for market makers \cite{sec_2000}, the firms who stand ready to buy and sell stocks at their current market prices in high volumes. High-frequency trading firms are the epitome of a market maker firm, carrying out this task as efficiently as possible because it's profitable for them, and in theory, it's also good for the market/society as a whole. 
+
+The proposed benefits behind the generous liquidity provided by these firms is the reason why the current Securities and Exchange Commission regulations don't expressly forbid the practice. US law allows these traders to go to great lengths in their pursuit they send tens of thousands of orders per second with supercomputers, run network information between cities using fiber optics, and use complex machine learning algorithms to automate their trades. Some other advantages of this are decreased commission prices for everyday casual traders at home. Because of the increased liquidity, the profit margins of brokers, the companies through which individual stock traders make their purchases, can be lower, and some companies like \inlinecode{Robinhood Markets, Inc} are even allowing \$0 commissions. 
+
+But this might not be as good for the public as it may seem. At the end of the day, these high-frequency trading firms are private companies with shareholders who, in general, are in the business to make money for themselves. If the firms are doing a public good as market makers, it is at best a secondary motivation. A common tactic of these firms is something called "front-running" \cite{o'brien_2014}. This is when the firm pays exchanges to see their incoming buy orders, and then buys all of the desired stock at it's current price, so that it can then sell the potential buyers the same stock at a now higher price, since it's no longer available anywhere else at the previous market price. While it does add overall market liquidity, this practice also clearly cheats out buyers by forcing them to pay an artificially higher price than they already would. Instead of connecting buyers and sellers who otherwise wouldn't have found each other, the high-frequency traders are simply jumping between them just before a potential transaction to profit as middle-men \cite{o'brien_2014}. 
+
+\section{The biggest fish in the pond}
+
+Many of the potential problems with high-frequency firms discussed above would not be significant if the ability to perform such trading were available to anyone in the market. Unfortunately, though, this is not at all the case, and thus the prevalence of high-frequency trading raises some questions about it's contribution to income inequality. 
+
+One of the most common criticisms of high-frequency trading is that it's only wealthy venture capitalists and massive conglomerate investment banks which can afford to build the infrastructure required to make high-frequency trading profitable. The reason for this is that this practice makes use of tiny profit margins which are often fractions of a cent per share, and thus they require immense scaling efforts to be useful. This results in a very small number of extremely influential companies in this business executing a large percentage of trades. These are companies like \inlinecode{Spread Networks} \cite{o'brien_2014}, which in 2010 invested \$300 million to build an arrow-straight fiber optical tunnel from New York to Chicago in order to conduct arbitrage on the 3-millisecond temporal advantage over conventional networks provided by the lightning fast cables. Similarly, a single high-frequency firm called \inlinecode{Hudson River Trading} is reportedly responsible for a whopping 5\% of all US stock trading \cite{o'brien_2014}. Clearly, the lion's-share of the high-frequency world is owned by a small minority. The net result of this is that only very wealthy individuals and corporations can afford to make use of this powerful and profitable mechanism, and the rest of the public is left out of the fun. The ethics, then, of participating in or facilitating such a practice are questionable, given the correlation between income and quality of life. 
+
+Still, the technological cycle is such that as new ideas come out, they quickly spread to the masses until they no longer provide a market advantage, and the proportion of all trades carried out by high-frequency firms has in fact dropped in recent years \cite{worstall_2017}. It's entirely possible the market is already in the process of resolving the competitive advantage given by this type of trading already, but it's also possible we're met with similar ethical questions with the next hot technological advancement to hit Wall Street. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliography{CSE2501HFT}{}
+\bibliographystyle{simple}
+
+\end{document}
+
+
+
+

@@ -1,0 +1,89 @@
+\begin{theindex}
+
+  \item $n$-th cyclotomic extension of $F$, \hyperpage{139}
+
+  \indexspace
+
+  \item abelian
+    \subitem extension, \hyperpage{146}, \hyperpage{166}
+  \item algebraic
+    \subitem extension, \hyperpage{119}
+
+  \indexspace
+
+  \item conjugate, \hyperpage{135}
+    \subitem of an extension, \hyperpage{143}
+
+  \indexspace
+
+  \item degree
+    \subitem of an extension, \hyperpage{112}
+  \item direct composite, \hyperpage{166}
+  \item discriminant, \hyperpage{171}
+
+  \indexspace
+
+  \item elementary symmetric polynomials, \hyperpage{167}
+  \item embeddings, \hyperpage{143}
+  \item extension
+    \subitem finite, \hyperpage{112}
+    \subitem infinite, \hyperpage{112}
+    \subitem perfect, \hyperpage{136}
+
+  \indexspace
+
+  \item Frobenius automorphism, \hyperpage{137}
+  \item Frobenius endomorphism, \hyperpage{137}
+
+  \indexspace
+
+  \item Galois
+    \subitem closure, \hyperpage{145}
+    \subitem extension, \hyperpage{145}
+    \subitem group, \hyperpage{108}
+    \subitem group of $f$ over $F$, \hyperpage{146}
+    \subitem theorem, \hyperpage{147}
+  \item group of units, \hyperpage{7}
+
+  \indexspace
+
+  \item Lagrange resolvent, \hyperpage{169}
+
+  \indexspace
+
+  \item Methods of finding $m_{\alpha,F}$, \hyperpage{122}
+  \item minimal polynomial of $\alpha$, \hyperpage{113}
+
+  \indexspace
+
+  \item normal
+    \subitem closure, \hyperpage{135}
+    \subitem extension, \hyperpage{134}
+
+  \indexspace
+
+  \item polyradical
+    \subitem extension, \hyperpage{170}
+  \item primitive roots of unity, \hyperpage{140}
+
+  \indexspace
+
+  \item root of unity, \hyperpage{139}
+
+  \indexspace
+
+  \item separable
+    \subitem element, \hyperpage{136}, \hyperpage{145}
+    \subitem extension, \hyperpage{136}
+    \subitem polynomial, \hyperpage{136}
+  \item splitting field, \hyperpage{133}
+  \item symmetric
+    \subitem polynomial, \hyperpage{167}
+
+  \indexspace
+
+  \item theorem
+    \subitem on the primitive element, \hyperpage{164}
+  \item transitive, \hyperpage{172}
+
+\end{theindex}

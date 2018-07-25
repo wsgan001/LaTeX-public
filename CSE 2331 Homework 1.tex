@@ -1,0 +1,188 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Homework 7}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\title{CSE 2331 Homework 1}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*.]
+
+\item Write the asymptotic time complexity of the given functions. 
+
+\begin{enumerate}
+
+\item $\Theta (6^n)$. 
+
+\item $\Theta (n^{0.3})$. 
+
+\item $\Theta (log_4(n))$. 
+
+\item $\Theta (n^{1.1})$. 
+
+\item $\Theta (7^{2n})$. 
+
+\item $\Theta (n^{0.5})$. 
+
+\item $\Theta (n)$. 
+
+\item $\Theta (n)$. 
+
+\item $\Theta (n^{0.5})$. 
+
+\item $\Theta (n^{0.5}log_2(n))$. 
+
+\item $\Theta (n^{0.6})$. 
+
+\item $\Theta (n^6)$. 
+
+\item $\Theta (1)$. 
+
+\item $\Theta (n^{1.5})$. 
+
+\item $\Theta (n)$. 
+
+\item $\Theta ((log_5(n))^3)$. 
+
+\item $\Theta (log_3(n))$. 
+
+\item $\Theta (5^n)$. 
+
+\item $\Theta (((log_2(n))^2)$. 
+
+\item $\Theta (nlog_7(n))$. 
+
+\item $\Theta (n^2)$. 
+
+\item $\Theta (8^n)$. 
+
+\item $\Theta (log_5(n))$. 
+
+\item $\Theta (5^{2n})$. 
+
+\item $\Theta (log_5(n))$. \\
+
+\end{enumerate}
+
+\item Let $f(n) = n^2(log_2(n))^2$. Then $f(n) \in O(n^3/log_2(n))$, since $n^2(log_2(n))^2 = \frac{n^3 (log_2(n))^2}{nlog_2(n)}$. So we have
+\begin{equation}
+\begin{aligned}
+f(n) = \frac{n^3}{log_2(n)} \cdot \frac{(log_2(n))^2}{n},
+\end{aligned}
+\end{equation}
+and since $(log_2(n))^2 \in O(n)$, we know $\frac{(log_2(n))^2}{n} \in O(1)$. Thus $f(n) = \frac{n^3}{log_2(n)} O(1) \in O( \frac{n^3}{log_2(n)})$. Also, we  have $f(n) \in \Omega(n^2log_2(n))$, since $log_2(n) \in \Omega(1)$. Now $f(n) \notin \Theta(\frac{n^3}{log_2(n)})$, since $\frac{(log_2(n))^2}{n} \notin \Theta(1)$, and $f(n) \notin \Theta(n^2 log_2(n))$ since $\log_2(n) \notin \Theta(1)$. Hence $f(n)$ is a function with the desired properties. \\
+
+\item Let $f(n) = n^{0.55}$. \\
+
+\item \textit{Prove that $3\sqrt{2n^5 - 2n^3 + 23} \in \Theta(n^{2.5})$ using the definition of $\Theta(n^{2.5})$ as functions $f(n)$ such that $c_1n^{2.5} \leq f(n) \leq c_2n^{2.5}$ for constants $c_1,c_2 > 0$ for all large $n$. }
+
+\begin{proof}
+Note 
+\begin{equation}
+\begin{aligned}
+3\sqrt{2n^5 - 2n^3 + 23} \leq 3\sqrt{2n^5 - 2n^5 + 23n^5} = 3\sqrt{23n^5} = 3\sqrt{23}n^{2.5}. 
+\end{aligned}
+\end{equation}
+And also
+\begin{equation}
+\begin{aligned}
+3\sqrt{2n^5 - 2n^3 + 23} \geq 3\sqrt{2n^5} = 3\sqrt{2}n^{2.5}. 
+\end{aligned}
+\end{equation}
+So we have 
+\begin{equation}
+\begin{aligned}
+3\sqrt{2}n^{2.5}\leq 3\sqrt{2n^5 - 2n^3 + 23} \leq 3\sqrt{23}n^{2.5},
+\end{aligned}
+\end{equation}
+where $3\sqrt{2} < 3\sqrt{23}$, so we must have that $3\sqrt{2n^5 - 2n^3 + 23} \in \Theta(n^{2.5})$. 
+\end{proof}
+
+\item  Observe: 
+\begin{equation}
+\begin{aligned}
+\lim_{n \to \infty} \frac{7 \sqrt{7n^2 + 8n}(\log_4(3n + 2))^3}{6n\log_5(6n^3 + n^2)\cdot \log_9(6n + 13)} &=\lim_{n \to \infty} \frac{7 \sqrt{7n^2 + 8n}(k_1\log_2(3n + 2))^3}{6nk_2\log_2(6n^3 + n^2)\cdot k_3\log_2(6n + 13)}\\
+&= \lim_{n \to \infty}\frac{7 \sqrt{7n^2}(k_1\log_2(3n))^3}{6nk_2\log_2(6n^3)\cdot k_3\log_2(6n)}\\
+&= \lim_{n \to \infty} \frac{7 \sqrt{7n^2}(k_1(\log_2(n) + k_4))^3}{6nk_2(\log_2(n^3) + k_5)\cdot k_3(\log_2(n) + k_6)}\\
+&= \lim_{n \to \infty} \frac{7 \sqrt{7}n(k_1(\log_2(n)))^3}{18nk_2k_3(\log_2(n))^2}\\
+&= \lim_{n \to \infty}\frac{7 \sqrt{7}nk_7(\log_2(n))^3}{18nk_2k_3(\log_2(n))^2}\\
+&= \lim_{n \to \infty}\frac{7 \sqrt{7}k_7\log_2(n)}{18k_2k_3}\\
+&=\lim_{n \to \infty} k_8\log_2(n) = \infty. 
+\end{aligned}
+\end{equation}
+Thus $f(n) \in \Omega(g(n))$. \\
+
+\item \textit{Prove that if $f(n) \in O(g(n))$, and $f(n) \in O(h(n))$, then $f(n) \in O(g(n) + h(n))$, where $f,g,h:\mathbb{N} \to \mathbb{R}^{\geq0}$.} 
+
+
+
+\begin{proof}
+Since $f(n) \in O(g(n))$ we know that $\exists k \in \mathbb{R}^+$,  and $N_k \in \mathbb{N}$ s.t. $f(n) \leq kg(n)$ $\forall n \in \mathbb{N}$ s.t. $n \geq N_k$. Similarly, since $f(n) \in O(h(n))$ we know that $\exists l \in \mathbb{R}^+$ and $N_l \in \mathbb{N}$ s.t. $f(n) \leq lh(n)$ $\forall n \in \mathbb{N}$ s.t. $n \geq N_l$.  So let $m = kl$, and let $N_m = \max{(N_k,N_l)}$. Then $m(g(n) + h(n)) \geq kg(n)$ and $m(g(n) + h(n)) \geq lh(n)$, and $N_m \geq N_k,N_l$, thus $f(n) \leq g(n) + h(n)$ $\forall n \in \mathbb{N}$ s.t. $n \geq N_m$. 
+\end{proof}
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

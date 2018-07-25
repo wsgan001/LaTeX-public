@@ -1,0 +1,275 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge Math 5522H Homework 10 \linebreak \\\\ \Large Professor Costin}
+
+\date{5 April 2017}
+\documentclass[10pt]{article}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsmath,amsthm,amssymb}
+
+
+\begin{document}
+\maketitle
+
+
+\paragraph{VIII.5.51} Let $f$ be a function that is analytic modulo isolated singularities in $\mathbb{C}$ and has no singularities on $\mathbb{R}$. Assume that $|zf(z)|$ tends to a (finite) limit as $|z| \rightarrow \infty$. Demonstrate that for $c>0$ 
+\[\int_{-\infty}^\infty f(x)e^{icx}dx = 2 \pi i \sum_{k = 1}^p Res[z_k,f(z)e^{icz}] ,\]
+where $z_1,z_2, ...,z_p$ are the non-removable singularities of $f$ in the half-plane $H = \{z:Imz > 0\}$. 
+\begin{proof}
+We know from the assumptions of the problem statement that $\exists r,M \in \mathbb{N}$ s.t. $|f(z)| \leq \frac{M}{|z|}$ whenever $|z| \geq r$. Otherwise, $\forall n \in \mathbb{N}$, $\exists$ a singularity $ z_n \in \mathbb{C} \setminus \mathbb{D}_n$. Then we know $\langle z_n \rangle \to \infty$ as $n \to \infty$, so we know $lim_{n \to \infty}|z_nf(z_n)|$ is not finite, which is a contradiction. Then we know all the singularities of $f$ lie in $\mathbb{D}(0,r)$. Now since the set of all isolated singularities is a discrete set and this disk is compact, we know that there are at most finitely many singularities in the upper-half plane, since the intersection of a discrete set and a compact set yields a set with at most finitely many points. Then we have:  
+\[\int_{-\infty}^\infty f(x)e^{icx}dx  = \lim_{a \to -\infty}\int_{a}^0 f(x)e^{icx}dx  + \lim_{b \to \infty}\int_{0}^b f(x)e^{icx}dx \]
+We wish to show that the right hand side of the above equality converges. We first treat the integral from $0 \to b$: 
+\[\int_{0}^b f(x)e^{icx}dx. \]
+Consider
+\[\int_\gamma f(z)e^{icz}dz\]\\
+
+Where $\gamma$ is the Jordan contour defined by the right triangle with vertices $0,b,b'$ where the line segment from 0 to $b'$ creates an angle $\alpha$ above $\mathbb{R}$. In particular, we choose $\alpha$ s.t. there are no poles of $f$ in the inside of $\gamma$. We may do this since we know there are a finite number of zeroes in $\mathbb{D}(0,r)$. Then we have: 
+\[\int_\gamma f(z)e^{icz}dz = \int_0^bf(x)e^{icx}dx + \int_b^{b'}f(z)e^{icz}dz + \int_{b'}^0 f(z)e^{icz}dz\]
+\[\Rightarrow  \int_0^bf(x)e^{icx}dx = \int_\gamma f(z)e^{icz}dz - \int_b^{b'}f(z)e^{icz}dz - \int_{b'}^0 f(z)e^{icz}dz\]
+Now, we can see that $\gamma$ is homologous to zero in a simply connected domain D containing the path, and we can choose this domain s.t. there are no poles of $f$ in it. Then $f$ is analytic in D and we see that by global Cauchy, $\int_\gamma f(z)dz = 0 \Rightarrow \int_\gamma f(z)e^{icz}dz = 0$. Then we have: 
+\[\int_0^bf(x)e^{icx}dx =  - \int_b^{b'}f(z)e^{icz}dz - \int_{b'}^0 f(z)e^{icz}dz. \]
+Now consider the integral from $b$ to $b'$, where the imaginary part of $b'$ is $btan\alpha$: 
+\[\left|\int_b^{b'}f(z)e^{icz}dz\right| \leq \int_b^{b'}|f(z)||e^{icz}||dz| \leq \int_b^{b'}\frac{M}{|z|}e^{Re[ic(x+iy)]}|dz|\]
+
+
+\[=\int_b^{b'}\frac{M}{|z|}e^{Re[icx-cy)]}|dz| =\int_b^{b'}\frac{M}{|z|}e^{-cy}|dz| = \int_0^{btan\alpha} \frac{M}{\sqrt{b^2+t^2}}e^{-ct}dt\]
+
+
+\[\leq \frac{M}{b}\int_0^{btan\alpha} e^{-ct}dt = \frac{-M}{cb} e^{-ct} \Big|_0^{btan\alpha} = \frac{-M}{cb} [e^{-cbtan\alpha} - e^0] = \frac{-M}{cb} [e^{-cbtan\alpha} - 1] \]
+
+
+
+
+
+
+\[\leq \frac{M}{b}\int_0^{btan\alpha} e^{-ct}dt = \frac{-M}{cb} e^{-ct} \Big|_0^{btan\alpha} = \frac{-M}{cb} [e^{-cbtan\alpha} - e^0] = \frac{-M}{cb} [e^{-cbtan\alpha} - 1] \]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Now we pass to the limit as $b \to \infty$: 
+\[\lim_{b \to \infty}\frac{-M}{cb} [e^{-cbtan\alpha} - 1] =  \frac{-M}{\infty} [e^{-\infty} - 1] = \frac{-M}{\infty}( - 1) = \frac{M}{\infty} = 0.  \]
+So we have shown that $\int_b^{b'}f(z)e^{icz}dz$ goes to zero. Now consider the other part of the sum in absolute value: 
+\[\left|\int_0^{btan\alpha} f(z)e^{icz}dz\right| \leq \int_0^{btan\alpha} f(z)e^{icz}dz \leq \int_0^{btan\alpha}|f(z)||e^{icz}||dz| \]
+
+\[\leq \int_0^{btan\alpha}\frac{M}{|z|}e^{Re[ic(x+iy)]}|dz|=\int_0^{btan\alpha}\frac{M}{|z|}e^{Re[icx-cy)]}|dz| =\int_0^{btan\alpha}\frac{M}{|z|}e^{-cy}|dz|\]
+Here we parametrize s.t. $z = \gamma(t) = t + ittan\alpha \Rightarrow \dot{\gamma}(t) = 1 + itan\alpha$, where $t$ ranges from $0$ to $b$. 
+
+\[\int_0^r|f(z)|e^{-cttan\alpha}|\dot{\gamma}(t)|dt + \int_r^b \frac{M}{|t + ittan\alpha|}e^{-cttan\alpha}|\dot{\gamma}(t)|dt \]
+Note the integral from $1 \to r$ is a definite, finite integral of a continuous, real function, so we know it evaluates to a constant, which we call $K$. Then we have: 
+
+\[\left|\int_0^{btan\alpha} f(z)e^{icz}dz\right| \leq K + \int_r^b \frac{M}{\sqrt{t^2 + t^2tan^2\alpha}}e^{-(ctan\alpha)t}|1 + itan\alpha|dt\]
+
+\[\leq K + \int_r^b \frac{2M}{t\sqrt{1 + tan^2\alpha}}e^{-(ctan\alpha)t}dt \leq K + \int_r^b \frac{2M}{t}e^{-(ctan\alpha)t}dt \]
+
+\[= K + 2Me^{ctan\alpha}\int_r^b \frac{e^{-t}}{t}dt \leq K + 2Me^{ctan\alpha}\int_r^b \frac{e^{-t}}{t}dt \leq K + \frac{2Me^{ctan\alpha}}{r}\int_r^b e^{-t}dt\] 
+
+\[=K + \frac{-2Me^{ctan\alpha}}{r}\left[ e^{-t}\Big|_r^b\right] = K + \frac{2Me^{ctan\alpha}}{r}\left[ e^{-b} - e^{-r}\right]. \]
+Then we pass $b \to \infty$ and see that: 
+\[\lim_{b \to \infty} K + \frac{2Me^{ctan\alpha}}{r}\left[ e^{-b} - e^{-r}\right] = K + \frac{2Me^{ctan\alpha}}{r}\left[ e^{-\infty} - e^{-r}\right] \]
+
+\[= K + \frac{2Me^{ctan\alpha}}{r}\left[ 0 - e^{-r}\right] = K + \frac{-2Me^{(ctan\alpha) - r}}{r}. \]
+Which is a constant, so we know that since the integral of the absolute value to $\infty$ is finite, we know the improper integral to $\infty$ converges. Then we have that the limit: $\lim_{b \to \infty}\int_0^bf(x)e^{icx}dx$  exists, since 
+\[\int_0^bf(x)e^{icx}dx =  - \int_b^{b'}f(z)e^{icz}dz - \int_{b'}^0 f(z)e^{icz}dz, \]
+and we have shown that both of the limits on the right exist (indeed, the one from $b$ to $b'$ is zero in the limit). By a similar construction, we know that $\lim_{a \to -\infty}\int_{a}^0 f(x)e^{icx}dx$ exists, and then we see that $\int_{-\infty}^\infty f(x)e^{icx}dx$ converges since we know: 
+\[\int_{-\infty}^\infty f(x)e^{icx}dx  = \lim_{a \to -\infty}\int_{a}^0 f(x)e^{icx}dx  + \lim_{b \to \infty}\int_{0}^b f(x)e^{icx}dx. \]
+
+
+
+
+
+And since we also know $f$ is free of poles on $\mathbb{R}$, we consider the integral of $f$ along the boundary of the rectangle $R$ with vertices $a,b,b+i(b-a),a+i(b-a)$ for $a < -r$ and $b > r$ (we take the boundary to be positively oriented). Then $\partial R$ is a Jordan contour, and by Corollary VIII.3.2, we have
+\[\int_{\partial R} f(z)e^{icz}dz = 2 \pi i \sum_{k = 1}^p Res[z_k,f(z)e^{icz}]\]
+where $z_1,z_2, ...,z_p$ are the poles defined in the problem statement.
+
+
+
+
+
+Then we may express the left-hand side of the above equality as 
+\[\int_{\partial R} f(z)e^{icz}dz = \int_{b}^{b+i(b-a)} f(z)e^{icz}dz + \int_{b+i(b-a)}^{a+i(b-a)} f(z)e^{icz}dz \]
+\[+ \int_{a+i(b-a)}^{a} f(z)e^{icz} dz+  \int_{a}^{b} f(z)e^{icz}dz\]
+
+
+We consider: 
+\[\left|\int_{b}^{b+i(b-a)} f(z)e^{icz}dz\right| \leq \int_{b}^{b+i(b-a)} |f(z)||e^{icz}||dz| \leq \int_{b}^{b+i(b-a)}\frac{M}{|z|} e^{-cImz}|dz|\]
+Then we parametrize the straight-line path from $b$ to $b+i(b-a)$ by $z = \gamma(t) = b + it$ from $t = 0$ to $t = b-a$. Then we have: 
+\[\left|\int_{b}^{b+i(b-a)} f(z)e^{icz}dz\right| \leq \int_{0}^{(b-a)}\frac{M}{\sqrt{b^2 + t^2}} e^{-ct}dt \leq \frac{M}{b} \int_{0}^{(b-a)} e^{-ct}dt\]
+
+\[=\frac{-M}{cb} \left[e^{-ct}\Big|_0^{(b-a)}\right] = \frac{-M}{cb}[e^{-(b-a)} - 1]\]
+Now we take the limit as $b \to \infty$ and as $a \to -\infty$ which yields: 
+\[ \frac{-M}{cb}[e^{-\infty} - 1] = \frac{-M}{c\infty}[e^{-\infty} - 1] = 0(0-1) = 0.\]
+By the same mechanics, we know that integral along the other vertical side, given by $\int_{a+i(b-a)}^{a} f(z)e^{icz} dz$ also goes to zero as $a \to -\infty$ and $b \to \infty$. 
+
+
+Now we consider the only remaining side of the rectangle, the top, and we know: 
+\[\left| \int_{b+i(b-a)}^{a+i(b-a)} f(z)e^{icz}dz \right| \leq \int_{a+i(b-a)}^{b+i(b-a)} |f(z)|e^{Re(icz)}|dz| \leq \int_{a+i(b-a)}^{b+i(b-a)} \frac{M}{|z|}e^{-cImz}|dz|\]
+Now recall that $Imz = b-a$ is constant along this path. So:
+\[\left| \int_{b+i(b-a)}^{a+i(b-a)} f(z)e^{icz}dz \right| \leq \int_{a}^{b} \frac{M}{\sqrt{t^2 + (b-a)^2}}e^{-c(b-a)}dt \leq \frac{M}{b-a}\int_{a}^{b} e^{-c(b-a)}dt\]
+
+\[ =\frac{Me^{-c(b-a)}}{b-a}[b-a]= Me^{-c(b-a)}\]
+
+Now, we take the limit as $b \to \infty$ and $a \to -\infty$, yielding $0$ as $c >0$. Then we have that: 
+$\int_{\partial R} f(z)e^{icz}dz = \int_{-\infty}^{\infty} f(z)e^{icz}dz$
+in the limit. Now since we know that the limit of the integral in absolute value goes to zero, we know that the limit to infinity of the integral must go to zero. Then since: 
+\[\sum_{k = 1}^p Res[z_k,f(z)e^{icz}]\]
+does not depend on $a$ or $b$, we know:
+\[ \int_{-\infty}^{\infty} f(z)e^{icz}dz = \sum_{k = 1}^p Res[z_k,f(z)e^{icz}]\]
+
+\end{proof}
+
+
+\paragraph{Exercise VIII.5.53}
+Compute the following integrals. We define $H = \{z:Imz > 0\}$. 
+\begin{enumerate}
+\item $\int_{-\infty}^\infty \frac{x}{x^2 + 1}sin(\pi x)dx$. \\\\
+We define $f(z) = \frac{x}{x^2 + 1}$. We know that $f$ has a simple pole at $z = i \in H$, and this is in fact the only pole of $f$ in $H$. We apply the result of the Exercise VIII.5.51 since $|zf(z)| = \frac{z^2}{z^2 +1} \rightarrow 1$ as $|z| \to \infty$: 
+\[Im\left[\int_{-\infty}^\infty \frac{x}{x^2 + 1}e^{i\pi x}dx\right] = \int_{-\infty}^\infty \frac{x}{x^2 + 1}sin(\pi x)dx\] 
+
+\[ =Im\left[ 2\pi i Res[i,\frac{z}{z^2 + 1}e^{i\pi z}]\right]. \]
+Applying the general formula for the Residue at a point with the multiplicity $m = 1$, we have: 
+\[Res[i,f(z)e^{i\pi z}] = \lim_{z \to i}[(z-i)\frac{z}{z^2 + 1}e^{i\pi z}] = \lim_{z \to i}[\frac{z(z-i)}{z^2 + 1}e^{i\pi z}]]\]
+
+\[= \lim_{z \to i}[\frac{z}{z + i}e^{i\pi z}] = \frac{1}{2}e^{-\pi}\]
+
+\[\Rightarrow Im[2\pi i Res[i,f(z)e^{i\pi z}]] = \pi e^{-\pi}. \]
+
+
+\item $\int_{0}^\infty \frac{x^3}{(x^2 + \pi^2)^2}sin(x)dx$. \\\\
+Now since $\frac{x^3}{(x^2 + \pi^2)^2}sin(x)$ is even, we know that: 
+\[\int_{0}^\infty \frac{x^3}{(x^2 + \pi^2)^2}sin(x)dx = \frac{1}{2 }\int_{-\infty}^\infty \frac{x^3}{(x^2 + \pi^2)^2}sin(x)dx\]. 
+Now observe define $f(z) = \frac{z^3}{(z^2 + \pi^2)^2}$. Then we have that $|zf(z)| = \left|\frac{z^4}{(z^2 + \pi^2)^2}\right| = \left|\frac{z^4}{z^4 + O(z^3)}\right| \rightarrow 1$ as $|z| \to \infty$. \\\\
+Now we see that the only poles of $f$ in $H$ are $z = \pi i$ which is a pole of order 2. Then we know by Exercise VIII.5.51 that: 
+\[Im[\int_{-\infty}^\infty \frac{x^3}{(x^2 + \pi^2)^2}e^{ix}dx] = \int_{-\infty}^\infty \frac{x^3}{(x^2 + \pi^2)^2}sin(x)dx \]
+
+
+\[=Im\left[ 2\pi i Res[i,\frac{x^3}{(x^2 + \pi^2)^2}e^{iz}]\right].\]
+And applying the formula for Residue at a point, we have: 
+\[Res[i,f(z)e^{iz}] = \lim_{z \to \pi i}\frac{d}{dz}[(z-i\pi)\frac{z^3}{(z^2 + \pi^2)^2}e^{iz}] = \lim_{z \to \pi i}\frac{d}{dz}[\frac{z^3}{(z+ \pi i)^2}e^{ z}]\]
+
+\[= \lim_{z \to \pi i} \frac{z^2 e^{iz}[(3 + iz)(z+\pi i) - 2z]}{(z + \pi i)^3} = \frac{-\pi^2 e^{-\pi}[(3 - \pi)(2\pi i) - 2\pi i]}{(2\pi i)^3}\]
+
+
+\[=\frac{e^{-\pi}(2\pi i)[(3 - \pi) - 1]}{i8\pi } = \frac{e^{-\pi}(2 - \pi)}{4 }\]
+Which means: 
+\[\int_{0}^\infty \frac{x^3}{(x^2 + \pi^2)^2}sin(x)dx = \frac{1}{2} * 2\pi  \frac{e^{-\pi}(2 - \pi)}{4 } = \frac{\pi e^{-\pi}(2 - \pi)}{4 }.  \]
+
+\item $\int_{-\infty}^\infty \frac{x^3}{(x^2 + 1)(x^2 + 4)}sin(2\pi x)dx$. \\\\
+We define $f(z) = \frac{z^3}{(z^2 + 1)(z^2 + 4)}$. Then we know that $|zf(z)| \to 1$ as $|z| \to \infty$ since we have polynomials with the same degree and leading coefficients in the numerator and denominator. Also we know that in $H$, $f$ has a pole of order 1 at $z = i$ and a pole of order 1 at $z = 2i$. Then we know by the result of Exercise VIII.5.51: 
+\[Im[\int_{-\infty}^\infty \frac{x^3}{(x^2 + 1)(x^2 + 4)}e^{i 2\pi x}dx] = \int_{-\infty}^\infty \frac{x^3}{(x^2 + 1)(x^2 + 4)}sin(2\pi x)dx \]
+
+\[=Im\left[2\pi i \left[ Res[i,f(z)e^{2\pi i z}] + Res[2i,f(z)e^{2\pi i z}]\right] \right]. \]
+
+And: 
+\[ Res[i,f(z)e^{2\pi i z}] = \lim_{z \to i}[(z - i)\frac{z^3}{(z^2 + 1)(z^2 + 4)}e^{2\pi i z}] \]
+
+\[= \lim_{z \to i}[e^{2\pi i z}\frac{z^3}{(z + i)(z^2 + 4)}] = \frac{- e^{-2 \pi}}{6}\]
+
+And: 
+\[ Res[2i,f(z)e^{2\pi i z}] = \lim_{z \to 2i}[(z - 2i)\frac{z^3}{(z^2 + 1)(z^2 + 4)}e^{2\pi i z}] \]
+
+
+
+\[= \lim_{z \to 2i}[e^{2\pi i z}\frac{z^3}{(z^2 + 1)(z + 2i)}]\]
+
+\[=e^{-4 \pi}\frac{(2i)^3}{((2i)^2 + 1)(4i)} = e^{-4 \pi}\frac{-8i}{-12i} = \frac{2e^{-4 \pi}}{3}\]
+
+Then we know: 
+\[\int_{-\infty}^\infty \frac{x^3}{(x^2 + 1)(x^2 + 4)}sin(2\pi x)dx = 2\pi [\frac{- e^{-2 \pi}}{6} + \frac{2e^{-4 \pi}}{3}]\]
+
+
+\item $\int_{0}^\infty \frac{1}{x^2 - i}cos(x)dx$. \\\\
+
+Define $f(z) = \frac{1}{z^2 - i}$. 
+Recall that since $\frac{1}{x^2 - i}cos(x)$ is even, we know that: 
+\[\int_{0}^\infty \frac{1}{x^2 - i}cos(x)dx = \frac{1}{2}\int_{-\infty}^\infty \frac{1}{x^2 - i}cos(x)dx\]. 
+
+Also: 
+\[\int_{-\infty}^\infty \frac{1}{x^2 - i}e^{ix}dx = \int_{-\infty}^\infty \frac{1}{x^2 - i}(cosx + isinx)dx = \int_{-\infty}^\infty \frac{1}{x^2 - i}(cosx)dx\]
+since $\frac{1}{x^2 - i}(cosx)dx$ is an odd function. Also we know that $|zf(z)| \rightarrow 0$ as $|z| \to \infty$ since the degree of the denominator is higher than the degree of the numerator. Also we know that $f$ has a single pole in $H$ at $z = e^{\frac{i \pi}{4}}$. We know by the result of Exercise VIII.5.51 that: 
+\[\int_{-\infty}^\infty \frac{1}{x^2 - i}e^{ix}dx = 2\pi i\left[Res[e^{\frac{i \pi}{4}},f(z)e^{ix}]\right]\]
+
+And: 
+\[Res[e^{\frac{i \pi}{4}},f(z)e^{iz}] = lim_{z \to e^{\frac{i \pi}{4}}}\left[(z-e^{\frac{i \pi}{4}})\frac{1}{z^2 - i}e^{iz}\right] = lim_{z \to e^{\frac{i \pi}{4}}}\left[\frac{e^{iz}}{(z+e^{\frac{i \pi}{4}})}\right]\]
+
+\[= \frac{e^{ie^{\frac{i \pi}{4}}}}{(2e^{\frac{i \pi}{4}})} = \frac{e^{ie^{\frac{i \pi}{4}} - \frac{i\pi}{4}}}{2} = \frac{e^{[i\frac{\sqrt{2}}{2} -\frac{\sqrt{2}}{2}] - \frac{i\pi}{4}}}{2} = \frac{e^{[\frac{i(2\sqrt{2} - \pi)}{4} -\frac{\sqrt{2}}{2}]}}{2} \]
+
+\[\Rightarrow \int_{0}^\infty \frac{1}{x^2 - i}cos(x)dx = \pi i\frac{e^{[\frac{i(2\sqrt{2} - \pi)}{4} -\frac{\sqrt{2}}{2}]}}{2} . \]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

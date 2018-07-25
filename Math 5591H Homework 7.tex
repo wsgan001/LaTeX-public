@@ -1,0 +1,324 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%-------------PREAMBLE----------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+
+
+
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+\title{Math 5591H Homework 7}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{12.1 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{1}
+\item \textit{$B = \Set{x_1,...,x_n}$ be a maximal linearly independent set in $M$ if and only if $RB$ is free and $M/RB$ is torsion module. }
+
+\begin{proof}
+\begin{enumerate}
+\item 
+\textit{$\Set{x_1,...,x_n}$ is linearly independent if and only if $R\Set{x_1,...,x_n}$ is a free module with basis $\Set{x_1,...,x_n}$. }
+\begin{proof}
+Professor Leibman completed this proof in class. 
+\end{proof}
+\item Let $\Set{x_1,...,x_n}$ be a maximal linearly independent set. Let $y  \in M$. Then $\exists a_1,...,a_n,b$ s.t. $a_1x_1 + \cdots + a_nx_n + by = 0$ and not all of $a_1,...,a_n,b$ are zero. If $b = 0$, then $a_1x_1 + \cdots + a_nx_n = 0$, this is impossible, since $x_1,...,x_n$ are linearly independent. So $b \neq 0$, and $by=  0 \mod R\Set{x_1,...,x_n}$. So $b\bar{y} = 0 \in M/R\Set{x_1,....,x_n}$. So $\forall \bar{y} \in M/R\Set{...}$, $\exists b \neq 0$ s.t. $b\bar{y} = 0$. 
+
+Now we prove in the other direction. Assume that $M/R\Set{x_1,...,x_n}$ is a torsion module. Take $\forall y \in M$. Find $b \neq 0$ s.t. $b \bar{y} = 0$, that is, $by \in R\Set{x_1,...,x_n}$. So $by = a_1x_1 + \cdots + a_nx_n$ for some $a_i$, so $y,x_1,...,x_n$ are linearly dependent, so $\Set{x_1,...,x_n}$ is a maximal linearly independent set. We know this since we proved we could not add any other linearly independent element without making the whole set dependent. So it's maximal. 
+\end{enumerate}
+\end{proof}
+
+\setcounter{enumi}{3}
+\item \textit{Let $R$ be an integral domain, let $M$ be an $R$-module and let $N$ be a submodule of $M$. Suppose $M$ has rank $n$, $N$ has rank $r$ and the quotient $M/N$ has rank $s$. Prove that $n = r +s$. }
+Use:
+$$
+0 \to N \to M \to M/N \to 0.
+$$
+Multiply tensor by field of fractions. Use $rank(M) = rank(N) + rank(M/N)$. 
+
+\begin{proof}
+Let $A = \Set{x_1,...,x_s}$, a set of elements in $M$ whose images are a maximal independent set in $M/N$. And let $B = \Set{x_{s + 1},...,x_{s + r}}$ be a maximal independent set in $N$. We prove $A$ is independent in $M$. Suppose it weren't. Then there is $l \neq 0$ in $R$ and $x_i \in A$ s.t. $lx_i = \sum_{j \neq i, \leq s} r_jx_j$. But then under the natural projection we would have a similar equality for $\bar{x_i}$ which would contradict the independence of $\bar{A}$. 
+
+We wish to show that $A \cup B$ is a maximal linearly independent set. We first show it is independent. Let $x_i \in A$. Suppose there exists a nonzero $l \in R$ s.t. $lx_i = r_{s + 1}x_{s + 1} + \cdots + r_{s + r}x_{s + r}$ for $r_i \in R$. Then under the natural projection $\pi:M \to M/N$, we have $\pi(lx_i) = l\pi(x_i) = 0 \in M/N$. But note $\pi(x_i)$ is in $\bar{A	}$ which is an independent set in $M/N$ so we must have $\pi(x_i) \neq 0$ and that $\nexists l \in R$ s.t. $l\pi(x_i) = 0$. This is a contradiction, so we must have that there exists no such $l$, so every element in $A$ is independent of $B$. Now let $x_j \in B$ and suppose there exists a nonzero $l \in R$ s.t. $lx_j = r_1x_1 + \cdots + r_sx_s$. Then $\pi$ maps this to $0 \in M/N$ since $lx_j \in N$, but then since $\bar{A}$ is independent in $M/N$, we must have $r_1 = \cdots = r_s = 0$. Then we have $lx_j = 0$ which is a contradiction since $B$ cannot contain any torsion elements or it would not be independent. Then we have proved $A\cup B$ is independent. 
+
+
+
+Now we show $A \cup B$ is maximal. Let $y \in M$. Then since $\bar{A}$ is a maximal linearly independent set in $M/N$, we know there exist $c,c_1,...,c_s$ not all zero such that:
+$$
+c\bar{y} + c_1\bar{x_1} + \cdots + c_s\bar{x_s} = 0,
+$$
+ which implies:
+ $$
+ cy + c_1x_1 + \cdots + c_sx_s = n \in N.
+ $$
+Now since $B$ is a maximal linearly independent set in $N$, we know that since $n \in N$, there exists $k,c_{s + 1},...,c_{s + r} \in R$ not all zero s.t. 
+$$
+kn = k(cy + c_1x_1 + \cdots + c_sx_s) = c_{s + 1}x_{s + 1} + \cdots + c_{s + r}x_{s + r}.
+$$
+But if $k = 0$, then we must have $c_{s + 1},..,c_{s + r} = 0$ since $B$ is independent. So we must have $k \neq 0$, thus we can write:
+$$
+kcy = \sum_{i = 1}^s-kc_ix_i + \sum_{i = s + 1}^{s + r}c_ix_i.
+$$
+And since we know $c,c_1,...,c_s$ are not all zero, we have found a nonzero $kc \in R$ (since we are in an ID) s.t. $kcy$ is a linear combination of $x_1,...,x_{s + r}$. So we have shown that $A \cup B$ is a maximal independent set in $M$, since for any $y \in M$ there is $kc$ s.t. $kcy$ is a combination of elements in $A \cup B$. 
+
+Now we wish to show that $rank(M) = n = r + s$. So we use part (b) of Exercise 2 above. Note that $R^{r + s}$ is a submodule of $M$, since $x_1,...,x_{s + r}$ = $A \cup B$ is a maximal linearly independent set in $M$, and $R(A \cup B) = R^{r + s}$, and we have closure by ring action since $M$ is an $R$-module. 
+
+\begin{lem}
+If $\Set{u_1,...,u_n}$ is a maximal linearly independent set, it doesn't have to generate $M$, but $M/R\Set{u_1,...,u_n}$ is a torsion module, because otherwise we could add one more element to this set and it would still be linearly independent. 
+\end{lem}
+
+\begin{proof}
+Suppose $M/R\Set{u_1,...,u_n}$ is not torsion. Then $\exists u' \in M/R\Set{u_1,...,u_n}$ s.t. $ru' \neq 0 \in M/R\Set{u_1,...,u_n}$ (i.e. $ru' \notin R\Set{u_1,...,u_n}$) for all $r \in R$. But this is exactly the definition of linear independence, so then $\Set{u_1,...,u_n,u'}$ is independent, which is a contradiction since we said $\Set{u_1,...,u_n}$ was maximal. 
+\end{proof}
+
+So by the above Lemma, we know $M/R^{r + s}$ is torsion. Then by Exercise 2 part (b), we know $rank(M) = n = r+ s$. 
+\end{proof}
+
+\item \textit{Consider $\z[x] \sim F[x,y]$. Note $(2,x)$ is not principal. }
+Note $M$ has rank 1, is torsion free, but not free. It has rank 1 because if you take one of these elements, something linearly dependent maybe, idk. Consider $M/(2)$ then $x$ is a torsion element here since $2x = 0$. So it's a torsion module or something. And actually, it's true for any module over PID. 
+
+
+
+\setcounter{enumi}{8}
+\item \textit{Give an example of an integral domain $R$ and a nonzero torsion $R$-module $M$ such that $Ann(M) = 0$. Prove that if $N$ is a finitely generated torsion $R$-module, then $Ann(N) \neq 0$. }
+
+Let $R = \z$, an integral domain. Define:
+$$
+M = \bigoplus_{i = 1}^\infty \z/2^i\z.
+$$
+Then $\forall a \in M$, $\exists k \in \z$ such that:
+$$
+a = (a_1 + \z/2\z,...,a_k + \z/2^k\z,0,...)
+$$
+for some $a_1,...,a_k \in \z$. Thus $2^ka = 0 \in M$, so $M$ is a torsion module. We claim that Ann$(M) = 0$. Suppose there exists a nonzero $r \in \z$ s.t. $r \in Ann(M)$. Then choose $k \in \z$ s.t. $r < 2^k$. Then define:
+$$
+a = (0,...,0,1 + \z/2^k\z,0,...)
+$$
+where the nonzero entry is in the $k$-th position. Then since $ra = 0$, we must have $r = 0$ since $r$ will not annihilate the nonzero entry of $a$ since $r < 2^k$. This is a contradiction since we said $r \neq 0$. So we must have Ann$(M) = 0$. 
+
+\begin{proof}
+Let $R$ be a integral domain. Let $N$ be finitely generated torsion $R$-module. Then $N \sub R\Set{x_1,...,x_n}$. And since it is torsion, there exist $\Set{r_1,...,r_n}$ s.t. $r_ix_i = 0$, where $r_i \neq 0$ $\forall i$. Then since we have no zero divisors, $lcm(r_1,...,r_n) \neq 0$, and this is in the annihilator by commutativity in $R$. 
+\end{proof}
+
+\setcounter{enumi}{10}
+
+\item \textit{Let $R$ be a PID, let $a$ be a nonzero element of $R$ and let $M = R/(a)$. For any prime $p$ of $R$, prove that:
+$$
+p^{k - 1}M/p^kM \cong \begin{cases}
+R/(p) & \text{ if } k \leq n\\
+0 & \text{ if } k > n
+\end{cases},
+$$
+where $n$ is the power of $p$ dividing $a$ in $R$. 
+}
+
+\begin{proof}
+We first treat the case where $p \nmid a$. Then since $p$ is a prime in $R$, we know $\gcd(a,p) = 1$. So then we have $(p) \cap (a) = 0$. let $\pi:R \to R/(a) = M$. Then observe:
+$$
+\pi((p)) = (p)/(a) \cong [(p) + (a)]/(a) \cong (p)/((p) \cap (a)) \cong (p)/(0) \cong (p).
+$$
+But note that $(p) + (a) = (1) = R$, so we have shown $(p) = pM \cong R/(a) = M$, so $p^{k - 1}M = p^kM = M$ for all $k$, and thus since $M/M \cong 0$, we have the desired result. 
+
+Now let $p\mid a$, and assume $k \leq n$. Then we have $a = p^np_1^{c_1}\cdots p_l^{c_l}$, for some distinct primes $p_i$. Using the result of Exercise 12.1.7 and the Chinese remainder theorem, we have:
+\bee
+\fracc{p^{k - 1}M}{p^kM} &= \fracc{p^{k - 1}R/(a)}{p^kR/(a)}\\
+&\cong \fracc{p^{k -1} R/(p^n)(p_1^{c_1})\cdots(p_l^{c_l})  }{p^{k} R/(p^n)(p_1^{c_1})\cdots(p_l^{c_l})  }\\
+&\cong \fracc{ R/(p^{n -k +1})(p_1^{c_1})\cdots(p_l^{c_l})  }{R/(p^{n - k})(p_1^{c_1})\cdots(p_l^{c_l})  }\\
+&\cong \fracc{ R/(p^{n -k +1})\oplus R/(p_1^{c_1})\oplus \cdots\oplus R/(p_l^{c_l})  }{R/(p^{n - k})\oplus R/(p_1^{c_1})\oplus \cdots\oplus R/(p_l^{c_l})  }\\
+&\cong (R/(p^{n -k +1}))/(R/(p^{n -k})) \oplus (R/(p_1^{c_1}))/(R/(p_1^{c_1}) )\\
+&\oplus \cdots\oplus (R/(p_l^{c_l}))/(R/(p_l^{c_l}))\\
+&\cong (R/(p^{n -k +1}))/(R/(p^{n -k}))\oplus 0 \oplus \cdots \oplus 0\\
+&\cong (R/(p^{n -k +1}))/(R/(p^{n -k}))\\
+&\cong R/(p).
+\eee
+Now suppose $k > n$. Then $a|p^{k - 1} \Rightarrow p^{k - 1}M \cong raR/(a) \cong 0$. 
+\end{proof}
+
+\item \textit{Let $R$ be a PID and let $p$ be a prime in $R$. }
+
+\begin{enumerate}
+\item \textit{Let $M$ be a finitely generated torsion $R$-module. Use the previous exercise to prove that $p^{k - 1}M/P^kM \cong F^{n_k}$ where $F$ is the field $R/(p)$ and $n_k$ is the number of elementary divisors of $M$ which are powers $p^{\alpha}$ with $\alpha \geq k$. }
+
+\begin{proof}
+Recall that a module over a PID is free if and only if it is torsion free, so since $M$ is not torsion free, it is not free, and by Theorem 6, we have:
+$$
+M \cong R^r \oplus R/(p_1^{\alpha_1}) \oplus \cdots \oplus R/(p_l^{\alpha_l}),
+$$
+where the primes are not necessarily distinct, and all the $\alpha$'s are positive. But then by Theorem 5, since $M$ is torsion, we know $r = 0$. So we have:
+$$
+M \cong  R/(p_1^{\alpha_1}) \oplus \cdots \oplus R/(p_l^{\alpha_l}).
+$$
+Define $a = p_1^{\alpha_1} \cdots p_l^{\alpha_l}$. Now we apply the result of the previous exercise to each of these summands. Let $s$ be the power of $p$ dividing $p_i^{\alpha_i}$. We set $M' = R/(p_i^{\alpha_i})$. So we know:
+$$
+p^{k - 1}M'/P^kM' \cong \begin{cases}
+R/(p) & \text{ if } k \leq s\\
+0 & \text{ if } k > s
+\end{cases},
+$$
+So we have that $k \leq s$ for exactly $n_k$ of the elementary divisors $p_i^{\alpha_i}$, and so each of these summands is isomorphic to $F$, and the rest are zero. So we have:
+$$
+M \cong  F \oplus \cdots \oplus F \cong F^{n_k}. 
+$$
+
+\end{proof}
+
+\item \textit{Suppose $M_1$ and $M_2$ are isomorphic finitely generated torsion $R$-modules. Use (a) to prove that, for every $k \geq 0$, $M_1$ and $M_2$ have the same number of elementary divisors $p^\alpha$ with $\alpha \geq k$. Prove that this implies $M_1$ and $M_2$ have the same set of elementary divisors. }
+
+\begin{proof}
+Applying part (a), we have:
+$$
+F^{n_{k_1}} \cong F^{n_{k_2}}.
+$$
+which tells us $n_{k_1} = n_{k_2}$ since they are isomorphic vector spaces of those dimensions. And we are done, since we iterate over the list of primes $p_i$ in the list of elementary divisors $\Set{p_i^{\alpha_i}}$, and also iterate over $k$ from zero to $\alpha_i$ for each $p_i$, and observe that we have exactly the same elementary divisors for $M_1$ and $M_2$ by induction. 
+\end{proof}
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

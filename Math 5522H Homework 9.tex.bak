@@ -1,0 +1,90 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge Math 5522H Homework 9 \linebreak \\\\ \Large Professor Costin}
+
+\date{31 March 2017}
+\documentclass[10pt]{article}
+\usepackage{graphicx}
+\usepackage{cancel}
+
+\usepackage{amsmath,amsthm,amssymb}
+
+\begin{document}
+\maketitle
+
+
+\paragraph{VIII.5.9}
+If a non-constant, entire function $f$ obeys the condition $|f(z)| = 1$ whenever $|z| = 1$. show that $f$ must be of the type $f(z) = cz^m$ where $m \in \mathbb{N}$ and $c$ is a constant with $|c| = 1$. 
+
+\begin{proof}
+We first show that $f(z)$ takes on the form given by Exercise VIII.5.8 in the entirety of $\mathbb{C}$ using analytic continuation. Then, we will show that $f$ in fact has the desired form $f(z) = cz^m$. Fix $f$ as above. Now we know $f$ is analytic in $\mathbb{D}(0,1)$ and continuous on $\overline{\mathbb{D}}(0,1)$ by virtue of being entire. We are also given that $|f(z)| = 1$ $\forall z \in \partial \mathbb{D}(0,1)$, and that f is non-constant. Then by the result of Exercise VIII.5.8 that $f$ has the form: 
+\[f(z) = c \prod_{k = 1}^r \left(\frac{z - a_k}{1 - \overline{a}_kz}\right)^{m_k}\]
+$\forall z \in \overline{\mathbb{D}}(0,1)$. 
+
+	 Then let $g(z):\mathbb{C} \setminus \{a_k\} \rightarrow \mathbb{C}$ be given by:
+\[g(z) = c \prod_{k = 1}^r \left(\frac{z - a_k}{1 - \overline{a}_kz}\right)^{m_k}\]
+$\forall z \in \mathbb{C} \setminus \{a_k\}$. 
+
+
+We see that $g$ is analytic in $\mathbb{C} \setminus \{a_k\}$ since it is a quotient of analytic functions. Then let the domain set of $g$ be our domain for analytic continuation. Since $f$ is entire, we know that $f$ and $g$ are analytic in $\mathbb{C} \setminus \{a_k\}$. Also, $f$ and $g$ agree on the unit disk, and the unit disk has a limit point in $\mathbb{C} \setminus \{a_k\}$ (any point on the boundary will do). Then by analytic continuation, we have that $f$ and $g$ agree on $\mathbb{C} \setminus \{a_k\}$. 
+
+
+From the proof of the stated exercise, we recall that $r$ is the number of distinct zeroes of the function in $\mathbb{D}(0,1)$, which is finite, but at least $1$. Since we wish to show $f(z) = cz^m$, we will prove that $f$ entire $\Rightarrow$ $r = 1$ in $\mathbb{D}(0,1)$, and $a_1 = 0$. Let $A = \{a_k\} \subset \mathbb{D}(0,1)$. Suppose for contradiction that $\exists a_{k_1} \in A$ s.t. $a_{k_1} \neq 0$. Then since $f$ entire, we know $f$ is analytic at $\overline{a}_{k_1}^{-1} \Rightarrow$: 
+\[f(\overline{a}_{k_1}^{-1}) = c \prod_{k = 1}^r \left(\frac{\overline{a}_{k_1}^{-1} - a_k}{1 - \overline{a}_k\cdot \overline{a}_{k_1}^{-1}}\right)^{m_k}\]
+since this formula now holds $\forall z \in \mathbb{C} \setminus \{a_k\}$. 
+But when $k = k_1$, the denominator of $f$ vanishes $\Rightarrow$ $f$ has a singularity at $\overline{a}_{k_1}^{-1} \Rightarrow$ $f$ is not entire. This is a contradiction which tells us our supposition that $\exists a_{k_1} \in A$ s.t. $a_{k_1} \neq 0$ must be false. Hence we must have $a_k = 0$ $\forall k \Rightarrow$ $f$ has the form: 
+\[f(z) = c \prod_{k = 1}^r z^{m_k}\]
+But recall that $|c| = 1$ and $r$ is the number of zeroes of $f$ in $\mathbb{D}(0,1)$. Then we must have $r= 1$ since $z^{m_k}$ has its only zero at $0$. Thus $f$ has the form: 
+\[f(z) = c z^{m}\]
+in $\mathbb{D}(0,1)$. 
+\end{proof}
+
+We prove the following exercise in order to make use of its result in Exercise VIII.5.11. 
+\paragraph{V.8.57} Suppose that a function $f$ is analytic and free of zeroes in a domain $D$. Under the assumption that a branch $g$ of the pth-root function of $f$ exists in $D$, prove that there are exactly $p$ distinct branches of the pth-root of $f$ in $D$, each having the form $cg$ for some pth-root of unity $c$.  
+\begin{proof}
+Let $c$ be a pth root of unity. Then we know by definition that $c^p = 1 \Rightarrow [cg(z)]^p = c^p [g(z)]^p = f(z)$ by definition of $g$. Thus we see that each element of $\{cg(z)\}$ defines a branch of the pth root of $f$. We show that these are the only possible branches. Let $h(z)$ be an arbitrary branch of the pth root of $f$ in $D$. Since $g$ and $h$ are both pth roots of $f$, we know they are both zero-free in $D$, since if not, we would have $z_0 \in D$ s.t. $g(z_0) = 0 \Rightarrow [g(z_0)]^p = 0^p = f(z_0)$, which is a contradiction since $f$ is free of zeroes (likewise for $h$). Then we define $q(z) = \frac{h(z)}{g(z)}$ in $D$ s.t. : 
+\[[q(z)]^p = \frac{[h(z)]^p}{[g(z)]^p} = \frac{f(z)}{f(z)} = 1 \]
+$\forall z \in D$. Since $h$ and $g$ are analytic and $g$ is free of zeroes in $D$, we know $q$ is analytic $\Rightarrow$
+\[p[q(z)]^{p-1}q'(z) = 0.\]
+Now since $h$ is also zero-free in $D$, we know $q$ must be zero-free in $D \Rightarrow q'(z) = 0$ $\forall z \in D$. Thus $q(z) = k$ a constant. Then since $[q(z)]^p = k^p = 1$, we have that $k$ is a pth root of unity. Hence $h(z) = kg(z) \Rightarrow h \in \{cg(z)\}$, which means that $cg$ describes the set of all possible pth root functions. Since there are $p$ pth roots of unity, the claim holds. 
+\end{proof}
+
+\paragraph{VIII.5.11} Suppose that a function $f$ is analytic in a domain $D$. Under the assumption that a branch $g$ of the pth-root function of $f$ exists in $D$, prove that there are exactly $p$ distinct branches of the pth-root of $f$ in $D$, each having the form $cg$ for some pth-root of unity $c$.  
+
+\begin{proof}
+Let $c$ be a pth root of unity. Then we know by definition that $c^p = 1 \Rightarrow [cg(z)]^p = c^p [g(z)]^p = f(z)$ by definition of $g$. Thus we see that each element of $\{cg(z)\}$ defines a branch of the pth root of $f$. We show that these are the only possible branches. Let $h(z)$ be an arbitrary branch of the pth root of $f$ in $D$. Now from the discrete mapping theorem, we know since $f$ is analytic, the set of zeroes of $f$ in $D$ consists entirely of isolated points. If this set is empty, the problem reduces to that of Exercise V.8.57, so we treat the case where $f$ has at least one zero in $D$. Let $A = \{z_1, ..., z_k\}$ be the set of zeroes of $f$. The by definition of a branch of the pth root of $f$, we have the equality: 
+\[[g(z)]^p = f(z) = [h(z)]^p\]
+$\forall z \in D$. Now let $z_j \in A \Rightarrow$ 
+\[f(z_j) = 0 = [g(z_j)]^p = [h(z_j)]^p. \]
+Thus we must have $g(z_j) = 0 = h(z_j)$ $\forall j \in \{1,...,k\}$. And by the same reasoning, we know $A$ is precisely the set of all zeroes for $g, h$. We define $q(z) = \frac{h(z)}{g(z)}$ in $D \setminus A$ s.t. : 
+\[[q(z)]^p = \frac{[h(z)]^p}{[g(z)]^p} = \frac{f(z)}{f(z)} = 1 \]
+$\forall z \in D \setminus A$. Then by the proof of Exercise V.8.57, we know that $h(z) = \alpha g(z)$ $\forall z \in D \setminus A$ for some pth root of unity $\alpha$. But at points in $A$, we know $g(z_j) = 0 = h(z_j) \Rightarrow h(z) = \alpha g(z)$ $\forall z \in D$ $\Rightarrow h(z) \in \{cg(z)\}$. Hence there are exactly $p$ distinct branches of the pth root of $f$ given by $\{cg(z)\}$. 
+\end{proof}
+
+\paragraph{VIII.5.12} Let $\sum_{n = 1}^\infty a_n(z- z_0)^n$ be a Taylor series with a finite radius of convergence $\rho > 0$, and let $f$ denote the function that is its sum in the disk $\mathbb{D}(z_0,\rho)$. Show that there must be at least one point $\zeta$ of the circle $K(z_0,\rho)$ about which the following is true: for no $r > 0$ can $f$ be extended to a function that is analytic in the set $\mathbb{D}(z_0,\rho) \cup \mathbb{D}(\zeta,r)$. 
+
+\begin{proof} 
+We assume $\nexists \zeta$ s.t. the given statement is true. Then $\exists g(z)$ analytic in $\mathbb{D}(z_0,\rho')$ for some $\rho' > \rho$ s.t. $f(z) = g(z)$ $\forall z \in \mathbb{D}(z_0,\rho')$. Then since $g$ is analytic in $\mathbb{D}(z_0,\rho')$, we know $g$ has a Taylor series expansion in $\mathbb{D}(z_0,\rho')$, and furthermore that this Taylor series is unique. But since $f$ coincides with $g$ in $\mathbb{D}(z_0,\rho')$, we must have that $\sum_{n = 1}^\infty a_n(z- z_0)^n$ is the Taylor series for $g$ $\Rightarrow$ this series converges absolutely and normally in $\mathbb{D}(z_0,\rho')$ since $g$ is analytic. Hence the radius of convergence of this series is $\rho'$. But this is a contradiction si
+
+If the assumption was false then rho would be larger becuase then the taylor serries would converge some distance greater than rho from z0. 
+\end{proof}
+
+
+
+Recall that we can extend the analyticity of $f$ to $\mathbb{D}(z_0,\rho) \cup \mathbb{D}(\zeta,r)$ $\Leftrightarrow$ $\exists g(z)$ analytic in $\mathbb{D}(z_0,\rho) \cup \mathbb{D}(\zeta,r)$ s.t. $f$ and $g$ coincide in $\mathbb{D}(z_0,\rho)$ and there is a limit point of $\mathbb{D}(z_0,\rho)$ in $\mathbb{D}(z_0,\rho) \cup \mathbb{D}(\zeta,r)$. 
+
+
+
+
+
+
+
+\end{document}
+
+

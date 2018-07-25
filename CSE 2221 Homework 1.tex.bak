@@ -1,0 +1,73 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge CSE 2221 Homework 1 \linebreak \\\\ \Large Professor Bucci}
+
+\date{January 12th, 2017}
+\documentclass[10pt]{article}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsmath}
+
+
+\begin{document}
+\maketitle
+
+
+\paragraph{1. }
+"Going over the line" with respect to acceptable collaboration v. academic misconduct would be: 
+\begin{itemize}
+ \item turning in an assignment from a previous offering of the course
+ \item writing up a solution when someone is providing explicit
+ \item writing up a solution when someone is providing explicit,specific advice for fixing your errors
+ \item accepting or downloading from any source any part of a solution to an assignment which could help in completing your assignment
+ \item giving to others or uploading to the internet any parts of a solution to your assignments
+  \item any of above transgressions with respect to all individuals or entities outside of your own team when working on an assignment permitting teamwork
+ \end{itemize} 
+ 
+\paragraph{2. }
+Your final exam grade constitutes 30\% of your course grade, and additionally, you must earn a passing grade on your final exam in order to pass the course. 
+
+\paragraph{3. }
+No, your homework grade will not be better if you look up and copy the answers because you will be caught for plagiarism and receive a zero on the assignment in addition to other, more serious repercussions. 
+\paragraph{4. }
+The two most important benefits of the Java language are that it is safe, and portable. 
+\paragraph{5. }
+An algorithm is a sequence of steps for solving a problem which is unambiguous, executable, and terminating. 
+\paragraph{6. }
+The two main categories of errors to be encountered when programming are compile-time(syntax) errors, and run-time(logic) errors. 
+\paragraph{7. }
+\subparagraph{a. }
+Compile-time error. 
+\subparagraph{b. }
+Compile-time error. 
+\subparagraph{c. }
+Run-time error. 
+\subparagraph{d. }
+Run-time error. 
+\subparagraph{e. }
+You cannot test a program for run-time errors when it has compile-time errors because by definition, run-time errors occur during the execution of the program, and the program cannot execute if it does not compile, which it won't if it has compile-time errors. 
+\paragraph{8. }
+The print statement \[System.out.println("39 + 3");\] prints the literal text string "39 + 3" since it is enclosed in quotes. The print statement \[System.out.println(39 + 3);\] computes the quantity \[39 + 3 = 40\] and prints "40" since the input is not enclosed in quotes and is interpreted mathematically. The print statement \[System.out.println("39" + 3);\] prints the literal text string "39" since it is enclosed in quotes, and then computes \[+ 3 = 3\] and also prints the solution of this expression, and thus prints "393". 
+\paragraph{Additional Question: }
+\subparagraph{}API - Application Program Interface. A set of routines, protocols, and tools for building software applications. 
+\subparagraph{}CPU - Central Processing Unit. The circuitry within a computer that executes the instructions of a computer program by performing the basic arithmetic and logic operations specified by the instructions. 
+\subparagraph{•}IBM - International Business Machines. An American multinational technology company out of New York which had a pivotal role in the infancy of the digital age. 
+\subparagraph{}IDE - Integrated Development Environment. A comprehensive software application designed for programming typically containing a source code editor, build automation tools, and a debugger. 
+\subparagraph{•}JDK - Java Development Kit. A software development kit aimed at Java developers which is an implementation of some version of the Java platform. 
+\subparagraph{•}JVM - Java Virtual Machine. An abstract computing device that enables computers to run a Java program. 
+\subparagraph{•}GUI - Graphical User Interface. A user interface which allows a user to interact with electronic devices through graphical icons and visual indicators. 
+
+
+
+
+
+\end{document}
+
+

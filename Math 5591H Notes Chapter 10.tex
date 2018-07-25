@@ -1,0 +1,3527 @@
+
+\documentclass[12pt]{amsbook}
+%-------------------------------------
+%-------------PREAMBLE----------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+\usepackage{import}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}[chapter]
+\numberwithin{section}{chapter}
+\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+\newcommand{\rank}{\text{rank}}
+
+
+
+
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+\begin{document}
+
+
+
+\chapter{Introduction to Module Theory}
+\section{Basic Definitions and Examples}
+
+\textbf{Monday, January 8th}
+\begin{Def}
+An \textbf{R-module} (left) is a set $M$ with: 
+\begin{enumerate}
+\item Abelian addition operation
+\item Action of $R$ on $M$ s.t. 
+\begin{enumerate}
+\item $(r + s)m = rm + sm$ 
+\item $(rs)m = r(sm)$
+\item $r(m + n) = rm + rn$ --- this says that $r$ acts as a self homomorphism of the ring. 
+\item $1m = m$
+\end{enumerate}
+So it's an abelian group with an $R$-action. 
+\end{enumerate}
+\end{Def}
+
+We should think of elements of $R$ as ``scalars", and elements of $M$ as ``vectors".
+
+\begin{lem}
+The set Hom($M,M) = \{homomorphisms \text{ } \phi:M \to M\}$ is a ring. 
+\end{lem} 
+
+\begin{proof}
+If you have two homs, you can add them, and the product is a composition. They are associative, under addition, they form a group. And we have the distributive law: 
+$$
+\phi(\xi + \psi) = \phi\xi \phi\psi.
+$$
+You should think of it as similar to the ring of matrices. 
+\end{proof}
+
+
+\begin{lem}
+If $M$ is an $R$-module, then we have a ring homomorphism $\Phi: R \to \text{Hom}(M,M)$. And then mapping is given by $\Phi: a \to \phi_a$ s.t. $\phi_a(u) = au$. 
+\end{lem} 
+
+Note that there may be elements of $R$ that act trivially, i.e. which send every element to zero. 
+
+\begin{Def}
+Module means left-module. 
+\end{Def}
+
+\begin{Def}
+Modules with $1m = m$ are \textbf{unital} modules. All modules dealt with are unital. 
+\end{Def}
+
+\begin{Def}
+An \textbf{R-submodule} is $N \leq M$ closed under the ring action ($rn \in N$). 
+\end{Def}
+
+\begin{Prop}[\textbf{The submodule criterion}]
+Let $R$ be a ring and let $M$ be an $R$-module. A subset $N$ of $M$ is a submodule of $M$ if and only if:
+\begin{enumerate}
+\item $N \neq \emptyset $,
+\item $x + ry \in N$ for all $r \in R$ and for all $x,y\in N$. 
+\end{enumerate}
+\end{Prop}
+
+\begin{lem}
+Every R-module $M$ has two submodules, $0$ and $M$. 
+\end{lem}
+
+\begin{lem}
+$R$ is a module over itself, and in this case, the submodules of $R$ are exactly the left ideals of $R$. 
+\end{lem}
+
+\begin{Def}
+The \textbf{free module} of rank $n$ over $R$ is 
+$$
+R^n = \{(a_1,...,a_n): a_i \in R\}.
+$$
+They are analogous to free groups. The set 
+$$
+\{(0,...,0,a_i,0,...,0)\}
+$$
+is the i-th component module and is a submodule of the free module. 
+\end{Def}
+
+\begin{lem}
+If $M$ is an $R$-module and $S$ is a subring of $R$ with $1_S = 1_R$, then $M$ is automatically an $S$-module as well. 
+\end{lem}
+
+\begin{Def}
+If $M$ is an $R$-module and $I$ a two sided ideal of $R$, we say $M$ is \textbf{annihilated} by $I$ when for all $a \in I$, and for all $m \in M$ we have:
+$$
+am = 0. 
+$$
+\end{Def}
+
+\begin{Def}\label{annihilator1}
+We define the \textbf{annihilator} of $M$ as Ann$(M) = \{a \in R: au = 0 \forall u \in M\} = \{a:aM = 0\}$. This is an ideal in $R$, and it is exactly the kernel of the homomorphism $\Phi:R \to Hom(M,M)$. 
+\end{Def}
+
+\begin{lem}
+When $M$ is annihilated by $I$, we can make $M$ into an $(R/I)$-module by redefining our ring action as:
+$$
+(r + I)m = rm,
+$$
+which divys the distinct ring actions into cosets of the quotient ring. 
+\end{lem}
+
+\begin{lem}
+When $I$ is maximal in $R$ and $IM = 0$, $M$ is a vector space over the field $R/I$. 
+\end{lem}
+
+\begin{Ex}
+We give some examples of modules:
+\begin{enumerate}
+\item The $0$ module is $\{0\}$, where $a0 = 0$ $\forall a$. 
+\item $R$ is an $R$-module. 
+
+\item Free module of rank $n$, $R^n$ as defined above. 
+\item Any abelian group is a $\mathbb{Z}$-module:
+$$
+nu = u + \cdots + u\text{ (n times)}. 
+$$
+\item Any ideal in $R$ is an $R$-module. $\forall u \in I$, $a \in R$ we have $au \in I$. 
+
+\item 
+
+\begin{enumerate}
+\item Let $F$ be a field, and $V$ an $F$-vector space. Let $T$ be a linear transfomation of $V$. Then $V$ is an $F[x]$-module:
+$$
+(a_nx^n + \cdots a_1x + a_0)u = a_nT^n(u) + \cdots + a_1T(u) + a_0u. 
+$$
+We have this because we let $xu = Tu$. And we can apply the same construction to any ring, and any modulo over this ring, it doesn't have to be a field. 
+\item $R$-module, $T:M \to M$ is a hom-sm (as $R$-module, $T(au) = aT(u)$) then $M$ is an $R[x]$-module, $xu = Tu$. 
+\end{enumerate}
+\item Let $R$ be a ring, $X$ is a set, and $M = \{\text{functions } X\to R\}$. \\
+Then $M$ is an $R$-module, $(af)(x) = a(f(x))$. In this case we call $M$ an algebra. 
+\end{enumerate}
+\end{Ex}
+
+\begin{Def}
+If $A$ is an $R$-module, and $A$ is a ring itself with $a(uv) = (au)v = u(av)$ $\forall a \in R$ and $\forall u,v \in A$, then $A$ is called an $R$\textbf{-algebra}. 
+\end{Def}
+
+\begin{lem}
+If $R$ is a commutative ring, then $\{\text{functions } X\to R\}$ and $R^n$ are $R$-algebras. 
+\end{lem}
+
+Also $M_n = \{n \times n \text{ matrices over } R\}$ is a (noncommutative) $R$-algebra. (Why?)\\
+If $R$ is a subring of a ring $A$ and $R \subset Z(A)$, then $A$ is an $R$-algebra. Or: if $R,A$ are rings and $\phi:R \to A$ is a hom-sm with $\phi(R) \subset Z(A)$, then again $A$ is an $R$-algebra, $au = \phi(a)u$. 
+
+\begin{lem}
+For any ideal $I$ of a ring $R$, $R$ is an $I$-algebra. 
+\end{lem}
+
+\textbf{Constructions:}
+\begin{enumerate}
+\item Submodule: a subgroup $N \subset M$ s.t. $RN \subset N$. 
+\item $S$ is a subring of $R$ and $M$ is an $R$-module, then $M$is an $S$-module \textbf{(reduction of scalars)}. 
+\item $M$ is an $R$-module, then $M$ is an $R/\text{Ann}(M)$-module. 
+$$
+\bar{a}u = au, \bar{a} = a + \text{Ann}(M).
+$$
+\end{enumerate}
+
+\textbf{Tuesday, January 9th}
+
+Recall we noted that if we don't have the condition that $1u = u$. Assume that we don't have this condition. Let $M$ be an $R$-module without it. Then define:
+$$
+M_0 = \{u \in M: 1u = 0\},
+$$
+$$
+M_1 = \{u \in M: 1u = u\}.
+$$
+We can check that both of these are submodules of $M$. $\forall c \in R$, if $u \in M_0$, then $1\cdot(cu) = c(1u) = 0$, so $cu \in M_0$.  And if $u \in M_1$, then $1(cu) = c(1u) = cu$, so $cu \in M_1$. So we have checked that the definition of submodule is satisfied. Also note that $M_0 \cap M_1 = 0$. \\
+And $\forall u \in M$, $u = 1u + (u - 1\cdot u)$. The stuff on the right side of plus sign is in $M_0$ and left side is in $M_1$. So we have $M = M_0\oplus M_1$. \\
+So $\forall c \in R$, $\forall u \in M_0$, $cu = c\cdot1u = 0$. So the above statement just says that each element in $M$ can be written as a sum of elements from $M_0,M_1$. 
+
+Keep in mind that what we defined yesterday was a left module. A right module is an abelian group $M$ with mapping $M \times R \to M$ where $(u,a) \to ua$ s.t. we have:
+\begin{enumerate}
+\item $(u + v)a = ua + va$
+\item $(u(a + b) = ua + ub$
+\item $u(ab) = (ua)b$
+\item $u1 = u$
+\end{enumerate} 
+So note that the first two conditions are unchanged in nature from left modules, since it doesn't matter on which side you multiply the scalar ($a$). But the third condition is different, because we are now using a right group action. In the left module we first multiplied $b$ by $u$ and then $a$. Here we do $a$ first, because right group action. 
+
+\begin{lem}
+If $R$ is commutative, then left modules are right modules because we apply commutativity to the difference described above in the third condition. 
+\end{lem}
+
+\begin{lem}
+Left ideals in $R$ are left $R$-modules, and same for right. 
+\end{lem}
+
+\begin{Def}
+A \textbf{two-sided $R$-module} is an abelian group with both left and right module structures. 
+\end{Def}
+Note that a two-sided ideal is an example of a two-sided module. We will only deal with commutative rings forever, and we assume that our modules are left modules, except maybe when we discuss tensor products. 
+
+\begin{rem}
+There are 2 definitions of \textbf{annihilators} in module theory. The first is the one used to define Ann$_R(N)$ where $N$ is a submodule of an $R$-module $M$, where we allow $N = M$. This is Definition \ref{annihilator1}. The second is the definition of the annihilator of an ideal in a module, given in Exercise 10 below, which is:
+$$
+Ann_M(I) = \{m \in M: am = 0, \forall a \in I\}.
+$$
+\end{rem}
+
+\begin{rem}
+If $N\sub M$, for some $R$-module $M$, then $N$ is always a left-ideal, but not necessarily two sided, this requires $N$ to be a submodule. But if $R$ is commutative, this is unimportant since left ideals are right ideals. 
+\end{rem}
+
+We define the annihilator of a subset $S \sub R$. 
+
+\begin{Def}
+$$
+Ann_M(S) = \{u \in M: su = 0, \forall s \in S\}.
+$$
+\end{Def}
+
+The annihilator above is an additive subgroup, but not a submodule, we need $S$ to be a \textbf{right} ideal in order to get a submodule, since we need $S(cu) = 0$, so we need $Sc \sub S$.  Also, it is a submodule if $R$ is commutative. 
+
+\begin{rem}
+If $R$ is commutative, annihilators of subsets of $R$ in $M$ are submodules, and annihilators of subsets of $M$ in $R$ are two-sided ideals. 
+\end{rem}
+
+Now Professor Leibman does Exercise 10.1.11 and several others from this section. 
+
+Some particulars on the definitions of an $R$-algebra:
+
+\begin{Def}[Leibman's Definition]
+$A$ is an $R$-algebra if $A$ is a ring and an $R$-module so that:
+$$
+a(uv) = (au)v = u(av).
+$$
+\end{Def}
+
+\begin{Def}[Dummit and Foote's Definition]
+A ring $A$ is an $R$-algebra if we are given a ring homomorphism $\phi:R \to A$ s.t. $\phi(R) \sub Z(A)$, where we define the $R$-action on $A$ by $au = \phi(a)u$. 
+\end{Def}
+
+Note that if $1 \in A$, then define $\phi:R \to A$ by $\phi(a) = a \times 1 \in A$. Hence the two above definitions are equivalent when we have $1 \in A$. So our takeaway is that the top definition (Leibman's) is more general and just better in every way. 
+
+
+
+\section*{10.1 Exercises}
+
+
+\begin{enumerate}[label=\arabic*.]
+\item
+\textit{Prove that $0m = 0$ and $(-1)m = -m$ $\forall m \in M$. }
+
+\begin{proof}
+Suppose there exists $m$ s.t. $0m = c \neq 0$. Then because of the group structure of our module, we have: 
+$$
+c - c = 0 = 0m - 0m = (0 - 0)m = 0m
+$$
+which is a contradiction, since we assumed $0m \neq 0$. \\
+We add:
+$$
+1m + (-1)m = (1 - 1)m = 0m = 0,
+$$
+so since $1m = m$, we know $1m + (-1)m = 0 \Rightarrow m + (-1)m = 0 \Rightarrow (-1)m = -m$. 
+\end{proof}
+
+
+
+\item \textit{Prove that $R^\times$ and $M$ satisfy the two axioms in Section 1.7 for a group action of the multiplicative group $R^\times$ on the set $M$. }
+
+\begin{proof}
+Recall that $R^\times$ denotes the group of units of $R$. The group action properties of a group $G$ acting on a set $X$ are: 
+\begin{enumerate}
+\item $g_1(g_2x) = (g_1g_2)x$,
+\item $1x = x$ $\forall x \in X$.
+\end{enumerate}
+Note that the definition of an $R$ module stipulates that we have $(rs)m = r(sm)$ $\forall r,s \in R^\times$ and $\forall m \in M$. And another part of the definition of an $R$-module gives us that $1m = m$ $\forall m \in M$, and since $R^\times$ is a group, we have satisfied the definition of a group action. 
+\end{proof}
+\vspace{20mm}
+\item \textit{Assume that $rm = 0$ for some $r \in R$ and some $m \in M$ with $m \neq 0$. Prove that $r$ does not have a left inverse (i.e. there is no such $s \in R$ s.t. $sr = 1$). }
+\begin{proof}
+Suppose there were such an $s$. Then we would have:
+$$
+srm = 1m = m = s(0) = 0,
+$$
+which is a contradiction, since we said $m \neq 0$. 
+\end{proof}
+\vspace{3mm}
+\setcounter{enumi}{4}
+\item \textit{For any left ideal $I$ of $R$, define: 
+$$
+IM = \{\sum_{\text{finite}}a_im_i:a_i\in I, m_i \in M\}
+$$
+to be the collection of all finite sums of elements of the form $am$ where $a \in I$ and $m \in M$. Prove that $IM$ is a submodule of $M$. }
+
+\begin{proof}
+We know $IM$ is nonempty since $I$ contains $0$, so $0m \in IM$, and by exercise 1, we know $0 \in IM$. So let $x,y \in IM$ such that:
+$$
+x = a_1m_1 + \cdots + a_km_k
+$$
+$$
+y = b_1n_1 + \cdots + b_ln_l
+$$
+ with $a_i,b_i \in I$, $m_i,n_i \in M$, and let $r \in R$. Then we have the following by the distributive property of scalars in the definition of an $R$-module: 
+\begin{equation}
+\begin{aligned}
+x + ry &= a_1m_1 + \cdots + a_km_k + r(b_1n_1 + \cdots + b_ln_l)\\
+&= a_1m_1 + \cdots + a_km_k + rb_1n_1 + \cdots rb_ln_l.
+\end{aligned}
+\end{equation}
+Now since $I$ is a left ideal, we know $rb_i \in I$ since $b_i \in I$, so $x + ry$ is a finite sum of elements of the form $a_im_i$ and so it is in $IM$. Then by the submodule criterion, $IM$ is a submodule of $M$. 
+\end{proof}
+
+\vspace{3mm}
+\item \textit{Show that the intersection of any nonempty collection of submodules of an $R$-module $M$ is a submodule. }
+
+\begin{proof}
+Let $N = \cap N_i$ be an arbitrary collection of submodules of $M$. Recall from group theory that an arbitrary intersection of subgroups is a subgroups, so we know $N \leq M$. So we need only show that it is closed under the group action of $R$. So let $r \in R$, and let $n \in N$. Then $n \in N_i$ $\forall i$. So $rn \in N_i$ $\forall i$ since $N_i$ is a submodule of $M$. But then $rn \in N$ by definition, so $N$ is a submodule. 
+\end{proof}
+
+\vspace{3mm}
+\item \textit{Let $N_1 \subset N_2 \subset \cdots$ be an ascending chain of submodules of $M$. Prove that $N = \cup_{i = 1}^\infty N_i$ is a submodule of $M$. }
+
+\begin{proof}
+We first prove that $N$ is a subgroup under addition of $M$. It is a subset of $M$ since it is a union of subsets of $M$. Since $0 \in N_1$, and $N_1 \subset N_i$ $\forall i$, we know $0 \in N_i$ $\forall i$, so $0 \in N$. Let $n \in N$, then $n \in N_i$ for some $i$, so we have $-n \in N_i \subset N$, so we have additive inverses. And let $n_1,n_2 \in N$, then $n_1 \in N_i,n_2 \in N_j$ for some $i,j$, and without loss of generality, we may assume $i \leq j$. Then $N_i \subset N_j$, so $n_1 \in N_j$, and by closure of the subgroup $N_j$, we know $n_1 + n_2 \in N_j \subset N$, so we have additive closure of $N$, hence it is a subgroup of $M$. Now we show that $N$ is closed under the ring action of $R$. So let $r \in R$, and let $n \in N$, then $n \in N_i$ for some $i$, so $rn \in N_i$ since $N_i$ is a submodule, and since $N_i \subset N$, we know $rn \in N$, so $N$ is a submodule. 
+\end{proof}
+
+\item \textit{An element $m$ of the $R$-module $M$ is called a torsion element if $rm = 0$ for some nonzero element $r \in R$. The set of torsion elements is denoted: } \label{ex10.1.8}
+$$
+Tor(M) = \{m \in M:rm = 0 \text{ for some nonzero } r \in R\}. 
+$$
+
+\begin{enumerate}
+\item \textit{Prove that if $R$ is an integral domain, then $Tor(M)$ is a submodule of $M$ (called the torsion submodule of $M$). }
+\begin{proof}
+We know Tor$(M)$ is a subset of $M$ by its definition. We first prove it is an additive subgroup. Let $m \in $ Tor$(M)$. Then $\exists r \in R$, $r \neq 0$ s.t. $rm = 0$. Then consider $-m \in M$. From exercise 1 we know 
+$
+-m = (-1)m$, so we have:
+$$
+r(-m) = r(-1)m = (-1)rm = (-1)0 = 0,
+$$
+ since $R$ is commutative. So we have that $-m \in $ Tor$(M)$ as well, hence we have additive inverses. We check that it has additive closure. Let $m,n \in $ Tor$(M)$. Then we have $r,s \in R$, neither being zero, s.t. $rm = 0, sn = 0$. Now consider $m + n$. We have:
+$$
+rs(m + n) = rsm + rsn = srm + rsn = s0 + r0 = 0.
+$$
+Since we have no zero divisors, since $R$ is an integral domain, we know $rs \neq 0$, so $m  +n \in $ Tor($M$), we have additive closure, and Tor$(M)$ is a subgroup of $M$. Now we need only check that it is closed under the left action of $R$. So let $r \in R$ and $m \in $ Tor$(M)$. Then consider $rm$. We assume $r \neq 0$, since otherwise $rm = 0$ which is in our subgroup. And we know $\exists s \in R$, $s \neq 0$ s.t. $sm = 0$. Now we have $srm = rsm = r0 = 0$, so $rm$ is in Tor$(M)$. So it's a submodule. 
+\end{proof}
+
+\vspace{3mm}
+\item \textit{Give an example of a ring $R$ and an $R$-module $M$ such that $Tor(M)$ is not a submodule (consider the torsion elements in the $R$-module $R$). }
+
+So from the previous exercise, we know we must choose some $R$ which is not an integral domain. We consider the torsion elements in the $R$-module $R$, which are:
+$$
+\text{Tor}(R) = \{r \in R: sr = 0 \text{ for some nonzero }s \in R\},
+$$
+but these are exactly the right zero divisors of $R$. We consider the ring $R = \mathbb{Z}_6 \cong \z/6\z$, and the module of $R$ over itself. Note that in $R$, $2 \cdot 3 = 6 = 0$, $4\cdot 3 = 12 = 0$, and $1,5$ are not zero divisors, so we have:
+$$
+\text{Tor}(R) = \{0,2,3,4\}.
+$$
+So note that $2,3\in \text{Tor}(R)$ and $1 \in R$, but $2 + 1\cdot 3 = 5 \notin \text{Tor}(R)$, so by the submodule criterion, it is not a submodule. 
+
+\vspace{3mm}
+\item \textit{If $R$ has zero divisors, show that every nonzero $R$-module has nonzero torsion elements. }
+
+\begin{proof}
+Suppose $R$ has zero divisors. So $\exists r,s \in R$ nonzero such that $rs = 0$. Now let $M$ be an $R$-module. We wish to show that $\exists m \in M$ s.t. $m \neq 0$, $tm = 0$ for some nonzero $t \in R$. Let $n \in M$ s.t. $n \neq 0$. Now consider $sn \in M$ and $r \in R$. Now note that $rsn = 0$ and that $r$ and $sn$ are both nonzero, so $sn$ is a nonzero torsion element. 
+\end{proof}
+\end{enumerate}
+\vspace{3mm}
+\item \textit{If $N$ is a submodule of $M$, the annihilator of $N$ in $R$ is defined to be: 
+$$
+\text{Ann}_R(N) = \{r \in R:rn = 0 \text{ for all }n \in N\}.
+$$
+Prove that the annihilator of $N$ in $R$ is a two-sided ideal of $R$. 
+}
+
+\begin{proof}
+Let $A = \text{Ann}_R(N)$. We first show that $A$ is an additive subgroup of $R$. We know it is nonempty since $0 \in A$, and it is a subset of $R$ by construction. Now let $x,y \in A$. Consider $x(-y) = -xy$. Note $-xyn = -x(yn) = -x0 = 0$ $\forall n \in N$, so by the subgroup criterion, $A$ is a subgroup. Let $r \in R$, $n \in N$, and $a \in A$. Observe:
+$$
+ran = r(an) = r0 = 0,
+$$
+$$
+arn = a(rn) = 0,
+$$
+since $a$ annihilates $n$, and $N$ is closed under the action of $R$, so $rn \in N$, and hence $a$ also annihilates $(rn)$. Since our $n$ was arbitrary, this holds for all $n \in N$. Thus $ra \in A$ and $ar \in A$, and thus $RA \sub A$ and $AR \sub A$, so since it's also an additive subgroup, $A$ is a two-sided ideal. 
+\end{proof}
+
+\vspace{3mm}
+
+\item \textit{If $I$ is a right ideal of $R$, the annihilator of $I$ in $M$ is defined to be: 
+$$
+\text{Ann}_M(I) = \{m \in M:am = 0 \text{ for all }a \in I\}.
+$$
+Prove that the annihilator of $I$ in $M$ is a submodule of $M$. 
+}
+\begin{proof}
+Since $I$ is a right ideal, we know $Ir \sub I$ $\forall r \in R$. Let $A = \text{Ann}_M(I)$ which we know is nonempty since $0 \in M$ since it is an abelian group, and $a0 = 0$ $\forall a \in I$. Let $m,n \in A$, let $a \in I$, and let $r \in R$. Observe: 
+$$
+a(m + rn) = am + arn = 0 + arn = (ar)n = 0,
+$$
+since $a \in I \Rightarrow ar \in I$ ($I$ is right ideal), hence $n$ annihilates $(ar)$. Thus $(m + rn) \in A$. Then by the submodule criterion, since this holds for arbitrary $m,n  \in A$, $r \in R$, and $A$ is nonempty, we know $A$ is a submodule of $M$. 
+\end{proof}
+
+\item \textit{Let $M$ be the abelian group (i.e. $\z$-module) $\z/24\z \times \z/15\z \times \z/50\z$. }
+\begin{enumerate}
+\item \textit{Find the annihilator of $M$ in $\z$ (i.e. a generator for this principal ideal). }\\
+Recall that Ann$_{\z}(M) = \{z \in \z:zm = 0 ,\forall m \in M\}$. Observe that the least common multiple of $24,15,50$ is $600$. We claim that this is a generator for the principal ideal given by Ann$_\z(M)$. We must only check that it is nonzero, which is obvious, and that $600m = 0$, $\forall m \in M$. So let $m \in M$, then $m = (a,b,c)$ s.t. $a \in \z/24\z$, $b \in \z/15\z$, and $c \in \z/60\z$. Now observe:
+$$
+600m = 600(a,b,c) = (600a,600b,600c) \equiv (0,0,0) = 0 \in M,
+$$
+since $600 \equiv 0 \mod 24,15,50$. So Ann$_\z(M) = \langle 600 \rangle$. 
+\item \textit{Let $I = 2\z$. Describe the annihilator of $I$ in $M$ as a direct product of cyclic groups. }
+
+
+Recall that Ann$_M(I) = \{m \in M: mr = 0,\forall r \in I\}$. Thus we know: 
+$$
+Ann_M(I) = \{(a,b,c) \in M: (a,b,c)\},
+$$
+$$
+Ann_M(2\z) = \{0,12\} \times \{0\} \times \{0,25\}
+$$
+
+\end{enumerate}
+
+\item
+
+\begin{enumerate}
+
+
+
+\item \textit{$N$ is a submodule of $M$, $I = Ann(N)$, and $K = Ann(I)$. Then $N \sub K$. Give an example where $N \neq K$. We have notation for annihilator, $AnnN = N^{\perp}$. }
+
+Note that $N \sub (N^\perp)^\perp$. Also note that for all $a \in I$, $\forall u \in N$, $au = 0$, so $u \in I^\perp$. So take $M = \z_6 \times \z_6$, $N = \{0,3\} \times \{0\}$, where we consider these two objects as $\z$-modules (abelian groups). Note $I = N^\perp = 2\z$. And $I^\perp = \{0,3\} \times \{0,3\}$. 
+
+\item \textit{$I$ is an ideal in $R$. Then $I \sub (I^\perp)^\perp$. Give an example where they are not equal. }
+
+Take $M = \z_2, I = (4)$, then $I^\perp = M$, but $M^\perp = (2)$. 
+
+
+
+\end{enumerate}
+
+\item \textit{$I$ - ideal in $R$. $M' = \{u \in M: I^ku = 0 \text{ for some }k \in \n\}$. Then prove that $M'$ is a submodule. }
+
+\begin{proof}
+For any $k$, let $M_k = Ann(I_k)$. Then note that $M_1 \sub M_2 \sub \cdots$. If $I \sub J$, then $Ann(J) \sub Ann(I)$. Then $M' = \bigcup_{k = 1}^\infty M_k$ is a submodule (can be easily checked). 
+\end{proof}
+
+\setcounter{enumi}{17}
+
+\item \textit{Let $V = \R^2$, and let $R = \R[x]$. Let $x$ be the 2 by 2 matrix with 0,-1,1,0. And let $x$ act on $V$ by counterclockwise rotations by 90 degrees. Then $V$ is an $R$-module. Prove that $V$ is simple. Note that $R$ is isomorphic to $\mathbb{C}$. }
+
+\begin{proof}
+A general rule is that submodules of $V$ are $x$-invariant subspaces of $V$ as an $R$-module. 
+\end{proof}
+
+\item \textit{Idk.}
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+\section{Quotient Modules and Module Homomorphisms}
+
+\begin{Def}
+Let $M,N$ be $R$-modules, $\phi:M\to N$ is an \textbf{$R$-homomorphism} if: 
+\begin{enumerate}
+\item $\phi(u + v) = \phi(u) + \phi(v)$
+\item $\phi(au) = a\phi(u)$.
+\end{enumerate}
+\end{Def}
+So it is a homomorphism of groups, and also preserves scalar mult. 
+\begin{Def}
+If $R$ is a field and $M$ is then a vector space, $\phi$ is called a \textbf{linear mapping}, or a \textbf{linear transformation}. 
+\end{Def}
+
+The set of all $R$-hom-sms from $M\to N$ is denoted by $\text{Hom}_R(M,N)$. 
+\begin{Def}In the case $M = N$, hom-sms $M \to M$ are called \textbf{endomorphisms}, and:
+$$
+\text{Hom}_R(M,M) = \text{End}_R(M). 
+$$
+\end{Def}
+\begin{Def}
+Injective hom-sms are called \textbf{monomorphisms}. 
+\end{Def}
+
+\begin{Def}
+Surjective hom-sms are called \textbf{epimorphisms}. 
+\end{Def}
+
+\begin{Def}
+Bijective hom-sms are called \textbf{isomorphisms}. 
+\end{Def}
+
+\begin{Def}
+Bijective endomorphisms ($M \to M$) are called \textbf{automorphisms}. 
+\end{Def}
+
+\begin{lem}
+If $R$ is a commutative ring, $\text{Hom}_R(M,N)$ is an $R$-module, by 
+\begin{itemize}
+\item $\phi + \psi)(u) = \phi(u) + \psi(u)$,
+\item $(a\phi)(u) = a\phi(u)$.
+\end{itemize}
+\end{lem}
+So why does it have to be commutative?
+\begin{proof}
+So is $a\phi$ a hom-sm? So consider:
+$$
+(a\phi)(bu) = a(\phi(bu)) = ab\phi(u) \neq b(a\phi)(u) = ba\phi(u),
+$$
+if $ab \neq ba$, so if $R$ is noncommutative, $a\phi$ may not be a hom-sm. 
+\end{proof}
+If $R$ is commutative, $\text{End}_R(M)$ is an $R$-algebra, because $(\phi\psi)(u) = \phi(\psi(u))$, and you also have to prove that it is a ring. Under an addition it is a group, associativity is clear, and the distributive law:
+$$
+\phi(\psi + \xi)(u) = \phi(\psi(u) + \xi(u)) = \phi(\psi(u)) + \phi(\xi(u)) = (\phi\psi)(u) + (\phi\xi)(u),
+$$
+the first equality is by definition, the second is by def of hom-sm. And we also must check that scalar multiplication is preserved to prove that it is an algebra. We have:
+$$
+((a\phi)\psi)(u) = (\phi(a\psi))(u) = a(\phi\psi)(u)
+$$
+$$
+((a\phi)\psi)(u) = (a\phi)(\psi(u)) - a(\phi(\psi(u)))
+$$
+$$
+(\phi(a\psi))(u) = \phi((a\psi)(u)) = \phi(a\psi(u)) = a\phi(\psi(u))
+$$
+\textbf{check over these conditions, confusing}And Aut$_R(M)$ is a group under multiplication (compositions), which is exactly the group of units in End$_R(M)$. 
+\vspace{3mm}
+We outline some elementary properties of modules:
+\begin{enumerate}
+\item $0u = 0$
+\begin{proof}
+$$
+0u = (0 + 0)u = 0u + 0u,
+$$
+so done. 
+\end{proof}
+\item $a0 = 0$
+\item $(-a)u= a(-u) = -au$
+\end{enumerate}
+
+\begin{Ex}
+We give some examples of $R$-hom-sms:
+\begin{enumerate}
+\item $\mathbb{Z}$-modules = abelian groups (written additively). So what are $\mathbb{Z}$-hom-sms of $\mathbb{Z}$-modules? They are of course, the hom-sms of the abelian groups. If $\phi:G\to H$ is a group hom-sm, then $\phi(nu) = n\phi(u)$. For vector spaces, this is not true. Note in this case:
+$$
+\phi:V \to W, \phi(u + v) = \phi(u) + \phi(v) \nRightarrow \phi(cu) = c\phi(u),
+$$
+it only works for $\mathbb{Z}$-modules. 
+\item If $R$ is commutative, and $c \in R$, then $\phi(u) = cu$ is an $R$-endomorphism of $M$. Note:
+$$
+\phi(u + v) = c(u + v)= cu+ cv = \phi(u) + \phi(v),
+$$
+$\forall a \in R$, $\phi(au) = cau = acu = a\phi(u)$. 
+\vspace{3mm}
+
+Consider $\phi:\mathbb{Z} \to \mathbb{Z}$ given by $\phi(n) = 2n$. It isn't a ring hom-sm since it doesn't respect mult ($\phi(mn) \neq \phi(m)\phi(n)$. \textbf{But this is} a hom-sm of $\mathbb{Z}$-modules. Why? Because $\phi(mn) = m\phi(n)$. Now consider the ring of polyns $R = F[x,y], \phi:x \leftrightarrow y$. Then note $\phi$ is automorphism of $R$, but is not a hom-sm of $R$-modules. Why? because it doesn't respect multiplication by scalars, take 
+$$
+yx = \phi(xy) \neq x\phi(y) = xx. 
+$$
+
+The \textbf{kernel and image} of a hom-sm are submodules. There are no "normal" submodules, we can factorize by any of them. 
+
+\end{enumerate}
+\end{Ex}
+
+\textbf{Wednesday, January 10th}
+
+\begin{lem}
+Let $\phi:M \to N$ be a hom-sm of $R$-modules. Then ker$\phi$ and $\phi(M)$ are submodules of $M$ and $N$ respectively. 
+\end{lem}
+
+\begin{proof}
+Recall $K$ is a submodule of $M$ if $K$ is a subgroup of $M$ and $RK \sub K$. So we will show that the two objects in the above remark are submodules. The kernel and the image are groups, if $u \in ker\phi$, then for any $a \in R$, $\phi(au) = a\phi(u) = 0$l, so $au$ is in the kernel. If $v \in \phi(M)$, $v = \phi(u)$, then for any $a \in R$,
+$$
+av = \phi(au),
+$$
+so $av \in \phi(M)$. 
+\end{proof}
+
+\begin{Def}
+A module $M$ is \textbf{simple}, or \textbf{irreducible}, if it has no submodules (except $0$ and itself). 
+\end{Def}
+There are many simple modules. We will discuss Schur's Lemma. 
+
+\begin{lem}[\textbf{Schur's Lemma}]
+If $M,N$ are simple $R$-modules, then any $R$-hom-sm $\phi: M \to N$ is either 0 or an isomorphism. 
+\end{lem}
+
+\begin{proof}
+The kernel of $\phi$ is a submodule of $M$, so $ker\phi = 0$ or ker$\phi = M$. $\phi(M)$ is submodule, so it is either $0$ or $M$. If ker$\phi = M$, or $\phi(M) = 0$, then $\phi = 0$ (obvious). \\
+Otherwise, ker$\phi = 0$ and $\phi(M) = N$, so $\phi$ is an isomorphism. 
+\end{proof}
+\begin{Cor}
+If $R$ is commutative, and $M$ is a simple $R$-module, then End$_R(M) = $ Hom$_R(M,M)$ is a division ring. 
+\end{Cor}
+
+The only example of a \textbf{noncommutative division ring} we have is the quaternions:
+ $$
+\mathbb{H} = \{a + bi + cj + dk:a,b,c,d \in \mathbb{R}\}.
+$$
+
+Now we will discuss \textbf{factorization of modules}. 
+\begin{Def}
+Let $M$ be a module, and $N$ a submodule of $M$, then 
+$$
+M/N = \{a + N: a \in M\}
+$$
+has a structure of an $R$-module. 
+\end{Def}
+
+Recall that you needed a two-sided ideal to get a quotient ring, but we only need a left ideal to get a quotient module. 
+
+\begin{Ex}
+If $R$ is a ring, and $I$ is a left ideal in $R$, then $R/I$ is not a ring, but it is an $R$-module. 
+\end{Ex}
+
+\begin{Ex}
+Consider space $R$ of square matrices with entries in a set $S$, and the ideal $I$ with zeroes in the first column and arbitrary elements in all other spots. Then $R/I$ is the set of all first columns and is isomorphic to $S^n$. The ideal is left and the resulting quotient is a module, but not a ring. 
+\end{Ex}
+
+Observe that $M/N$ is an abelian group. $\overline{u} = u + N \in M/N$. Let $a \in R$, then: 
+$$
+a\overline{u} = au + aN \subset au + N = \overline{au}.
+$$
+\textbf{Or:} if $v = u \mod N$, $v - u \in N$, then $av = au \mod N$, $av - au = a(v - u) \in N$. So multiplication by scalars is well defined on $M/N$. 
+
+
+\begin{theorem}
+\textbf{Isomorphism Theorems:}
+\begin{enumerate}
+\item If $\phi:M \to N$ is an $R$-hom-sm of $R$-modules, then $\phi(M) \cong M/$ker$\phi$ (isomorphic as modules). 
+\item Let $N,K$ be submodules of an $R$-module $M$, then 
+$$
+N + K = \{u + v\}
+$$
+is a submodule and $(N + K)/K \cong N/(N \cap K)$. 
+\item If $N$ is a submodule of $N$ and $K$ is a submodule of $N$, then: 
+$$
+M/N \cong \frac{(M/K)}{(N/K)}.
+$$
+\item Submodules of $M/N$ are in bijection with submodules of $M$ containing $N$. The correspondence is:
+$$
+K \leftrightarrow K/N
+$$
+where $K \sub M$ and $K/N \sub M/N$. 
+\end{enumerate}
+\end{theorem}
+
+\begin{rem}
+$N + K$ is the smallest module containing both $N$ and $K$. 
+\end{rem}
+
+\section*{10.2 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+
+\setcounter{enumi}{3}
+\item \textit{$A$ is a $\z$-module. $H' =Hom(\z_n,A) = $?}
+
+Recall $Hom(\z,A) \cong A$, since from another exercise we have $Hom(R,M) \cong M$ as $R$-modules, since we map $\phi \in H$ to $\phi(1)$. So we do the same thing. We map $\phi \in H'$ to $\phi(1)$. So we must have $\phi(n) = n\phi(1) = 0$. So $\phi(1)$ must satisfy $n\phi(1) = 0$. So we have $\phi(1) \in $ Ann$(n)$. And this map is injective, $H' \to A$. On the other hand, if $b \in A$, and $nb = 0$, then define $\phi(\overline{k}) = bk$, $k \in \z$, and $\phi \in H'$, where $\overline{k} = k \mod n$. So, Hom$(\z_n,A) \cong \Set{a \in A: na = 0} = \text{Ann}(n)$. 
+
+\textbf{Generalization: }What are $H_1 =$ Hom$(R,M) \cong M$? And what are $H_2 =$ Hom$(R/I,M) \cong$ ? So we must have that $H_2 \sub H_1$. We have: 
+$$
+H_2 = \Set{u \in M: Iu = 0} = Ann(I). 
+$$
+Then we map $\phi \mapsto \phi(1)$, and $I$ is sent to zero. 
+
+Now Hom$(R^n,M) \cong M^n$, since we map $\phi \mapsto (\phi(e_1),...,\phi(e_n))$. Or we can use the exercise from the last homework:
+$$
+Hom(A \oplus B,M) \cong Hom(A,M) \oplus Hom(B,M),
+$$
+since:
+$$
+Hom(R^n,M) \cong Hom(R,M)^n \cong M^n.
+$$
+\textbf{Another one:} Hom$(R^n/I,M) \cong Ann(I) \sub M^n$, where $I$ is an ideal in $R^n$. \\
+\textbf{Another one:} Hom$(A,B^n) \cong Hom(A,B)^n$, since we proved that $Hom(A,B \oplus C) \cong Hom(A,B) \oplus Hom(A,C)$. \\
+\textbf{Another one:} Hom$(R^n,R^m) \cong R^{nm}$. These are $m \times n$ matrices over $R$. We have a basis $e_1,...,e_n \in R^n$ and a basis $\Set{b_i} \sub R^m$. So for any $i$, we have:
+$$
+\phi(e_i) = c_{1,i}b_1 + \cdots + c_{m,i}b_m.
+$$ 
+And these coefficients $\Set{c_i}$ are just elements of the matrix. We have a standard basis in this module, which are matrices which are zero everywhere except for one entry, and the value of this entry is $1$ (typical vector space basis over $\R$). We do get a different isomorphism if we change our basis, so is it canonical? It is canonical because $R^n$ has a standard basis, and so does $R^m$ and given these bases, we have a canonical basis for $R^{nm}$. If we deal with an abstract free module, we may not have a standard basis. \\
+\textbf{Another one: }Hom$(R,R) \cong R$ as rings. This is easy. Map $\phi \mapsto \phi(1)$. The checking is easy. This is actually the ring End$_R(R)$. Let's check it: 
+$$
+(\phi\psi)(1) = \phi(\psi(1)) = \phi(\psi(1)\cdot 1) = \psi(1) \phi(1).
+$$
+We have this last equality because $\phi(1)$ is a scalar element of $R$ and so we can take it out of $\psi$. And We also know End$_R(R^n) \cong M_{n \times n}(R)$. Multiplication is defined so that this is a ring isomorphism. 
+
+\setcounter{enumi}{5}
+\item \textit{Prove that Hom$_\z(\z/n\z,\z/m\z) \cong \z/(n,m)\z$. }
+
+\begin{proof}
+Let $H = $ Hom$_\z(\z_n,\z_m)$, and let $K = \z/(n,m)$. Also, let $l = \gcd(n,m)$. Then $K = \z_l$. So let $\phi \in H$. Then $\phi:\z_n \to \z_m$. We note here that $\phi$ is completely determined by where it sends $1 \in \z_n$, since we must have $\phi(n\cdot 1) = \phi(0) = 0$ by the definition of a group homomorphism, thus we must have that $n\phi(1) = 0 \in \z_m$. In order to have $n\phi(1) = 0$, we need $\phi(1)$ to be a multiple of $m$. So we need $\phi(1)$ to be a multiple of $m/l$, since every prime factor in $l$ is also in the factorization of $n$, so we need only the prime factors of $m$ which are not in $l$, hence $\phi(1)$ must be a multiple of $m/l$. Now note there are exactly $l$ multiples of $m/l$ in $\z_m$. We denote these $a_0,...,a_{l - 1}$. So we have exactly $l$ distinct homomorphisms in $H$, so we denote these $\phi_0,...,\phi_{l - 1}$, where $\phi_i(1) = a_i = im/l \in \z_m$. Then let $\Phi: H \to K$ be given by:
+$$
+\Phi(\phi_i) = i \in \z_l.
+$$
+We prove this map is an isomorphism. 
+\textbf{Homomorphism: } Observe: 
+$$
+\Phi(\phi_i + \phi_j) = \Phi(\phi_{i + j \mod l}) = i + j = \Phi(\phi_i) + \Phi(\phi_j) \in \z_l.
+$$
+The first equality is by the additive operation on the $\z$-module $H$, and the other equalities follow from the definition of $\Phi$ and the additive operation on $\z_l$. Since $\phi_i$ is a homomorphism of $R$-modules, it preserves multiplication by scalars, so we have $z\phi_i(1) = \phi_i(z) = za_i$, and since $\{a_i\} \cong \z_l$ as a group, we know $za_i = a_{zi \mod l}$. So we have:
+$$
+\Phi(z\phi_i) = zi = z\Phi(\phi_i) \in \z_l.
+$$
+So $\Phi$ preserves scalar mult, and hence it is a homomorphism. \\
+\textbf{Surjectivity: } Let $i \in \z_l$. Then consider $\psi \in H$ s.t. $\psi(1) = im/l$, but this is exactly how we defined $\phi_i$, so we know $\phi_i = \psi$, and then $\Phi(\psi) = \Phi(\phi_i) = i$. So $\Phi$ is surjective. \\
+\textbf{Injectivity: }Let: 
+$$
+\Phi(\psi) = \Phi(\xi),
+$$
+then since we enumerated all the elements of $H$, we know we must have $\psi = \phi_i$ and $\xi = \phi_j$ for some $0 \leq i,j \leq l - 1$. Then we have: 
+$$
+\Phi(\phi_i) = i = j = \Phi(\phi_j) \in \z_l,
+$$
+so $i \equiv j \mod l$, but since both these numbers are between $0$ and $l - 1$, we know $i  =j$, so $\psi = \xi$, and $\Phi$ is injective. Hence it is an isomorphism. 
+\end{proof}
+
+\setcounter{enumi}{8}
+\item \textit{Let $R$ be a commutative ring. Prove that Hom$_R(R,M)$ and $M$ are isomorphic as left $R$-modules. [Show that each element of Hom$_R(R,M)$ is determined by its value on the identity of $R$.]}
+
+\begin{proof}
+Recall:
+$$
+H = \text{Hom}_R(R,M) = \{\phi:R \to M\},
+$$
+where $R$ and $M$ are $R$-modules. Let $\phi \in H$. Recall that from the definition of $H$, we know:
+$$
+\phi(rs + t) = r\phi(s) + \phi(t),
+$$
+for all $r,s,t \in R$. So note that $\forall r \in R$, we have:
+$$
+\phi(r) = r\phi(1_R),
+$$
+hence $\phi$ is complete determined by its value on $1_R$. Also observe that $\phi(1_R) \in M$, so define a map $\Phi:M \to H$ by $\Phi(m) = \phi_m$, where we define $\phi_m(1_R) = m$. We prove this map is an R-module isomorphism. We first prove it is an $R$-module homomorphism. So let $m,n \in M$, then we have:
+$$
+\Phi(m) + \Phi(n) = \phi_m + \phi_n
+$$
+Now we prove surjectivity. So let $\psi \in H$, then $\psi(1_R) = m$ for some $m \in M$, so we know $\psi = \phi_m$. Then note that $\Phi(m) = \phi_m$, so $\Phi$ is surjective. 
+\end{proof}
+
+\setcounter{enumi}{10}
+\item \textit{Let $A_1,A_2,...,A_n$ be $R$-modules and let $B_i$ be a submodule of $A_i$ for each $i = 1,2,...,n$. Prove that: 
+$$
+(A_1 \times \cdots \times A_n)/(B_1 \times \cdots \times B_n) \cong (A_1/B_1) \times \cdots \times (A_n/B_n).
+$$}
+
+\begin{proof}
+So let $A = (A_1 \times \cdots \times A_n)$, $B = (B_1 \times \cdots \times B_n)$, and $C = (A_1/B_1) \times \cdots \times (A_n/B_n)$. Note that: 
+$$
+A/B = \Set{(a_1,...,a_n) + B}.
+$$
+We know $B$ is a submodule of $A$ since it is clearly a subset since each component $b_i$ of $(b_1,...,b_n)$ is also in $A_i$. Also: 
+$$
+(b_1,...,b_n) + r(d_1,...,d_n) = (b_1,...,b_n) + (rd_1,...,rd_n) = (b_1 + rd_1,...,b_n + rd_n),
+$$
+because of how we defined add. and mult. by $R$ in the $R$ -module $B$, and because each $B_i$ is a submodule of $A_i$. 
+Then we know $A/B$ is an $R$-module since we may factorize by any submodule of $A$. , so we let $\phi: A/B \rightarrow C$ be given by $$\phi((a_1,a_2,...,a_n) + B) = (a_1+B_1,a_2+B_2,...,a_n+B_n).$$ 
+We prove that $\phi$ is an isomorphism.\\
+\textbf{Homomorphism: } Let $(x_1,x_2,...,x_n) + B,(y_1,y_2,...,y_n) + B \in A/B$, then 
+\begin{equation}
+\begin{aligned}
+	\phi(((x_1,x_2,...,x_n) + B)
+	+((y_1,y_2,...,y_n) + B)) 
+	&= \phi(((x_1,x_2,...,x_n)
+	+(y_1,y_2,...,y_n)) + B)\\ 
+	&= \phi((x_1+y_1,x_2+y_2,...,x_n+y_n) + B) \\
+	&= (x_1+y_1+B_1,x_2+y_2+B_2,...,x_n+y_n+B_n)\\
+ 	&= (x_1+B_1,x_2+B_2,...,x_n+B_n)\\
+ 	&+(y_1+B_1,y_2+B_2,...,y_n+B_n)\\
+  	&= \phi((x_1,x_2,...,x_n) + B)+\phi((y_1,y_2,...,y_n) + B), 
+\end{aligned}
+\end{equation}
+by the direct product operation on $A/B$ and $C$. And for multiplication, we have: 
+
+\bee
+	\phi(r((x_1,...,x_n) + B)) 
+	&= \phi(r(x_1,...,x_n) + B)\\
+	&= \phi(rx_1,...,rx_n) + B)\\
+	&= (rx_1 + B,...,rx_n + B)\\
+	&= r(x_1 + B,...,x_n + B)\\
+	&= r\phi((x_1,...,x_n) + B),
+\eee
+ so $\phi$ is a homomorphism. \\ 
+\textbf{Injection: } Let $(x_1,x_2,...,x_n) + B,(y_1,y_2,...,y_n) + B \in A/B$, and let 
+\begin{equation}
+\begin{aligned}
+\phi((x_1,x_2,...,x_n) + B) &= \phi((y_1,y_2,...,y_n) + B)\\
+\Rightarrow  (x_1+B_1,x_2+B_2,...,x_n+B_n)&=(y_1+B_1,y_2+B_2,...,y_n+B_n). 
+\end{aligned}
+\end{equation}
+So then we have that $x_i+B_i = y_i+B_i$ for all $i$, thus
+ \begin{equation}
+\begin{aligned}(y_1,y_2,...,y_n) + B &= (y_1,y_2,...,y_n)+(B_1 \times B_2 \times \cdots \times B_n)=
+(y_1+B_1 \times y_2+B_2 \times \cdots \times y_n+B_n) \\
+&= (x_1+B_1 \times x_2+B_2 \times \cdots \times x_n+B_n) = (x_1,x_2,...,x_n) + B
+\end{aligned}
+\end{equation}
+ by the direct product operation, so $\phi$ is in injective. \\
+\textbf{Surjection: } Let $(a_1+B_1,a_2+B_2,...,a_n+B_n) \in C$. Then we must have that $a_i \in A_i$ for all $i$ by definition of $C$ and the quotient modules $A_i/B_i$, so $(a_1,a_2,...,a_n) \in A \Rightarrow (a_1,a_2,...,a_n) + B \in A/B$, and $\phi((a_1,a_2,...,a_n) + B) = (a_1+B_1,a_2+B_2,...,a_n+B_n)$, so $\phi$ is surjective by definition. Hence $\phi$ is an isomorphism, and $A/B \cong C$. 
+\end{proof}
+
+\item \textit{Let $I$ be a left ideal of $R$ and let $n \in \n$. Prove: 
+$$
+R^n/IR^n \cong R/IR \times \cdots \times R/IR
+$$. }
+\begin{proof}
+So we use the first isomorphism theorem. We map $R^n \to (R/I)^n$ by $(a_1,...,a_n) \mapsto (a_1 \mod I,...,a_n \mod I) = (\overline{a_1},...,\overline{a_n}) \in (R/I)^n$. This is clearly surjective. And the kernel is just $I^ = \Set{(a_1,...,a_n): a_i \in I}$. And $I^n = IR^n$, why? \begin{proof}Take:
+ $$
+ IR^n = \Set{\sum b_i(a_{i,1},...,a_{i,n}):b_i \in I}.
+ $$
+ And also take note:
+ $
+ (b_1,...,b_n) \in I$ can be written as:
+ $$
+ (b_1,...,b_n) = b_1(1,...,0) + \cdots + b_n(0,...,0,1) \in IR^n.
+ $$
+ So these are the same object. 
+ \end{proof}
+\end{proof}
+
+
+
+
+\end{enumerate}
+
+\section{Generation of Modules, Direct Sums, and Free Modules}
+
+
+Assume $R$ is a unital ring, i.e. that $1 \in R$. 
+\begin{Def}
+Let $M$ be an $R$-module and $S$ be a subset of $M$. We say that $M$ is \textbf{generated by $S$} if for any $u \in M$, there exists $v_1,...,v_k \in S, a_1,...,a_k \in R$ such that:
+$$
+u = a_1v_1 + \cdots + a_kv_k,
+$$
+which is called a \textbf{linear combination} of $v_1,...,v_k$. 
+\end{Def}
+
+We could define it another way. 
+\begin{Def}
+Let $S \sub M$. Then 
+$$
+RS = \{a_1v_1 + \cdots + a_kv_k: a_i\in R, v_i \in S\}
+$$
+is the smallest submodule of $M$ containing $S$. $RS$ is called the \textbf{submodule generated by $S$. }
+\end{Def}
+
+\begin{rem}
+$M$ is generated by $S$ iff $M = RS$. 
+\end{rem}
+
+\begin{Def}
+The \textbf{free module generated by $S$} is the set of functions $f:S \to R$ s.t. $f(s) = 0$ for all but finitely many $s \in S$. 
+\end{Def}
+So consider the case where $S$ is finite to simplify the discussion: If $S = \{s_1,...,s_n\}$, the free module is $\{a_1s_1+ \cdots + a_ns_n: a_i \in R,s_i \in S\}$. 
+
+
+It is the direct sum of $|S|$ copies of $R$. Equivalently, the free module is:
+$$
+\{a_1s_1 + \cdots + a_ns_n:a_i \in R, s_i \in S\},
+$$
+the set of formal linear combinations of elements in $S$. Each element in this set corresponds to a function $f:s_i \to a_i$ and maps $s$ to zero if $s \neq s_1,...,s_n$. You should think of this like a free group. 
+
+The difference between the above definitions is the free generated module is the case where $S$ is not a subset of $M$, it is just some random set. 
+
+Let $M$ be an $R$-module, let $S$ be a subset of $M$. let $F$ be the free module generated by $S$, then we have a unique hom-sm $\phi:F \to M$ s.t. $\phi(s) = s$ $\forall s \in S$. 
+$$
+\phi(a_1s_1 + \cdots + a_ns_n) = a_1s_1 + \cdots + a_ns_n \in M.
+$$
+On the left hand side inside $\phi$ we see a formal linear combination, the $s$'s are just letters, we forget that they come from a subset of $M$. They are just symbols. On the right hand side, we are in $M$, so we remember that $S \sub M$. 
+
+\begin{Ex}
+Let $S = \{2,3\} \sub \z$. And let:
+$$
+F = \{n\cdot 2 + m \cdot 3\} \cong \z^2,
+$$
+where in the above we see $2,3$ as just symbols, easily replaceable by $x,y$. Now consider a map $F \to \z$, where $n\cdot 2 + m \cdot 3 \to 2n + 3m$ and on the left hand side of this map, we then remember that $2,3$ are numbers. 
+\end{Ex}
+
+
+
+
+If $M$ is generated by $S$, then $\phi$ is surjective, and $M \cong F/ker\phi$. 
+
+\begin{Def}
+If $M$ has a finite generated set $S$, then $M$ is \textbf{finitely generated}. 
+\end{Def}
+
+\begin{rem}
+If $|S| = n$, then $M$ is a factor module of $R^n$. 
+\end{rem}
+
+\begin{Def}
+$M$ is called \textbf{cyclic} if it is generated by just one element, $M = Ru$ for some $u \in M$. 
+\end{Def}
+In this case, $M \cong R/I$, I is a left ideal in $R$. We have $\phi:R \to M$ - surjective, which maps $a$ to $au$, and $I = ker\phi$ is a left ideal. Observe: 
+$$
+I = \{a: au = 0\} = \text{Ann}(u). 
+$$
+And $au = 0 \Rightarrow \forall b \in R, (ba)u = 0$, so $ba \in I$. But $ab(u) = ?$
+
+\textbf{Thursday, January 11th}
+
+\begin{rem}
+When $M$ is cyclic, we know:
+$$
+M \cong R/I
+$$
+where $I = \text{Ann}(u) = \{a:au = 0\}$, which is a left ideal. Recall that $u$ is the generator of $M$. 
+\end{rem}
+
+\begin{lem}
+An abelian group $G$ is cyclic as a $\z$-module if and only if it is cyclic as a group. 
+\end{lem}
+\begin{proof}
+$\exists u \in G$ s.t. $G = \z u = \{nu:n \in \z\}$. 
+\end{proof}
+
+\begin{rem}
+Let $M$ be an $F$-vector space, and let $T$ be a linear transformation of $M$. Then $M$ is an $F[x]$-module by $xu = Tu$, $u \in M$. 
+$$
+(a_nx^n + \cdots + a_1x + a_0)u = a_nT^nu + \cdots + a_1Tu + a_0u.
+$$
+\end{rem}
+
+Also, $M$ is cyclic as an $F[x]$-module if $\exists u$ s.t. $\forall v \in M$, $\exists n,a_i$ s.t. $v = a_nT^nu + \cdots + a_1Tu + a_0u$. 
+
+\begin{Def}
+That is, if $u,Tu,T^2u,...$ span $M$, then $u$ is called a \textbf{cyclic vector} for $T$. 
+\end{Def}
+
+\begin{lem}
+For any simple module $M$ is cyclic
+\end{lem}
+\begin{proof}
+ take any nonzero $u \in M$, then $Ru$ is a nonzero submodule, so $Ru = M$. 
+\end{proof}
+
+Converse is not true: $\z_6$ as a $\z$-module is cyclic (generated by 1), but not simple (has a submodule $2\z_6 = \{0,2,4\}$. 
+
+Every group is a factor group of a free group. 
+
+\vspace{3mm}
+\textbf{Friday, January 12th}
+Now we'll do some exercises. Professor Leibman does Exercises 10.1.5,6 which are completed above. He defines the annihilator of a subset of $M$ again, and proves it is a left ideal. This is Exercise 10.1.9. 
+
+\textbf{Tuesday, January 16th}
+
+Take $R = F[x_1,x_2,...]$. Consider $R$ as a module over itself. It is generated by $1$, since $R = R \cdot 1$. 
+
+Note $I = (x_1,x_2,..)$-submodule of $R$, all polynomials with zero constant term. 
+
+\begin{lem}
+$I$ as defined above is not finitely generated. 
+\end{lem}
+
+
+\begin{proof}
+Assume that it is finitely generated. So $I = R(f_1,...,f_k)$, for $f_i \in I$, where we assume $f_i$ has zero constant term.  Let $x_1,...,x_n$ be all variables appearing in $f_1,...,f_k$, then any nonzero element of $R(f_1,...,f_k)$ (these are linear combinations of the $f$'s) contains at least one of $x_1,...,x_n$, since $f_i$ has zero constant term. But $I$ is not such, $x_{n + 1} \in I$, so $I \neq R(f_1,...,f_k)$. 
+\end{proof}
+
+\begin{Ex}
+Let $R = F[x,y]$, and $I = (x,y)$. Then $R$ is an $R$ module, is generated by $1$, and $I$ needs at least two generators. So we can think of this as $R$ being a one "dimensional" module, but $I$ is not one "dimensional". Let
+$$
+f = ax + by + g(x,y),
+$$
+$\forall g \in R$, $gf = c(ax + by) + (\cdots)$. We are assuming $a,b \neq 0$. The linear part of $I$ is two "dimensional". So
+$$
+\{g \in R, gf = c(ax + by) + (\cdots)\} \neq I. 
+$$
+If $b \neq 0$, $x \notin Rf$, and if $a \neq 0$, $y \notin Rf$. 
+\end{Ex}
+
+Consider $M_1 \oplus M_2 = M_1 \times M_2$ is called direct sum = direct product, for two or finitely many modules. And this direct sum has the universal repelling property (appendix A). 
+
+For $M_1,M_2,...$. 
+
+\begin{Def}
+Direct product $M_1 \times M_2 \times \cdots = \Pi_{i = 1}^\infty M_i$ is 
+$$
+M = \{(u_1,u_2,...): u_i \in M_i\},
+$$
+with $(u_1,u_2,...) + (v_1,v_2,...) = (u_1 + v_1,u_2 + v_2,...)$. And scalar mult. is defined as one would expect. 
+
+
+\end{Def}
+
+More generally, if $M_\alpha$ $\alpha \in \Lambda$ are modules, then $\Pi_{\alpha \in \Lambda} = \{f: \Lambda \to \cup_{\alpha + \Lambda}M_\alpha: f(\alpha) \in M_\alpha\}$. For any $\alpha$, choose $u_\alpha \in M_\alpha$. 
+
+Elements: $(u_\alpha)_{\alpha \in \Lambda}$. 
+
+Direct Sums: $M_1 \oplus M_2 \oplus \cdots = \{(u_1,u_2,...): u_i \in M_i,u_i = 0, \text{ for all but finitely many } i\}$. This is a subset of $M_1 \times M_2 \times \cdots$. 
+
+Another way: 
+
+$M_1 \oplus M_2 \oplus \cdots = \{u_{i_1} + u_{i_2} + \cdots + u_{i_k}:u_{i_j} \in M_{i_j}\}$. This is a submodule of $M_1 \times M_2 \times$. 
+
+For $M_\alpha$, $\alpha \in \Lambda$, 
+
+$$
+\bigoplus_{\alpha \in \Lambda} M_\alpha = \{f: \Lambda \to \cup M_\alpha: \forall \alpha \in \Lambda, f(\alpha) \in M_\alpha, f(\alpha) = 0 \text{ for all but finitely many } \alpha\}.
+$$ 
+This is a superset of $\Pi_{\alpha \in \Lambda}M_\alpha$. 
+
+Universal Properties: 
+
+$R$-modules $M_\alpha$, $\alpha \in \Lambda$. 
+
+\begin{enumerate}
+\item Direct Product: 
+Category: objects are (Module $N$ with hom-sms $\psi_\alpha: N \to M_\alpha$, $\forall \alpha \in \Lambda$. 
+
+Morphisms: given two objects 
+$(N_1,\psi_\alpha:N \to M_\alpha)$
+
+$(N_2,\psi_\alpha:n \to M_\alpha)$
+a morphism is a hom-sm $\phi: N_1 \to N_2$ 
+s.t. $\psi_\alpha = \phi_\alpha \phi$ $\forall \alpha$. 
+
+Direct product is universal attracting object. 
+\end{enumerate}
+
+\textbf{Wednesday, January 17th}
+
+\begin{theorem}[\textbf{Chinese Remainder Theorem for Modules}]
+Let $R$ be a commutative unital ring, $I_1,...,I_n$ be pairwise comaximal ideals in $R$:
+$$
+(I_i + I_j = (1),\forall i\neq j),
+$$
+and $M$ be a an $R$-module. Then the homomorphism $M \to M/I_1M \oplus \cdots \oplus M/I_nM$ given by $u \to (u \mod I_1M,...,u \mod I_nM)$ induces an isomorphism $M/(I_1\cdots I_n)M \to M/I_1M \oplus \cdots M/I_nM$ and $I_1M \cap \cdots \cap I_nM = (I_1 \cdots I_n)M$. 
+\end{theorem}
+\begin{proof}
+For $n = 2$. $I_1 + I_2 = (1)$. 
+
+Define $\phi: M \to M/I_1M \oplus M/I_2M$, where ker$\phi = I_1M \cap I_2M$. And there exists $a_1 \in I_1,a_2 \in I_2$ s.t. $a_1 + a_2 = 1$, since comaximal. And $\forall u \in I_1M \cap I_2M$, we have:
+$$
+u = 1u = a_1u + a_2u.
+$$
+So, $I_1M \cap I_2M \sub I_1I_2M$, since the first term in the righthand side above is in $I_1(I_2)M$ and so is the second term, by commutativity. Also, $I_1I_2M \sub I_2M \cap I_2M$. So $I_1I_2M = I_1M \cap I_2M = \text{ker}\phi$. 
+
+\textbf{Surjectivity: } $\forall u_1,u_2 \in M$, put $u = a_2u_1 + a_1u_2$. Then:
+$$
+u = (1 - a_1)u_1  + a_1u_2 = u_1 + a_1(u_2 - u_1) = u_1 \mod I_1M,
+$$
+and $u = u_2 \mod I_2M$. So $\phi(u) = (\overline{u}_1,\overline{u}_2)$. 
+
+Now for $n \geq 3$, we use induction. 
+\begin{lem}
+$I_1$ and $I_2\cdots I_n$ are comaximal. 
+\end{lem}
+\begin{proof}
+$\forall i = 2,...,n$, let $a_i \in I_1,b_i \in I_i$ be s.t. $a_i + b_i = 1$. Then:
+$$
+1 = \prod(a_i + b_i) = (something ) + b_2\cdots b_n,
+$$
+where something is in $I_1$ and $b_2\cdots b_n \in I_2\cdots I_n$. 
+\end{proof}
+Then:
+$$
+M/(I_1I_2 \cdots I_n)M \cong M/I_1 \oplus M/(I_2\cdots I_n)M \cong \cdots \cong M/I_1M \oplus \cdots \oplus M/I_nM
+$$
+by induction, where the last $\cong$ is under the mapping $u \to (u \mod I_1M ,...,u \mod I_nM$. 
+\end{proof}
+
+
+
+\begin{Def}
+$M_1,M_2$ are submodules of $M$. $M$ is said to be an internal direct sum $M = M_1 \oplus M_2$ if there exists a $\phi: M \to M_1 \oplus M_2$ where we also have maps in a diamond up to $M_1$ and down to $M_2$ s.t. $\phi|_{M_1} = Id_{M_1}$ and the same for $M_2$. 
+\end{Def}
+
+\begin{rem}
+We say that we have an \textbf{internal direct sum} if the above map exists. The "internal" means that we are working entirely inside a parent module $M$. 
+\end{rem}
+
+\begin{theorem} \label{thm10.67}
+Let $M_1,M_2$ be submodules of $M$. Then $M = M_1 \oplus M_2$ (\textbf{internal direct sum}) if and only if $\forall u \in M$ is uniquely representable in the form $u = u_1 + u_2$ s.t. $u_1 \in M_1$, $u_2 \in M_2$ if and only if $M = M_1 + M_2$ and $M_1 \cap M_2 = 0$. These are all equivalent definitions. 
+\end{theorem}
+Let $M_\alpha$, $\alpha \in \Lambda$ be submodules of$M$. $M$ is an (internal) direct sum of $M_\alpha$:
+$$
+M = \bigoplus_{\alpha \in \Lambda}M_\alpha,
+$$
+if there exists an isomorphism $\phi: M \to \bigoplus_{\alpha \in \Lambda}M_\alpha$ where the target space is the external, formal direct sum, s.t. $\phi|_{M_\alpha} = Id_{M_\alpha}, \forall \alpha$. This is so if and only if $\forall u \in M$ is uniquely representable as $u = \sum_{i = 1}^k u_{\alpha_i}$ for some distinct $\alpha_1,...,\alpha_k$ where $u_{\alpha_i} \in M_{\alpha_i},\forall i$ and if and only if $M = \sum M_\alpha$ and $\forall \alpha$, $M_\alpha \cap \sum_{\beta \neq \alpha}M_\beta = 0$. 
+
+\textbf{Free Modules. }
+\begin{Def}
+A \textbf{free module} is a direct sum of finitely or infinitely many copies of $R$, 
+$$
+F_\Lambda = \bigoplus_{\alpha \in \Lambda}R = \{a_{\alpha_1} + \cdots + a_{\alpha_k}: k \in \n,\alpha_i \in \Lambda,a_{\alpha_i} \in R\},
+$$
+where the sum of $u$'s above is a formal sum. We can also define it as: 
+$$
+F_\Lambda = \{(a_\alpha)_{\alpha \in \Lambda}: a_\alpha \in R,\forall \alpha,a_\alpha = 0 \text{ for all but finitely many }\alpha\}.
+$$
+Note $R$ is unital here. 
+\end{Def}
+If $M$ is an $R$-module, $v_\alpha \in M,\alpha \in \Lambda$. Then there exists a unique hom-sm $\phi: F \to M$ s.t. $\phi(e_\alpha) = v_\alpha,\forall \alpha$ where $e_\alpha = (a_\beta)_{\beta \in \Lambda},a_\alpha = 1,a_\beta = 0$ for $\beta \neq \alpha$. As an example, if $\Lambda = \{1,...,k\}$, we have: 
+$$
+e_1 = (1,0,...,0),
+$$
+$$
+e_k = (0,...,0,1). 
+$$
+Also, we say that a module $M$ is free if $M \cong$ a free module $F$. This is so if any only if $M$ has a \textbf{basis}: elements $u_\alpha,\alpha \in \Lambda$.  
+ 
+\vspace{5mm}
+\textbf{Thursday, January 18th}
+
+\vspace{5mm}
+Let $R$ be a unital ring. Recall that a \textbf{free module} is $\bigoplus_{\alpha \in \Lambda} R$. If $\Lambda$ is finite, $\Lambda = k$, then this is just $R^k$. 
+\begin{Def}
+Our \textbf{standard basis} in $R^k$ is 
+$$
+e_1 = (1,0,...,0),
+$$
+$$
+e_k = (0,...,0,1). 
+$$
+\end{Def}
+\begin{Def}
+The \textbf{rank} of the free module is $k$. 
+\end{Def}
+
+In $F = \oplus_{\alpha \in \Lambda} R$, the standard basis is $e_\alpha = (a_\beta)_{\beta \in \Lambda},a_\alpha = 1,a_\beta = 0$ for $\beta \neq \alpha$. 
+\begin{Def}
+For any $u \in F$, $u= \sum_{\alpha \in \Lambda}a_\alpha e_\alpha$, $a_\alpha \in R$ uniquely, where $a_\alpha =0$ for all but finitely many $\alpha$. (Namely, $u = (a_\alpha)_{\alpha \in \Lambda}$). 
+\end{Def}
+
+\begin{rem}
+For a basis the representation must be unique, for generators, it does not. 
+\end{rem}
+\begin{Def}
+Also, if $M \cong F$ for some $\Lambda$, $M$ is called \textbf{free of rank} $|\Lambda|$. 
+\end{Def}
+\begin{rem}
+$M$ is free if and only if it has a basis: a set$\{u_\alpha, \alpha \in \Lambda\} \sub M$ s.t. every $u$ in $M$ is uniquely representable in the form:
+$$
+u= \sum_{\alpha \in \Lambda}a_\alpha u_\alpha,
+$$
+where the $a$'s are zero for all but finitely many of them. 
+\end{rem}
+
+\begin{Def}
+A set $\{u_\alpha, \alpha \in \Lambda\}$ in a module $M$ is \textbf{linearly independent} if $\sum_{\alpha \in \Lambda}a_\alpha u_\alpha = 0$ only if $a_{\alpha_i} = 0$ for all $i$. In other words, a linear combination is zero if and only if all the coefficients are zero. 
+\end{Def}
+
+\begin{rem} \label{rem1076}
+A set $\{u_\alpha, \alpha \in \Lambda\}$ is a basis in $M$ if and only if it is linearly independent and generates $M$. (It is unique since if we have two representations $u = \sum_{\alpha \in \Lambda}a_\alpha u_\alpha = \sum_{\alpha \in \Lambda}b_\alpha u_\alpha$, then $\sum_{\alpha \in \Lambda}(a_\alpha - b_\alpha) u_\alpha = 0$ so by linear independence, all the differences of coefficients are zero.)
+\end{rem}
+
+\begin{theorem}
+Any vector space is a free module. More generally, if $R$ is a division ring, the any $R$ module is free. 
+\end{theorem}
+\begin{proof}
+Let $M$ be a nonzero $R$-module.
+Take the maximum linearly independent set $B$ in $M$. It exists by Zorn Lemma. Indeed, take a nonzero element $u \in M$, then $\{u\}$ is linearly independent (proof is elementary, requires that $R$ is a division ring). If you have a chain/subset tower of linearly independent sets, then their union is linearly independent, by Zorn Lemma. If $\mathcal{B}$ is a chain of linearly independent sets in $M$, the n $\bigcup \mathcal{B}$ is linearly independent. If 
+$$
+u_1,...,u_n \in \bigcup \mathcal{B},
+$$
+$$
+\sum_{i  = 1}^na_i u_i = 0,
+$$
+ find $C \in \mathcal{B}$ s.t. these $u$'s are all in $C$, $C$ is linearly independent, so $a_i = 0$ for all $i$. So Zorn applies, and $B$ exists. Now we claim that $B$ generates $M$ so $B$ is a basis by Remark 10.76. 
+ \begin{proof}
+ Let $u \notin RB$. Then $B\cup \{u\}$ is linearly independent, contradiction, since then it would be bigger than $B$ but $B$ is maximal. 
+ Indeed, if: 
+ $$
+ au + \sum_{i  = 1}^k a_i u_i = 0,
+ $$
+  for some $u_{\alpha_i} \in B$ for all $i$. If $a = 0$, then all $a$'s are zero, since $B$ is linearly independent. If $a$ is note zero, then $u = -a^{-1}\sum_{i  = 1}^k a_i u_i\in RB$, which is impossible, since we said $u \notin RB$ at beginning of claim. 
+   \end{proof}
+\end{proof}
+
+\begin{rem}
+It is impossible for all of $M$ to be linearly independent since we have $u$ and $2u$ which are clearly dependent. 
+\end{rem}
+
+\begin{Ex}
+$\R$ is a vector space over $\mathbb{Q}$. We need Hamel basis. We start with $\{1,\alpha_1,\alpha_2,...\}$, you need to get more than countably many. This has something to do with Zorn Lemma. The process cannot be defined with an algorithm. 
+\end{Ex}
+
+\begin{Def}
+The rank of a vector space is called the \textbf{dimension}. 
+\end{Def}
+
+\begin{theorem}
+The dimension of a vector space is uniquely defined: If $R$ is a field, or a division ring, then $R^n \ncong R^m$ for $n \neq m$. This is for finite  dimension, but for infinite dimensions it is also true. 
+\end{theorem}
+
+\begin{proof}
+\textbf{Finite Case: } Let $R$ be a division ring, let $M$ be an $R$-module, let $\{u_1,...,u_n\}$, and $\{v_1,...,v_m\}$ be two bases in $M$. We claim $m = n$. 
+\begin{proof}
+Assume that $n \geq m$. We have $v_1 = a_1u_1 + \cdots a_nu_n$ for some coefficients not all zero. Without loss of generality, assume that the first $a_1$ is nonzero. Then:
+$$
+u_1 = a_1^{-1}v_1 - a_1^{-1}a_2u_2 - \cdots - a_1^{-1}a_nu_n.
+$$
+Then $R\{v_1,u_2,...,u_m\} = M$: if 
+$$
+v = \sum_{i = 1}^n b_i u_i = b_1u_1 + \sum_{i = 2}^n b_iu_i = b_1(a_1^{-1}v_1 - a_1^{-1}a_2u_2 - \cdots) + \sum b_i u_i = cv_1 + \sum_{i = 2}^n c_i = u_i.
+$$
+And $\{v_1,u_2,...,u_n\}$ is linearly independent: if 
+$$
+cv_1 + c_2u_2 + \cdots + c_nu_n = 0 = c(a_1u_1 + \cdots a_nu_n) + c_2u_2 + \cdots + c_nu_n = ca_1 u_1 + \sum{i = 2}^n d_iu_i,
+$$
+then $ca_1 = 0$, so $c = 0$, so all $c$'s are zero. Hence $\{v_1,u_2,...,u_n\}$ is a basis. Next, replace one of $u_2,...,u_n$ by $v_2$, and without loss of generality, replace $u_2$ with $v_2$. And after $m$ steps, we see that $\{v_1,...,v_m,u_{m + 1},...,u_n\}$ is a basis. But $\{v_1,...,v_m\}$ is a basis, so by definition those extra $u$'s don't exist, and $n = m$. 
+\end{proof}
+\begin{rem}
+If $R$ is commutative and unital, then the rank of a free $R$-module is well defined: 
+$$
+R^n \ncong R^m,
+$$
+where $n \neq m$. 
+\end{rem}
+\begin{proof}
+Let $I$ be a maximal ideal in $R$, exists by Zorn Lemma. The $R/I$ is a field. Then $R^n/(IR^n) \cong (R/I)^n = F^n$, where $R^n$ is the free module of rank $n$. And $R^m/(IR^m) \cong F^m$. And $F^n \ncong F^m$ since dimension is well defined, so $R^n \ncong R^m$. 
+\end{proof}
+\end{proof}
+
+\textbf{Friday, January 19th}
+\vspace{5mm}
+We do exercises from Section 10.2,3. 
+
+\begin{Def}
+An $R$-module is called a \textbf{torsion module} if for each $m \in M$, there exists a nonzero $r \in R$ s.t. $rm = 0$. 
+\end{Def}
+
+
+\textbf{Monday, January 22th}
+\vspace{5mm}
+
+\begin{rem}
+Any module $M$ has a maximal linearly independent set $B$ of elements, by Zorn Lemma. 
+\end{rem}
+
+
+\begin{lem}
+If $M$ is a torsion module, this set is empty. 
+\end{lem}
+
+\begin{proof}
+Any element is not linearly independent if you take it alone. $\forall u$ $\exists a \neq 0$, s.t. $au = 0$. 
+\end{proof}
+
+However, $B$ doesn't have to generate $M$. So what can we say about the submodule generated by $B$. The submodule $RB$ has as basis $(B)$, a linearly independent system which generates this module. \textbf{So, it's free. } And in fact: 
+
+\begin{rem}
+It is the maximal free submodule: when you factorize by this submodule, you get a torsion ring. 
+\end{rem}
+
+\begin{lem}
+$M/RB$ is a torsion module if and only if $B$ is a \textbf{maximal linearly independent set}. 
+\end{lem}
+\begin{proof}
+We assume $R$ is unital, since otherwise, $B$ may not be in $RB$. Or we could define $RB$ as $RB \cup B$. 
+Indeed, if $\exists u \in M$ s.t. $\overline{u} \equiv u \mod RB$ is not a torsion element, this means that $au \notin RB$ $\forall a \neq 0 \in R$. This is because "0" in the quotient module is the kernel, $RB$ so $au$ cannot be in $RB$. Then if: 
+$$
+au + c_1v_1 = \cdots c_kv_k = 0,
+$$
+ with $v_i \in B, c_i \in R, a \in R$, then $a = 0$, since if $a$ was nonzero, then $au = -c_1v_1 - \cdots - c_kv_k \in RB$. so $c_1v_1 + \cdots c_kv_k = 0$, so $c_i = 0$ for all $i$, so $\{u\}\cup B$ is linearly independent, contradiction, since $B$ was the largest linearly independent set in $M$. 
+ 
+ For any $u$, there exists a nonzero $a$ s.t. $a\bar{u} \in RB$, so $au + c_1v_1 + \cdots c_kv_k = 0$ for some $c_i \in R,v_i \in B$. 
+\end{proof}
+
+\vspace{5mm}
+\begin{Ex}
+Let $R = F[x,y], M = (x,y)$. The lines represent the ideals $(x),(y)$, and the empty box in the bottom left corner are just the constants. 
+
+
+
+
+\begin{center}
+
+
+
+\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-2.000000, xscale=2.000000, inner sep=0pt, outer sep=0pt]
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (53.4539,19.8415) -- (53.8548,68.6182) -- (117.1977,68.2173);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (39.2886,20.9106) -- (39.0213,56.0565) -- (90.7380,55.5220);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (63.2092,21.4451) .. controls (59.8091,24.2361) and (58.2018,28.7000) ..
+  (54.5230,31.2004);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (69.2228,26.7905) .. controls (65.4889,30.2455) and (62.1345,34.0739) ..
+  (58.7931,37.9195) .. controls (58.0669,38.7553) and (57.0382,39.2417) ..
+  (56.2602,40.0203);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (71.8955,32.8041) .. controls (68.3571,39.1546) and (63.0895,44.2814) ..
+  (57.9975,49.3748);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (76.8400,43.0939) .. controls (72.1573,48.6204) and (67.2801,53.9817) ..
+  (62.2624,59.2028) .. controls (61.3359,60.1668) and (60.4044,61.1321) ..
+  (59.6011,62.2037);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (79.7800,55.2547) .. controls (76.4077,59.0939) and (71.9615,61.8022) ..
+  (68.5489,65.5924) .. controls (67.7774,66.4493) and (67.0181,67.3526) ..
+  (66.0156,67.9500);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (87.6644,58.0610) .. controls (84.6956,61.6571) and (81.8082,65.4029) ..
+  (78.0427,68.2173);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (39.0213,56.0565) -- (39.0213,68.6182) -- (59.6011,68.4845);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (86.1944,20.1088) .. controls (81.7967,22.2240) and (78.5146,25.9464) ..
+  (75.2067,29.4225) .. controls (73.8818,30.8148) and (72.4410,32.1040) ..
+  (71.2328,33.5989) .. controls (71.0253,33.8557) and (69.9124,34.9527) ..
+  (70.5918,34.2149) .. controls (71.0255,33.7438) and (71.4612,33.2746) ..
+  (71.8955,32.8041);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (93.8116,25.3205) .. controls (88.4369,30.2819) and (83.3224,35.5137) ..
+  (78.0277,40.5640) .. controls (77.3918,41.1706) and (75.6403,41.5107) ..
+  (76.0382,42.2921) .. controls (76.2148,42.6389) and (76.5744,42.8267) ..
+  (76.8400,43.0939);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (103.0324,32.2695) .. controls (95.9859,38.6720) and (89.5655,45.7315) ..
+  (82.5642,52.1775) .. controls (81.5519,53.1095) and (80.2868,53.9139) ..
+  (79.7800,55.2547);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (110.9168,36.2786) .. controls (107.1891,43.1202) and (101.1703,48.2187) ..
+  (96.2745,54.1678) .. controls (94.4492,56.3858) and (92.5167,58.5041) ..
+  (90.5457,60.6062) .. controls (90.4265,60.7333) and (90.3123,60.8649) ..
+  (90.2035,61.0010);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (118.8013,50.1766) .. controls (113.7234,54.0332) and (108.4379,57.7569) ..
+  (104.1897,62.5100) .. controls (103.1426,63.6816) and (102.2314,64.9678) ..
+  (100.9947,65.9766) .. controls (100.3717,66.4848) and (99.7400,67.0068) ..
+  (99.2906,67.6827);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (38.6204,48.0384) .. controls (39.7955,49.1145) and (41.2026,49.9905) ..
+  (42.1220,51.2945) .. controls (42.3311,51.5911) and (41.5895,51.0707) ..
+  (41.9164,51.3672) .. controls (42.8601,52.2236) and (43.8321,53.0557) ..
+  (44.9445,53.6971) .. controls (45.9848,54.2969) and (47.1092,54.8018) ..
+  (47.9749,55.6556);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (39.4223,40.6885) .. controls (45.1375,46.0350) and (51.3898,50.7851) ..
+  (56.9284,56.3238);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (38.7541,30.2650) .. controls (46.4469,37.4171) and (53.8016,44.9560) ..
+  (61.8788,51.6734) .. controls (63.4315,52.9647) and (65.1340,54.0232) ..
+  (66.7273,55.2845) .. controls (66.9655,55.4731) and (67.2135,55.6524) ..
+  (67.4856,55.7892);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (39.2886,23.9842) .. controls (43.4112,27.9503) and (48.0335,31.3361) ..
+  (52.4928,34.9071) .. controls (57.8043,39.1605) and (63.2168,43.2912) ..
+  (68.4539,47.6357) .. controls (72.2010,50.7443) and (77.0349,52.7990) ..
+  (79.7800,56.8583) .. controls (80.1591,57.4189) and (79.6936,55.3242) ..
+  (79.7800,55.2547);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (39.2886,20.9106) .. controls (40.9514,23.0619) and (43.5283,23.9781) ..
+  (45.8607,25.2403) .. controls (49.4511,27.1832) and (52.7604,29.6109) ..
+  (56.1432,31.8928) .. controls (65.5273,38.2230) and (75.1947,44.2806) ..
+  (83.6198,51.8405) .. controls (84.3856,52.5277) and (85.2386,53.1702) ..
+  (85.7935,54.0520);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (44.2331,19.8415) .. controls (56.3755,26.9268) and (68.0617,34.7588) ..
+  (80.0648,42.0727) .. controls (82.0226,43.2656) and (84.0919,44.3433) ..
+  (85.7935,45.9003);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (53.4539,19.8415) .. controls (64.8341,24.1365) and (74.2461,32.2287) ..
+  (85.1137,37.4954) .. controls (87.8082,38.8012) and (90.1971,40.6012) ..
+  (92.6883,42.2364) .. controls (92.6883,42.2364) and (92.9874,42.4071) ..
+  (92.9874,42.4071) .. controls (92.9874,42.4071) and (93.2771,42.5594) ..
+  (93.2771,42.5594);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (63.2092,21.4451) .. controls (65.6369,21.8048) and (68.1448,21.9213) ..
+  (70.4088,22.9931) .. controls (73.4641,24.4397) and (76.4393,26.0524) ..
+  (79.4140,27.6577) .. controls (83.0735,29.6326) and (86.8933,31.3417) ..
+  (90.3857,33.5970) .. controls (90.7511,33.8330) and (91.0984,34.0994) ..
+  (91.4062,34.4077);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (74.5682,19.4406) .. controls (80.0830,22.5025) and (85.8804,24.9888) ..
+  (91.4139,28.0364) .. controls (92.3893,28.5736) and (93.4169,29.0652) ..
+  (94.2125,29.8641);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (75.2364,73.9636) .. controls (75.9947,75.8413) and (77.5069,77.2359) ..
+  (78.7258,78.8051) .. controls (79.5093,79.8138) and (79.9596,81.0553) ..
+  (80.9446,81.9189) .. controls (81.4853,82.3930) and (82.0769,82.8084) ..
+  (82.5863,83.3180);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (82.3190,73.9636) .. controls (80.1830,76.6705) and (78.3504,79.6415) ..
+  (75.8907,82.0736) .. controls (75.3684,82.5901) and (74.8241,83.1091) ..
+  (74.1673,83.4516);
+\path[draw=black,line join=miter,line cap=butt,line width=0.056pt]
+  (20.3125,40.5549) .. controls (20.4109,41.6586) and (20.1478,43.0069) ..
+  (20.9938,43.8381) .. controls (21.9842,44.8113) and (23.4105,45.1753) ..
+  (24.7436,45.3340) .. controls (26.0782,45.4928) and (27.8633,45.8159) ..
+  (28.7315,44.6976) .. controls (29.2478,44.0325) and (29.6640,43.2312) ..
+  (29.7576,42.3992) .. controls (29.8403,41.6647) and (29.4647,42.2490) ..
+  (29.5028,42.6748) .. controls (29.5673,43.3976) and (29.3741,45.5667) ..
+  (29.3838,44.8440) .. controls (29.3890,44.4523) and (29.4629,43.3722) ..
+  (29.4557,43.4727) .. controls (29.3034,45.6100) and (29.2527,47.7515) ..
+  (29.1434,49.8916) .. controls (29.0678,51.3722) and (28.9444,53.1227) ..
+  (27.6505,54.0658) .. controls (26.4843,54.9158) and (24.9553,55.0422) ..
+  (23.5622,54.9655) .. controls (22.8648,54.9271) and (21.9203,54.3101) ..
+  (22.2406,53.5468) .. controls (22.6088,52.6693) and (23.6917,52.5287) ..
+  (24.5194,52.4488) .. controls (27.3290,52.1779) and (29.9999,53.3189) ..
+  (32.6069,54.1856);
+
+\end{tikzpicture}
+
+\end{center}
+
+
+
+
+$B = \Set{x}$. $RB = (x)$. And $M/RB = M/(x)$. 
+\end{Ex}
+
+
+
+\section*{10.3 Exercises}
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{6}
+\item \textit{Let $N$ be a submodule of $M$. Prove that if both $M/N$ and $N$ are finitely generated, then so is $M$. }
+\begin{proof}
+Suppose $M$ is not finitely generated. Then we have:
+$$
+M/N = RA,
+$$
+where $A = \{x_1 + N,...,x_n + N\}$. And since $N$ is also finitely generated, we know $N = RA_N$, and $M -N$ is not finitely generated. 
+Now we know $x_i \in M - N$ since otherwise we would have $x_i + N = N$. So then since $M$ is not finitely generated, we know $\exists y \in M - N$ s.t. $y \notin R\{x_i\}$, hence $y + N \notin RA = \{(rx_1) + N,...,(rx_n)+ N\}$, but since $y \in M - N$ we know $y + N \neq N$, hence $y + N \in M/N$. But we said $M/N = RA$, so this is a contradiction, so we must have that $M$ is finitely generated. 
+\end{proof}
+
+\setcounter{enumi}{11}
+\item \textit{Let $R$ be a commutative ring and let $A,B$, and $M$ be $R$-modules. Prove the following isomorphisms of $R$-modules: }
+\begin{enumerate}
+\item \textit{$Hom_R(A\times B,M) \cong Hom_R(A,M) \times Hom_R(B,M)$.}
+\begin{proof}
+Let $H = \text{Hom}_R(A\times B,M)$, $H_A = \text{Hom}_R(A,M)$, and $H_B = \text{Hom}_R(B,M)$. Let $\Phi: H_A \times H_B\to H$ be given by $\Phi((\phi,\psi)) = \phi + \psi$, where $\phi \in H_A,\psi \in H_B$. We prove this is an isomorphism of $R$-modules. 
+
+\textbf{Homomorphism: }Observe: 
+\begin{equation}
+\begin{aligned}
+\Phi((\phi_1,\psi_1) + (\phi_2,\psi_2)) &= \Phi((\phi_1 + \phi_2,\psi_1 + \psi_2)) = \phi_1 + \psi_1 + \phi_2 + \psi_2\\ &= \Phi((\phi_1,\psi_1)) + \Phi((\phi_2,\psi_2)).
+\end{aligned}
+\end{equation}
+
+In the above expression, the first equality comes from the definition of addition in $H_A \times H_B$. The second and third equalities comes from the definition of $\Phi$. And we also know: 
+$$
+\Phi(r(\phi,\psi)) = \Phi((r\phi,r\psi)) = r\phi + r\psi = r(\phi + \psi) = r\Phi((\phi,\psi)),
+$$
+hence $\Phi$ preserves mult. by $R$, by the definition of scalar multiplication on the $R$-module $H_A \times H_B$, and the definition of $\Phi$. 
+
+\textbf{Surjectivity: } Let $\phi \in H$. Then $\phi:A\times B \to M$. So let $\phi \in H_A$ be given by $\phi(a) = \phi(a,0)$,
+and let $\psi \in H_B$ be given by $\phi(b) = \phi(0,b)$. Then we have: $\Phi((\phi,\psi)) = \phi$.  Then $\Phi$ is surjective. 
+
+
+\textbf{Injectivity: } Let $\Phi((\phi_1,\psi_1)) = \phi_1 + \psi_1 = \phi_2 + \psi_2 = \Phi((\phi_2,\psi_2)) \in H_A \times H_B$. Then note that 
+$$
+(\phi_1 + \psi_1)(a,0) = \phi_1(a) = \phi_2(a) = (\phi_2 + \psi_2)(a,0),
+$$
+and the same holds when we let $a = 0$, and use an arbitrary $b$ value, so we get that $\psi_1 = \psi_2$ as well. Hence $\Phi$ is injective. And thus it is an isomorphism. 
+\end{proof}
+\item \textit{$Hom_R (M,A \times B) \cong Hom_R(M,A) \times Hom_R(M,B)$.}
+\begin{proof}
+Let $H = \text{Hom}_R(M, A\times B)$, $H_A = \text{Hom}_R(M,A)$, and $H_B = \text{Hom}_R(M,B)$. Let $\Phi:H_A \times H_B \to H$ be given by $\Phi((\phi,\psi)) = (\phi,\psi) \in H$, where $\phi \in H_A$, and $\psi \in H_B$. We prove this map is an isomorphism. 
+
+\textbf{Homormorphism: }Observe: 
+\begin{equation}
+\begin{aligned}
+\Phi((\phi_1,\psi_1) + (\phi_2,\psi_2)) &= \Phi((\phi_1 + \phi_2,\psi_1 + \psi_2)) = (\phi_1 + \phi_2,\psi_1 + \psi_2)\\ &=(\phi_1,\psi_1) + (\phi_2,\psi_2) =  \Phi((\phi_1,\psi_1)) + \Phi((\phi_2,\psi_2)).
+\end{aligned}
+\end{equation}
+The first equality follows from addition in the $R$-module $H_A \times H_B$, the second comes from the definition of $\Phi$, the third comes from addition in $H$, and the last again comes from the definition of $\Phi$.  And we also know: 
+$$
+\Phi(r(\phi,\psi)) = \Phi((r\phi,r\psi)) = (r\phi,r\psi) = r(\phi , \psi) = r\Phi((\phi,\psi)),
+$$
+by the definition of scalar mult. in $H$, hence since $\Phi$ preserves addition and scalar multiplication, we know it is a homomorphism. 
+
+\textbf{Surjectivity: } Let $\phi \in H$, then we know $\phi: M \to A \times B$. Then the image of any element of $M$ under $\phi$ is a two dimensional vector whose first component lives in $A$, and whose second component lives in $B$. So let $\phi:M \to A$ be given by $\phi(m) = \phi(m)_1$, the first component of $\phi(m)$. and let $\psi(m) = \phi(m)_2$. Then $\Phi((\phi,\psi)) = (\phi,\psi) = \phi$. Hence $\Phi$ is surjective. 
+
+\textbf{Injectivity: } Let $\Phi((\phi_1,\psi_1)) =(\phi_1,\psi_1) = (\phi_2,\psi_2) =  \Phi((\phi_2,\psi_2))$. Then we must have $\phi_1 = \phi_2$, and $\psi_1 = \psi_2$, since otherwise we do not have equality of these ordered pairs of hom-sms in $H$. But then we have shown that the arguments of $\Phi$ are equal in this case, so $\Phi$ must be injective. 
+\end{proof}
+\end{enumerate}
+
+\setcounter{enumi}{14}
+\item \textit{An element $e \in R$ is called a \textbf{central idempotent} if $e^2 = e$ and $er = re$ for all $r \in R$. If $e$ is a central idempotent in $R$, prove that $M = eM \oplus (1 - e)M$. }
+
+\begin{proof}
+So we wish to show that $M$ is the direct sum of the two specified submodules. Note that we know that these sets are both submodules by Exercise 14 of Section 1, which tells us that $zM$ is a submodule for any $z$ in the center of $R$. We know $e$ is in the center since it is a central idempotent. And $(1 - e)r = r - er = r - re = r(1 - e)$. So it is also in the center. Now we need only show that $M = eM + (1 - e)M$, and that $eM \cap (1 - e)M = 0$. 
+
+
+Let $m \in M$. Then $m = em + (1 - e)m = em + m - em$, where $em \in eM$, and $(1 - e)m \in (1 - e)M$, so $m \in eM + (1 - e)M$. Now let $em + (1 - e)n \in eM + (1 - e)M$. Then we have $em + n - en = n + e(m - n)$. So we know $M = eM + (1 - e)M$. So let $m \in eM \cap (1 - e)M$. Then $m = en_1 = (1 - e)n_2$ for some $n_1,n_2 \in M$. Then we have: 
+$$
+m = en_1 = (1 - e)n_2 = e^2n_1 = e(1 - e)n_2 = (e - e^2)n_2 = (e - e)n_2 = 0,
+$$
+so we have shown that if $m \in eM \cap (1 - e)M$, $m = 0$, so $eM \cap (1 - e)M = 0$. And thus $M = eM \oplus (1 - e)M$ by definition. 
+\end{proof}
+
+\setcounter{enumi}{17}
+\item \textit{Let $R$ be a PID, let $M$ be an $R$-module, and assume that $aM = 0$ for some $a \neq 0$ where $a \in R$. Let:
+$$
+a = p_1^{r_1}\cdots p_k^{r_k},
+$$
+distinct primes in $R$ $\forall i$, and let: $$
+M_i = Ann(p_i^{r_i}) = \{u \in M: p_i^{r_i}u = 0\}.
+$$
+ Then $M = M_1 \oplus \cdots \oplus M_k$. }
+ 
+  \begin{proof}
+ $\forall i$, let $a_i = a/p_i^{r_i} (= \prod_{j \neq i}p_j^{r_j})$. Then $a_iM \sub M_i$, since $p_i^{r_i}(a_iM) = aM = 0$ (by assumptions of theorem). Then: 
+ $$
+ gcd(a_1,...,a_k) = 1,
+ $$
+ so there exists $c_1,...,c_k \in R$ s.t. $c_1a_1 + \cdots + c_ka_k = 1$. So $\forall u \in M$,
+ $$
+ u = c_1a_1u + \cdots + c_ka_ku \in M_1 + \cdots M_k.
+ $$
+ Now let $u \in M_i \cap (\sum_{j \neq i}M_j)$. Then $p_i^{r_i},a_i \in Ann(u)$. So, $(p_i^{r_i}) = (1) \sub Ann(u)$, so $u = 0$. So $\forall i,M_i \cap (\sum_{j \neq i}M_j) = 0$. 
+ \end{proof}
+ \setcounter{enumi}{21}
+ \item \textit{Let $R$ be a Principal Ideal Domain, let $M$ be a torsion $R$-module, and let $p$ be a prime in $R$ (do not assume $M$ is finitely generated, hence it need not have a nonzero annihilator). The \textbf{p-primary component of $M$} is the set of all elements of $M$ that are annihilated by some positive power of $p$. }
+ \begin{enumerate}
+ \item \textit{Prove that the $p$-primary component is a submodule. }
+ \begin{proof}
+ Let $N$ denote the $p$-primary component of $M$. Note that: 
+ $$
+ N = \Set{m \in M: \exists k\in \n,p^km = 0}. 
+ $$
+We apply the submodule criterion. Note that $N \neq \varnothing$ since $0 \in N$. Let $x,y \in N$, and let $r \in R$. Then we know $\exists k,l \in \n$ s.t. $p^kx = p^ly = 0$. Observe: 
+$$
+p^kp^l(x + ry) = p^lp^kx + rp^kp^ly = p^l0 + rp^k0 = 0,
+$$
+so we know $x + ry \in N$, hence by the submodule criterion, $N$ is a submodule of $M$. 
+ \end{proof}
+ 
+ \item \textit{Prove that this definition of $p$-primary component agrees with the one given in Exercise 18 when $M$ has a nonzero annihilator. }
+ \begin{proof}
+ Assume $M$ has a nonzero annihilator $a$, and this is the minimal such element. Then let $p^\alpha$ be a prime power factor in the prime factorization of $a$. Let:
+ $$
+ N = \Set{m \in M: \exists k\in \n,p^km = 0}.
+ $$
+ In Exercise 18, the definition given for the annihilator of $p^\alpha$ is: 
+ $$
+ A = Ann_M(p^\alpha) = \{m \in M: p^\alpha m = 0\}.
+ $$
+ So clearly any element of $A$ is in $N$; just let $k =\alpha$. So let $m \in N$. Then $\exists k \in \n$ s.t. $p^km = 0$. Suppose $k > \alpha$. Then since $am = 0$, we must have some other product of primes $r = r_1\cdots r_l\mid a$ s.t. $r \nmid p^{\alpha}$. But since we proved that $N$ is a submodule in part (a), we know $Ann(N) = \Set{r \in R: rm = 0,\forall m \in N}$ is an ideal in $R$. Note then that $r,p^k \in Ann(N)$. But since $p^k \nmid r$ since otherwise we would have $p^k \mid a$, which is impossible since we said $r > \alpha$. So then $r \notin Rp^k$, hence $Ann(N)$ is not a principal ideal, but this is impossible, since we are in a PID, so we must have $k \leq \alpha$. Hence $m \in A$, and thus $N \sub A$, and the definitions are equivalent, because the sets are equal. 
+ 
+\begin{comment}
+  \textbf{This is sketchy, couldn't you just have that $m$ is also annihilated by some power of some other prime in $a$?}
+ 
+ \textbf{The case of finitely many components (when $M$ is annihilated by a nonzero element of $R$) was considered in class; in fact, the general case can be reduced to it, since $M$ is a torsion module and thus every element of $M$ is contained in an annihilator submodule of some nonzero element of $R$.}
+
+\textbf{The annihilator of a single element $m$ need not be a power of a prime element of $R$ -- a direct sum of submodules is not the union of these submodules, and $m$ does not have to belong to one of these submodules. You have to show that $m$ is a sum, $m=m_{1}+...+m_{k}$ where for each $i$, $m_{i}$ is contained in a primary component of $M$.}
+\end{comment}
+ \end{proof}
+ 
+ \item \textit{Prove that $M$ is the (possibly infinite) direct sum of its $p$-primary components $\Set{M_i}$, as $p$ runs over all primes of $R$. }
+ 
+ \begin{proof}
+ Let $\Set{p_i}$ be all the primes in $R$. $\forall i$, let $a_i = \prod_{j \neq i}p_j^{r_j}$. Then $a_iM \sub M_i$, since $p_i^{r_i}(a_iM) = \prod_{j = 1}^\infty p_j^{r_j}M = 0$ (since $M$ is a torsion module, and hence $\forall m \in M$ there exists a nonzero $r \in R$ s.t. $rm = 0$, and the prime decomposition of $r$ is in $\prod_{j = 1}^\infty p_j^{r_j}$). Then: 
+ $$
+ gcd(a_1,a_2,...) = 1,
+ $$
+ so there exists $c_1,c_2,... \in R$ not necessarily all nonzero s.t. $c_1a_1 + \cdots = 1$. So $\forall u \in M$,
+ $$
+ u = \sum_{i = 1}^\infty c_ia_i \in M_1 + M_2 + \cdots.
+ $$
+ Now let $u \in M_i \cap (\sum_{j \neq i}M_j)$. Then $p_i^{r_i},a_i \in Ann(u)$. So, $(p_i^{r_i}) = (1) \sub Ann(u)$, so $u = 0$. So $\forall i,M_i \cap (\sum_{j \neq i}M_j) = 0$. So since we know $M = M_1 + M_2 + \cdots$, and the pairwise intersection of each of these is $0$, we know that $M = M_1 \oplus M_2 \oplus \cdots$. 
+ \end{proof}
+ 
+ \end{enumerate}
+ 
+ \setcounter{enumi}{26}
+ \item \textit{We show that \textbf{free modules over noncommutative rings need not have a unique rank.} Let $M = \z^{\n} = \Set{(a_1,...,a_n): a_i \in \z}$. Let $R = End_\z(M)$. Consider $R$ as a module over itself. It is a free module of rank 1. We claim $R \cong R^2$. And so we would have $R \cong R^n$ for any $n$. 
+ }
+ 
+ \begin{proof}
+ Consider $\phi_1,\phi_2,\psi_1,\psi_2 \in R$. Define: 
+ \bee
+ \phi_1(a_1,a_2,...) &= (a_1,a_3,a_5,...)\\
+ \phi_2(...........) &= (a_2,a_4,...)\\
+ \psi_1(...........) &= (a_1,0,a_2,0,...)\\
+ \psi_2(...........) &= (0,a_1,0,a_2,...)
+ \eee
+ We claim that $\Set{\phi_1,\phi_2}$ is a basis of $R$ as an $R$-module, so $R \cong R^2$ as $R$-modules. \textbf{Why this implication!! Ask after class.} The general situation: $M$ is $R$ module, $u_1,...,u_n$ is basis in $M$. Then every element of $M$ is a linear combination uniquely. Then $M \cong R^n$ under isomorphism $u \mapsto (a_1,...,a_n)$, the coefficients of the unique linear combination representing $u$. We have:
+ $$
+ \phi_1\psi_1 = \phi_2\psi_2 = 1,
+ $$
+ $$
+ \phi_1\psi_2  =\phi_2\psi_1 = 0,
+ $$
+ $$
+ \psi_1\phi_1 + \psi_2\phi_2 = 1.
+ $$
+ These can be checked easily. Any $\phi = \phi 1 = (\phi\psi_1)\phi_1 + (\phi\psi_2)\phi_2)$. So $\phi_1,\phi_2$ generate $\phi$. If $\beta_1\phi_1 + \beta_2\phi_2 = 0$, then $\beta_1\phi_1\psi_1 + \beta_2\phi_2\psi_1 = 0$. So we get $\beta_1 = 0$. And to get $\beta_2 = 0$, we multiply on the right by $\psi_2$ instead of $\psi_1$. And they are linearly independent. And thus a basis, so the claim is fulfilled.
+ \end{proof}
+ 
+ 
+ \setcounter{enumi}{-1}
+ \item \textit{Let $M$ be an $R$-module and let $I,J$ be ideals in $R$. }
+ 
+ \begin{enumerate}
+ \item \textit{Prove that Ann$(I + J) = Ann(I) \cap Ann(J)$. }
+ \begin{proof}
+ Let $m \in Ann(I + J)$. Then $(i + j)m = 0$ for all $i \in I,j \in J$. Then letting $i = 0$, we know $m \in Ann(J)$, and letting $j = 0$, we know $m \in Ann(I)$. So $Ann(I + J) \sub Ann(I) \cap Ann(J)$. Now let $m \in Ann(I) \cap Ann(J)$. Then $im = 0,\forall i \in I$, and $jm = 0, \forall j \in J$. Then we have: 
+ $$
+ (i + j)m = im + jm = 0 + 0 = 0,
+ $$
+ by he definition of an $R$-module. So $Ann(I) \cap Ann(J) \sub Ann(I + J)$. Hence they are equal. 
+ \end{proof}
+ \item \textit{Prove that $Ann(I) + Ann(J) \sub Ann(I \cap J)$.  }
+ 
+ \begin{proof}
+ Let $m \in Ann(I) + Ann(J)$. Then $m = n + k$ for some $n \in Ann(I),k \in Ann(J)$. Let $i \in I \cap J$. Then we know: 
+ $$
+ im = i(n + k) = in + ik = 0 + 0 = 0,
+ $$
+  by the distributivity of the action of $R$ on $M$, and since $i \in I$, and $i \in J$, and since $n,k$ are in the respective annihilators. Thus $m \in Ann(I \cap J) \Rightarrow  Ann(I) + Ann(J) \sub Ann(I \cap J)$. 
+ \end{proof}
+ \item \textit{Give an example where the inclusion in part (b) is strict. }
+ 
+ Let $R$ be the ring of continuous functions $f:[0,1] \to \R$. Note this is not an integral domain since we can construct zero divisors in the form of a pair piecewise functions, one of which is zero on half the interval, and the other being zero on the other half. We consider the $R$-module of $R$ over itself. Then let $I$ be the ideal of functions which are zero on $[0,1/2]$, and $J$ be the ideal of functions which are zero on $[1/2,1]$. Now note that $I + J \neq R$ since $f(x) = 1$ is in $R$, but not in $I + J$, since all functions in $I + J$ are zero at $1/2$. But $I \cap J = 0$, since these functions must be zero across both halves, and so $Ann(I \cap J) = R$, and so $Ann(J) + Ann(I) = I + J \subsetneq R = Ann(I \cap J)$. 
+ 
+ We give another example. Consider $R = F[x,y]$, 
+ $$
+ M = R/(xy) = \Set{a_0 + b_1x + \cdots b_nx^n + c_1y + \cdots + c_ny^n}.
+ $$ 
+ $I = (x),J = (y)$, and $I \cap J = (xy)$. Then we have: 
+\bee
+Ann(I) &= \Set{c_1y + \cdots + c_ny^n} \sub M,\\
+Ann(J) = \Set{b_1x + \cdots + b_nx^n}.
+\eee
+And $Ann(I \cap J) = Ann(xy) = M$. And $F \sub Ann(I \cap J) \subsetneq Ann(I) + Ann(J)$. 
+ 
+ \item \textit{If $R$ is commutative and unital and $I,J$ are comaximal, prove that $Ann(I \cap J) = Ann(I) + Ann(J)$. }
+ 
+ \begin{proof}
+ Assume $R$ is commutative and unital, and $I,J$ are comaximal. 
+ Let $m \in Ann(I + J) = Ann((1)) = Ann(R)$ since $I,J$ are comaximal, and $R$ is commutative and unital. So $rm = 0$ for all $r \in R$. So then $m \in Ann(I)$, and since $0 \in Ann(J)$, we may write $m = m + 0$, so $m \in Ann(I) + Ann(J)$. And thus $Ann(I + J) \sub Ann(I) + Ann(J)$. So they are equal by the result of part (b). \textbf{This is just very wrong, I think. }
+ \end{proof}
+\end{enumerate}  
+
+\end{enumerate}
+
+\section{Tensor Products of Modules}
+
+\textbf{Monday, January, 22nd}
+
+Let $R$ be a unital, commutative ring. Let $M,N$ be $R$-modules. We have:
+$$
+M \times N = M \oplus N.
+$$
+i.e. $(u,v) = u + v = (u,0) + (0,v)$. If we want to actually multiply $M,N$, multiply elements of $M$ and elements of $N$: $uv$. Then the first thing we need is for it to be distributive. Then we want:
+ \bee
+ (u_1 + u_2)v &= u_1v + u_2v,\\
+ u(v_1 + v_2) &= uv_1 + uv_2.
+ \eee
+ \begin{Def}
+ A mapping $\beta: M \times N \to K$ is said to be \textbf{bilinear} if for all $v \in N$, $\beta:(\cdot,v):M \to K$ is a hom-sm, and for any $u \in M$, $\beta(u,\cdot):N \to K$ is a hom-sm, that is, $\forall v \in N,\forall u_1,u_2 \in M$:
+ $$
+ \beta(u_1 + u_2,v) = \beta(u_1,v) + \beta(u_2,v).
+ $$
+ And $\forall u \in M,a \in R$:
+ $$
+ \beta(au,v) = a\beta(u,v).
+ $$
+ And $\forall u \in M,\forall v_1,v_2 \in N$:
+ $$
+ \beta(u,v_1  + v_2) = \beta(u,v_1) + \beta(u,v_2).
+ $$
+ Where above, we put $\beta_v(u) = \beta(u,v)$ for all $u \in M$. $\beta_v:M \to K$. 
+ \end{Def}
+ 
+ \begin{Def}
+ The \textbf{tensor product} $M \otimes_R N$ is an $R$-module with a bilinear mapping $\beta:M \times N \to M \otimes N$ such that for any module $K$, and any bilinear mapping $\gamma:M \times N \to K$, there is a unique homomorphism $\phi: M \otimes N \to K$ such that $\gamma = \phi \circ \beta$, i.e.: 
+ 
+ \begin{center}
+\begin{tikzcd}
+ & M \times N \arrow[rd, "\gamma"] \arrow[ld, "\beta"'] &  \\
+M \otimes N \arrow[rr, "\phi"] &  & K
+\end{tikzcd}
+\end{center}
+
+is commutative. 
+ 
+ \end{Def}
+ 
+ In the above diagram, the top and left nodes together are the universal object. And the morphism is $\phi$. 
+ 
+  We need to prove this because the above definition is not constructive. We just said it's a module with certain properties. Now we construct it explicitly. If such a module exists, then it is unique up to isomorphism. 
+ 
+ \begin{Prop}
+ $M \otimes N$ exists. 
+ \end{Prop}
+
+ 
+ \begin{proof}
+ Let $\mathcal{M}$ be the free $R$-module generated by $M \times N$ - as a set. That is, the set of formal linear combinations of pairs $(u,v) \in M \times N$. So:
+ $$
+ \mathcal{M} = \Set{a_1(u_1,v_1) + \cdots + a_n(u_n,v_n):a_i \in R, (u_i,v_i) \in M \times N}.
+ $$
+ Let $\mathcal{L}$ be the submodule of $\mathcal{M}$ generated by elements of the form: 
+ \bee
+ (u_1 + u_2,v) - (u_1,v) - (u_2,v),\\(u,v_1 + v_2) - (u,v_1) - (u,v_2),\\
+ (au,v) - a(u,v),\\
+ (u,av) - (a(u,v)).\\
+ \eee
+ We want the bilinearity relations to be satisfied, so we declare all these elements to be zero. 
+ Claim: $\mathcal{M}/\mathcal{L} = M \otimes N$. So what are elements of this module? These are classes of linear combinations of pairs. Elements of $\mathcal{M}/\mathcal{L}$ are classes (module $\mathcal{L}$) of linear combinations of $(u,v)$. The class of $(u,v)$ is denoted by $u \otimes b$. So 
+ $$
+ \mathcal{M}/\mathcal{L} = \Set{\sum a_i(u_i \otimes v_i): a_i \in R, u_i \in M,v_i \in N}.
+ $$
+ 
+ \begin{Def}The elements of of the set above are called \textbf{tensors}, and $u \otimes v$ is called a \textbf{simple tensor}. 
+ \end{Def}
+ So:
+  $$
+ \mathcal{M}/\mathcal{L} = \Set{\sum a_i\overline{(u_i,v_i)}}.
+ $$
+ And:
+ \bee
+ \overline{(u,v)} &= u \otimes v,\\
+ \overline{(u_1 + u_2,v)} &= \overline{(u_1,v)} + \overline{(u_2,v)},\\
+ (u_1 + u_2) \otimes v &= u_1 \otimes v + u_2 \otimes v.
+ \eee
+ The mapping $M \times N \to \mathcal{M}/\mathcal{L}$ given by $(u,v) \mapsto u \otimes v$ is bilinear: in $\mathcal{M}/\mathcal{L}$, we have:
+ \bee
+ (u_1 + u_2) \otimes v &= u_1 \otimes v + u_2 \otimes v,\\
+ \beta(u_1 + u_2,v) &= \beta(u_1,v) + \beta(u_2,v),
+ \eee
+ where the stuff in the bottom line is equal to the stuff it lines up with in the top line. Also: 
+ \bee
+ (au) \otimes v &= a(u \otimes v),\\
+ u \otimes (v_1 + v_2) &= u\otimes v_1 
++ u\otimes v_2,\\
+u\otimes (av) &= a(u \otimes v).
+\eee
+if $\gamma:M \times N \to K$ is bilinear, we have a unique homomorphism $\Phi: M \to K$ with $\Phi(u,v) = \gamma(u,v)$ for all $u,v$. 
+
+Since $\gamma$ is bilinear, $\Phi(\mathcal{L}) = 0$,
+\bee
+(\Phi(u_1 + u_2,v) - (u_1,v) - (u_2,v)) 
+&= \Phi(u_1 + u_2,v) - \Phi(u_1,v) - \Phi(u_2,v)\\
+&= \gamma(u_1 + u_2,v) - \gamma(u_1,v) - \gamma(u_2,v).
+\eee
+and the same holds for all other relations. So $\Phi$ is factorized to a hom-sm $\phi: \mathcal{M}/\mathcal{K} \to K$. It is unique since $\mathcal{M}$ is generated by $M \times N$ s.t. $\phi(u \ten v) = \gamma(u,v)$. 
+ \end{proof}
+ 
+ \textbf{Tuesday, January 23rd}
+ 
+\vspace{5mm}
+
+Let $R$ be commutative, unital. And $M,N$ be $R$-modules. Then:
+$
+M \otimes N = M \otimes_R N$ is an $R$-module consisting of \textbf{tensors: } 
+
+$$
+a_1(u_1 \otimes v_1) + \cdots + a_n(u_n \otimes v_n),
+$$
+
+with $a_i \in R,u_i \in M,v_i \in N$. It is generated by \textbf{simple tensors} $u \otimes v$, with relations: 
+ \bee
+  (u_1 + u_2) \otimes v &= u_1 \otimes v + u_2 \tens v,\\
+ (au) \otimes v &= a(u \otimes v),\\
+ u \otimes (v_1 + v_2) &= u\otimes v_1 
++ u\otimes v_2,\\
+u\otimes (av) &= a(u \otimes v).
+\eee
+And it has no other relations! It has a universal property: for any $R$-module $K$ and a bilinear mapping $\gamma: M \times N \to K$ there exists a unique hom-sm $\phi:M \otimes N \to K$ such that $\phi(u \otimes v) = \gamma(u,v)$ for each $u \in M,v \in N$. 
+
+\begin{lem}
+We list some properties. 
+\begin{enumerate}
+\item If $M = RB$, $N = RC$, then $M \otimes N = R(B \otimes C)$, where $B \otimes C = \Set{u\otimes v:u \in B,v \in C}$. 
+\begin{proof}
+$\forall u \in M$, $u = \sum a_iu_i,u_i \in B$. And $\forall v \in N, v = \sum b_jv_j,v_j \in C$. Then:
+$$
+u \otimes v = \sum_{i,j}a_ib_j(u_i \otimes v_j).
+$$
+i.e. any tensor in $M \otimes N$ is a linear combinations of such simple tensors. 
+\end{proof}
+\item $\forall u \in M$, $u \otimes 0 = 0$, and $\forall v \in N$, $0 \otimes v = 0$. 
+
+\begin{proof}
+$u \otimes 0 = u \otimes (0 + 0) = u \otimes 0 + u \otimes 0$, so we must have that it is zero. 
+\end{proof}
+
+\item $\forall$ module $M$, $M \otimes 0 = 0 \otimes M = 0$. 
+
+\item $\forall$ module $M$, $M \otimes R \cong R \otimes M \cong M$. 
+
+$R$ plays the role of the identity in this algebra of modules. 
+
+\begin{proof}
+Take any tensor, it is of the form: 
+\bee \label{eqn10.17}
+a_1(u_1 \otimes b_1) + \cdots + a_n(u_n \otimes b_n) &= a_1b_1(u_1 \otimes 1) + \cdots + a_nb_n(u_n \otimes 1)\\
+&= (a_1b_1u_1) \otimes 1 + \cdots + (a_nb_nu_n) \otimes 1\\
+&= (a_1b_1u_1 + \cdots + a_nb_nu_n) \otimes 1 = v \otimes 1.
+\eee
+Note in the above, $b_i \in R$, so we can take them out: $u \otimes b = u \otimes (b \cdot 1) = b(u \otimes 1)$. 
+
+So define a hom-sm $\phi:M \ten R \to M$ by: 
+$$
+\sum_{i = 1}^n b_i(u_i \ten a_i) \mapsto \sum_{i = 1}^n a_ib_iu_i.
+$$
+Why is $\phi$ defined, and why is it a homomorphism? First, define $\gamma: M \times R \to M$, $\gamma(u,a) = au$. This $\gamma$ is bilinear. If $u$ is fixed, it is linear with respect to $a$, if $a$ is fixed, it is linear with respect to $u$. So there exists a unique hom-sm $\phi: M \tens
+R$ s.t. $\phi(u \tens a) = au$ $\forall u \in M,a \in R$. This is our $\phi$. Why is it an isomorphism. Construct the inverse mapping. Take $u \mapsto u \tens 1$. And why do we need to prove that it is defined? There are relations in the module. 
+
+\begin{Ex} The same tensor can be written in several ways as a sum of simple tensors, in $\z \tens \z$:
+$$
+5 \tens 6 = 2 \tens 6 + 3 \tens 6.
+$$
+The left hand side is sent to $30$, but we need it to be bilinear or something. 
+
+\end{Ex}
+
+So the inverse is a homomorphism, $M \to M \tens R$. It is an inverse, since if we start with a tensor, send it to the $v \tens 1$ in Equation \ref{eqn10.17}, we get: 
+$$
+\sum a_i(u_i \tens b_i) \mapsto^\phi \sum a_ib_iu_i \mapsto^{\phi^{-1}} (\sum a_ib_iu_i)\tens 1.
+$$
+\end{proof}
+
+\item $M \tens N \cong N \tens M$ by the map $u \tens v \mapsto v \tens u$. We send $(u,v) \mapsto v \tens u$ - linear, so $\phi$ exists. And $v \tens u \mapsto u \tens v$ is its inverse. 
+
+\item $M \tens N) \tens K \cong M \tens (N \tens K)$ by the map: 
+$$
+(u \tens v) \tens w \mapsto u \tens (v \tens w).
+$$
+
+\item $M \tens (M \oplus K) \cong (M \tens K) \oplus (M \tens K)$. 
+
+So in naive set theory, any collection of objects is a set, but this leads to immediate crap. So we use ZFC, axiomatic. Modules don't form a set because there are too many of them, lmao. 
+
+\begin{proof}
+Let $\phi:u \tens (v,w) \mapsto (u\tens v,u \tens w)$. We only define $\phi$ on simple tensors, then by linearity, it is extended to all tensors. Is it well defined? Yes, $\phi$ is a well-defined hom-sm if:
+$$
+(u,(v,w)) \mapsto (u \tens v,u \tens w),
+$$
+ is bilinear. The stuff on the left side, domain, is  in $M \times (N \oplus K)$. So we check it: 
+\bee
+(u_1 + u_2,(v,w)) \mapsto ((u_1,u_2) \tens v,(u_1,u_2) \tens w) &= (u_1 \tens v + u_2 \tens v, u_1 \tens w + u_2 \tens w)\\
+&= (u_1 \tens v,u_1 \tens w) + (u_2 \tens v, u_2 \tens v).
+\eee
+To prove that this is an ismorphism, we need its inverse. Define $\psi: (M \tens N) \oplus (M \tens K) \to M \tens (N \oplus K)$. The direct sum is also a universal object. Define $\psi_1: M \tens N \to M \tens (N \oplus K),\psi_2: M \tens K \to M \tens (N \oplus K)$ by: 
+\bee
+\psi_1(u \tens v) &= u \tens (v,0),\\
+\psi_2(u \tens w) &= u \tens (0,w).
+\eee
+There is a unique hom-sm $\psi$ s.t. $\psi|_{M \tens N} = \psi_1$, and $\psi|_{M \tens K} = \psi_2$. So we have: 
+$$
+(\psi(\alpha,\beta) = \psi_1(\alpha) + \psi_2(\beta)).
+$$
+So we check that they are inverses of each other. We have: 
+\bee
+\phi:u \tens (v,w) \mapsto (u\tens v,u \tens w) \mapsto_\psi u \tens (v,0) + u \tens (0,w) = u \tens (v,w).
+\eee
+\end{proof}
+\end{enumerate}
+\end{lem}
+
+\textbf{Wednesday, January 24th}
+
+Tensors come from physics, from algebra, from topology. Linear transformations, bilinear forms, ... There are many objects that can be interpreted as tensors. In algebra, they can be used to extend scalars. 
+
+\begin{Ex}
+It can be shown that:
+$$
+C(x \times y) = \bar{C(x) \tens C(y)}.
+$$
+\end{Ex}
+
+For any $R$-module $M$, $M \tens R \cong M$, and $M \tens(N \oplus K) \cong (M \tens N) \oplus (M \tens K)$. 
+
+\begin{rem}
+$M \tens R^n \cong M^n = M \oplus \cdots \oplus M$. 
+\end{rem}
+
+\begin{rem}
+$R^n \tens R^m \cong R^{nm}$-free of rank $nm$. 
+\end{rem}
+
+\begin{Ex}
+\vspace{5mm}
+\begin{enumerate}
+
+
+\item \textit{Prove that $M \tens R/I \cong M/(IM)$. What number is this????}
+\begin{proof}
+The mapping $\gamma:(u,\bar{a}) = a \mod I \mapsto \bar{au} = au \mod (IM)$. This is well-defined, and is bilinear, so it satisfies the properties required for a tensor product. $a + c \mapsto \bar{au + cu} \in IM, c \in I$. So hom-sm $\phi:M \tens (R/I) \to M/(IM)$ is defined. And we have: $u \tens \bar{a} \mapsto \bar{au}$. And it has the inverse: $\psi:\bar{u} \mapsto (u \tens \bar{1}$, defined from $M/IM \to M \tens R/I$. You should understand that $\gamma$ is not an isomorphism itself. Now why is this new map well defined, first? If you replace $u$ by $\bar{u }+ \bar{\sum b_iv_i}$, where $b_i \in I$. Then under our new map we have:
+$$
+\psi:\bar{u} = \bar{\sum b_iv_i} \mapsto (u + b_iv_i) \tens \bar{1} = (u \tens \bar{1} + \sum(v_i \tens \bar{b_i},
+$$
+where $\sum(v_i \tens \bar{b_i} = 0 \mod (M \tens I)$. So $\psi$ is well-defined, and $\psi = \phi^{-1}$. 
+\end{proof}
+
+\item \textit{Consider $\z_3 \tens \z_2$. }
+
+We may write 
+\bee
+1 \tens 1 &= (3 - 2) \tens 1 \\
+&= 3 \tens 1 - 2 \tens 1\\
+&= 3 \tens 1 - 2( 1 \tens 1)\\
+&= 3 \tens 1 - 1 \tens 2\\
+&= 0 \tens 1 - 1 \tens 0\\
+&= 0 - 0 = 0.
+\eee
+And for any $n \tens k = nk(1 \tens 1) =0$. So $\z_3 \tens \z_2 = 0$. 
+\end{enumerate}
+\end{Ex}
+
+\begin{lem}
+If $(n,m) = 1$, then $\z_n \tens \z_m = 0$. 
+\end{lem}
+
+\begin{proof}
+There exists $k,l$ s.t. $kn + lm = 1$. Then:
+$$
+1 \tens 1 = (kn + lm) \tens 1 = k(n \tens 1) + l (1 \tens m) = 0.
+$$
+And $\forall (a \tens b) = ab(1 \tens 1) = 0$. 
+\end{proof}
+
+\begin{lem}
+Let $(n,m) = d$. Then $\z_n \tens \z_m \cong \z_d$. 
+\end{lem}
+
+\begin{proof}
+Define $\phi: \z_n \tens \z_m \to \z_d$ by $\phi(\bar{k}\tens \bar{l}) = kl \mod d$. If you add a multiple of $n$ to $k$, the result will be the same because $d|n$, and same for $m$ ($(\bar{k},\bar{l}) \mapsto kl \mod d$ is bilinear). Why is it a homomorphism? Let's check that it is surjective. Note that $1 \tens 1 \mapsto 1$, and $1$ generates $\z_d$. So done: $\phi(1 \tens a) = a \mod d$, so $\phi$ is surjective. Or maybe better to just define an inverse, since injectivity looks hard to prove. \begin{comment}Any tensor $w \in \z_n \tens \z_m$ is such that: 
+\bee
+w &= \sum_{i = 1}^n c_i(\bar{k_i} \tens \bar{l_i})\\
+&= \sum_{i  =1}^n c_ik_il_i (1 \tens 1)
+\eee
+And $\phi(w) = \sum{i = 1}^n c_ik_i l_i \mod d$. So $w \in ker\phi$ if and only if $\sum c_ik_il_i \equiv 0 \mod d$.\end{comment} Now take the element $1 \tens 1,2(1\tens 1),...,(d - 1)(1\tens 1) \neq 0$. But $d(1 \tens 1) = 0$. So the order of $1 \tens 1$ is $d$, and $(1 \tens 1)$ generates $\z_n \tens z_m$. Note that:
+$$
+\phi(k(1\tens 1)) = k \mod d,
+$$ 
+for any $k$, so it's injective or something because the kernel is 0 maybe. 
+\end{proof}
+
+\begin{rem}
+If $G$ is a finite abelian group, then 
+$$
+G \cong \z_{p_1^{r_{1,1}}} \oplus \cdots \oplus \z_{p_1^{r_{1,k_1}}} \oplus ( ..p_2.. ) \oplus \cdots \oplus (..p_l..). 
+$$
+So we have $G \tens_\z \z_{p_1} \cong \z{p_1}^{k_1}$. We get this by multiplying by each component and using the previous result, that since the $\z$'s are relatively prime, they go to zero. So $\forall p\mid |G|$, $G \tens \z_p \cong \z_p^k$ where $k$ is the number of $p$-elementary divisors of $G$. 
+\end{rem}
+
+\begin{rem}
+Let $R$ be an integral domain, let $F$ be the field of quotients of $R$. 
+$$
+F \tens_R M = ?
+$$
+\end{rem}
+
+\begin{lem}
+If $M$ is a torsion module, then $F \tens_R M = 0$. 
+\end{lem}
+
+\begin{proof}
+Let $u \in M$. Find $a \neq 0$ s.t. $au = 0$. Then:
+$$
+1 \tens u = (aa^{-1})\tens u = a^{-1} \tens (au) = 0.
+$$
+But this is not enough. Moreover, for any $b \in F$, we know: 
+$$
+b \tens u = (aa^{-1}b) \tens u = (a^{-1}b) \tens (au) = 0.
+$$
+\end{proof}
+
+\begin{Ex}
+Consider $F^2 \tens F^2 \cong F^4$, where $\Set{e_1,e_2}$ is a basis. So basis of $F^2 \tens F^2$ is:
+$$
+\Set{e_1 \tens e_1,e_1 \tens e_2,e_2 \tens e_1,e_2 \tens e_2}.
+$$
+So $F^2 = e_1F \oplus e_2F$. Any tensor from $F^2 \tens F^2$ is of the form:
+$$
+a_{1,1}(e_1 \tens e_1) + a_{1,2}(e_1 \tens e_2) + a_{2,1}(e_2 \tens e_1) + a_{2,2}(e_2 \tens e_2),
+$$
+its coordinates form: 
+$$
+\left( 
+\begin{matrix}
+a_{11} & a_{12}\\
+a_{21} & a_{22}
+\end{matrix}
+\right).
+$$
+So tensors are in bijection with $2 \times 2$ matrices. A simple tensor: 
+$$
+(a_1e_1 + a_2e_2) \tens (b_1e_1 + b_2e_2) \leftrightarrow 
+\left(
+\begin{matrix}
+a_1b_1 & a_1b_2\\
+a_2b_1 & a_2 b_2
+\end{matrix}
+\right),
+$$
+which is degenerate of rank 1. So simple tensors correspond to matrices of rank 1, determinant 0. So note that $(e_1 \tens e_2) + (e_2 \tens e_1)$ is not simple. 
+\end{Ex}
+
+\begin{rem}
+For an $R$-algebra $S$, we have $S \tens_R$ is an $S$-module. 
+\end{rem}
+
+
+\textbf{Thursday, January 25th}
+\vspace{5mm}
+\begin{Ex}
+We give an example of when $M,N$ are $R$-modules but the tensor product of submodules of these are not a submodule of the tensor product of $M,N$. Note $\z \sub \Q$ as $\z$-modules. But $\z \tens_\z \z_2 \cong \z_2$, and $\Q \tens_\z \z_2 = 0$. 
+\end{Ex}
+
+\begin{lem}
+Let $S$ be an $R$-algebra, $M$ be an $R$-module then $S \tens_R M$ has a structure of an $S$-module by $\alpha(\beta \tens u) = \alpha \beta \tens u, \alpha,\beta \in S,u \in M$. 
+\end{lem}
+
+\begin{proof}
+Note we have: 
+\bee
+\alpha\left( \sum a_i(\beta_i \tens u_i)\right) &= \sum a_i ( \alpha \beta_i \tens u_i).
+\eee
+The line in the above expression, we are checking if the same thing works for arbitrary tensors, since we defined it in the statement of the problem for just simple tensors. We have to check that elements of the kernel... when we convert the stuff in the left to the right, we have to factorize by a submodule. Is the operation well defined? The operation is: $S \tens M \to S \tens M$ where $\beta \tens u \mapsto \alpha \beta \tens u$. It is well-defined because it is a bilinear operation: $(\beta,u) \mapsto \alpha\beta \tens u$. This is our universal approach: first we defined some mapping on simple tensors: $\beta \tens u \mapsto \alpha \beta \tens u$, which should be a homomorphism of $R$-modules. Then to check that it is well-defined, we need to check that it is bilinear on the set $S times M$. Checking bilinearity: 
+$$
+(\alpha \beta, u) \mapsto \alpha a \beta \tens u = a \alpha \beta \tens u = a(\alpha \beta \tens u).
+$$
+Checking conditions, we have: 
+\bee
+(\alpha_1 + \alpha_2)(\beta \tens u) &= \alpha_1 \beta \tens u + \alpha_2 \beta \tens u = \alpha_1(\beta \tens u) + \alpha_2(\beta \tens u),\\
+\alpha(w_1 + w_2) &= \alpha w_1 + \alpha w_2,w_i \in S \tens_R M,\\
+\alpha_1(\alpha_2w) = (\alpha_1 \alpha_2)w.
+\eee
+The second line is because $w \mapsto \alpha w$ is a homomorphism. This is called \textbf{extension of scalars. }
+\end{proof}
+
+\begin{Ex}
+We give some examples of \textbf{extension of scalars. }
+
+\begin{enumerate}
+\item Let $F$ be the field of quotients of an integral domain $R$. Then $F \tens_R M$ is an $F$-module, that is, a vector space. This operation kills all torsion, but preserves the free part. In the case $M = M_1 \oplus M_2$, where $M_1$ is free, $M_2$ is torsion. Not always the case, but it is in PID, or in finitely generated abelian groups. So $F \tens M = F \tens M \oplus 0$. It has the same rank as $M_1$. If $M_1 = R^n$, then $F \tens M_1 \cong F^n$, and it is a vector space. 
+
+\item Let $V$ be an $R$-vector space. Consider $\c \tens_\R V$ - this is a $\c$-vector space, called \textbf{the complexification of $V$.} We have: 
+\bee
+\c = \R \oplus i\R &= R \Set{1,i},\\
+\c \tens V &= (\R \tens V) \oplus (i\R \tens V) = (1 \tens V) \oplus (i \tens V).
+\eee
+So we have: $a \tens u = 1 \tens au$, and $ib \tens u = i \tens bu$. So $\forall w \in \c \tens V$, $w = 1 \tens u + i \tens v = u + iv$. Also, 
+$$
+(a + ib)(u + iv) = (au - bv) + i(av + bu),
+$$
+$u + iv \in V + iV$. So this is similar to how we get new elements when we extend from $\R$ to $\c$. If $V$ is $n$-dimensional, with basis $\Set{e_1,...,e_n}$, then $\c \tens V$ is $n$-dimensional $\c$-vector space with basis $\Set{e_1,...,e_n}$ and $2n$-dimensional $\R$-vector space with basis $\Set{e_1,...,e_n,ie_1,...,ie_n}$. Now let $T$ be a linear transformation of $V$. Then $V$ is an $\R[x]$-module by $xu = Tu$. We have: 
+$$
+\left( \sum_{k = 0}^n a_k x^k\right) u = \sum_{k = 0}^n a_kT^ku.
+$$
+So $\c[x] \tens_{\R[x]} V$ is a $\c[x]$-module, that is, we have a $\c$-vector space $\c \tens_\R V$ on which $T$ acts as a linear transformation. 
+
+\item Let $A_1,A_2$ be $R$-algebras. Then $A_1 \tens_R A_2$ has a structure of an $R$-algebra by 
+$$
+\alpha_1 \tens \beta_1) \cdot (\alpha_2 \tens \beta_2) = (\alpha_1\alpha_2)\tens(\beta_1\tens \beta_2).
+$$
+Shit should be checked, but it works. The \textbf{subscript below the tensor product symbol} represents where the scalars are from. 
+
+\item \textit{This is a problem from the book. If $S$ is an $R$-algebra, prove that $S \tens_R R[x] \cong S[x]$. }
+
+\begin{proof}
+You need to check something like this:
+$$
+(\alpha_1 \tens (a_1x^n + \cdots + a_1x + a_0)) \cdot (\alpha_2 \tens (...)).
+$$
+The map would be given by: 
+$$
+\alpha_1 \tens (a_1x^n + \cdots + a_1x + a_0)\mapsto a_n\alpha x^n + \cdots a_1 \alpha x + a_0\alpha.
+$$
+Here it is just defined for simple tensors. So any polynomial of $S$ is the image of some tensor, since we have:
+$$
+\alpha_n \tens x^n + \cdots + \alpha_1 \tens x + \alpha_0 \tens 1 \mapsto \alpha_nx^n + \cdots + \alpha_1 x + \alpha_0.
+$$
+\end{proof}
+
+\item Prove $R[x] \tens_R R[y] \cong R[x,y]$. 
+
+\begin{proof}
+$$
+(a_nx^n + \cdots a_1 x + a_0) \tens (b_my^m + \cdots + b_1 y + b_0) \mapsto a_nb_mx^ny^n + \cdots + a_0b_0 = p(x)q(x).
+$$
+We map $x^n \tens y^m \mapsto x^n y^m$. Again this is an exercise from the book. 
+\end{proof}
+
+\end{enumerate}
+\end{Ex}
+
+\begin{Def}
+Let $\phi_1 \in Hom(M_1,N_1)$ and $\phi_2 \in Hom(M_2,N_2)$. Then $\phi_1 \tens \phi_2: M_1 \tens M_2 \to N_1 \tens N_2$. is defined by $\phi_1 \tens \phi_2(u_1 \tens u_2) = \phi_1(u_1) \tens \phi_i(u_2)$. This is the \textbf{tensor product of two homomorphisms. }
+\end{Def}
+We prove it is a homomorphism. 
+\begin{proof}
+It is well defined since the mapping $(u_1,u_2) \mapsto \phi_1(u_1) \tens \phi_2(u_2)$ is bilinear. 
+So we get a mapping $Hom(M_1,N_1) \times Hom(M_2,N_2) \to Hom(M_1 \tens M_2,N_1 \tens N_2)$. This mapping is also bilinear. We have to check four identities. So it defines a homomorphism: 
+$$
+Hom(M_1,N_1) \tens Hom(M_2,N_2) \to Hom(M_1 \tens M_2,N_1 \tens N_2),
+$$
+as we have seen from the definition/construction of a tensor product. 
+\end{proof}
+
+\begin{Def}
+Assume that $M$ is an $R$-module. We want to convert it to an algebra. If we take $M \tens M$, then we multiply two vectors, but we cannot multiply these tensors. To have an algebra you must be able to multiply any elements. So if we want an algebra, we take $R \oplus M \oplus (M \tens M) \oplus (M \tens M \tens M) \oplus (...) \oplus \cdots$. 
+This is called the \textbf{tensor algebra of $M$. }
+\end{Def} \label{gradedalgebra}
+
+\begin{Def}
+An \textbf{graded algebra}: 
+$$
+A = A_0 \oplus A_1 \oplus A_2 \oplus \cdots,
+$$
+such that $\forall i,j$, $A_i\cdot A_j \sub A_{i + j}$. 
+\end{Def}
+
+
+
+
+\begin{Ex}
+We give a neat example that demonstrates why the location of the scalars is important: 
+$$
+\c \tens_\R \c \cong \R^4,
+$$
+$$
+\c \tens_\c \c \cong \c \cong \R^2.
+$$
+\end{Ex}
+
+\begin{rem}
+In the case $M = M_1 \oplus M_2$, where $M_1$ is free, $M_2$ is torsion. Not always the case, but it is in PID, or in finitely generated abelian groups. So $F \tens M = F \tens M \oplus 0$. It has the same rank as $M_1$. If $M_1 = R^n$, then $F \tens M_1 \cong F^n$, and it is a vector space. So this operation \textbf{kills all torsion.}
+\end{rem}
+
+\begin{rem}
+Recall that an \textbf{$R$-algebra} is basically an $R$-module which is also a ring. So it is an $R$-module with multiplication. 
+\end{rem}
+
+\textbf{Friday, January 26th}
+
+We do some exercises from the book starting with $10.4.8$. 
+
+\textbf{Monday, January 29th}
+
+We go to Section 10.5.
+\section*{10.4 Exercises}
+\begin{enumerate}[label=\arabic*.]
+
+
+\setcounter{enumi}{7}
+
+\item \textit{Let $R$ be an integral domain, $Q$-field of quotients, $N$ an $R$-module, and $U = R^* = R - \Set{0}$. We define: $U^{-1}N = U \times N/\sim$. Where: 
+$$
+(u,n) \sim (u',n') \text{ if } v(u'n - un') = 0,
+$$
+for some $v$. Denote $(u,n) = \fracc{n}{u}$. We define addition: 
+$$
+\fracc{n}{u}+\fracc{m}{v} = \fracc{vn + um}{uv}.
+$$
+And we define multiplication by scalars: 
+$$
+r\fracc{n}{u} = \fracc{rn}{u}.
+$$
+And we claim that $U^{-1}N$ becomes an $R$-module. 
+}
+
+\begin{enumerate}
+\item 
+
+\begin{proof}
+We have: 
+\bee
+(u,n) \sim (u',n') \sim (u'',n'') &\Rightarrow^{?} (u,n) \sim (u'',n''),\\
+u'n = un',u''n' = u'n'' &\Rightarrow^{?} un'' = u''n.
+\eee
+But we have $u''u'n = u''un' = uu'n''$, so $u'(u''n - un'') = 0$. So the relation given by the book, $u'n - un'$ must be the wrong one, so we now switch to using the relation stated above. So we have: 
+\bee
+(u,n) \sim (u',n') \sim (u'',n'')& \Rightarrow^{?} (u,n) \sim (u'',n''),\\
+nu'n = nun',n'u''n' = v'u'n'' &\Rightarrow^{?}.
+\eee
+So we have $vv'u''u'n = vv'u''un' = vv'uu'n''$, so $vv'u'(u''n - un'') = 0$. So $(u,n) \sim (u'',n'')$. If $(n,u) \sim (n',u'),(m,v) \sim (m',v')$ is $(uv,vn + um) \sim (u'v',v'n' + u'm')$. Is this true? Leibman thinks so. Let's believe that this is true. Or not. Let's check. So we have $w(mv' - m'v) = 0$ for some $w \neq 0$. And $w'(nu' - n'u) = 0$ for some $w' \neq 0$. Now we take \bee
+ww'(uv(v'n' + u'm') - u'v'(un + um)) = ww'[vv'(un' - u'n) + uu'(vm' - v'm)] = 0.
+\eee
+And then we have to check something else, which we will skip. So $U^{-1}N$ is an $R$-module, $U^{-1}N = \Set{\fracc{n}{u},n \in N,u \in R - \Set{0}}$. Up until this point, we only needed that $R$ is commutative, and that $U$ is multiplicatively closed, we did not need that $R$ was integral domain yet. 
+
+\end{proof}
+
+\item \textit{Prove that $U'N \cong Q \tens_R N$. }
+
+\begin{proof}
+Define $\phi: Q \tens_R N \to U^{-1}N$ by $\fracc{a}{b}\tens n \mapsto \fracc{an}{b}$. Of course it is a well-defined homomorphism, it can be easily checked. Can we construct an inverse? Define $\psi: U^{-1}N \to Q \tens_R N$ by $\fracc{n}{u} \mapsto \fracc{1}{u}\tens n$. And check that $\psi = \phi^{-1}$. Well, is it well-defined? We don't have to check that it is a homomorphism, since if it is the inverse of one, then it is one itself. If $(n',u') \sim (n,u)$, is $\fracc{1}{u}\tens n' = \fracc{1}{u}\tens n$? Let $v(un' - u'n) = 0$. Then:
+\bee
+\fracc{1}{u'}\tens n' &= uv \cdot \left(\fracc{1}{uvu'}\tens n' \right)\\
+&= \fracc{1}{uvu'}\tens uvn'\\
+&= \fracc{1}{uvu'}\tens u'vn\\
+&= \fracc{1}{u}\tens n.
+\eee
+So it's well defined. Now why is it the inverse of $\phi$. Observe: 
+\bee
+\fracc{n}{u}\overset{\psi}{\mapsto} \fracc{1}{u}\tens n &\overset{\phi}{\mapsto} \fracc{n}{u},\\
+\fracc{v}{u}\tens n = v(\fracc{1}{u}\tens n) &\overset{\phi}{\mapsto}
+v \cdot \fracc{n}{u}\overset{\psi}{\mapsto} \fracc{1}{u}\tens vn = \fracc{v}{u}\tens n.
+\eee
+\end{proof}
+
+\item \textit{Prove that $\fracc{1}{d}\tens n = 0$ if and only if $rn = 0$ for some $r \in R^*$. }
+
+\begin{proof}
+Under the isomorphism from part (b) we have:
+$$
+\fracc{1}{d}\tens n \overset{\phi}{\mapsto} \fracc{n}{d}\in U^{-1}N.
+$$
+And $\fracc{n}{d} = 0 = \fracc{0}{1}$ if and only if $r(n - 0) = 0$ for some $r \neq 0$. And we make use of this result in Exercise 10.4.9. 
+\end{proof}
+
+\item \textit{Let $A$ be an abelian group. Then prove $\Q \tens_\z A = 0$ if and only if $A$ is a torsion group, $|a| < \infty$ $\forall a \in A$. }
+
+\begin{proof}
+We claim that $\Q \tens N = 0$ if and only if $N = Tor(N)$. If $N = Tor(N)$, then $Q \tens N = 0$. Recall that $A$ being abelian is equivalent to saying it is a $\z$-module. So $R = \z$ in this case, so $\Q = Q$, the field of fractions of the ring. If $N = Tor(N)$, then $Q \tens N =0$. If $Q \tens N = 0$, then $\forall n \in N$, $1 \tens n = 0$< so $\exists r \neq 0$, s.t. $rn = 0$ by part (c). So $n \in Tor(N)$ for all $n$. 
+\end{proof}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+\item \textit{Suppose $R$ is an integral domain with quotient field $Q$ and let $N$ be any $R$-module. Let $Q \tens_R N$ be the module obtained from $N$ by extension of scalars from $R$ to $Q$. Prove that the kernel of the $R$-module homomorphism $\iota: N \to Q \tens_R N$ is the torsion submodule of $N$. [Exercise 10.1.\ref{ex10.1.8},Exercise 10.4.8]}
+
+\begin{proof}
+Recall that the torsion submodule is defined as: 
+$$
+Tor(N) = \{n \in N:rn = 0 \text{ for some nonzero } r \in R\}. 
+$$
+And recall that $\iota(n) = 1 \tens n$. Let $n \in Tor(N)$. Then $\iota(n) = 1 \tens n$. Since $n \in Tor(N)$, there exists $r \neq 0$ such that $rn = 0$, and we also have $1/r \in Q$. So we have: 
+$$
+1 \tens n = 1(1 \tens n) = \fracc{1}{r}r(1 \tens n) = \frac{1}{r}(1 \tens rn) = \fracc{1}{r}(1 \tens 0) = 0.
+$$
+Thus $n \in ker\iota$, and $Tor(N) \sub ker \iota$. Now let $n \in ker\iota$. Then
+$$
+\iota(n) = 1 \tens n = 0 = 1 \tens 0. 
+$$ 
+So we must have that there exists $r \neq 0$ s.t. $rn = 0$. And by the result of Exercise 10.4.8(c), we know that $(1/d) \tens n = 0$ if and only if there exists $r \in R$ s.t. $rn = 0$. 
+\begin{comment} Then we would have:
+$$
+1 \tens n = \fracc{1}{r}r \tens n = \fracc{1}{r}\tens rn = \fracc{1}{r}\tens 0 = 0 = 1 \tens 0.
+$$
+\end{comment}
+Hence we know $n \in Tor(N)$. 
+\end{proof}
+
+\item \textit{Suppose $R$ is commutative and $N \cong R^n$ is a free $R$-module of rank $n$ with $R$-module basis $e_1,...,e_n$. }
+
+Recall the definition of a free module of rank $n$: 
+\begin{Def}
+A \textbf{free module} is a direct sum of finitely or infinitely many copies of $R$, 
+$$
+F_\Lambda = \bigoplus_{\alpha \in \Lambda}R = \{a_{\alpha_1} + \cdots + a_{\alpha_k}: k \in \n,\alpha_i \in \Lambda,a_{\alpha_i} \in R\},
+$$
+where the sum of $u$'s above is a formal sum. We can also define it as: 
+$$
+F_\Lambda = \{(a_\alpha)_{\alpha \in \Lambda}: a_\alpha \in R,\forall \alpha,a_\alpha = 0 \text{ for all but finitely many }\alpha\}.
+$$
+Note $R$ is unital here. 
+\end{Def}
+
+\begin{enumerate}
+\item \textit{For any nonzero $R$-module $M$ show that every element of $M \tens N$ can be written uniquely in the form $\sum_{i = 1}^n m_i \tens e_i$ where $m_i \in M$. Deduce that if $\sum_{i  =1}^n m_i \tens e_i = 0$ in $M \tens N$, then $m_i = 0$ for $i  = 1,...,n$. }
+
+\begin{proof}
+Let $t = a_1(u_1 \otimes v_1) + \cdots + a_l(u_l \otimes v_l) \in M \tens N$. And for each $v_i \in N$ we have: 
+$$
+v_i = r_1e_1 + \cdots + r_ne_n,
+$$
+with $r_j \in R$ uniquely by the definition of our standard basis. Then we may write: 
+\bee
+t &= a_1(u_1 \tens (r_{1,1}e_1 + \cdots + r_{1,n}e_n)) + \cdots + a_l(u_l \tens (r_{l,1}e_1 + \cdots + r_{l,n}e_n))\\
+&= (a_1u_1 \tens (r_{1,1}e_1 + \cdots + r_{1,n}e_n)) + \cdots + (a_lu_l \tens (r_{l,1}e_1 + \cdots + r_{l,n}e_n))\\
+&= ((a_1u_1 \tens r_{1,1}e_1) + \cdots + (a_1u_1 \tens r_{1,n}e_n)) + \cdots + ((a_lu_l \tens r_{l,1}e_1) + \cdots + (a_lu_l \tens r_{l,n}e_n))\\
+&= ((a_1r_{1,1}u_1 \tens e_1) + \cdots + (a_1r_{1,n}u_1 \tens e_n)) + \cdots + ((a_lr_{l,1}u_l \tens e_1) + \cdots + (a_lr_{l,n}u_l \tens e_n))\\
+&= ((a_1r_{1,1}u_1 \tens e_1) + \cdots + (a_lr_{l,1}u_l \tens e_1) ) + \cdots + ((a_1r_{1,n}u_1 \tens e_n) + \cdots + (a_lr_{l,n}u_l \tens e_n))\\
+&= ((a_1r_{1,1}u_1 \cdots + a_lr_{l,1}u_l) \tens e_1)  + \cdots + ((a_1r_{1,n}u_1  + \cdots + a_lr_{l,n}u_l) \tens e_n).
+\eee
+So letting $m_i = (a_1r_{1,i}u_1 \cdots + a_lr_{l,i}u_l)$, we have:
+$$
+t = \sum_{i = 1}^n m_i \tens e_i,
+$$
+where $m_i \in M$. Assume that $\sum_{i = 1}^n m_i \tens e_i = 0$. If each term in the sum is identically zero, then the result is proved, all $m_i = 0$. So without loss of generality, assume $m_1,...,m_k \neq 0$ for some $k \leq n$. If the $m_i$'s are linearly independent, then since the $e_i$'s are also linearly independent:
+$$
+\sum_{i = 1}^n m_i \tens e_i = 0 \Rightarrow m_i = 0, \forall i,
+$$ which is a contradiction. So then we must have that the $m_i$'s are linearly dependent. So we can write: 
+$$
+\sum_{i  =1}^k m_i \tens e_i = \sum_{i  =1}^k r_i  m \tens e_i = \sum_{i  =1}^k   m \tens r_ie_i = 0.
+$$
+If $m = 0$ we are done, contradiction, since then $m_i = 0$ for all $i$. If $\sum r_ie_i = 0$ we have a contradiction, since then the basis wouldn't be linearly independent. So we must have that all $m_i = 0$. 
+\end{proof}
+
+\item \textit{Show that if $\sum m_i \tens n_i = 0$ in $M \tens N$ where the $n_i$ are merely assumed to be $R$-linearly independent, then it is not necessarily true that all the $m_i$ are 0. [Consider $R = \z,n  =1,M = \z/2\z$, and the element $1 \tens 2$.] }
+\begin{proof}
+Note that now we relax the assumption that our elements from $R^n$ generate $R^n$. So now they are only linearly independent. We have:
+$$
+1 \tens 2 = 2 \tens 1 = 0 \tens 1 = 0,
+$$
+but $1 \neq 0 \in \z/2\z$, and $2$ is just a single element of some $R$ module over $R$, so it is linearly independent. So we have found a counterexample. 
+\end{proof}
+\end{enumerate}
+
+\setcounter{enumi}{14}
+
+\item \textit{Prove that $M \tens (N \oplus K) \cong (M \tens N) \oplus (M \tens K)$. The same is true for: 
+$$
+M \tens \left( \bigoplus_{\alpha \in \Lambda} N_\alpha \right) \cong \bigoplus_{\alpha \in \Lambda}(M \tens N_\alpha),
+$$ 
+which uses the same proof. But:
+$$
+M \tens \left( \prod_{\alpha \in \Lambda} N_\alpha \right)\ncong \prod_{\alpha \in \Lambda}(M \tens N_\alpha).
+$$
+}
+
+Example: $R = \z,M = \Q,N_i = \z_{2^i},i = 1,2,...$ Consider:
+$$
+\Q \tens \left(\prod_{i = 1}^\infty \z_{2^i} \right) \neq 0,
+$$
+by 8.  But note:
+$$
+\prod_{i  =1}^\infty\left(\Q \tens \z_{2^i} \right) = 0. 
+$$
+
+\item \textit{Suppose $R$ is commutative and let $I$ and $J$ be ideals of $R$, so $R/I,R/J$ are naturally $R$-modules . }
+
+\begin{enumerate}
+\item \textit{Prove that every element of $R/I \tens_R R/J$ can be written as a simple tensor of the form $(1 \mod I) \tens (r \mod J)$. }
+
+\begin{proof}
+Let:
+ $$
+ t = a_1(b_1 \mod I \otimes c_1 \mod J) + \cdots + a_l(b_l\mod I \otimes c_l\mod J)  \in R/I \tens_R R/J,
+ $$
+ with $a_i,b_i,c_i \in R$. Then we have: 
+ \bee
+ t &= a_1b_1(1 \mod I \otimes c_1 \mod J) + \cdots + a_lb_l(1 \mod I \otimes c_l\mod J)\\
+ &= (1 \mod I \otimes a_1b_1c_1 \mod J) + \cdots + (1 \mod I \otimes a_lb_lc_l\mod J)\\
+ &= 1 \mod I \tens (a_1b_1c_1 + \cdots + a_lb_lc_l) \mod J,
+ \eee
+ so since $(a_1b_1c_1 + \cdots + a_lb_lc_l) \in R$, we have written $t$ as a simple tensor. 
+\end{proof}
+
+\item \textit{Prove that there is an $R$ module isomorphism $R/I \tens_R R/J \cong R/(I + J)$ mapping $(r \mod I) \tens (r' \mod J)$ to $rr' \mod (I + J)$. }
+
+\begin{proof}
+Let $\phi: R/I \tens_R R/J \to R/(I + J)$ be given by $\phi((r \mod I) \tens (r' \mod J)) = rr' \mod (I + J)$. We prove this is an isomorphism. Since we proved that every element of $ R/I \tens_R R/J$ can be written as a simple tensor of the form $(1 \mod I) \tens (r \mod J)$, we need only to check elements of this form.
+
+\textbf{Homomorphism: } We have: 
+\bee
+&\phi((1 \mod I) \tens (r \mod J) + (1 \mod I) \tens (s \mod J))\\
+=&\phi((1 \mod I) \tens (r + s \mod J))\\
+=&r + s \mod (I + J)\\
+=&r \mod (I + J) + s \mod (I+ J)\\
+=&\phi((1 \mod I) \tens (r \mod J)) + \phi((1 \mod I) \tens (s \mod J)).
+\eee
+So addition is preserved, and for $a \in R$, we also have: 
+\bee
+\phi(a((1 \mod I) \tens (r \mod J))) &= \phi(((a \mod I) \tens (r \mod J)))\\
+&= ar \mod (I + J)\\
+&= a(r \mod (I + J))\\
+&= a \phi((1 \mod I) \tens (r \mod J)).
+\eee
+So $\phi$ is an $R$-module homomorphism. 
+
+\textbf{Injectivity: }Observe: 
+\bee
+\phi((1 \mod I) \tens (r \mod J)) &= \phi((1 \mod I) \tens (s \mod J)),
+\eee
+which gives us: 
+\bee
+r \mod (I + J) = s \mod (I + J),
+\eee
+thus we know $r - s \in (I + J)$. So $r - s = j \mod I$ for some $j \in J$. So we have: 
+\bee
+&(1 \mod I) \tens (r \mod J) - (1 \mod I) \tens (s \mod J)\\
+=&(1 \mod I) \tens (r - s \mod J)\\
+=&(r - s \mod I) \tens (1 \mod J)\\
+=&(j \mod I) \tens (1 \mod J)\\
+=&(1 \mod I) \tens (j \mod J)\\
+=& 0.
+\eee
+So $\phi$ must be injective. 
+
+\textbf{Surjectivity: }Let $r \mod (I + J) \in R/(I+ J)$. Then $\phi((1 \mod I) \tens (r \mod J)) = r \mod (I + J)$, so $\phi$ is surjective. Hence $\phi$ is an isomorphism. 
+\end{proof} 
+\end{enumerate}
+
+\setcounter{enumi}{19}
+
+\item \textit{Let $I = (2,x)$ be the ideal generated by $2$ and $x$ in the ring $R = \z[x]$. Show that the element $2 \tens 2 + x \tens x$ in $I \tens_R I$ is not a simple tensor, i.e., cannot be written as $a \tens b$ for some $a,b \in I$. }
+
+\begin{proof}
+Define $t = 2 \tens 2 + x \tens x$. We first express $t$ as a simple tensor in $R$. We define $\beta:\z[x] \times \z[x] \to \z[x] \tens \z[x]$ given by $\beta((p(x),q(x)) = p(x) \tens q(x)$. We also define $\gamma:\z[x] \times \z[x] \to \z[x]$ given by $\gamma((p(x),q(x)) = p(x)q(x)$. This map is bilinear, so we have an induced homomorphism $\phi:\z[x] \tens \z[x] \to \z[x]$, so altogether, we have:
+\begin{center}
+\begin{tikzcd}
+ & \mathbb{Z}[x] \times \mathbb{Z}[x] \arrow[rd, "\gamma"] \arrow[ld, "\beta"'] &  \\
+\mathbb{Z}[x] \otimes \mathbb{Z}[x] \arrow[rr, "\phi"] &  & \mathbb{Z}[x]
+\end{tikzcd}.
+\end{center}
+ Then we would have:
+$$
+p \tens q = 2 \tens 2 + x \tens x,
+$$
+for some $p,q \in \z[x]$. But we also know: 
+$$
+2 \tens 2 + x \tens x = 4(1 \tens 1) + x \tens x = 4(1 \tens 1) + x^2(1 \tens 1) = (4 + x^2)(1 \tens 1) \in \z[x]
+$$
+But $(4 + x^2)$ is a prime in $\z[x]$. To write $t$ as a simple tensor in $\z[x]$, we must have $4 + x^2 = ab$ for some $a,b \in \z[x]$, so that we may write: 
+$$
+ab(1 \tens 1) = a \tens b \in \z[x].
+$$
+So let $4 + x^2 = ab$, and since it is a prime and we are in $\z[x]$, without loss of generality, we must have $b = 1$, but note that $1 \notin I$, so it is impossible to write $t$ as a simple tensor in $I \tens_R I$, since under the same bilinear map $\gamma$, we have:
+\begin{center}
+\begin{tikzcd}
+ & I \times I \arrow[rd, "\gamma"] \arrow[ld, "\beta"'] &  \\
+I \otimes I \arrow[rr, "\phi"] &  & I^2
+\end{tikzcd},
+\end{center}
+from which we see that the image $u \tens v \mapsto uv$ of any simple tensor is reducible. 
+\end{proof}
+\begin{comment}
+Leibman's solution: Note that when you map $I \tens I \to I^2$ and map $u \tens v \mapsto uv$, we map $2 \tens 2 + x \tens x$ to $x^2 + 4$ which is irreducible, but when we map a simple tensor, it must be irreducible. 
+\begin{center}
+\begin{tikzcd}
+ & I \times I \arrow[rd, "\gamma"] \arrow[ld, "\beta"'] &  \\
+I \otimes I \arrow[rr, "\phi"] &  & I^2
+\end{tikzcd}.
+\end{center}
+\end{comment}
+
+\item \textit{Suppose $R$ is commutative, and let $I$ and $J$ be ideals of $R$. }
+
+\begin{enumerate}
+\item \textit{Show that there is a surjective $R$-module homomorphism from $I \tens_R J$ to the product ideal $IJ$ mapping $i \tens j$ to the element $ij$. }
+
+\begin{proof}
+Let $\phi:I \tens_R J \to IJ$ be given by:
+ $$
+ \phi(r_1(i_1 \tens j_1) + \cdots + r_n(i_n \tens j_n)) = r_1i_1j_1 + \cdots + r_ni_nj_n.
+ $$
+  We show that $\phi$ is a surjective homomorphism of $R$-modules. Observe:
+\bee
+&\phi((r_1(i_1 \tens j_1) + \cdots r_n(i_n \tens j_n)) + (s_1(i_1' \tens j_1') + \cdots s_m(i_m' \tens j_m')))\\
+= &\phi(r_1(i_1 \tens j_1) + \cdots r_n(i_n \tens j_n)+ s_1(i_1' \tens j_1') + \cdots s_m(i_m' \tens j_m'))\\
+ = &r_1i_1j_1 + \cdots + r_ni_nj_n + s_1i_1'j_1' + \cdots + s_mi_m'j_m'\\
+= &\phi((r_1(i_1 \tens j_1) + \cdots r_n(i_n \tens j_n)) + \phi((s_1(i_1' \tens j_1') + \cdots s_m(i_m' \tens j_m'))).
+\eee
+So $\phi$ preserves addition. Additionally:
+\bee
+\phi(r(i \tens j)) 
+&= \phi((ri \tens j))\\
+&= rij\\
+&= r\phi((i \tens j)).
+\eee
+So $\phi$ also preserves scalar multiplication for simple tensors and thus for general tensors as well. Now we show that $\phi$ is surjective. Let $r \in IJ$. Then 
+$$
+r = \sum_{k = 1}^n i_kj_k,
+$$ 
+for $i_k \in I,j_k \in J$. Then $\phi(i_1 \tens j_1 + \cdots + i_n \tens j_n) = r$, because we already proved $\phi$ is a homomorphism and hence preserves addition, so $\phi$ is surjective. 
+\end{proof}
+
+\item \textit{Give an example to show that the map in (a) need not be injective [Exercise 10.4.17]. }
+
+
+Consider $I = (2,x)$ and $R = \z[x]$. We define a map: $\phi:I \tens_R I \to II = I$ given by $\phi(i \tens j) = ij$. By part (a), we know it is a surjective homomorphism. Note:
+$$
+\phi(2 \tens x) = \phi(x \tens 2) = 2x.
+$$
+But from Exercise 10.4.17(c), we know that $2 \tens x \neq x \tens 2$ in $I \tens_R I$. 
+
+\end{enumerate}
+\end{enumerate}
+
+\section{Exact Sequences and Tensor Algebras}
+
+\textbf{Monday, January 29th}
+
+\begin{Def}
+Let $M$ be an $R$-module. $\forall k \in \n$ let $\tau_k(M) = M \tens \cdots \tens M$ ($k$-times). These are called the set of $k$-tensors. Note that $\tau_0(M) = R$ and $\tau_1(M) = M$. We have:
+$$
+\tau(M) = \bigoplus_{K = 0}^\infty \tau_k(M),
+$$
+called the \textbf{tensor algebra of $M$}. 
+\end{Def}
+
+Elements look like sums:
+$$
+a + u_1 + b_2(u_2 \tens u_3) + b_3(u_5 \tens u_6 \tens u_7) + \cdots + d_8(u_9 \tens u_{10}).
+$$
+
+\begin{Def}
+\textbf{Universal Property: }if $A$ is an $R$=algebra and $\phi: M \to A$ is a hom-sm of $R$-modules, then $\exists$ a unique hom-sm $\Phi:\tau(M) \to A$ of $R$-algebras such that:
+\bee
+\Phi|_{M = \tau_1(M)} &= \phi,
+\Phi(u_1 \tens \cdots \tens u_k) &= \phi(u_1) \cdots \phi(u_k) \in A.
+\eee
+\end{Def}
+
+\begin{Ex}
+\begin{enumerate}
+\item Let $M = R$. Then we have $\tau(R) = R \oplus R \oplus R \cdots$. The elements are finite multiplications. Let's artificially introduce basis vector. Let $M = Rx$, ($x = 1$). Where $x$ is the basis vector. Then 
+\bee 
+\tau_1(R) &= Rx,\\
+\tau_2(R) &= R \tens R = R(x \tens x),\\
+\tau_3(R) &= R(x \tens x \tens x),\\
+\tau(R) &= R \oplus R \tens R \oplus R \tens R \tens R \oplus \cdots \cong R[x].
+\eee
+
+\item $M = R^2 = R\Set{x,y}$. Then:
+$$
+\tau(R) \cong \Set{\text{polynomials in non-commutative variables x and y. }} = RG,
+$$
+since $x \tens y \neq y \tens x$. where $G$ is the free semigroup generated by $x,y$:
+$$
+G = \Set{1,x,y,x^2,xy,yx,y^2,xyx,...}.
+$$
+\end{enumerate}
+\end{Ex}
+
+\begin{Def}
+\textbf{Symmetric algebra of $M$}. Let $\mathcal{C}(M)$ be the ideal in $\tau(M)$ generated by $u \tens v - v\ tens u, u,v \in M$. The algebra $\mathcal{S}(M) = \tau(M)/\mathcal{C}(M)$ is called the \textbf{symmetric algebra of $M$.}
+\end{Def}
+So in the above definition, we just declare that $x \tens y = y \tens x$, and you can switch them along any chain of tensor products:
+$$
+u_1 \tens u_2 \tens u_3 \tens u_4 = u_4 \tens u_2 \tens u_3 \tens u_1 \in \mathcal{S}(M).
+$$
+
+The ability to do it on more than two tensors follows from the structure of transpositions in symmetric groups. What even is a higher degree tensor? We prove something:
+\begin{proof} 
+$\forall k$ $S_k$ acts of $\tau_k(M)$ by $\sigma(u_1 \tens \cdots u_k) = u_{\sigma(1)} \tens \cdots \tens u_{\sigma(k)}$. The action of any transposition is trivial module $\mathcal{C}(M)$ or something like that. 
+\end{proof}
+
+\begin{Def}
+\textbf{Universal Property: }If $A$ is a commutative $R$-algebra, and $\phi:M \to A$ is a hom-sm of $R$-modules, then there is a unique hom-sm $\Phi:\mathcal{S}(M) \to A$ such that $\Phi|_{M} = \phi$. Also $\mathcal{S}(M)$ is still a \textbf{graded algebra} (Definition \ref{gradedalgebra}):
+$$
+\mathcal{S}(M) = R \oplus \mathcal{S}_1(M) \oplus \mathcal{S}_2(M) \oplus \cdots
+$$
+where the second term is $\cong M$. Why is it unique? Because we have no choice as to send $\Phi(u_1 \tens \cdots u_k) = \phi(u_1) \cdots \phi(u_k)$. 
+\end{Def}
+
+\begin{Ex}
+Take $M$ to be the free module generated by two elements $M = R\Set{x,y}$. And then $\mathcal{S}(M) \cong R[x,y]$ (now we have commutativity!).
+\end{Ex}
+
+\begin{Def}
+\textbf{Exterior Algebra: }let $A(M)$ be the ideal in $\tau(M)$ generated by tensors $u \tens u$, $u \in M$. The algebra:
+$$
+\Lambda(M) = \tau(M)/A(M),
+$$
+is called the exterior algebra of $M$. 
+\end{Def}
+
+In $\Lambda(M)$, instead of $\tens$, we write "$\wedge$" - wedge. So we have:
+$$
+\Lambda(M) = \Set{a + u_1 + u_2 \wedge u_3 + u_4 \wedge u_5 \wedge u_6 + \cdots ()}.
+$$
+In $\Lambda(M)$, $u \wedge u = 0$ for all $u$, and:
+$$
+u \wedge v = -v \wedge u.
+$$
+\begin{proof} 
+$$
+(u + v) \wedge (u + v) = u \wedge u + u \wedge v + v \wedge u + v \wedge v.
+$$
+\end{proof}
+
+$ \int fdx \neq \int f(\phi(t))dt$. But we do have:
+$$
+\int fdx = \int f(\phi(t))\phi'(t) dt.
+$$
+$fdx$ is called the \textbf{differential form}. And we have $\int f(x,y)dx \wedge dy$, where $f(x,y)dx \wedge dy$ is called a differential form of second order. Recall: 
+$$
+\int f(x,y)dx \wedge dy = \int f(x(u,v),y(u,v))\cdot |J|du\wedge dv.
+$$
+Where $|J|$ is the Jacobian of $(u,v) \mapsto (x,y)$ as vertical vectors. 
+
+\textbf{Bonus Problem: } If $x= au + bv$ and $y = cu + dv$ prove that $x \wedge y = \det \left(\begin{matrix}
+a & b\\
+c & d
+\end{matrix}\right) u \wedge v$. 
+
+Now what the hell is going on when our ring is \textbf{noncommutative}. Let $M,N$ be a left $R$-module. Can you have: 
+$$
+(au) \tens v = u \tens av?
+$$
+But then we have the following:
+$$
+(abu) \tens v = (bu) \tens (av) = u \tens (bav) = (bau) \tens v.
+$$
+So we have some weird new hidden relations. So now:
+$$
+ab(u \tens v) = ba (u \tens v),
+$$
+$R$ acts on $M \tens N$ as a commutative ring. 
+
+\begin{rem}
+If $M$ is a right $R$-module and $N$ is a left $R$-module, product $M \tens_R N$ where:
+$$
+(ua) \tens v = u \tens (av),
+$$ and this will be okay, no problem like this. But you cannot take scalars out. So it is not equal to $a(u \tens v)$. It is an abelian group only, not an $R$-module. Mappings with this property are called \textbf{balanced maps} since they are missing one of the four bilinearity properties. 
+\end{rem}
+
+\textbf{Tuesday, January 30th}
+
+\begin{Def}
+A diagram of sets and mappings is a \textbf{commutative diagram} if for all paths with common starting and ending points, the composition of mappings along these paths is the the same. 
+\end{Def}
+
+\begin{center}
+\begin{tikzcd}
+ &  & {} \\
+{} \arrow[rru] \arrow[r] \arrow[rrdd, bend right] \arrow[rd] & {} \arrow[ru] \arrow[r] & {} \arrow[u] \\
+ & {} \arrow[rd] \arrow[ru] &  \\
+ &  & {} \arrow[uu]
+\end{tikzcd}
+\end{center}
+
+\begin{Def}
+A sequence $A_{i -1} \rightarrow^{\phi_{i - 1}} A_i\rightarrow^{\phi_{i}} A_{i + 1} \rightarrow^{\phi_{i + 1}} A_{i + 2} \rightarrow$ of hom-sms of groups, rings, or modules is \textbf{exact} if $\forall i$ $Image(\phi_i) = ker(\phi_{i  +1})$. 
+\end{Def}
+
+\begin{rem}\label{exact1}
+$0 \to A \to_{\phi} B$ is exact if and only if $\phi$ is injective. ($ker(\phi) = Image(0)$)
+\end{rem}
+
+\begin{rem}\label{exact2}
+$B \to_\psi C \to 0$ is exact if and only if $\phi$ is surjective. ($\psi(B) = ker(C \to 0) = C$)
+\end{rem}
+
+\begin{rem}
+The sequence $0 \to A \to_{\phi} B \to_{\psi} C \to 0$ is exact (a \textbf{short exact sequence}) if and only if $\phi$ is injective (monomorphism),$\psi$ is surjective (epimorphism), and $\phi(A) = ker(\psi)$. So we have $C \cong B/\phi(A)$, $\phi(A) \cong A$. 
+\end{rem}
+
+For groups: $1 \to A \to B \to C \to 1$, $C \cong B/A$. 
+
+\begin{Def}
+The short exact sequence \textbf{splits} if there exists a hom-sm $\sigma:C \to B$ called a \textbf{section}, such that $\psi \circ \sigma = Id_C$. So we have:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\phi"'] & B \arrow[r, "\psi"'] & C \arrow[r] \arrow[l, "\sigma"', bend right] & 0
+\end{tikzcd}
+\end{center}
+In this case, then $B \cong A \oplus C$,
+$$
+B = \phi(A) \oplus \sigma(C),
+$$
+with an internal direct product. 
+\end{Def}
+
+\begin{proof} 
+$\forall b \in B$:
+\bee
+\psi(b - \sigma(\psi(b))) &= \psi(b) - \psi \circ \sigma(\psi(b))\\
+&= \psi(b) - \psi(b) = 0.
+\eee
+So $b - \sigma(\psi(b)) \in \phi(A)$, so $b = \sigma(c) + \phi(a)$ for $c = \psi(b)$ and some $a \in A$. If $\phi(a) = \sigma(c)$, then:
+$$
+0 = \psi(\phi(a)) = \psi(\sigma(c)) = c,
+$$
+so $\sigma(c) = 0$, and $\phi(a) = 0$, so $\sigma(C) \cap \phi(A) = 0$. 
+\end{proof}
+
+\begin{Def}
+A homomorphism of two short exact sequences is a commutative diagram of the sort:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r] \arrow[d, "\alpha"] & B \arrow[r] \arrow[d, "\beta"] & C \arrow[r] \arrow[d, "\gamma"] & 0 \\
+0 \arrow[r] & A' \arrow[r] & B' \arrow[r] & C' \arrow[r] & 0
+\end{tikzcd},
+\end{center}
+with exact rows. 
+\end{Def}
+
+\begin{lem}[\textbf{SHORT FIVE LEMMA}]
+Let:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\phi"] \arrow[d, "\alpha"] & B \arrow[r, "\psi"] \arrow[d, "\beta"] & C \arrow[r] \arrow[d, "\gamma"] & 0 \\
+0 \arrow[r] & A' \arrow[r, "\phi'"] & B' \arrow[r,"\psi'"] & C' \arrow[r] & 0
+\end{tikzcd},
+\end{center}
+be a homomorphism of short exact sequences. 
+\begin{enumerate}[]
+\item[]
+\begin{enumerate}
+\item If $\alpha$ and $\gamma$ are surjective, then $\beta$ is surjective. 
+\item If $\alpha$ and $\gamma$ are injective, then $\beta$ is injective. 
+\item If $\alpha$ and $\gamma$ are isomorphisms, then $\beta$ is an isomorphism. 
+\end{enumerate}
+\end{enumerate}
+\end{lem}
+
+\begin{proof} 
+\textbf{(b)} We make use of the diagram! Let $\alpha$,$\gamma$ be injective. Let $b \in B$, and assume that $\beta(b) = 0$. Consider:
+\bee 
+\gamma(\psi(b)) = \psi'(\beta(b)) = \psi'(0) = 0.
+ \eee 
+ But $\gamma$ is injective, so $\psi(b) = 0$. But the first row is exact, so $b = \phi(a)$ for some $a \in A$. Then:
+ \bee 
+ \phi'(\alpha(a)) = \beta(\phi(a)) = \beta(b) = 0,
+  \eee 
+  But $\phi',\alpha$ are injective, so $a = 0$, so $b = \alpha(a) = 0$. 
+\end{proof}
+
+\begin{proof} \textbf{(a)}
+Let $\alpha,\gamma$ be surjective. Let $b' \in B'$ (we need tos how that $b' = \beta(b)$ for some $b \in B$). So take $\psi'(b')$ but then since this is in $C'$ and $\gamma$ is surjective, so there exists $c \in C$ such that $\gamma(c) = \psi'(b')$. Next, $\psi$ is surjective, so we have $\hat{b} \in B$ such that $\psi(\hat{b}) = c$. So we have: 
+$$
+\gamma(c) = \gamma(\psi(\hat{b})) = \psi'(b').
+$$
+Consider: 
+$$
+\psi'(b' - \beta(\hat{b})) = \psi'(b') - \psi'(\beta(\hat{b})) = \gamma(c) - \gamma(\psi(\hat{b})) = 0.
+$$
+The second row is exact, so $\exists a' \in A'$ such that:
+$$
+\phi'(a') = b' - \beta(\hat{b}),
+$$
+$\alpha$ is surjective, so $\exists a \in A$ such that $a' = \alpha(a)$. 
+\textbf{If a row is exact, this means the image of first map is the kernel of the second map. } Take $b = \hat{b} + \phi(a)$. Then:
+\bee 
+\beta(b) = \beta(\hat{b}) + \beta(\phi(a)) = \beta(\hat{b}) +  \phi'(\alpha(a)) = \beta(\hat{b}) + b' - \beta(\hat{b}) = b'. 
+\eee 
+Part (c) is a corollary of the others. 
+\end{proof}
+
+\begin{lem}[\textbf{SNAKE LEMMA}]
+$CoKer(\alpha) = A'/\alpha(A)$. We have a commutative diagram with exact rows and columns:
+\begin{center}
+\begin{tikzcd}
+ & 0 \arrow[d] &  &  &  \\
+0 \arrow[r] \arrow[rrrrddd, "snake", bend left=67] & ker(\alpha) \arrow[r] \arrow[d] & ker(\beta) \arrow[r] \arrow[d] & ker(\gamma) \arrow[d] &  \\
+0 \arrow[r] & A \arrow[r] \arrow[d, "\alpha"] & B \arrow[r] \arrow[d, "\beta"] & C \arrow[r] \arrow[d, "\gamma"] & 0 \\
+0 \arrow[r] & A' \arrow[r] \arrow[d] & B' \arrow[r] \arrow[d] & C' \arrow[r] \arrow[d] & 0 \\
+ & CoKer(\alpha) \arrow[r] \arrow[d] & CoKer(\beta) \arrow[r] & CoKer(\gamma) \arrow[r] & 0 \\
+ & 0 &  &  & 
+\end{tikzcd}
+\end{center}
+
+
+Then there exists a homomorphism $\delta:ker\gamma \to ker\alpha$ such that the snake is exact. 
+\end{lem}
+
+\textbf{Wednesday, January 31st}
+
+
+\begin{rem}
+Let $M$ be an $R$-module. Let $A$ be a submodule of module $B$. Then it may be that $A \tens M$ is not a submodule of $B \tens M$!
+
+Consider:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\phi"] & B
+\end{tikzcd}
+\end{center}
+which is exact! Then we have:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \otimes M \arrow[r, "\phi \otimes Id_M"] & B \otimes M
+\end{tikzcd},
+\end{center}
+which may not be exact. 
+\end{rem}
+
+\begin{Ex}
+In $\z \tens_\z \z_2$ we have:
+$$
+\forall n \in \z,2n \tens 1 = n \tens 2 = 0.
+$$ 
+So observe:
+\begin{center}
+\begin{tikzcd}
+2\mathbb{Z} \otimes_{\mathbb{Z}} \mathbb{Z}_2 \arrow[r, "\phi"'] & \mathbb{Z} \otimes_\mathbb{Z} \mathbb{Z}_2
+\end{tikzcd},
+\end{center}
+where we have $\phi \tens Id = 0$. Before we had an embedding: 
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & 2\mathbb{Z} \arrow[r, "\phi"', hook] & \mathbb{Z}
+\end{tikzcd},
+\end{center}
+but it is no longer an embedding when we take the tensor product with $\z_2$. 
+\end{Ex}
+
+We have a similar example: 
+\begin{Ex}
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & \mathbb{Z} \arrow[r, "\phi"', hook] & \mathbb{Q} \\
+0 \arrow[r] & \mathbb{Z} \otimes \mathbb{Z}_2 \arrow[r] & \mathbb{Q} \otimes \mathbb{Z}_2
+\end{tikzcd}
+\end{center}
+where taking the tensor product with $\z_2$, we have $\z \tens \z_2 \cong \z_2$, but $\Q \tens \z_2 = 0$. So it isn't injective. 
+\end{Ex}
+
+\begin{rem}
+The tensor product preserves surjectivity, but not injectivity. 
+\end{rem}
+\begin{lem}
+If:
+\begin{center}
+\begin{tikzcd}
+B \arrow[r, "\psi"'] & C \arrow[r] & 0
+\end{tikzcd}
+\end{center}
+is exact ($\psi$ is surjective), then:
+\begin{center}
+\begin{tikzcd}
+B \otimes M \arrow[r, "\psi \otimes Id"'] & C \otimes M \arrow[r] & 0
+\end{tikzcd}
+\end{center}
+is exact ($\psi \tens Id$ is surjective).
+\end{lem}
+
+\begin{proof}
+$\forall c \in C,u \in M$, find $b \in B$ s.t. $\psi(b) = c$,
+then 
+$$
+(\psi \tens Id)(b \tens u) = c \tens u.
+$$
+ And simple tensors generate $C \tens M$, so $\psi \tens Id(B \tens M) = C \tens M$. 
+\end{proof}
+
+\begin{theorem}
+If:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\phi"'] & B \arrow[r, "\psi"'] & C \arrow[r] & 0
+\end{tikzcd}
+\end{center}
+is exact ($\Rightarrow \psi \circ \phi = 0$, then:
+\begin{center}
+\begin{tikzcd}
+A \otimes M \arrow[r, "\phi \otimes Id"'] & B \otimes M \arrow[r, "\psi \otimes Id"'] & C \otimes M \arrow[r] & 0
+\end{tikzcd}
+\end{center}
+is exact. (Note that it is still exact on the right, but not on the left, since the zero is dropped)
+\end{theorem}
+
+\begin{proof}
+First, $(\psi \tens Id)\cdot(\phi \tens Id) = 0$.
+$$
+(\psi \tens Id)((\phi \tens Id)(a \tens u)) = (\psi \tens Id)(\phi(a) \tens u) = \psi(\phi(a)) \tens u = 0 \tens u = 0.
+$$
+So we have a hom-sm: $\gamma:B \tens M/((\psi \tens Id)(A \tens M)) \to C \tens M$. We claim this is an isomorphism, so $ker(\psi \tens Id) = (\phi \tens Id)(A \tens M)$. 
+\begin{proof}
+Define a hom-sm $C \tens M \to M B \tens M/((\psi \tens Id)(A \tens M))$ by:
+$$
+c \tens u \mapsto b \tens u \mod ((\psi \tens Id)(A \tens M)),
+$$
+where $b$ is s.t. $\psi(b) = c$. Why is it well defined? If $b'$ is another element in $B$ s.t. $\psi(b') = c$, then:
+$$
+b' = b \mod \phi(A),
+$$
+ so $b' \tens u = b \tens u \mod (\phi(A) \tens M)$. So it's well defined. Next we check that it's bilinear, it's obvious. Claim is that this is inverse of $\gamma$ and it is, we skip the details. 
+\end{proof}
+\end{proof}
+
+\begin{rem}
+Recall that if we have $\phi:M \to N$, $K \sub M$, and $\phi(K) = 0$ then we must have a hom-sm $M/K \to N$. 
+\end{rem}
+
+\begin{rem}
+$\tens M$ is a \textbf{functor} from the category of $R$-modules to itself:
+$A \Rightarrow A \tens M$, and $A \to B \Rightarrow A \tens M \to B \tens M$. 
+\end{rem}
+
+\begin{Def}
+A \textbf{functor} from category $\mathcal{C}_1$ to category $\mathcal{C}_2$ is a "mapping" that maps objects to objects and morphisms to morphisms, and preserves compositions of morphisms:
+\begin{center}
+\begin{tikzcd}
+ & B \arrow[rr, "F"] &  & F(B) \\
+A \arrow[ru, "\phi"] \arrow[rr, "F"] &  & F(A) \arrow[ru, "F(\phi)"] & 
+\end{tikzcd}.
+\end{center}
+\end{Def}
+
+\begin{Def}
+A functor is \textbf{exact} if it maps short exact sequences to short exact sequences. 
+\end{Def}
+
+\begin{rem}
+$\tens M$ is a \textbf{right-exact} functor (loses exactness at the left term). 
+\end{rem}
+
+\begin{Def}
+A functor is \textbf{right-exact} if for any short exact sequence:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\phi"'] & B \arrow[r, "\psi"'] & C \arrow[r] & 0
+\end{tikzcd},
+\end{center}
+the sequence:
+\begin{center}
+\begin{tikzcd}
+F(A) \arrow[r, "F(\phi)"'] & F(B) \arrow[r, "F(\psi)"'] & F(C) \arrow[r] & 0
+\end{tikzcd}
+\end{center}
+is exact. 
+\end{Def}
+
+
+\begin{rem}
+If $R$ is non-commutative, $M$ is a left $R$-module, then $\tens m$ is a functor from category of right $R$-modules to the category of abelian groups. 
+\end{rem}
+
+There are good modules that preserve exact sequences. They are called flat modules. 
+
+\begin{Def}
+$M$ is \textbf{flat} if whenever:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\phi"'] & B
+\end{tikzcd}
+\end{center}
+is exact, the sequence:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \otimes M \arrow[r, "\phi \otimes Id"'] & B \otimes M
+\end{tikzcd}
+\end{center}
+is exact. In this case, $\tens M$ is an exact functor. 
+\end{Def}
+
+Now what modules are flat? The ring $R$ itself is flat. 
+
+
+
+\begin{rem} We state some results concerning flat modules. \\
+\begin{enumerate}
+\item $R$ is flat:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r] & B
+\end{tikzcd}
+\end{center}
+$\Rightarrow$
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \otimes R \arrow[r, "\phi \otimes Id"'] & B \otimes R
+\end{tikzcd}
+\end{center}
+=
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r] & B
+\end{tikzcd}
+\end{center}
+is exact. 
+
+\item If $M = M_1 \oplus M_2$, then $M$ is flat if and only if both $M_1,M_2$ are flat. 
+
+\begin{proof}
+Let $0 \rightarrow A \rightarrow_\phi B$ be exact. Then:
+$$
+0 \rightarrow A \tens M \rightarrow_{\phi \tens Id} B \tens M
+$$ is isomorphic to
+$$
+0 \to (A \tens M_1) \oplus (A \tens M_2) \to_{\tilde{\phi}} (B \tens M_1) \oplus (B \tens M_2).
+$$
+The things on the left hand side of the $\oplus$ are connected by $\phi \tens Id_{M_1}$ and RHS by $\phi \tens Id_{M_2}$. And $\tilde{\phi} = (\phi_1,\phi_2)$ and $\tilde{\phi}$ is injective if and only if $\phi_1,\phi_2$ are. 
+\end{proof}
+
+\item So $R^n$ (free module of finite rank) is flat. The finiteness is not necessary, it's an exercise in the book. 
+\item If $M$ is a direct summand of a free module, i.e. there exists $M$ s.t. $M \oplus N$ is free, then $M$ is flat. 
+
+\item If $M_1,M_2$ are flat, then $M_1 \tens M_2$ is flat. 
+
+\begin{proof}
+$\tens M_1$ is exact as a functor, and $\tens M_2$ is exact, so $\tens (M_1 \tens M_2) = (\tens M_1) \tens M_2$ is exact. 
+So if we have:
+$$
+0 \to A \to B
+$$
+ then
+ $$
+ 0 \to A \tens M_2 \to B \tens M_2
+ $$
+  then 
+  $$
+  0 \to A \tens (M_1 \tens M_2) \to B \tens M_1 \tens M_2.
+  $$
+
+\end{proof}
+
+\item If $M$ is flat and $I$ is an ideal in $R$, then $I \tens M \to IM$ is an isomorphism. This is standard mapping which maps $a \tens u \mapsto au$. 
+
+\begin{proof}
+$0 \to I \to R$ is exact, so:
+$$
+0 \to I \tens M \to R \tens M \cong M
+$$
+ is exact. And this is a mapping that maps $a \tens u \mapsto a \tens u \mapsto au$. So $I \tens M \to M$ is injective. The inverse of this mapping is just $IM$. So actually this is an isomorphism of modules. 
+\end{proof}
+
+\item Assume $R$ is an integral domain. Then if $Tor(M) \neq 0$, then $M$ is not flat. 
+
+\begin{proof}
+$0 \to R \to Q$-the field of fractions. 
+\end{proof}
+
+\end{enumerate}
+
+\end{rem}
+
+\textbf{Thursday, February 1st}
+
+\begin{lem}\label{lem10.148}
+If $R$ is an integral domain and $M$ is a flat $R$-module, then $Tor(M) = 0$. 
+\end{lem}
+
+\begin{proof}
+Let $Q$ be the field of fractions of $R$. Then:
+$$
+0 \to R \to Q
+$$
+ is exact. So:
+$$
+0 \to R \tens M \to Q \tens M
+$$
+ is exact. But $R \tens M \cong M$ under the isomorphism $\phi:1 \tens u \to u$., where $ker\phi = Tor(M)$. So if $u \neq 0$ is in $Tor(M)$, then $1 \tens u \neq 0 \in R \tens M$, but is zero in $Q \tens M$, so $R \tens M \to Q \tens M$ is not injective, which is a contradiction since we said the above sequence is exact. 
+\end{proof}
+
+\begin{lem}
+The converse of Lemma \ref{lem10.148} is not true: if $Tor(M) = 0$, it may not be flat. 
+\end{lem}
+We give a counterexample:
+\begin{Ex}
+Let $R = F[x,y]$ and let $M = I = (x,y)$. Then $M$ is torsion-free, but:
+$$
+I \tens M \to IM
+$$ 
+is not an isomorphism. $x \tens y - y \tens x \mapsto 0$. It was one of the properties of flat modules that for any ideal in $R$, the above map must be an isomorphism, thus $M$ is not flat. 
+\end{Ex}
+
+Flatness is related to torsion. 
+
+\begin{lem}\label{lem10.151}
+If $R$ is an integral domain and $Q$ is its field of quotients, then $Q$ is a flat $R$-module. 
+\end{lem}
+
+You can take $S^{-1}R$ for any multiplicatively closed set and this will be a flat $R$-module.
+
+\begin{proof}
+The reason for this is that $Q$ is a union of free $R$-modules, copies of $R$. It consists:
+$$
+Q = \bigcup_{d \neq 0}d^{-1}R.
+$$
+Let:
+$$
+0 \to A \to B,
+$$
+be exact. So $\phi:A \to B$ is injective. Then $(R^*)^{-1}A \cong A \tens Q \to_{\phi \tens Id} B \tens Q \cong (R^*)^{-1}B$. So we have:
+$$
+\phi \tens Id(\fracc{u}{r} = \fracc{\phi(u)}{r}, u \in A,r \in R.
+$$
+And $\fracc{\phi(u)}{r}=0$ if and only if $a \phi(u) = 0$ for some $a \neq 0$. Then $\phi(au) = 0$, and since $\phi$ is injective, $au = 0$, so $\fracc{u}{r} = 0$ is in $(R)^*)^{-1}A$. So $\phi \tens Id$ is injective. 
+\end{proof}
+
+
+Refer to Remarks \ref{exact1},\ref{exact2}. For equivalent definitions of exactness. 
+
+We discuss \textbf{projective and injective modules.} 
+
+\begin{Def}
+Let $R$ be commutative unital. Let $M$ be an $R$-module. 
+
+Functors: $Hom_R(m,\cdot)$ and $Hom_R(\cdot,M)$. 
+
+For any $R$-module $A$, we have new modules $Hom_R(M,A)$ and $Hom_R(A,M)$. 
+\end{Def}
+
+If $\phi:A \to B$ is a hom-sm, then we have a hom-sm $Hom(M,A) \to Hom(M,B)$. How is it defined? We have:
+\begin{center}
+\begin{tikzcd}
+A \arrow[rr, "\phi"'] &  & B \\
+ & M \arrow[lu, "f"] \arrow[ru, "\phi \circ f"'] & 
+\end{tikzcd},
+\end{center}
+so $f \to \phi \circ f$. And if we have one more module, we have:
+\begin{center}
+\begin{tikzcd}
+A \arrow[rr, "\phi"'] &  & B \arrow[r, "\psi"] & C \\
+ & M \arrow[lu, "f"] \arrow[ru, "\phi \circ f"] \arrow[rru, "\psi \circ \phi \circ f"'] &  & 
+\end{tikzcd}.
+\end{center}
+So:
+\bee
+Hom(M,A) &\to Hom(M,B) \to Hom(M,C)\\
+f & \mapsto \phi \circ f \mapsto \psi(\phi \circ f) = (\psi \circ \phi) \circ f.
+\eee
+
+\begin{theorem}
+If $0 \to A \to B \to C \to 0$ is exact, then:
+$$
+0 \to Hom(M,A) \overset{\tilde{\phi}}{\to} Hom(M,B) \overset{\tilde{\psi}}{\to} Hom(M,C)
+$$
+is exact, i.e. the functor $Hom(M,\cdot)$ is left exact, but not exact, since exactness is not preserved on the right. 
+\end{theorem}
+
+\begin{proof}
+We have:
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\phi"] & B \arrow[r, "\psi"] & C \arrow[r] & 0 \\
+ &  & M \arrow[lu, "f"] \arrow[u, "\phi \circ f"] &  & 
+\end{tikzcd}. 
+\end{center}
+Assume that $\phi \circ f = 0$. $\phi$ is injective by definition of exactness. And we have $\phi(f(a)) = 0, \forall u \in M$, so $f(u) = 0, \forall u \in M$, since $\phi$ is injective, so $f = 0$. Thus we have proved that $\tilde{\phi}$ is injective.. 
+
+ Now consider $f \in Hom(M,A) \mapsto \phi \circ f \in Hom(M,B) \mapsto \psi \circ \phi \circ f \in Hom(M,C)$. And $\psi \circ \phi \circ f = 0$ since $\psi \circ \phi = 0$ by exactness. So  $Image(\tilde{\phi}) \sub ker(\tilde{\psi})$. Now let $g \in ker(\tilde{\psi})$, that is, $\psi \circ g = 0$. Then:
+$$
+\psi\rvert_{g(M)} = 0.
+$$
+So $g(M) \sub ker\psi$, so $g(M) \sub \phi(A)$. Then we have $f: M \to A$ defined by $f(u) = \phi^{-1}(g(u))$. So $g = \phi \circ f = \phi^{-1}(f)$. The inverse is well defined since $\phi$ is injective. 
+\end{proof}
+
+We give counterexample to show that it is not exact on the right. 
+
+\begin{Ex}
+Let $M = \z_2$. Note $\z \to \z_2 \to 0$ is exact, we have a map $h: \z_2 \to \z_2$, the identity map, but there's no map $g$ from $\z_2$ to $\z$ s.t. $h = \psi \circ g$, where $\psi$ is the map from $\z to \z_2$. 
+\end{Ex}
+
+\begin{Def}
+$M$ is \textbf{projective} if $Hom(M,\cdot)$ is exact: $\forall$ surjective $\psi:B \to C$ and $h:M \to C$ there exists $g:M \to B$ s.t. $h = \psi \circ g$:
+\begin{center}
+\begin{tikzcd}
+B \arrow[r] & C \arrow[r] & 0 \\
+ & M \arrow[u, "h"] \arrow[lu, "g"] & 
+\end{tikzcd}. 
+\end{center}
+So we know $Hom(M,B) \to Hom(M,C) \to 0$ is exact. 
+\end{Def}
+
+\begin{rem}
+We list some properties of projective $R$-modules. 
+
+\begin{enumerate}
+\item If $M = M_1 \oplus M_2$, then $M$ is projective if and only if $M_1$ and $M_2$ are. Proof is easy apparently. 
+
+\item $R,R^n$ are projective, and any free module is projective. This follows from the first property for free modules of finite rank. 
+\begin{proof}
+Take $e_i \to c_i$. Find $b_i \in B$ s.t $\psi(b_i) = c_i$ for all $i$, and define $g(e_i) = b_i$. Done. 
+\end{proof}
+
+\item If $M$ is a direct summand of a projective module, then it is projective. This is just a reformulation of the first property. And this is a criterion. 
+\end{enumerate}
+\end{rem}
+
+\begin{theorem}
+$M$ is projective if and only if $M$ is a direct summand of a free module: $ \exists N$ s.t. $M \oplus N$ is free. 
+\end{theorem}
+
+\textbf{Friday, February 2nd}
+
+\begin{Def}
+Recall that $M$ is \textbf{projective} if $\forall$ exact $B \overset{\phi}{\to} C \to 0$ and $h:M \to C$ there exists $g:M \to B$ s.t. $h = \phi \circ g$:
+\begin{center}
+\begin{tikzcd}
+B \arrow[r] & C \arrow[r] & 0 \\
+ & M \arrow[u, "h"] \arrow[lu, "g"] & 
+\end{tikzcd}. 
+\end{center}
+\end{Def}
+
+\begin{Def}
+$Hom(M,\cdot)$ is an \textbf{exact functor:} if $0 \to A \to B \to C \to 0$ is exact, then $0 \to Hom(M,A) \to Hom(M,B) \to Hom(M,C) \to 0$ is exact. (Equivalent defn to above). 
+\end{Def}
+
+
+\begin{rem}
+If $M$ is projective and $B \overset{\phi}{\to} $ is surjective then $\exists$ a section of $\phi:$ $s:M \to B$ s.t. $\phi \circ s = Id_M$. Indeed, we have: 
+\begin{center}
+\begin{tikzcd}
+B \arrow[r, "\phi"] & M \arrow[r] & 0 \\
+ & M \arrow[lu, "s"] \arrow[u, "Id_M"] & 
+\end{tikzcd}
+\end{center}
+so there exists $s$ s.t. $\phi\circ s = Id_M$. Recall that a section is a map from $M \to B$ s.t. it maps the image of an element from surjective hom-sm back to the same element. 
+\end{rem}
+
+\begin{rem}
+If $M$ is projective, then any short exact sequence $0 \to A \to B \to M \to 0$ splits s.t. $B \cong A \oplus M$. 
+\end{rem}
+
+In particular, since $M$ is a quotient of a free module $F \to M \to 0$, if $M$ is projective, then $M$ is a direct summand of a free module, since we have a section from $M \to F$ that makes it a direct summand. Conversely, if $M$ is a direct summand of a free module, it is projective: $F = M \oplus N$. 
+
+\begin{Def}
+$0 \to A \overset{\phi}{\to} B \overset{\psi}{\to } C \to 0$ splits "from the left" if $\exists \pi:B \to A$ s.t. $\pi\circ \phi = Id_A$. 
+\end{Def}
+\begin{proof}
+ Let $C' = ker\pi$. We claim $\psi|_{C'}$ is isomorphic $C' \cong C$. Indeed $\psi$ is surjective (because short exact), and if $b \in C'$ and $\psi(b) = 0$. Then $ker\psi = \phi(A)$, by short exact, so if $b \in ker\psi$, then $b = \phi(a)$ for some $a \in A$. Then $\pi(b) = a$ by definition of section. But if $b \in C'$, $\pi(b) = 0$, so $a = 0$, so $b = 0$. So we proved that $b \in ker\pi \Rightarrow b = 0$. So $\pi$ is injective. Now we claim that $\phi(A) + C' = B$. So since $\phi$ is a bijection, we know $\phi(A) \cong A$. 
+ \begin{proof}
+ Let $b \in B$, let $a = \pi(b)$. Then $b - \phi(a) \in C'$, since $\pi(b - \phi(a)) = a - a = 0$. So $b \in \phi(A) + C'$. 
+ \end{proof}
+ Now claim $C' \cap  \phi(A) = 0$. If $b \in C'$, then $\pi(b) = 0$, and if $b = \phi(a)$, then $\pi(b) = \pi(\phi(a)) = a = 0$, so $b = 0$. More work to be done here. 
+\end{proof}
+
+
+We discuss injective modules. Which is related to $Hom(\cdot,M)$. Fix $M$. Let's consider this functor. You have module $A \Rightarrow$ module $ Hom(A,M)$. If you have $A \overset{\phi}{\to} B$, then you have $Hom(B,M) \overset{\tilde{\phi}}{\to} Hom(A,M)$. 
+\begin{center}
+\begin{tikzcd}
+A \arrow[rd, "f"] \arrow[rr, "\phi"] &  & B \arrow[ld, "g"] \\
+ & M & 
+\end{tikzcd}
+$f = g \circ \phi$. We have $\tilde{\phi} = g \circ \phi$. This is a \textbf{contravariant functor} - it inverts arrows (morphisms). What we had before was called a \textbf{covariant} functors ("normal" ones). 
+\end{center}
+\begin{Def}
+\textbf{Covariant: } $A \Rightarrow F(A)$:
+$$
+A \to B \Rightarrow F(A) \to F(B).
+$$
+\end{Def}
+
+\begin{Def}
+\textbf{Contravariant: } $A \Rightarrow F(A)$:
+$$
+A \to B \Rightarrow F(B) \to F(A).
+$$
+Note $F(B)$ is first here on the right side. 
+\end{Def}
+
+\begin{theorem}
+$Hom(\cdot,M)$ is left exact: 
+if $0 \to A \to B \to C \to 0$ is exact, then
+$0 \to Hom(C,M) \to Hom(B,M) \to Hom(A,M)$ is exact. 
+\end{theorem}
+
+\begin{proof}
+Left as an exercise to the reader, it is straightforward. (wtf)
+\end{proof}
+
+It may not be exact, tho. If $0 \to A \overset{\phi}{\to}B$ is exact ($\phi$ is injective):
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & A \arrow[r, "\phi"] \arrow[d, "f"] & B \arrow[ld, "g"] \\
+ & M & 
+\end{tikzcd}
+\end{center}
+and we have $f: A \to M$ we need $g:B \to M$ s.t. $f = g \circ \phi$. 
+We give a counterexample:
+\begin{Ex}
+Consider: 
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & \mathbb{Z} \arrow[r, "\cdot 2"] \arrow[d, "Id"] & \mathbb{Z} \arrow[ld, "g"] \\
+ & \mathbb{Z} & 
+\end{tikzcd}
+\end{center}
+Note $2\z \sub \z$ but we have no such $g$. We have no map going from $2n \to n$. 
+\end{Ex}
+
+\begin{Def}
+$M$ is \textbf{injective} if $\forall 0 \to A \overset{\phi}{\to} B$ (exact) and $\forall f: A \to M$ there exists $g: B \to M$ s.t. $f = g \circ \phi$. 
+\end{Def}
+
+\begin{rem}
+$M$ is injective if and only if $Hom(\cdot,M)$ is an exact functor. 
+\end{rem}
+
+\begin{rem}
+\begin{enumerate}
+\item $M = M_1 \oplus M_2$ is injective if and only if both $M_1$ and $M_2$ are injective. 
+\item $R$ is not injective, generally speaking. ($\z$ is not injective $\z$-module)
+\item $Q$ is an injective $\z$-module. 
+\end{enumerate}
+\end{rem}
+
+\begin{lem}
+Any module is a quotient of a free module, so, of a projective module. 
+\end{lem}
+
+\begin{theorem}
+Any module is a submodule of an injective module. 
+\end{theorem}
+
+
+\textbf{Monday, February 5th}
+
+
+\begin{Def}
+A module $M$ is \textbf{divisible} if $\forall$ nonzero divisor $a \in R$, $\forall u \in M$, there is a $v \in M$ s.t. $av = u$. That is, $M  \to M$, where $v \mapsto av$ is surjective. So if $R$ is an integral domain it is always true?
+\end{Def}
+
+\begin{rem}
+If $M$ is injective, then $M$ is divisible. 
+\end{rem}
+
+\begin{rem}
+Let $R$ be an integral domain, if $M$ is divisible, and either $M$ is torsion free or $R$ is a PID, then $M$ is injective. 
+\end{rem}
+
+\begin{lem}[\textbf{Baer's criterion}]
+$M$ is injective if $\forall$ ideal $I$ of $R$, $\forall f: I \to M$ there exists $g:R \to M$ s.t $g|_I = f$. So this proves that the field of fractions is injective. 
+\end{lem}
+
+\begin{rem}
+$M$ is projective if and only if: if $M$ is a quotient module of some module $B$, $B \to M \to 0$, then we have $B \cong N \oplus M$. And in fact we have $0 \to N \to B \to M \to 0$. 
+\end{rem}
+
+\begin{rem}
+Injective if and only if $0 \to M \to B$ implies $B \cong N \oplus M$. $M \sub B$. Then there exists $N \sub B$ s.t. the above is true. So $M$ is injective if and only if if $M$ is a submodule of $B$ then $M$ is a direct summand of $B$. 
+\end{rem}
+
+\begin{rem}
+$\prod^\infty \Q \cong \bigoplus_{\alpha \in \Lambda}\Q$. This is only because on the left, that is a vector space. And thus it has a basis. 
+\end{rem}
+
+\begin{lem}
+$M = \prod_{i = 1}^\infty \z$ is not free. 
+\end{lem}
+
+\begin{proof}
+Let $N = \bigoplus_{I = 1}^\infty \z \sub M$. Assume that $M$ is free, let $B$ be a basis. There exists $B' \sub B$ which is countable s.t. $N \sub N' = \z B'$. For $u \in N$, let$B_u \sub B$ finite be s.t. $u \in RB_u$. Then:
+$$
+B' = \cup_{u \in N}B_u.
+$$
+which is countable. Let $\tilde{M} = M/N'$ a free module, $\cong R(B/B')$. Note $B$ is uncountable. If $K$ is a free $\z$-module, then $K$ is not divisible: 
+$\forall v \in K$, $v = (0,...,n_i,...,n_j,0,...)$ $v$ is only divisible by $\gcd(N_i,...,n_j)$. So no element of $k$ is divisible if it is nonzero. Recall that $v$ is divisible if and only if $\forall k \neq 0$, there exists $w$ s.t. $kw = v$. We claim $\tilde{M}$ has divisible elements, so we have contradiction. Take:
+$$
+u = (\pm 1,\pm 2!,\pm 3!,\pm 4!,...) \in M,
+$$
+In $\tilde{M}$, $N = 0$, so take:
+$$
+\bar{u} = (0,0,...,0,k!,(k + 1)!,...) \in \tilde{M},
+$$
+ which is divisible by $k$ for all $k$. We have uncountably many of such $u$, not all of them are in $N'$, so there exists such $u$ with $\bar{u} \neq 0$ in $\tilde{M}$. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section*{10.5 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\item \textit{Suppose that: }
+\begin{center}
+\begin{tikzcd}
+A \arrow[r, "\psi"] \arrow[d, "\alpha"] & B \arrow[r, "\phi"] \arrow[d, "\beta"] & C \arrow[d, "\gamma"] \\
+A' \arrow[r, "\psi'"] & B' \arrow[r, "\phi'"] & C'
+\end{tikzcd}
+\end{center}
+\textit{is a commutative diagram of groups and that the rows are exact. Prove that: }
+\begin{enumerate}
+\item \textit{If $\phi$ and $\alpha$ are surjective, and $\beta$ is injective then $\gamma$ is injective. }
+\begin{proof}
+Let $c \in ker\gamma$. Then we know there exists $b \in B$ s.t. $\phi(b) = c$, since $\phi$ is surjective. Note that $\phi'(\beta(b)) = \gamma(\phi(b)) = \gamma(c) = 0$ since it is a commutative diagram. So we know $\beta(b) \in ker\phi' = \psi'(A')$ since the bottom row is exact, so we know there exists $a' \in A'$ s.t. $\psi'(a') = \beta(b)$. And since $\alpha$ is surjective, we know there exists $a \in A$ s.t. $\alpha(a) = a'$. Then since $\psi'(\alpha(a)) = \beta(b)$, and the diagram is commutative, we know we must have $\beta(\psi(a)) = \psi'(\alpha(a))  = \beta(b)$. Now since $\beta$ is injective, we know $b = \psi(a)$. But recall that $c = \phi(b) = \phi(\psi(a)) = 0$ since the top row is exact. Thus since $ker\gamma = 0 \in C$, we know that $\gamma$ is injective. 
+\end{proof}
+
+\item \textit{If $\psi',\alpha$, and $\gamma$ are injective, then $\beta$ is injective. }
+
+\begin{proof}
+Let $\beta(b) = 0$ for some $b \in B$. Then we have $\phi'(\beta(b)) = 0 = \gamma(\phi(b))$ by commutativity. Since $\gamma$ is injective, we know $\phi(b) = 0$, so $b \in \psi(A)$. So there exists $a \in A$ s.t. $\psi(a) = b$. Now note that since we have commutativity we know $\beta(\psi(a)) = 0 = \psi'(\alpha(a))$. But since $\alpha$ and $\psi'$ are both injective, we know $a = 0$, hence $\psi(a) = b = 0$, and $\beta$ is injective. 
+\end{proof}
+
+\item \textit{If $\phi,\alpha$ and $\gamma$ are surjective, then $\beta$ is surjective. }
+
+\begin{proof}
+Let $b' \in B$. Then $\phi'(b') \in C'$. So there exists $c \in C$ s.t. $\gamma(c) = \phi'(b')$ since $\gamma$ is surjective and there exists $b \in B$ s.t. $\phi(b) = c$ since $\phi$ is surjective. So we know $\gamma(\phi(b)) = \phi'(\beta(b)) = \phi'(b')$. So $\phi'(\beta(b) - b') = 0$, so $\beta(b) - b' \in ker\phi' = \psi'(A')$. So we know there exists $a' \in A'$ s.t. $\psi'(a') = \beta(b) - b'$. But since $\alpha$ is surjective and $a' \in A'$, we know there exists $a \in A$ s.t. $\psi'(\alpha(a)) = \psi'(a') = \beta(b) - b'$. So we must have that $\beta(\psi(a)) = \beta(b) - b'$ by commutativity. For $b-\psi(a)$ we then have $\beta(b-\psi(a))=\beta(b)-\beta(b)+b'=b'$, which proves that $\beta$ is surjective.
+\end{proof}
+
+\item \textit{If $\beta$ is injective, $\alpha$ and $\phi$ are surjective, then $\gamma$ is injective. }
+
+\begin{proof}
+Let $c \in C$ s.t. $\gamma(c) = 0$. Then since $\phi$ is surjective we have $b \in B$ s.t. $\phi(b) = c$. Now take $\psi'(\beta(b)) = 0$ by commutativity since $\gamma(\phi(b)) = 0$. Then we know $\beta(b) \in ker\phi' = \psi'(A)$ so we have $a' \in A'$ s.t. $\psi'(a') = \beta(b)$. And since $\alpha$ is surjective we have $a \in A$ s.t. $\alpha(a)  = a'$. So we have $\psi'(\alpha(a)) = \beta(b) = \beta(\psi(a))$ by commutativity. But since $\beta$ is injective we know $\psi(a) = b$ But then $b \in \phi(A) = ker\phi$ so $\phi(b) = 0 = c$. So $\gamma$ is injective. 
+\end{proof}
+
+\item \textit{If $\beta$ is surjective, $\gamma$ and $\psi'$ are injective, then $\alpha$ is surjective. }
+
+\begin{proof}
+Let $a' \in A$. Then $\phi'(\psi'(a)) = 0 \in C'$. Also since $\beta$ is surjective we have $b \in B$ s.t. $\beta(b) = \psi'(a')$. Now $\gamma(\phi(b)) = \phi'(\beta(b))$ by commutativity, but $\phi'(\beta(b)) = \phi'(\psi'(a')) = 0$, so $\gamma(\phi(b)) = 0$, and since $\gamma$ is injective, $\phi(b) = 0$. Thus by exactness, we have $a \in A$ s.t. $\psi(a) = b$. Now take $\psi'(\alpha(a)) = \beta(\psi(a)) = \psi'(a')$, and by injectivity of $\psi'$, we know $\alpha(a) = a'$. So $\alpha$ is surjective. 
+\end{proof}
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+\end{document}
+
+
+
+
+

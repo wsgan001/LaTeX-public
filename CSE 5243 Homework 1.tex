@@ -1,0 +1,399 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[11pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+%\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{framed}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\inlinecode}{\texttt}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+
+\begin{abstract}
+We analyze the dataset \inlinecode{TED\_main} regarding TED Talks sourced from Kaggle (kaggle.com). We explore the data from the TED videos with the objective of determining if there are interesting observations or insights to uncover. We treat the basic questions of which are the most popular talks in the dataset, and the possibility of relationships between popularity and and several other variables. We construct a popularity measure from the frequency of tags in the dataset, and analyze the summary statistics, the least and most popular talks in the dataset according to our measure, and the correlation values and scatterplots of popularity with a number of variables. 
+\end{abstract}
+\title{An Analysis of the \text{TED\_main} Dataset}
+\date{SP18}
+\author[Brendan Whitaker]{Brendan Whitaker}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+
+We give some preliminary information about the dataset. \inlinecode{TED\_main} contains metadata for 2550 talks given from 2006 to Fall of 2017. There are 18 column headers with information concerning the speaker, topic of the talk, date of filming, etc. The data was imported and analyzed using \inlinecode{python 2.7} in the Jupyter Notebook web application. The \inlinecode{NumPy}, \inlinecode{Matplotlib}, and \inlinecode{pandas} python libraries were imported in order to aid in data exploration, cleaning, and predictive modeling. the data was imported in a \inlinecode{pandas} dataframe, a structure similar to an Excel workbook.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+The column headers are as follows:
+\begin{enumerate}
+\item index marked 0-2549
+\item number of comments
+\item short description
+\item duration in seconds
+\item event code
+\item film date as a unix timestamp
+\item number of languages in which the talk is available
+\item main speaker
+\item name of talk
+\item number of speakers
+\item date of publication
+\item ratings
+\item related talks
+\item speaker occupation
+\item tags
+\item title of talk
+\item url
+\item number of views
+\end{enumerate}
+\end{comment}
+
+To get a simple summary of the data in our dataframe, we use the \inlinecode{describe()} function to obtain some simple summary statistics: 
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[H]
+\begin{adjustbox}{center}
+  \scriptsize
+  \centering
+  
+    \begin{tabular}{@{}p{2.345em}lllllll@{}} 
+    
+    \toprule
+    \multicolumn{1}{c}{} & \multicolumn{1}{p{5.59em}}{\textbf{comments}} & \multicolumn{1}{p{4.225em}}{\textbf{duration}} & \multicolumn{1}{p{5.045em}}{\textbf{film\_date}} & \multicolumn{1}{p{5.725em}}{\textbf{languages}} & \multicolumn{1}{p{7.635em}}{\textbf{num\_speaker}} & \multicolumn{1}{p{8.225em}}{\textbf{published\_date}} & \multicolumn{1}{p{4.045em}}{\textbf{views}} \\
+    \midrule
+    \textbf{count} & 2550  & 2550  & 2.55E+03 & 2550  & 2550  & 2.55E+03 & 2.55E+03 \\
+    \textbf{mean} & 191.562353 & 826.5102 & 1.32E+09 & 27.326275 & 1.028235 & 1.34E+09 & 1.70E+06 \\
+    \textbf{std} & 282.315223 & 374.0091 & 1.20E+08 & 9.563452 & 0.207705 & 9.46E+07 & 2.50E+06 \\
+    \textbf{min} & 2     & 135   & 7.46E+07 & 0     & 1     & 1.15E+09 & 5.04E+04 \\
+    \textbf{25\%} & 63    & 577   & 1.26E+09 & 23    & 1     & 1.27E+09 & 7.56E+05 \\
+    \textbf{50\%}& 118   & 848   & 1.33E+09 & 28    & 1     & 1.34E+09 & 1.12E+06 \\
+    \textbf{75\%} & 221.75 & 1046.75 & 1.41E+09 & 33    & 1     & 1.42E+09 & 1.70E+06 \\
+    \textbf{max} & 6404  & 5256  & 1.50E+09 & 72    & 5     & 1.51E+09 & 4.72E+07 \\
+    \bottomrule
+    \end{tabular}%
+  \label{table1}
+  
+\end{adjustbox}
+\caption{\inlinecode{df.describe()}}
+\end{table}
+Just from this basic summary we already have some meaningful information available about this series of talks. For example we now know the average number of comments per video around a couple hundred, the average duration is about $14$ minutes, and most talks are translated into at least 20 languages. We can also see that the most there has ever been in a single TED talk is five, and the least-watched talk still has over 50,000 views. 
+
+
+An immediate revelation from this table is that \inlinecode{python} has failed to recognize the unix timestamps given for the \inlinecode{film\_date} and \inlinecode{published\_date} columns, so we will have to clean the data such that the dates are interpreted correctly. Something else to note is that we only have these numerical statistics for the numerical data. The other 11 or so columns of information were text, and thus the \inlinecode{describe()} function omitted them from the table. We also note that since there are 2550 rows, and the count for each of the 7 columns in Table \ref{table1} is also 2550, however, this does not necessarily mean there are no missing data points in these categories. For example, in the languages category, we see that the minimum number of languages is 0, but this is impossible, since sorting the dataset using the command \inlinecode{df.sort\_values(by=['languages'])} yields a talk called \textit{6 ways to save the internet} by Roger McNamee which has a value of zero for the number of languages in which the talk is available. A quick Google search yields a video of the talk which is clearly in English. So we there's a bit of work to be done to clean up the data and make sure it all makes sense. 
+
+\section{Skew and cleaning the data}
+
+We can also get a rough idea of the skew of the numerical variables from Table \ref{table1} by comparing the median and mean of each of the columns. Let $M$ denote the median, $s$ the standard deviation, and $\bar{x}$ the mean. We define a normalized measure $\gamma$ of skew:
+$$
+\gamma = \fracc{\bar{x} - M}{s}.
+$$
+And we will arbitrarily say that a variable with skew $|\gamma| < 0.1$ is (approximately) symmetric. If $\gamma \geq 0.1$ we say the mean is significantly greater than the median and call this right-skewed data. If $\gamma \leq -0.1$ we say the mean is significantly less than the median and call this left-skewed data. Then for the following ratio variables we have: 
+
+\begin{table}[H]\label{table2}\centering
+\ra{1.2}
+\begin{tabular}{@{}lll@{}}\toprule[1.7pt]
+\textit{variable}
+& \textit{$\gamma$} & \textit{skew}\\
+\midrule
+comments & $0.261$ & right-skewed\\
+duration & $-0.057$ & symmetric\\
+languages & $-0.070$ & symmetric\\
+num\_speaker & $0.135$ & right-skewed\\
+views & $0.232$ & right-skewed\\
+\bottomrule[1.7pt]
+\end{tabular}
+\vspace{1mm}
+\caption{Skew values. } 
+\end{table}
+
+So we now have some rudimentary information about the distributions of these metadata columns. 
+
+
+
+We now move on to the task of cleaning the data such that it outputs readable dates instead of unix timestamps in scientific notation, which are essentially useless to the casual reader. We make use of the \inlinecode{datetime} library, which gives us a convenient function to convert unix timestamps into a date variable which we can then output in any format of our choosing. We then create a new \inlinecode{pandas} \inlinecode{DataFrame} variable called \inlinecode{dfdate} to store our newly converted date values along with the rest of the dataset. Defining a new function \inlinecode{dateConversion} to make the dates readable, we have the following code snippet:
+\begin{framed}
+\begin{verbatim}
+def dateConversion(x):
+    return datetime.datetime.fromtimestamp(
+    int(x)
+    ).strftime('%Y-%m-%d %H:%M:%S')
+
+
+dfdate['film_date'] = df.apply(lambda row:
+                    dateConversion(row['film_date']),axis=1)
+\end{verbatim}
+\end{framed}
+which yields entries in the \inlinecode{dfdate['film\_date']} column which look like this:
+\begin{center}
+\inlinecode{2006-02-24 19:00:00}
+\end{center}
+And applying the same process to the \inlinecode{published\_date} column yields successfully reformatted date columns. 
+
+\section{Construction of a popularity measure}
+
+We now move on to answering the question of which are the most popular talks. It may be tempting to derive a measure of popularity solely from the number of views, but this may be an ill-conceived method for the following reason: we do not know what the system which collected this data counts as a view. There is no metadata regarding the views column available on \inlinecode{kaggle.com}, and we can't be sure on which platform the videos were viewed. A quick look at TED's website reveals that they have their own player for videos distinct from the youtube player. If all the views were counted on youtube we could use general knowledge about what youtube counts as a view to determine whether or not these quantities would be good measures of popularity. For example, if the website on which the talk was hosted counts a click on the video link as a view, then this measure wouldn't be giving us an idea of how popular the talk is so much as it would be giving us an idea of how popular/enticing the link or thumbnail of the video appears. On the other hand, if a view was defined as the number of people who watch through the entire (or a good portion of) the video, then perhaps it would be a good measure of popularity, since we would have some idea of viewer retention. 
+
+For this reason, we will instead use the net number of "positive" ratings/tags of the video as a measure of popularity. Using the following code snippet, we make a list of each of the distinct tags along with their overall frequency across the entire dataset:
+
+\begin{framed}
+\begin{verbatim}
+dftags = {}
+for i in range(0,2549):
+    length = len(literal_eval(dfdate['ratings'].iloc[i]))
+    for j in range(0,length - 1):
+        currentName =
+         literal_eval(dfdate['ratings'].iloc[i])[j]['name']
+        if currentName not in dftags:
+            print currentName
+            dftags[currentName] = literal_eval
+            (dfdate['ratings'].iloc[i])[j]['count']
+        else:
+            dftags[currentName] += literal_eval
+            (dfdate['ratings'].iloc[i])[j]['count']
+\end{verbatim}
+\end{framed}
+
+ We note here that there was no way of knowing whether there would be a relatively small number of distinct tags to make it a good measure of popularity before actually writing the code to generate the list. However, after generating the list of tags, we have $14$ different tags, and sorting them into positive, negative, and neutral categories yields:
+ 
+ \begin{table}[H]\label{table3}\centering
+\ra{1.2}
+\begin{tabular}{@{}lc@{}}\toprule[1.7pt]
+\textit{tag}
+& \textit{positivity}\\
+\midrule
+\inlinecode{Funny} & $+$\\
+\inlinecode{Beautiful} & $+$\\
+\inlinecode{Ingenious} & $+$\\
+\inlinecode{Courageous} & $+$\\
+\inlinecode{Longwinded} & $-$\\
+\inlinecode{Confusing} & $-$\\
+\inlinecode{Informative} & $+$\\
+\inlinecode{Fascinating} & $+$\\
+\inlinecode{Unconvincing} & $-$\\
+\inlinecode{Persuasive} & $+$\\
+\inlinecode{Jawdropping} & $+$\\
+\inlinecode{Ok} & $0$\\
+\inlinecode{Obnoxious} & $-$\\
+\inlinecode{Inspiring} & $+$\\
+\bottomrule[1.7pt]
+\end{tabular}
+\vspace{1mm}
+\caption{Tag categories. } 
+\end{table}
+
+We denote the aggregate rating of a talk as $r_t$ and let $\Lambda$ be set of $14$ distinct tags given above. Let $p_i$ be the positivity ($+1,-1,0$) of tag $i$. Let $c_i$ be the count of tag $i$ for the specified talk. Then we have:
+$$
+r_t = \sum_{i \in \Lambda} p_i \cdot c_i.
+$$
+We implement this formula and generate rating values as integers for each talk, and import these into a copy of the \inlinecode{DataFrame} object. The code for this was lengthy and for brevity we omit it. We then sort these in ascending and descending order to see which talks are most popular, and also which are the least popular. 
+\section{Popularity of talks and correlations}
+
+So which was the most popular talk? This was one titled \textit{My stroke of insight} by a neuroanatomist named Jill Bolte Taylor, which had a net positivity rating of 67241. The top 10 highest rated talks are: 
+
+ \begin{table}[H]\label{table4}\centering
+\ra{1.2}
+\begin{tabular}{@{}lll@{}}\toprule[1.7pt]
+\textit{title} & \textit{year}
+& \textit{rating}\\
+\midrule
+My stroke of insight & 2008 & 67241\\
+Do schools kill creativity? & 2006 & 65476\\
+Your body language may shape who you are & 2012 & 62986\\
+The power of vulnerability & 2010 & 58293\\
+How great leaders inspire action & 2009 & 51596\\
+How to live before you die & 2005 & 36234\\
+The happy secret to better work & 2011 & 31471\\
+Underwater astonishments & 2007 & 29008\\
+The danger of a single story & 2009 & 28777\\
+The power of introverts & 2012 & 28705\\
+\bottomrule[1.7pt]
+\end{tabular}
+\vspace{1mm}
+\caption{10 most popular TED talks.  } 
+\end{table}
+
+It is interesting to note that the while the median date for the set of all talks was sometime in 2012, since it's unix timestamp was around $1.33 \times 10^9$, the average date of the most popular talks is sometime in late 2008. And the most recent talk out of these was in 2012, which is the same year of the median of the whole dataset. This suggests that it may several years for a talk to become significantly popular. Another more qualitative thing to note about these 10 talks is that most of them are observed to be focused on self-empowerment/self improvement. In this category you could safely place all but the \textit{My stroke of insight}, \textit{Do schools kill creativity?}, \textit{the danger of a single story}, and \textit{Underwater astonishments}. One possible explanation for this is that talks are popular and highly rated when the viewers feel as though the information they gained from the talk is directly applicable to their own lives. 
+
+The least popular out all the TED talks was \textit{17 words of architechural inspiration} by Daniel Libeskind with a rating of $-2241$. There doesn't appear to be an immediately clear reason why so many people disliked this talk, except perhaps that maybe people find architecture exceptionally boring. Other notable unpopular talks were \textit{The NSA responds to Edward Snowden's TED talk}, \textit{Enough with the fear of fat}, and \textit{Is religion good or bad?}. These were all within the top 10 most unpopular TED talks, and had ratings below 0.  The reasons for these talks' unpopularity is more easily imagined being in line with political, social, and cultural strife. This suggests that one thing people are not looking for in lecture-style talk is controversy. 
+
+We now move on to the task of discovering if there are any relationships or meaningful correlations between popularity as measure with the rating metric constructed in the previous section, and other data from the set. We give the correlation coefficients for ratings with a number of other variables:
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+ \begin{table}[H]\label{table5}\centering
+ \begin{adjustbox}{center}
+\ra{1.2}
+\begin{tabular}{@{}llllll@{}}\toprule[1.7pt]
+
+    \multicolumn{1}{c}{} & \multicolumn{1}{p{5.18em}}{\textbf{comments}} & \multicolumn{1}{p{4.045em}}{\textbf{duration}} & \multicolumn{1}{p{5.32em}}{\textbf{languages}} & \multicolumn{1}{p{6.975em}}{\textbf{num\_speaker}} & \multicolumn{1}{p{3.045em}}{\textbf{views}} \\
+    \midrule
+    \textbf{ratings} & 0.609881 & 0.097217 & 0.333162 & -0.038618    & 0.853597 \\
+    \bottomrule[1.7pt]
+    \end{tabular} 
+    \vspace{3mm} 
+
+  \end{adjustbox}\caption{Correlations with ratings. }
+\end{table}%
+
+And we also give the corresponding scatterplots to these pairs, as well as one for ratings vs. film date:
+
+\includegraphics[scale=0.1]{datamining1}
+
+We immediately see that there is no correlation between popularity (ratings) and the variables \inlinecode{duration}, \inlinecode{num\_speaker}, and \inlinecode{film\_date}. These values are so close to zero that their signs are essentially meaningless. As expected, we see a significant positive correlation between our new measure of popularity and views, which suggests that for the most part, videos that looked like they would enjoyable and informative from the title and thumbnail alone (influencing the number of views) tended to have content that was in line with those positive expectations. There was similar, but slightly weaker relationship between popularity and comments, which is also expected, as more popular talks would incite more discussion. It is interesting to note that there is a slight (0.33) correlation between languages and popularity, which suggests that only the most popular talks get translated into a large number of languages. From the scatterplot we can see that 5 out of the 6 most popular talks were all translated into more than 40 languages. It is also interesting to note that none of the talks with more than 1 speaker had a popularity rating higher than 15,000. Thus suggests that a single speaker is a more effective lecture-style. 
+
+We note here that we omitted any discussion of the occupation of the speakers or the description of the the talks. This is because a cursory look at the number of distinct entries for these two columns on the kaggle website reveals that there are very few duplicate entries in these columns: most of datapoints are unique and thus it would be difficult to do an analysis of their distribution without some nontrivial processing of their semantics, which would likely require some sort of NLP model. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

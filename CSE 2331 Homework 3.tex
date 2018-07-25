@@ -1,0 +1,224 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2331 Homework 3}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\title{CSE 2331 Homework 3}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*.]
+
+\item \textbf{This one seems sketchy. } The inner while loop executes $\lfloor \log_5(\lfloor n/2 \rfloor /7) \rfloor$ times, which takes $c\log(n)$ time for some constant $c$. The for loop executes $\lfloor n/2 \rfloor$ times, which takes $c_1n$ time for some constant $c_1$. Thus steps 2-8 take $c_2n\log(n)$ time for some constant $c_2$. So our recurrence relation is given by $T(n) = cn\log(n) + T(n - 8)$. Thus
+\begin{equation}
+\begin{aligned}
+T(n) &= cn\log(n) + T(n - 8) \\
+&= cn\log(n) + c(n - 8)\log(n- 8) + T(n - 2\cdot 8) = \cdots\\
+&= cn\log(n) + \cdots + c(n - n)\log(n - n) + T(1)\\
+&= cn\log(n) + \sum_{k = 1}^{\lfloor n/8 \rfloor} c(n - 8i)\log(n - 8i) + T(1)\\
+&\leq cn\log(n) + \sum_{k = 1}^{\lfloor n/8 \rfloor} cn\log(n) + T(1)\\
+&= cn\log(n) + (n/8)cn\log(n) + T(1) \in O(n^2 \log(n)),\\
+T(n) &\geq cn\log(n) + \sum_{k = \lfloor n/16 \rfloor}^{\lfloor n/8 \rfloor} c(n - 8i)\log(n - 8i) + T(1)\\
+& \geq cn\log(n) + \sum_{k = \lfloor n/16 \rfloor}^{\lfloor n/8 \rfloor} c(n - 8(n/16))\log(n - 8(n/16)) + T(1)\\
+&= cn\log(n) + (n/16)c(n/2)\log(n/2) + T(1) \in \Omega (n^2\log(n)). 
+\end{aligned}
+\end{equation}
+Thus $T(n) \in \Theta(n^2 \log(n))$. \\
+
+\item The for loop executes $\lfloor n/2 \rfloor$ times and thus takes $cn$ time for some constant $c$. So our recurrence relation is given by $T(n) = cn + T(\frac{3}{5}n)$. So the running time is
+\begin{equation}
+\begin{aligned}
+T(n) &= cn + T(\frac{3}{5}n)\\
+&= cn + c\frac{3}{5}n + T(\left(\frac{3}{5}\right)^2n)\\
+&= cn + c\frac{3}{5}n + \cdots + c\left(\frac{3}{5}\right)^{\lfloor \log_{3/5}(n) \rfloor}n + T(1)\\
+&= cn + \sum_{k = 1}^{\lfloor \log_{3/5}(n) \rfloor} cn\left(\frac{3}{5}\right)^{i} + T(1) \\
+&\leq cn  + \sum_{k = 1}^{\infty} cn\left(\frac{3}{5}\right)^{i} + T(1)\\
+&= cn \frac{1}{1 - \frac{3}{5}} + T(1) \in O(n),\\
+T(n) &\geq cn \in \Omega(n).
+\end{aligned}
+\end{equation}
+Hence $T(n) \in \Theta (n)$. \\
+
+\item The inner for loop executes $n - 10$ times and thus takes $cn$ time for some constant $cn$. And the outer for loop executes $5$ times and thus takes constant time for some constant $c_1 = 5$. So our recurrence relation is given by $T(n) = 5cn + 5T(\lfloor n/5 \rfloor) $. Thus our running time is given by
+\begin{equation}
+\begin{aligned}
+T(n) &= 5cn + 5T\left(\lfloor n/5 \rfloor\right)\\
+&= 5cn + 5cn + 5^2T\left(\lfloor \frac{n}{5^2} \rfloor\right)\\
+&= 5cn + 5cn + 5cn + 5^3T\left(\lfloor \frac{n}{5^3} \rfloor\right)\\
+&= \lfloor \log_5(n) \rfloor5cn + 5^{\lfloor \log_5(n) \rfloor}T(1) \in \Theta(n\log(n)). 
+\end{aligned}
+\end{equation}
+\vspace{3mm}
+
+\item The first for loop executes $n - 10$ times, and so takes $cn$ time for a constant $c$. And since $\log_{3/2}(n)$ grows faster than $\log_{7/5}(n)$ to find the worst case running time, we assume the if statement always executes line 6, and so our recurrence relation is given by $T(n) = cn + T(2n/3)$. So the running time is:
+\begin{equation}
+\begin{aligned}
+T(n) &= cn + T(2n/3)\\
+&= cn + \left(\frac{2}{3} \right)cn + T\left(\frac{2^2n}{3^2} \right)\\
+&= cn + \left(\frac{2}{3} \right)cn + \left(\frac{2}{3} \right)^2cn + \cdots + T\left(\log_{2/3}(n)\right)\\
+&\leq cn \frac{1}{1 - \frac{2}{3}} \in O(n). \\
+T(n) &\geq cn \in \Omega(n).
+\end{aligned}
+\end{equation}
+Hence $T(n) \in \Theta(n)$. \\
+
+\item The innermost for loop executes $\lfloor \sqrt{n} \rfloor$ times, the middle and outer for loops each execute $\lfloor n/3 \rfloor$ times, hence lines 2-8 take $cn^{2.5}$ time for some constant $c$. So our recurrence relation is given by $T(n) = cn^{2.5} + T(3n/4)$, and the running time is: 
+\begin{equation}
+\begin{aligned}
+T(n) &= cn^{2.5} + T(3n/4)\\
+&= cn^{2.5} + \left(\frac{3}{4} \right)^{1 \cdot 2.5}cn^{2.5} + T\left(\frac{3^2n}{4^2} \right)\\
+&= cn^{2.5} + \left(\frac{3}{4} \right)^{1 \cdot 2.5}cn^{2.5} + \left(\frac{3}{4} \right)^{2 \cdot 2.5}cn^{2.5} + \cdots + T\left(\log_{3/4}(n)\right)\\
+&\leqslant cn^{2.5} \left( 1 + \left(\frac{3}{4} \right)^{2.5} + \left(\frac{3}{4} \right)^{2 \cdot 2.5} + \cdots \right)\\
+&= cn^{2.5} \frac{1}{1 -  \left(\frac{3}{4} \right)^{2.5}} \in O(n^{2.5}). \\
+T(n) &\geqslant cn^{2.5} \in \Omega(n^{2.5}).
+\end{aligned}
+\end{equation}
+Hence $T(n) \in \Theta(n^{2.5})$. \\
+
+\item \textbf{I DON'T UNDERSTAND THIS ONE.}  The recurrence relation is given by: 
+\begin{equation}
+\begin{aligned}
+T(n) &= cn + T(n - 4) + T(n - 10) + T(n - 16) + \cdots + T(1)\\
+&\geqslant T(n - 4) + T(n - 10) \geq 2T(n - 10)\\
+&\geqslant 2^2T(n - 2\cdot 10) \geqslant 2^3 T(n - 3\cdot 10) \geqslant \cdots \geqslant 2^{\frac{n - 1}{10}} T(n - \frac{n - 1}{10}10) \\
+&= 2^{\frac{n - 1}{10}}T(1) \in \Omega(2^{\frac{n}{10}}). 
+\end{aligned}
+\end{equation}
+So the running time $T(n)$ has an exponential lower bound. \\
+
+\item Lines 2-4 execute $n - 8$ times and so take $cn$ time for a constant $c$. The for loop executes 4 times and thus our recurrence relation is given by $T(n) = cn + 4T( n/2 )$. So the running time is:
+\begin{equation}
+\begin{aligned}
+T(n) &= cn + 4T( n/2 ) \\
+&= cn + \frac{4}{2}cn + 4T(n/2^2)\\
+&= cn + \frac{4}{2}cn+ \frac{4}{2^2}cn + 4T(n/2^3)\\
+&= cn + \frac{4}{2}cn+ \frac{4}{2^2}cn + \cdots + 4T(1)\\
+&\leqslant 4cn\left(\frac{1}{1 - \frac{1}{2}} \right) + 4T(1) \in O(n). \\
+T(n) &\geqslant cn \in \Omega(n). 
+\end{aligned}
+\end{equation}
+Thus $T(n) \in \Theta(n)$. \\
+
+
+\item The for loop executes $\lfloor n/2 \rfloor$ times, and so takes $cn$ time for a constant $c$. And thus our running time is given by:
+\begin{equation}
+\begin{aligned}
+T(n) &= cn + T(n/6) + T(5n/6)\\
+&\leq cn  + 2T(5n/6)\\
+&= cn + \frac{5}{6}cn + T(c5^2/6^2)\\
+&= cn + \frac{5}{6}cn + \frac{5^2}{6^2}cn + T(c5^3/6^3)\\
+&= cn + \frac{5}{6}cn + \frac{5^2}{6^2}cn + \cdots + T(1)\\
+&\leq cn + \frac{5}{6}cn + \frac{5^2}{6^2}cn + \cdots\\
+&= cn \frac{1}{1 - \frac{5}{6}} \in O(n). \\
+T(n) &\geq cn + T(n/6)\\
+&= cn + \frac{1}{6}cn + T(c/6^2)\\
+&= cn + \frac{1}{6}cn + \frac{1}{6^2}cn + T(c/6^3)\\
+&= cn + \frac{1}{6}cn + \frac{1}{6^2}cn + \cdots + T(1)\\
+&\geq cn \in \Omega(n). 
+\end{aligned}
+\end{equation}
+Hence $T(n) \in \Theta(n)$. \\
+
+\item The inner for loop executes $\lfloor n/2 \rfloor$ times and takes $cn$ time for a constant $c$. The while loop executes $\lfloor \log_2(n-1/9)\rfloor$. Thus the recurrence relation is given by:
+\begin{equation}
+\begin{aligned}
+T(n) &= cn \left(T(n - 9) + T(n - 18) + T(n - 36) + \cdots + T(n - 9 \cdot 2^k) \right)\\
+&\geq T(n - 9) + T(n - 18) \geq T(n - 18) + T(n - 18) = 2T(n - 18)\\
+&= 2^2T(n - 36) = 2^3T(n - 3 \cdot 18)\\
+&= 2^{n/18}T(1) \in \Omega(2^{n/18}). 
+\end{aligned}
+\end{equation}
+Since $T(n) \in \Omega(2^{n/18})$, the running time has an exponential lower bound. \\
+
+
+\item The inner for loop executes $\lfloor n/2 \rfloor$ times and takes $cn$ time for a constant $c$. Our recurrence relation is $T(n) = 5cn + 5T(n/6)$. Hence the running time is:
+\begin{equation}
+\begin{aligned}
+T(n) &= 5 cn + \frac{5^2}{6}cn + 5^2T(n/6^2)\\
+&= 5cn +  \frac{5^2}{6}cn +  \frac{5^3}{6^2}cn + 5^3T(n/6^3)\\
+&= 5cn +  \frac{5^2}{6}cn +  \frac{5^3}{6^2}cn + \cdots + 5^{\log_6(n)}T(1)\\
+&= 5\left( cn +  \frac{5}{6}cn +  \frac{5^2}{6^2}cn + \cdots + 5^{\log_6(n) - 1}T(1) \right) \\
+&\leq  5\left( cn +  \frac{5}{6}cn +  \frac{5^2}{6^2}cn + \cdots \right) \\
+&= 5cn \frac{1}{1 - \frac{5}{6}} \in O(n).\\
+T(n) &\geq 5cn \in \Omega (n). 
+\end{aligned}
+\end{equation}
+Thus $T(n) \in \Theta(n)$. 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

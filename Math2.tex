@@ -1,0 +1,186 @@
+\title{Math 5590H Bonus}
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+\usepackage{braket}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\newtheorem{e}{Exercise}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+
+
+
+
+\begin{document}
+
+\title{Math 5590H Final Index}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{e}
+Let $G$ be finite. Assume that orders of $G$ and $Aut(G)$ are relatively prime. Prove that $G$ is abelian. 
+\end{e}
+\begin{proof}
+Assume $G$ nonabelian. Then $|G|/|Z(G)|  = k> 1$, and $k\mid |G|$. But also note 
+$$G/Z(G) \cong Inn(G) \leq Aut(G),$$
+ by Corollary 4.4.15, and since $G$ is finite, we have $k = |G/Z(G)|$. But since the orders of $G$ and Aut$(G)$ are coprime, and $G/Z(G)$ is a subgroup of $Aut(G)$, hence $k$ divides the order of $Aut(G)$, we must have that $k$ is also coprime with the order of $G$. But this is impossible since $k \mid |G|$, so our assumption that $G$ is nonabelian must have been false. 
+\end{proof}
+
+\begin{e}
+Find all, up to isomorphism groups of order 55. 
+\end{e}
+Note $n = 11 \cdot 5$. So $n_{11}|5$ and $n_{11} \equiv 1 \mod 11$, so $n_{11} = 1$. And $n_5|11$, and $n_5 \equiv 1 \mod 5$. So $n_5 = 1$ or $11$. Let $P$ be a sylow-$11$ subgroup and $Q$ be a sylow 5 subgroup. Now since $n_{11} = 1$, we know $P$ is characteristic in $G$. Also since their orders are coprime, $P \cap Q = 1$, and clearly $|PQ| = 55$, so we have $PQ = G$. And since $n_{11} = 1$, we know $P \norm G$. Hence $G = P \semi Q$. We also know $|P| = 11$, and $|Q| = 5$, since they have power 1, so $P \cong \mathbb{Z}_{11}$ and $Q \cong \mathbb{Z}_5$.  We need a homomorphism $\phi: \mathbb{Z}_5 \to Aut(\mathbb{Z}_{11}) = \mathbb{Z}_{10}$. \\
+\textbf{Case 1: } Let $\phi$ be the trivial homomorphism. We have $G \cong \mathbb{Z}_{11} \times \mathbb{Z}_5 \cong \mathbb{Z}_{55}$. \\
+\textbf{Case 2: } The only other homomorphism between these two groups is $\phi(q) = 2q$. And this induces a nontrivial semidirect product $G = P \semi Q \cong \mathbb{Z}_{11} \semi \mathbb{Z}_5$. \\
+So the two groups of order $55$ are $\mathbb{Z}_{55}$ and the nontrivial semidirect product $\mathbb{Z}_{11} \semi \mathbb{Z}_{5}$. 
+
+\begin{e}
+Prove that the group $S_4$ is solvable. 
+\end{e}
+\begin{proof}
+Recall Burnside's Theorem, that any group of order $p^aq^b$ where $a,b \in \mathbb{Z}^{\geq 0}$ is solvable. We know $S_4$ has order $24 = 2^3 \cdot 3$. Hence $S_4$ must be solvable. 
+\end{proof}
+
+\begin{e}
+If $R$ is an integral domain, prove that $R$ has the cancellation property. 
+\end{e}
+\begin{proof}
+Suppose $ab = ac$, and $a,b,c \neq 0$. Then we have $a(b - c) = 0$. Then since we are in an integral domain, by definition, we have no zero divisors, so we must have $a = 0$, or $b - c = 0$. But since $a \neq 0$, we have that $b = c$, and hence we have cancellation. 
+\end{proof}
+
+\begin{e}
+If $e$ is an idempotent element in a ring $R$, prove that $1 - e$ is also idempotent, and that $R = Re \times R(1-e)$. 
+\end{e}
+\begin{proof}
+Recall that $e$ is idempotent if and only if $e^2 = e$. Then we have $(1 - e)^2 = 1 - 2e + e^2 = 1 - 2e + e = 1 - e$, hence $1 - e$ is also idempotent. Note $Re + R(1 - e) = \{re:r \in R\} + \{r(1 - e):r \in R\} = R$. So these two ideals are comaximal by definition. Then we have $R/(Re \cap R(1 - e)) \cong R/Re \times R/R(1 - e)$. But note that for any element $t$ in $Re$, $te = t$ in $Re$. So suppose there was a nonzero element $u$ in $R(1 - e)$ s.t. $u = r(1-e) \in Re$. Then we have $r(1 - e)e = r(e - e^2)  = r(e - e) = r0 = 0 \neq u$. So we must have that the intersection of the two ideals is trivial. Hence $R(0) = R \cong R/Re \times R/R(1 - e)$. Now we want to show that these two rings in the direct product are isomorphic to $Re$ and $R(1 - e)$. So consider $\phi:R \to R(1 - e)$ given by $\phi(r) = r(1 - e)$. This is a homomorphism of rings since 
+$$
+\phi(x + y) = (x + y)(1 - e) =\phi(x) + \phi(y) = x(1 - e) + y(1 - e)
+$$
+$$
+\phi(xy) = xy(1 - e) = \phi(x)\phi(y) = x(1 - e)y(1 - e) = xy(1 - e)^2 = xy(1 - e),
+$$
+ since $(1 - e)$ is idempotent. Note that $Re$ is in the kernel of $\phi$, since for $re \in Re$, we have $\phi(re) = re(1 - e) = 0$. Also note $\phi$ is clearly surjective by the definition of $R(1 - e)$. We wish to use the first isomorphism theorem, which states that $R/ker(\phi) \cong \phi(R)$. Suppose there was $x \in R$ s.t. $x \notin Re$ but $\phi(x) = 0$. Then we have $\phi(x) = x(1 - e) = x - xe = 0 \Rightarrow x = xe$, so thus $x$ is in $Re$. So $Re = \ker \phi$, hence $R/Re \cong \phi(R) = R(1 - e)$. And the proof that $R/R(1 - e) \cong Re$ follows the same way from the mapping $\psi:R \to Re$ given by $\psi(r) = re$. Hence we have: 
+ $$
+ R \cong Re \times R( 1-e). 
+ $$
+ \\
+ Another proof is given by the natural homomorphism $\phi(r) = (re,r(1 - e))$. It is a homomorphism since 
+ $$
+ \phi(r + s) = ((re + se, r(1 - e) + s(1 - e)) = (re,r(1 - e)) + (se,s(1 - e)) = \phi(r) + \phi(s),
+ $$
+ And we also have:  
+ $$
+ \phi(rs) = (rese,r(1 - e)s(1 - e)) = \phi(r)\phi(s),
+ $$
+  by idempotency. It is injective clearly injective by its definition, and we see it is surjective since if $(re,s(1 - e)) \in Re \times R(1- e)$, we have 
+  $$
+  \phi(re + s(1 - e)) = (re^2 + s(1 - e)e,re(1 -  e) + s(1 -e)^2) = (re + 0,0 + s(1 - e)),
+  $$ 
+  by idempotency. Hence $\phi$ is an isomorphism. 
+\end{proof}
+
+\begin{e}
+let $\phi: R \to S$ be a homomorphism of rings. 
+\end{e}
+
+\begin{enumerate}
+\item 
+\begin{enumerate}
+
+
+\item \textit{Give an example where $\phi(1) \neq 1$.}
+\\Consider $\phi:\mathbb{Z} \to \mathbb{Z}$ given by $\phi(x) = 0$. \\
+
+\item \textit{Prove that $\phi(1)$ is an idempotent in $S$. }\\
+\begin{proof}
+Observe: 
+\begin{equation}
+\begin{aligned}
+\phi(1)\phi(1) = \phi(1\cdot 1) = \phi(1). 
+\end{aligned}
+\end{equation}
+\end{proof}
+\item \textit{If $\phi$ is surjective, prove that $\phi(1) = 1$. }
+\begin{proof}
+Let $\phi$ be surjective. Suppose $\phi(1)  = t \neq 1$. But since we have surjectivity, we know $\exists r \in R$ s.t. $\phi(r) = 1$. So we have: 
+\begin{equation}
+\begin{aligned}
+\phi(r \cdot 1) = \phi(r) = \phi(r)\phi(1) = 1 \cdot t = t,
+\end{aligned}
+\end{equation}
+But we said $\phi(r) = 1$, so we have a contradiction, since we assumed $\phi(1) = t \neq 1$, so we must have that $\phi(1) = 1$. 
+\end{proof}
+\end{enumerate}
+\end{enumerate}
+Hello
+\begin{e} See below. 
+\end{e}
+\begin{enumerate}
+\item 
+\begin{enumerate}
+\item \textit{Prove that any subring of $\mathbb{Z}$ is an ideal in $\mathbb{Z}$. }
+\begin{proof}
+Let $R\subseteq \mathbb{Z}$ be a subring. We want to show $Rx \sub R$ $\fa x \in R$. So note that since $\z$ as a group is cyclic, and every subgroup of a cyclic group is cyclic, each subgroup is of the form $R = \langle n \rangle = n\z$ for some $n \in \z$. And since every subring must be an additive subgroup, we know every subring is also of the form $n\z$. So let $x \in \z$, then $\fa k \in n\z$ we know $xk$ is a multiple of $n$ since $k$ is a multiple of $n$, so $xk \in n\z$, so $xn\z \subset n\z$, hence $n\z$ is an ideal in $\z$. \\
+\end{proof}
+
+\item \textit{Give an example of a subring of $\z[i]$ which is not an ideal in $\z[i]$. }
+\end{enumerate}
+\end{enumerate}
+
+\begin{e}
+If $I,J \sub R$ are ideals, such that $I \subsetneq J$ and $R/I \cong \z$, prove that $R/J$ is a finite ring. 
+\end{e}
+\begin{proof}
+Note that by the \textbf{Third Isomorphism Theorem}, we know since $I,J$ are ideals in $R$ and $I \subset J$, $J/I \subset R/I \cong \z$ is an ideal, and $\frac{R/I}{J/I} \cong R/J \cong \z/(J/I) \cong R/J$. So since every ideal is a subring in $\z$ and we know what subrings look like, we know every ideal is of the form $n\z$ in $\z$, so $J/I = n\z$ for some $n \in \z$. So we have $\z/n\z \cong R/J$. And we know from our study of groups that $\z/n\z$ is finite. 
+\end{proof}
+\vspace{3mm}
+\begin{e}
+If $F$ is a field, $S$ is a ring, and $\phi:F \to S$ is a nonzero homomorphism, prove that $\phi$ is injective. 
+\end{e}
+\begin{proof}
+Suppose $\phi$ is not injective. Then $\exists x,y \in F$ s.t. $\phi(x) = \phi(y) \neq 0$ but $x \neq y$. So $\phi(x) - \phi(y) = \phi(x - y) = 0$. But since $x \neq y$, we know $x - y  = z \neq 0$. 
+\end{proof}
+
+\end{document}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      

@@ -1,0 +1,105 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge CSE 2221 Homework 4 \linebreak \\\\ \Large Professor Bucci}
+
+\date{1/24/2017}
+\documentclass[10pt]{article}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage[margin=1in]{geometry}
+
+
+\begin{document}
+\maketitle
+
+
+
+
+\paragraph{1. } { }
+Implementation of the pointIsInCircle method: 
+\begin{lstlisting}
+    private static boolean pointIsInCircle(double xCoord, double yCoord) {
+        double x = xCoord;
+        double y = yCoord;
+        boolean inCircle = false;
+        if ((((x - 1.0) * (x - 1.0)) + ((y - 1.0) * (y - 1.0))) < 1.0) {
+            inCircle = true;
+        }
+        return inCircle;
+    }
+\end{lstlisting}
+
+\paragraph{2. } { }
+Implementation of the numberOfPointsInCircle method: 
+\begin{lstlisting}
+    private static int numberOfPointsInCircle(int n) {
+        int ptsInInterval = 0, ptsInSubinterval = 0;
+        Random rnd = new Random1L();
+        while (ptsInInterval < n) {
+
+            double r = rnd.nextDouble();
+            double x = 2 * r;
+            r = rnd.nextDouble();
+            double y = 2 * r;
+
+            ptsInInterval++;
+            if (pointIsInCircle(x, y) == true) {
+                ptsInSubinterval++;
+            }
+        }
+        return ptsInSubinterval;
+
+    }
+\end{lstlisting}
+
+\paragraph{3. } { }
+Implementation of the main method of the MonteCarlo lab using the two above methods: 
+\begin{lstlisting}
+    public static void main(String[] args) {
+        /*
+         * Open input and output streams
+         */
+        SimpleReader input = new SimpleReader1L();
+        SimpleWriter output = new SimpleWriter1L();
+        /*
+         * Ask user for number of points to generate
+         */
+        output.print("Number of points: ");
+        int n = input.nextInteger();
+        int ptsInCircle = numberOfPointsInCircle(n);
+
+        /*
+         * Estimate proportion of points generated in [0.0,2.0)x[0.0,2.0)
+         * interval that fall in the set {(x,y) in R:x^2 + y^2 < 1}
+         */
+        double proportion = (double) ptsInCircle / n;
+        double areaOfCircle = 4.0 * proportion;
+        output.println("Estimate for the area of a circle of radius r=1: "
+                + areaOfCircle);
+
+        /*
+         * Close input and output streams
+         */
+        input.close();
+        output.close();
+    }
+\end{lstlisting}
+
+
+
+
+
+
+
+\end{document}
+
+

@@ -1,0 +1,36 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge CSE 2221 Homework 2 \linebreak \\\\ \Large Professor Bucci}
+
+\date{1/17/17}
+\documentclass[10pt]{article}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsmath}
+
+
+\begin{document}
+\maketitle
+
+
+\paragraph{1. }
+This program prompts the user to enter an integer number of points, and stores this value as an integer n. If n is not positive, the program returns an error. If n is a natural number, the program takes a random sample of size n from the unit normal distribution, and estimates as a percentage of type double the number of trials in which the normally distributed variable x is less than 0.5. It then prints this percentage for the user. 
+\paragraph{2. }
+The program will print a varying percentage which is close to 50\% because the sample size of 10000 is very large. This makes the probability of getting an estimate closer to the bounds of the distribution (0\% or 100\%) extremely low. 
+\paragraph{3. }
+My answer is the same as that written above for question 2 if the is changed to a $\leq$ because the unit normal distribution is a continuous density function which means $\forall c\in{\rm I\!R}, P(X=c) = 0$. Thus, even though the set $ \left \{ x \in{\rm I\!R}: 0\leq x \leq 0.5 
+\right \} $ for which the number of points in the sub interval is incremented now includes the boundary point x = 0.5, this does not change the probability of x being in that set, since $P(X=0.5) = 0$ and thus the program will function the same as described in question 2. 
+
+
+
+
+\end{document}
+
+

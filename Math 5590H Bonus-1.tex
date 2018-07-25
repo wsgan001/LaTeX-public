@@ -1,0 +1,94 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+\usepackage{braket}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\newtheorem*{e}{Exercise}
+\newtheorem{ee}{Exercise}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+
+
+
+\begin{document}
+
+\title{Math 5590H Bonus}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{e}[]
+Find a group $G = \langle S\rangle$ s.t. $G' \neq [S,S]$. 
+\end{e}
+
+\begin{proof}
+Consider $A_4 = \langle (1,2,3),(1,2,4)\rangle$. Then
+\[[S,S] = \langle (1,2,3)(1,2,4)(1,3,2)(1,4,2),(1,2,4)(1,2,3)(1,4,2)(1,3,2)\rangle.  \]
+Now note
+\[(1,2,3)(1,2,4)(1,3,2)(1,4,2) =  (1,3)(2,4)(1,4)(2,3) = (1,2)(3,4).\]
+And 
+\[(1,2,4)(1,2,3)(1,4,2)(1,3,2) = (1,2)(3,4).\]
+Thus $[S,S] = \langle (1,2)(3,4) \rangle$. Now note that $[(1,2,3),(2,3,4)] \in [G,G]$, and 
+\[[(1,2,3),(2,3,4)] = (1,2,3)(2,3,4)(1,3,2)(2,4,3) = (1,4)(2,3). \]
+Then since $(1,4)(2,3) \notin \langle (1,2)(3,4) \rangle$, we know $[S,S] \neq G'$. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

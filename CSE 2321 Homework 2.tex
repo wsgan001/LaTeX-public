@@ -1,0 +1,253 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Homework 2}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17
+\footnotetext[1]{Professor Close, MWF 12:40pm}}
+\documentclass[10pt]{article}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem2}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{prop}{Proposition}
+\newtheorem{comb}{Combinatorial Formula for the Coefficients}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item $P \Rightarrow R$
+
+\begin{enumerate}
+
+\item $P \Rightarrow \neg R$
+
+\item If your number if prime, then it is not evenly divisible by an integer other than 1 and itself. 
+
+\item Claim: $P \Leftrightarrow \neg R$. 
+\begin{proof}
+Note that $\mathbb{P}$, the set of all primes is defined as the set of all integers of the form $n$ divisible only by $1$ and $n$.  But this is precisely the same set as that defined by $R$. Let $A$ be the set defined in $\neg R$.  Formally, $x \in A \Rightarrow x \in \mathbb{P} \Rightarrow A \subset \mathbb{P}$. Similarly, $x \in \mathbb{P} \Rightarrow x \in A \Rightarrow \mathbb{P} \subset A$. 
+\end{proof}
+
+\end{enumerate}
+
+\item $S \Rightarrow Q$. 
+
+\begin{enumerate}
+
+\item $S \Rightarrow \neg Q$. 
+
+\item If your number is odd, then it is not even. 
+
+\item Claim: $S \Leftrightarrow \neg Q$. 
+
+\begin{proof} 
+Observe that $\mathbb{Z} =\{2k: k \in \mathbb{Z}\} \dot{\bigcup} \{2k + 1: k \in \mathbb{Z} \}. $
+\end{proof}
+
+\end{enumerate}
+
+
+
+\item $(R$\text{   }\text{ } $S) \Rightarrow P$
+
+\begin{enumerate}
+\item $(\neg R \wedge S) \Rightarrow P$
+
+\item If your number is not evenly divisible by any integer other than 1 and itself, and it is odd, then it is prime. 
+
+
+\item Claim: $(\neg R \wedge S) \Leftrightarrow P$. \begin{proof} By part (a) we know that $\neg R \Leftrightarrow P$. So we must only show that $P \Rightarrow S$. But all the primes other than 2 are odd, and all numbers between 10 and 1,000,000 are greater than 2. \end{proof}\end{enumerate}
+
+
+\item $S \Rightarrow P$. 
+\begin{enumerate}
+\item $\neg S \Rightarrow \neg P$. 
+
+\item If your number is not odd, then it is not prime. 
+
+\item The implication cannot be replaced by a biconditional, since $15$ is not prime, but it is odd. 
+\end{enumerate}
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}
+\item Some houses don't have electricity. 
+
+\begin{enumerate}
+\item $D = \{\text{the set of all houses}\}$.
+
+\item Let $P(x)$ denote the truth value of the statement "house x has electricity". Then we write $\exists x \in D$ $\neg P(x)$. 
+
+\item $\forall x \in D$ $P(x)$. 
+\item All houses have electricity. 
+\end{enumerate}
+
+\item None of the houses have plumbing. 
+
+\begin{enumerate}
+\item $D = \{\text{the set of all houses}\}$.
+
+\item Let $P(x)$ denote the truth value of the statement "house x has plumbing". Then we write $\forall x \in D$ $\neg P(x)$. 
+
+\item $\exists x \in D$ $P(x)$. 
+
+\item Some houses have plumbing. 
+\end{enumerate}
+
+\item Some cabins have heat but do not have A/C. 
+
+\begin{enumerate}
+\item $D = \{\text{the set of all cabins}\}$.
+
+\item Let $P(x)$ denote the truth value of the statement "cabin x has heat". Let $Q(x)$ denote the truth value of the statement "cabin x has A/C". Then we write $\exists x \in D$  $(P(x) \wedge \neg Q(x))$. 
+
+\item $(\neg P(x) \vee Q(x))$ $\forall x \in D$. 
+
+\item All cabins either do not have heat, or have A/C. 
+\end{enumerate}
+
+\item At least one cabin does not have heat, and some cabins do not have A/C. 
+
+\begin{enumerate}
+\item $D = \{\text{the set of all cabins}\}$.
+
+\item Let $P(x)$ denote the truth value of the statement "cabin x has heat". Let $Q(x)$ denote the truth value of the statement "cabin x has A/C". Then we write $\exists x,y \in D$ $\neg P(x) \wedge \neg Q(y)$. 
+
+\item $ (P(x)$ $\forall x \in D) \vee (Q(x) $ $\forall x \in D)$. 
+
+\item All cabins have heat or all cabins have A/C. 
+
+\end{enumerate}
+
+\item For every $x$ and $y$ there exists a $z$ such that $x + y = z$. 
+
+\begin{enumerate}
+
+\item $D = \mathbb{Z}$. 
+
+\item Let $P(x,y,z)$ denote the truth value of the equality $x + y = z$.  Then we write $\forall x,y \in D$, $\exists z \in D$ $P(x,y,z)$. 
+
+\item $\exists x,y \in D$ $\neg P(x,y,z)$ $ \forall z \in D$. 
+
+\item There exist x and y such that $x + y \neq z$ for all z. 
+
+\end{enumerate}
+
+\item For every $x$ and $y$, $\frac{x}{y} = \frac{y}{x}$. 
+
+\begin{enumerate}
+
+\item $D = \mathbb{Z}$. 
+
+\item Let $P(x,y)$ denote the truth value of the equality $\frac{x}{y} = \frac{y}{x}$.  Then we write $\forall x,y \in D$, $P(x,y)$. 
+
+\item $\exists x,y \in D$, $\neg P(x,y)$. 
+
+\item There exist x,y such that $\frac{x}{y} \neq \frac{y}{x}$. 
+
+
+\end{enumerate}
+
+
+
+
+
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item Having a driver's license and car insurance are sufficient conditions for owning a car in
+Ohio. 
+
+\begin{enumerate}
+
+\item Let $P$ = you have a driver's license, let $Q$ = you have car insurance, and let $S$ = you have a car in Ohio. 
+
+\item $(P \wedge Q) \Rightarrow S$. 
+
+\item $S \Rightarrow (P \wedge Q)$. Owning a car in Ohio is a sufficient condition for having a driver's license and car insurance. 
+
+\item $\neg S \Rightarrow \neg (P \wedge Q)$. Not owning a car in Ohio is a sufficient condition for not having a driver's license and not having car insurance. 
+
+\end{enumerate}
+
+\item It is necessary for a student to complete assignments and attend class to do well in CSE 2321. 
+
+\begin{enumerate}
+
+\item Let P = the student completes assignments, let Q = the student attends class, and let S = the student does well in CSE 2321. 
+
+\item $S \Rightarrow (P \wedge Q)$. 
+
+\item $(P \wedge Q) \Rightarrow S$. It is necessary for a student to do well in CSE 2321 in order to complete assignments and attend class. 
+
+\item $(\neg P \vee \neg Q) \Rightarrow \neg S$. Not completing assignments or not attending class are sufficient conditions for not doing well in CSE 2321. 
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

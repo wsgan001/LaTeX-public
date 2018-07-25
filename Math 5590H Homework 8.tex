@@ -1,0 +1,96 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+\usepackage{braket}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\newtheorem*{e}{Exercise}
+\newtheorem{ee}{Exercise}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+
+
+
+\begin{document}
+
+\title{Math 5590H Bonus}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{e}[\textbf{4.4.19(a,b)}]
+Let $\mathcal{K}$ be the conjugacy class of transpositions in $S_6$, and let $\mathcal{K}'$ be the conjugacy class of any element of order $2$ in $S_6$ which is not a transposition. Prove that $|\mathcal{K} \neq |\mathcal{K}'|$ unless $\mathcal{K}'$ is the conjugacy class of products of three disjoint transpositions. Deduce that  Aut$(S_6)$ has a subgroup index at most $2$ which sends transpositions to transpositions. 
+\end{e}
+
+\begin{proof}
+From the result of Exercise 4.3.33, we know that the size of the conjugacy class of transpositions is given by $\frac{n(n-1)}{2}$. Since $n = 6$, we have $15$ transpositions in $\mathcal{K}$. Now let $\sigma$ be any element of order $2$ in $S_n$ which is a product of $m$ transpositions, where $m \geq 2$. Then again the same formula gives us that that $\mathcal{K}'$, the conjugacy class of $\sigma$, has cardinality
+\[\frac{n!}{(m!2^m)((n - 2m)!)}. \]
+Note that $m$ can only be either $2$ or $3$ since $n = 6$, so we have 
+\[|\mathcal{K}'| = \frac{720}{(m!2^m)((6 - 2m)!)}.\]
+So when $m = 2$, we have \[|\mathcal{K}'| = \frac{720}{(2\cdot 2^2)((6 - 2\cdot2)!)} = 45 \neq 15 = |\mathcal{K}|.\] When $m = 3$ we have \[|\mathcal{K}'| = \frac{720}{(6\cdot 2^3)((6 - 2\cdot3)!)} = 15 = 15 = |\mathcal{K}|.\]
+So $|\mathcal{K}| \neq |\mathcal{K}'|$ unless $\mathcal{K}'$ is the conjugacy class of products of three disjoint transpositions. By part (c) and (d) of Exercise 18 (completed in homework), we know that any automorphism which sends transpositions to transpositions is a conjugation and thus in $\text{Inn}(S_6)$. Now we prove that if Out$(S_6)$ is nontrivial, then Out$(S_6) \cong \mathbb{Z}_2$ by showing that if we have $\phi_1$Inn$(S_6)$ and $\phi_2$Inn$(S_6)$ where $\phi_1,\phi_2 \notin $ Inn$(S_6)$, then we must have that $\phi_1$Inn$(S_6)=\phi_2$Inn$(S_6)$. Let $\phi_1,\phi_2 \in $ Aut$(S_6)$ s.t. $\phi_1,\phi_2 \notin $ Inn$(S_6)$. Then let $\mathcal{K}_3$ denote the conjugacy class of products of three disjoint transpositions. Then for all outer automorphisms $\phi$, we must have
+\[\phi(\mathcal{K}) = \mathcal{K}_3\]
+\[\phi(\mathcal{K}_3) = \mathcal{K},\]
+since $\text{Aut}(S_6)$ permutes the conjugacy classes. Then $\phi_2(\phi_1(\mathcal{K})) = \phi_2(\mathcal{K}_3) = K \Rightarrow \phi_2\phi_1 \in$ Inn$(S_6)$. Thus $\psi = \phi_2^{-1}\phi_1 \in$ Inn$(S_6)$ which gives us
+\[\phi_2\text{Inn}(S_6)=\phi_2\psi\text{Inn}(S_6) = \phi_1 =\phi_2\phi_2^{-1}\phi_1\text{Inn}(S_6) = \phi_1\text{Inn}(S_6).\]
+Suppose there exists a nontrivial outer automorphism. Then Out$(S_6) \cong \mathbb{Z}_2$. And Out$(S_6) = \text{Aut}(S_6)/\text{Inn}(S_6) \Rightarrow |\text{Inn}(S_6)| = |\text{Aut}(S_6)|/2$ since $\text{Aut}(S_6)$ is finite. So $|\text{Aut}(S_6): \text{Inn}(S_6)| \leq 2$, since $\text{Inn}(S_6) \leq \text{Aut}(S_6)$ and $\text{Inn}(S_6)$ is a group of automorphisms which send transpositions to tranpositions. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

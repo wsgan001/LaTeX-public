@@ -1,0 +1,229 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+\usepackage{braket}
+
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\newtheorem*{e}{Exercise}
+\newtheorem{ee}{Exercise}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+
+
+
+\begin{document}
+
+\title{Math 5590H Final Theorems}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{theorem}
+$Inn(G) \cong G/Z(G)$. 
+\end{theorem}
+
+\begin{theorem}
+$F[x]$ is an ED. 
+\end{theorem}
+
+\begin{theorem}
+$F[x]/(f(x))$ is a field if and only if $f(x)$ is irreducible. 
+\end{theorem}
+
+\begin{theorem}
+Ways to prove a group is abelian: 
+\begin{enumerate}
+\item Show that the commutator $xyx^{-1}y^{-1}$ of any two elements is trivial. 
+
+\item Show the group is a direct product of abelian groups. 
+
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+If $P \cap Q = 1$, and $|PQ| = |G|$, then $PQ = G$. 
+\end{theorem}
+
+\begin{theorem}
+If $P \norm G$, $P \cap Q = 1$, and $PQ = G$, then $P \semi Q = G$. 
+\end{theorem}
+
+\begin{theorem}
+If $P,Q$ are sylow $p,q$-subgroups of a group $G$ with only two distinct prime factors, and $n_p = 1$, then $P \semi Q = G$. 
+\end{theorem}
+
+\begin{theorem}
+If $\mathbb{Z}_n = \mathbb{Z}_m \times \mathbb{Z}_k$ and $m,k$ are relatively prime, then we must have $\mathbb{Z}_n = \mathbb{Z}_{mk}$, and if $(m,k) = 1$, then $\z_{mk} \cong \z_m \times \z_k$. 
+\end{theorem}
+
+\begin{theorem}
+If $N \norm G$ and both $N$ and $G/N$ are solvable, then $G$ is solvable. 
+\end{theorem}
+
+\begin{theorem}
+All $p$-groups are nilpotent. 
+\end{theorem}
+
+\begin{theorem}
+Any subring must be an additive subgroup. 
+\end{theorem}
+
+\begin{theorem}
+Any cyclic group of a cyclic group $(\z)$ is cyclic. 
+\end{theorem}
+
+\begin{theorem}
+A homomorphism is injective if and only if its kernel is $(0)$. 
+\end{theorem}
+
+\begin{theorem}
+The ideal $(1) = R$, the whole ring, and the ideal $(0) = \{0\}$ is just the ideal containing only the element $0$. 
+\end{theorem}
+
+\begin{theorem}
+Ways to show an ideal $M$ is maximal: 
+\begin{enumerate}
+\item Show that if an ideal $I$ contains $M$ then $I = M$ or $I = R$, the whole ring. 
+
+\item Show that $R/M$ is a field. 
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+An ideal $P$ is prime if and only if the quotient ring $R/P$ is an integral domain. 
+\end{theorem}
+
+\begin{Cor}
+See page 685 for information on Noetherian rings, prime ideals, radicals, etc. 
+\end{Cor}
+
+\begin{theorem}
+If $x$ is nilpotent then $\phi(x)$ is nilpotent (Exercise 7.3.32). 
+\end{theorem}
+
+\begin{theorem}
+If $\phi$ is surjective, then the preimage of a maximal ideal is maximal. 
+\end{theorem}
+
+\begin{theorem}
+Any nonzero ring homomorphism from a field into a ring is injective (Corollary 7.4.10). 
+\end{theorem}
+
+\begin{theorem}
+If $\phi$ is surjective, the image of an ideal is an ideal. 
+\end{theorem}
+\begin{proof}
+Let $\phi:R \to S$ be a surjective hom. Then let I be an ideal in $R$. COnsider $\phi(i)$. We want to show that $\phi(I)s \sub \phi(I)$ $\fa s \in S$. So since $\phi$ is sujective, $\exists r \in R$ s.t. $\phi(r) = s$. And note $Is \sub I$ since I is ideal. So we have $\phi(Is) = \phi(I)\phi(s) \sub \phi(I)$ which tells us that the image is indeed an ideal by definition. 
+\end{proof}
+
+\begin{theorem}
+Any ideal in a commutative, unital ring is a subring. 
+\end{theorem}
+
+\begin{theorem}
+$\z[i],\z$ are EDs. 
+\end{theorem}
+
+\begin{theorem}
+Maximal ideals are always prime. 
+\end{theorem}
+
+\begin{theorem}
+In a PID, every nonzero prime ideal is maximal. 
+\end{theorem}
+
+\begin{theorem}
+In UFDs, irreducible if and only if prime. 
+\end{theorem}
+
+\begin{theorem}
+Primes in the Gaussian integers. Note that the conjugate of any prime is also prime here. A Gaussian integer is prime if and only if: one of $a,b$ is zero and its absolute value is a prime of the form $4k + 3$, or both are nonzero and $a^2 + b^2$ is a prime number. Refer to Proposition 18 on page 291. 
+\end{theorem}
+
+\begin{theorem}
+Ideals can be principal but not maximal/prime in a PID. Consider $4\z$. It is not prime in $\z$ but it is principal. 
+\end{theorem}
+
+\begin{theorem}
+Every ideal is the kernel of some ring hom. 
+\end{theorem}
+
+\begin{theorem}
+Prime iff the quotient ring is an Integral domain. 
+\end{theorem}
+
+\begin{theorem}
+Maximal if and only if the quotient ring is a field. 
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

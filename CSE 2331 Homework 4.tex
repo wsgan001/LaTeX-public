@@ -1,0 +1,295 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2331 Homework 3}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\title{CSE 2331 Homework 4}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*.]
+
+\item We compute the running time for steps 3-8. 
+\begin{equation}
+\begin{aligned}
+R(n) = \sum_{i = 1}^k \sum_{j = 1}^{k^{1/3}} c =  \sum_{i = 1}^kck^{1/3} = ck^{4/3} \in \Theta(k^{4/3}). 
+\end{aligned}
+\end{equation}
+So steps 3-8 take $ck^{4/3}$ time. 
+\begin{enumerate}
+\item In the worst case, $k = n$, so $T(n) \in \Theta(n^{4/3})$. 
+\item Note $Prob(k = j) = 1/n$ for $1 \leq j \leq n$. So we have:
+\begin{equation}
+\begin{aligned}
+ET(n) &= \sum_{j = 1}^nProb(k = j)Time(k = j) = \sum_{j = 1}^n(1/n)ck^{4/3}\\
+&\leq cn^{4/3} \in O(n^{4/3}),\\
+ET(n) &= \sum_{j = 1}^n(1/n)ck^{4/3} \geq \sum_{j = (n/2)}^n(1/n)ck^{4/3}\geq \sum_{j = (n/2)}^n(1/n)c(n/2)^{4/3}\\
+&= (1/2)^{7/3}cn^{4/3}  \in \Omega(n^{4/3}). 
+\end{aligned}
+\end{equation}
+Thus, $ET(n) \in \Theta(n^{4/3})$. \\
+\end{enumerate}
+
+\item \textbf{Ask if there is a mistake in the solution for Probability Exercises \# 3 for the $Prob(k \geq log_2(n))$. }\\\\
+Steps 4-8 take $ck^{3/2}$ time. 
+\begin{enumerate}
+\item In the worst case, $k = i$, so we have:
+\begin{equation}
+\begin{aligned}
+T(n) &= \sum_{i = 1}^{n^2}ci^{3/2}  \leq \sum_{i = 1}^{n^2}c(n^2)^{3/2} = n^2cn^3 \in O(n^5),\\
+T(n) &= \sum_{i = 1}^{n^2}ci^{3/2} \geq \sum_{i = (n^2/2)}^{n^2}ci^{3/2}  \geq \sum_{i = n^2/2}^{n^2}c(n^2/2)^{3/2} = (n^2/2)c(n^3/\sqrt{8})\\
+&= (c/4\sqrt{2})n^5 \in \Omega(n^5).\\
+\end{aligned}
+\end{equation}
+So $T(n) \in \Theta(n^5)$. \\
+\item $Prob(k = j) = (1/i)$. So we have:
+\begin{equation}
+\begin{aligned}
+ET(n) &= \sum_{i = 1}^{n^2}\sum_{j = 1}^i Prob(k = j)Time(k = j) = \sum_{i = 1}^{n^2}\sum_{j = 1}^i (1/i)ck^{3/2}\\
+&\leq \sum_{i = 1}^{n^2}\sum_{j = 1}^i (1/i)ci^{3/2} = \sum_{i = 1}^{n^2}ci^{3/2}\leq \sum_{i = 1}^{n^2}cn^3 = cn^5 \in O(n^5),\\
+ET(n) &= \sum_{i = 1}^{n^2}\sum_{j = 1}^i (1/i)ck^{3/2} \geq \sum_{i = 1}^{n^2}\sum_{j = (i/2)}^i (1/i)ck^{3/2} \geq \sum_{i = 1}^{n^2}\sum_{j = (i/2)}^i (1/i)c(i/2)^{3/2}\\
+&= \sum_{i = 1}^{n^2}(i/2)(1/i)c(i/2)^{3/2} = \sum_{i = 1}^{n^2}(1/2)^{5/2}ci^{3/2} \geq \sum_{i = (n^2/2)}^{n^2}(1/2)^{5/2}ci^{3/2}\\
+&\geq \sum_{i = (n^2/2)}^{n^2}(1/2)^{5/2}c(n^2/2)^{3/2} = n^2(1/2)^{5}cn^3 = (c/2^5)n^5 \in O(n^5). 
+\end{aligned}
+\end{equation}
+Thus $ET(n) \in \Theta(n^5)$. \\
+\end{enumerate}
+
+\item Steps 4-8 take $cn^2$ time, and steps 10-14 take $c'nlog_2(n)$ time. 
+\begin{enumerate}
+\item In the worst case, $k = 1$, because steps 4-8 take longer than steps 10-14, so we have:
+\begin{equation}
+\begin{aligned}
+T(n) &= cn^2 \in \Theta(n^2). 
+\end{aligned}
+\end{equation}
+\item $Prob(k = j) = (1/n)$, so we have:
+\begin{equation}
+\begin{aligned}
+ET(n) &= \sum_{j = 1}^n Prob(k = j)Time(k = j) = (1/n)cn^2 + \sum_{j = 2}^n(1/n)c'nlog_2(n)\\
+&= cn + (n - 1)c'log_2(n) = c'nlog_2(n) - c'log_2(n) + cn \in \Theta(nlog_2(n)). 
+\end{aligned}
+\end{equation}
+We split apart the case where $k = 1$, which occurs with probability $(1/n)$, and then summed over the rest of the possibilities when $k > 1$ to compute the expected running time. \\
+\end{enumerate}
+\item Again steps 4-8 take $cn^2$ time, and steps 10-14 take $c'nlog_2(n)$ time. 
+\begin{enumerate}
+\item In the worst case, $k<n^{1/4}$, so we have $T(n) = cn^2 \in \Theta(n^2)$. 
+\item $Prob(k < n^{1/4}) = \lfloor n^{1/4} \rfloor/n \approx 1/n^{3/4}$, so we have:
+\begin{equation}
+\begin{aligned}
+ET(n) &= Prob(k < n^{1/4})Time(k < n^{1/4}) + Prob(k \geq n^{1/4})Time(k \geq n^{1/4})\\
+&= (1/n^{3/4})cn^2 + (1 - (1/n^{3/4}))c'nlog_2(n)
+\\
+ &= cn^{5/4} + c'nlog_2(n) - c'n^{1/4}log_2(n) \in \Theta(n^{5/4}). 
+\end{aligned}
+\end{equation}
+\end{enumerate}
+\item Steps 1-9 take $cn^{4/3}$ time. 
+\begin{enumerate}
+\item In the worst case, we always have $c_1 \neq c_2$, hence: 
+\begin{equation}
+\begin{aligned}
+T(n) &= cn^{4/3} + T(n - 7) =cn^{4/3} + c(n - 7)^{4/3} + T(n - 14)\\
+&= \sum_{l = 0}^{n/7} c(n - 7i)^{4/3} \leq \sum_{l = 0}^{n/7} cn^{4/3} = (n/7)cn^{4/3} \in O(n^{7/3}),\\
+T(n)  &= \sum_{l = 0}^{n/7} c(n - 7i)^{4/3}  \geq \sum_{l = 0}^{n/14} c(n - 7i)^{4/3}  \geq \sum_{l = 0}^{n/14} c(n - (n/2))^{4/3} \\
+&= (n/14)(n/2)^{4/3} = \frac{n^{7/3}}{14 \cdot 2^{4/3}} \in \Omega(n^{7/3}). 
+\end{aligned}
+\end{equation}
+Hence $T(n) \in \Theta(n^{7/3})$. 
+\item $Prob(c_1 \neq c_2) = 1/2$. 
+\begin{equation}
+\begin{aligned}
+ET(n) &= Prob(c_1 \neq c_2)Time(c_1 \neq c_2) + Prob(c_1 = c_2)Time(c_1 = c_2)\\
+&= cn^{4/3} + \frac{1}{2}c' + \frac{1}{2}T(n - 7) \\
+&= cn^{4/3} + \frac{1}{2}c(n - 7)^{4/3} +  \frac{1}{2}c' + \frac{1}{2\cdot 2}c' + \frac{1}{2\cdot 2}T(n - 2\cdot 7)\\
+&= cn^{4/3} + \frac{1}{2}c(n - 7)^{4/3} +\frac{1}{2\cdot 2}c(n - 7\cdot 2)^{4/3} + \cdots + T(0)\\
+&+ \frac{1}{2}c' + \frac{1}{2\cdot 2}c' + \cdots + \frac{1}{2 \cdot 2^{n/7}}c'\\
+&\leq cn^{4/3} + \frac{1}{2}cn^{4/3} +\frac{1}{2\cdot 2}cn^{4/3} + \cdots + T(0) + \frac{c'}{2}\sum_{l = 0}^\infty\frac{1}{2^l}\\
+& \leq cn^{4/3} + \frac{1}{2}cn^{4/3} +\frac{1}{2\cdot 2}cn^{4/3} + \cdots \\
+&+ \frac{c'}{2}\sum_{l = 0}^\infty\frac{1}{2^l}\\
+&= cn^{4/3} \left(1 + \frac{1}{2} + \frac{1}{2^2} + \cdots \right) + c'\\
+&= 2cn^{4/3} + c' \in O(n^{4/3}),\\
+ET(n) &= cn^{4/3} + \frac{1}{2}c(n - 7)^{4/3} +\frac{1}{2\cdot 2}c(n - 7\cdot 2)^{4/3} + \cdots + T(0)\\
+&+ \frac{1}{2}c' + \frac{1}{2\cdot 2}c' + \cdots + \frac{1}{2 \cdot 2^{n/7}}c'\\
+&\geq cn^{4/3} + \frac{1}{2}c(n - 7)^{4/3} +\frac{1}{2\cdot 2}c(n - 7\cdot 2)^{4/3} + \cdots + T(0)\\ 
+&\geq cn^{4/3} \in \Omega(n^{4/3}). 
+\end{aligned}
+\end{equation}
+Hence $ET(n) \in \Theta(n^{4/3})$. \\
+\end{enumerate}
+
+\item Steps 1-10 take $cnlog_2(n)$ time. 
+\begin{enumerate}
+\item In the worst case, $k_1 < n/3$ and $k_2 < 2n/3$. So our recurrence relation is given by: 
+\begin{equation}
+\begin{aligned}
+T(n) &= cnlog_2(n) + T(n - 8) + T(n - 13)\\
+&\geq cnlog_2(n) + 2 T(n - 13)\\
+&= cnlog_2(n) + 2c(n - 13)log_2(n - 13) + 4T(n - 2 \cdot 13)\\
+&= cnlog_2(n) + 2c(n - 13)log_2(n - 13) + \cdots + 2^{n/13}T(0)\\
+&\geq 2^{n/13}T(0) \in \Omega(2^{n/13}). 
+\end{aligned}
+\end{equation}
+So the worst case running time has an exponential lower bound. 
+
+\item $Prob(k_1 < n/3) = \lfloor n/3 \rfloor/n \approx 1/3$, and $Prob(k_2 < 2n/3) \approx 2/3$. 
+Let $ET_1(n)$ be the expected running time for step 11. \\
+Let $ET_2(n)$ be the expected running time for step 12. \\
+Let $ET_3(n)$ be the expected running time for steps 1-10. \\\
+By linearity of expectation, we have $ET(n) = \sum_{i = 1}^3ET_i(n)$. 
+Then we have: 
+\begin{equation}
+\begin{aligned}
+ET_1(n) &= Prob(k_1 < n/3)Time(k_1<n/3) + Prob(k_1 \geq n/3)Time(k_1 \geq n/3)\\
+&= \frac{2c_1}{3} + \frac{1}{3}T(n - 8) = c_3 + \frac{1}{3}T(n - 8),\\
+ET_2(n) &= Prob(k_2 < 2n/3)Time(k_2<2n/3) + Prob(k_2 \geq 2n/3)Time(k_2 \geq 2n/3)\\
+&= \frac{1}{3}c_2 + \frac{2}{3}T(n - 13) = c_4 + \frac{2}{3}T(n - 13),\\
+ET_3(n) &= cnlog_2(n),\\
+ET(n) &= cnlog_2(n) + c_3 + \frac{1}{3}T(n - 8) +  c_4 + \frac{2}{3}T(n - 13)\\
+&\approx cnlog_2(n) + \frac{1}{3}T(n - 8) +  \frac{2}{3}T(n - 13)\\ 
+&\leq cnlog_2(n) + \frac{1}{3}T(n - 8) +  \frac{2}{3}T(n - 8)\\
+&= cnlog_2(n) + T(n - 8)\\
+&= cnlog_2(n) + c(n - 8)log_2(n-8) + \cdots + T(0)\\
+&\leq \frac{n}{8}cnlog_2(n) \in O(n^2log_2(n)),\\
+ET(n) &\approx cnlog_2(n) + \frac{1}{3}T(n - 8) +  \frac{2}{3}T(n - 13)\\ 
+&\geq cnlog_2(n) + \frac{1}{3}T(n - 13) +  \frac{2}{3}T(n - 13)\\ 
+&= cnlog_2(n) + T(n - 13)\\
+&= cnlog_2(n) + c(n - 13)log_2(n - 13) + \cdots + T(0)\\
+&\geq cnlog_2(n) + c(n - 13)log_2(n - 13) + \cdots +c(n - 13(n/26))log_2(n - \frac{n}{2})\\
+&\geq (n/26)c\frac{n}{2}log_2(\frac{n}{2}) \in \Omega (n^2log_2(n)). 
+\end{aligned}
+\end{equation}
+\end{enumerate}
+So $ET(n) \in \Theta(n^2log_2(n))$. \\
+
+\item Steps 1-2,10 take constant time for some $c_1$, so they have no effect on the running time as long as it is not also constant.  
+\begin{enumerate}
+\item In the worst case, $c = heads$. Lines 6-8 take $c_1n$ time. So we have:
+\begin{equation}
+\begin{aligned}
+T(n) &= 4cn + 4T(n/4)\\
+&= 4cn + 4^2c\frac{n}{4} + 4^2T(n/4^2)\\
+&= log_4(n)4cn = c_2nlog_2(n) \in \Theta(nlog_2(n)). 
+\end{aligned}
+\end{equation}
+\item $Prob(c = heads) = \frac{1}{2}$. So we have:
+\begin{equation}
+\begin{aligned}
+ET(n) &= Prob(c = heads)Time(c = heads) + Prob(c \neq heads)Time(c\neq heads)\\
+&= \frac{1}{2}(4cn + 4T(n/4)) + \frac{1}{2}c_2\\
+&\approx 2cn + 2T(n/4)\\
+&= 2cn + \frac{2}{4}cn + \frac{2}{4^2}cn + \cdots + T(1)\\
+&\leq 2cn\left(1 + \frac{1}{4} + \frac{1}{4^2} + \cdots \right)\\
+&= 2cn\frac{1}{1 - \frac{1}{4}}\\
+&= \frac{8}{3}cn \in O(n),\\
+ET(n) &\approx 2cn + \frac{2}{4}cn + \frac{2}{4^2}cn + \cdots + T(1)\\
+&\geq 2cn \in \Omega(n). 
+\end{aligned}
+\end{equation}
+So $ET(n) \in \Theta(n)$. \\
+\end{enumerate}
+\item Steps 1-8 take $cn^2$ time. 
+\begin{enumerate}
+\item In the worst case, $k < 3n/4$, so we have: 
+\begin{equation}
+\begin{aligned}
+T(n) &= cn^2 + T(n - 5) + T(n -6)\\
+&\geq cn^2 + T(n - 6) + T(n  -6)\\
+&= cn^2 + 2T(n - 6)\\
+&= cn^2 + 2c(n - 6)^2 + 2^2c(n - 2\cdot 6)^2 + \cdots + 2^{n/6}T(0)\\
+&\geq 2^{n/6}c' \in \Omega(2^{n/6}). 
+\end{aligned}
+\end{equation}
+So the worst case running time has an exponential lower bound. 
+
+\item $Prob(k < 3n/4) = \lfloor 3n/4\rfloor/n \approx 3/4$. So we have: 
+\begin{equation}
+\begin{aligned}
+ET(n) &= Prob(k < 3n/4)Time(k < 3n/4) + Prob(k\geq 3n/4)Time(k\geq 3n/4)\\
+&= \frac{3}{4}(cn^2 + T(n - 5) + T(n - 6)) + \frac{1}{4}c_1\\
+&\approx \frac{3}{4}(cn^2 + T(n - 5) + T(n - 6))\\
+&\geq \frac{3}{4}(cn^2 + 2T(n - 6))\\
+&= \frac{3}{4}cn^2 + \frac{3}{2}T(n - 6)\\
+&= \frac{3}{4}cn^2 + \frac{3}{2}\frac{3}{4}cn^2 + \frac{3^2}{2^2}\frac{3}{4}cn^2 + \cdots + \left(\frac{3}{2}\right)^{n/6}T(0)\\
+&\geq \left(\frac{3}{2}\right)^{n/6}c' \in \Omega
+\left( \left(\frac{3}{2}\right)^{n/6}\right). 
+\end{aligned}
+\end{equation}
+So the expected running time also has an exponential lower bound. 
+\end{enumerate}
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

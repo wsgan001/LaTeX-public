@@ -1,0 +1,181 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Homework 3}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17
+\footnotetext[1]{Professor Close, MWF 12:40pm}}
+\documentclass[10pt]{article}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{wasysym}
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem2}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{prop}{Proposition}
+\newtheorem{comb}{Combinatorial Formula for the Coefficients}
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item $POW(A) = \{\diameter, \{a\},\{c\},\{a,c\}\}$. 
+
+\item $POW(B) = \{\diameter, \{b\}, \{c\},\{d\},\{b,c\},\{b,d\},\{c,d\},\{b,c,d\} \}. $
+
+\item $|POW(A) \cap POW(B)| = |POW(A \cap B)|$ since $POW(A) \cap POW(B) = \{\diameter,\{c\}\} \Rightarrow |POW(A) \cap POW(B)| = 2$, and $POW(A \cap B) = \{\diameter, \{c\}\} \Rightarrow |POW(A \cap B)| = 2$, since $A \cap B = \{c\}$. 
+
+\item  $|POW(A) \cup POW(B)| \neq |POW(A \cup B)|$. \\ 
+Note  $POW(A) \cup POW(B) =  \{\diameter, \{b\}, \{c\},\{d\},\{b,c\},\{b,d\},\{c,d\},\{b,c,d\} , \{a\},\{a,c\}\}$ \\ 
+$ \Rightarrow |POW(A) \cup POW(B)| = 10$, and $|POW(A \cup B)| = 16$,\\ since $A \cup B = \{a,b,c,d\}$, and $2^{|A \cup B|} = 2^4 = 16$.  
+
+\item $|POW(A - B)| \neq |POW(B - A)|$. \\
+Note $A - B = \{a\} \Rightarrow POW(A - B) = \{\diameter, \{a\}\} \Rightarrow |POW(A - B)| = 2$. Also $B - A = \{b,d\} \Rightarrow POW(B - A) = \{\diameter, \{d\},\{b\},\{b,d\}\} \Rightarrow |POW(B - A)| = 4$. 
+
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item True. 
+
+\item False. Let $x \in A \cap C$. Then $x \in A \Rightarrow x \in (A \cup (B - C))$. However, $x \notin ((A \cup B) - C)$, since $x \in C$. 
+
+\item False. Let $x \in A - (B \cup C)$. Then $x \notin (B \cap C) \Rightarrow x \in (A - (B \cap C))$ since $x \in A$. But $x \notin C \Rightarrow x \notin ((A - B) \cap C)$. 
+
+\item True. Follows from defining the membership of $x$ in the sets $A,B,C$ as predicates $P(x), Q(x), R(x)$. Then we may apply laws from propositional logic, and the truth of the statement follows from the commutative and distributive laws (see slide S2 of propositional logic). 
+
+
+
+
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item $\forall x \in D, (\neg R(x) \wedge \neg Q(x)) \Rightarrow \neg P(x)$. 
+
+\item $|\{x \in D | P(x)\}| = 1$. 
+
+\item $|\{x \in D | R(x)\}| \geq 2$. 
+
+\item $\forall x \in D, P(x) \Rightarrow R(x)$. 
+
+\item $|\{x \in D | P(x)\}| \leq 1$. 
+
+\item $\forall x \in D, Q(x) \Rightarrow P(x)$. 
+
+\item $\forall x \in D, (R(x) \wedge P(x)) \vee \neg Q(x)$. 
+
+\item All objects with broken windows are cars. 
+
+\item Everything is in the garage and has a broken window. 
+
+\item There is a car in the garage. 
+
+\item There is a car and there is an object with a broken window. 
+
+
+\end{enumerate}
+
+
+
+\item 
+
+\begin{enumerate}
+
+\item $\mathbb{N} \cap \mathbb{R}) = \mathbb{N}$. 
+\begin{proof}
+Note $\mathbb{N} \subset \mathbb{R}$. 
+\end{proof}
+
+\item $(\mathbb{R} - \mathbb{Q}) = \{x \in \mathbb{R}| x\text{ is irrational}\}$. 
+
+\begin{proof}
+Note $\mathbb{Q} \subset \mathbb{R}$, and that $\mathbb{Q}$ is defined as the set of all rationals. 
+
+\end{proof}
+
+\item $(\mathbb{Z}^- \cup \mathbb{N}) = \mathbb{Z}$. 
+
+\begin{proof}
+Note $\mathbb{Z}^- = \{x \in \mathbb{Z}| x \leq -1\}$, and $\mathbb{N} = \{x \in \mathbb{Z}| x \geq 0\}$. Observe there are no integers in the interval $-1 < x < 0$. 
+\end{proof}
+
+\item $(\mathbb{Z} \cup \mathbb{N}) = \mathbb{Z}$. 
+
+\begin{proof}
+Observe $\mathbb{N} \subset \mathbb{Z}$. 
+\end{proof}
+
+\end{enumerate}
+
+\item A sufficient condition on $x$ for $\frac{x}{4}$ to be an even integer is to have $x \in 8\mathbb{Z}$. 
+\begin{proof}
+Let $x \in 8\mathbb{Z}$. Then $\exists k \in \mathbb{Z}$ s.t. $x = 8k$. Then $\frac{x}{4} = \frac{8k}{4} = 2k$ which is an even integer by definition, since $ k \in \mathbb{Z}$. 
+\end{proof}
+
+\item  If $n \geq 1$, $n \in \mathbb{N}$, a necessary but not sufficient condition for $n + 1$ to be a prime is that $n \notin \{8k + 7| k \in \mathbb{Z}\}$. 
+
+\begin{proof}
+Let $n + 1 \in \mathbb{P}$. Then suppose $n \in \{8k + 7| k \in \mathbb{Z}\} \Rightarrow n = 8k + 7, k \in \mathbb{Z} \Rightarrow n + 1 = 8k + 8 \Rightarrow 8 \mid (n + 1) \Rightarrow 2 \mid (n  +1) \Rightarrow n + 1$ is not prime, since the only divisor of prime numbers are $1$ and the number itself, and we found two distinct divisors, both greater than $1$. Thus our condition is necessary. We show it is not sufficient. Consider $6 \notin \{8k + 7| k \in \mathbb{Z}\}$. But $6$ is not prime, hence the condition is not sufficient. 
+\end{proof}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

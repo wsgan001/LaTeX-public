@@ -1,0 +1,252 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 3521 Homework 2}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\title{CSE 3521 Homework 2}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*.]
+
+\item Search-based agents have a successor function defined for each state, while the successor function of a logic agent is defined for attribute values. Also, a search agent is guided by knowledge of its goal, while a logic agent is guided by knowledge of the world. 
+
+\item \begin{Prop}
+The knowledge base in conjunctive normal form given by: 
+\begin{equation}
+\begin{aligned}
+&\neg A \vee \neg C \vee G\\
+&B\\
+&F \vee \neg B\\
+&\neg B \vee D\\
+&\neg D \vee \neg F \vee C\\
+&\neg F \vee A\\
+&\neg E \vee \neg F\\
+\end{aligned}
+\end{equation}
+entails $G$. 
+\begin{proof}
+We apply resolution of complementary literals. 
+
+\begin{equation}
+\begin{aligned}
+(\neg A \vee \neg C \vee G) \wedge (\neg F \vee A) &\Rightarrow \neg C \vee G \vee \neg F\\
+B \wedge (F \vee \neg B) &\Rightarrow F\\
+(\neg C \vee G \vee \neg F) \wedge F &\Rightarrow \neg C \vee G \\
+(\neg B \vee D) \wedge B &\Rightarrow D\\
+(\neg D \vee \neg F \vee C) \wedge D &\Rightarrow \neg F \vee C\\
+(\neg F \vee C) \wedge F &\Rightarrow C\\
+C \wedge (\neg C \vee G) &\Rightarrow G
+\end{aligned}
+\end{equation}
+\end{proof}
+
+\end{Prop}
+
+\item Knowledge base: 
+\begin{equation}
+\begin{aligned}
+T &\Rightarrow R\\
+P \wedge Q & \Rightarrow R\\
+S \wedge A \wedge C & \Rightarrow P\\
+A & \Rightarrow B\\
+D \wedge F & \Rightarrow C\\
+B \wedge D &\Rightarrow T\\
+A \wedge D \wedge T & \Rightarrow E\\
+E \wedge B &\Rightarrow S\\
+F & \Rightarrow Q\\
+A\\
+D
+\end{aligned}
+\end{equation}
+
+Agenda: 
+\begin{equation}
+\begin{aligned}
+A\\
+D\\
+A  \Rightarrow B\\
+B\\
+B \wedge D \Rightarrow T\\
+T\\
+A \wedge D \wedge T  \Rightarrow E\\
+E\\
+E \wedge B \Rightarrow S\\
+S\\
+T \Rightarrow R\\
+R
+\end{aligned}
+\end{equation}
+\begin{enumerate}[label=\alph*.]
+
+
+\item Thus the atomic symbols not entailed by the knowledge base are: $C,P,Q,F$. 
+
+\item Only $F$ would need to be added to the KB in order to entail all the other symbols listed in part (a), since $F \Rightarrow Q$, $D$ is in our KB already, and $D \wedge F \Rightarrow C$, and $S,A$ are in our agenda already, hence $S \wedge A \wedge C \Rightarrow P$. 
+
+\end{enumerate}
+
+\item Knowledge base: 
+\begin{equation}
+\begin{aligned}
+P & \Rightarrow Q\\
+B & \Rightarrow C\\
+O & \Rightarrow N\\
+Q \wedge D \wedge M & \Rightarrow J\\
+D \wedge F \wedge A & \Rightarrow P\\
+A \wedge C & \Rightarrow F\\
+P \wedge L & \Rightarrow M\\
+L \wedge C & \Rightarrow D\\
+F \wedge B & \Rightarrow L\\
+M \wedge N & \Rightarrow X\\
+A\\
+B\\\\\\\\
+\end{aligned}
+\end{equation}\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\vspace{20mm}
+
+\begin{enumerate}[label=\alph*.]
+
+\item 
+We prove $Q$. 
+\begin{equation}
+\begin{aligned}
+Q\\
+P  \Rightarrow Q\\
+P\\
+D \wedge F \wedge A  \Rightarrow P\\
+D\\
+L \wedge C  \Rightarrow D\\
+L \\
+F \wedge B  \Rightarrow L\\
+F\\
+A \wedge C  \Rightarrow F\\
+A \in KB\\
+C\\
+B  \Rightarrow C\\
+B \in KB\\
+\end{aligned}
+\end{equation}\\
+
+\item We show that the KB does not entail $O$. 
+
+\begin{equation}
+\begin{aligned}
+X\\
+M \wedge N  \Rightarrow X\\
+N
+O  \Rightarrow N\\
+O
+\end{aligned}
+\end{equation}
+But note that there are no horn clauses which entail $O$ in the KB, and $O \notin KB$, thus $O$ is not implied by the KB, and thus neither is $N$, nor $X$. \\
+
+\item We prove $J$. 
+\begin{equation}
+\begin{aligned}
+J\\
+Q \wedge D \wedge M  \Rightarrow J\\
+\text{We proved Q,D in part (a)}\\
+M\\
+P \wedge L  \Rightarrow M\\
+\text{We proved P,L in part (a)}\\
+\end{aligned}
+\end{equation}\\
+
+
+
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}[label=\alph*.]
+
+\item Let $D$ be the set of all rabbits. Let $P(x)$ denote "rabbit $x$ is deadly".
+\[\exists x \in D \text{ s.t. } P(x).\]
+
+\item Let $D$ be the set of all swallows. Let $P(x)$ denote "swallow $x$ is African". Let $Q(x)$ denote "swallow $x$ is European". Let $R(x)$ denote "swallow $x$ can carry coconuts".
+\[\forall x \in D \text{ , } (P(x) \Rightarrow R(x)) \wedge (Q(x) \Rightarrow \neg R(x))\]
+
+\item Let $D$ be the set of all kings. Let $P(x)$ denote "king $x$ will repress you if you are a peasant". 
+\[\exists x \in D \text{ s.t. } \neg P(x)\]
+
+\item Let $D$ be the set of all parrots. Let $P(x)$ denote "parrot $x$ is dead. Let $Q(x)$ denote "parrot $x$'s feat are nailed to its perch.  Let $R(x)$ denote "parrot $x$ will voom. Let $S(x)$ denote "you put $4000$ volts through parrot $x$.
+\[\forall x \in D \text{ , } (P(x) \wedge Q(x)) \Rightarrow (S(x) \Rightarrow \neg R(x)).\]\\
+
+\end{enumerate}
+
+\item Street crossing-guard problem. 
+
+\begin{enumerate}[label=\alph*.]
+
+\item The robot will need to be aware of the pedestrians, the vehicles, itself, the road itself (specifically the width). The cars pass through the intersection from 4 directions, the crossing guard is responsible for getting pedestrians across one side of the intersection. The pedestrians have only been successfully guarded if they have completed their crossing without being hit by any vehicles. The pedestrians wait at either side of the intersection and are assumed to follow all commands and directions of the robot. The robot needs to model the the time it will take for a vehicle to get to the intersection from the point at which it is detected. The robot needs to model how long it will take for all the pedestrians to cross the road. The robot must also model whether or not vehicles have enough space to stop before the intersection based on their speed of approach. 
+
+\item The robot must be aware of itself, the items in its basket, the items remaining to be fetched, the items' location in the warehouse, and other robots. The robot cannot move if another robot is blocking its way, the robot must collect all items which have not run out in order to successfully complete its task. The robot must prevent other robots from accomplishing their tasks. 
+
+The robot must model the quickest path to get each item and get back to the dispatcher, and take into account any other robots which may block its way. 
+\end{enumerate}
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

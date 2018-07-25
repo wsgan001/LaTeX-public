@@ -1,0 +1,1734 @@
+\documentclass[12pt]{amsbook}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%-------------------------------------
+%-------------PREAMBLE----------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{environ}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+%\usepackage{import}
+%\usepackage{newclude}
+\usepackage[all,cmtip]{xy}
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}[chapter]
+\numberwithin{section}{chapter}
+\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+\newcommand{\rank}{\text{rank}}
+\DeclareMathOperator{\coker}{coker}
+\newcommand*\pp{{\rlap{\('\)}}}
+
+
+
+
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+%    For a single index; for multiple indexes, see the manual
+%    "Instructions for preparation of papers and monographs:
+%    AMS-LaTeX" (instr-l.pdf in the AMS-LaTeX distribution).
+\makeindex
+
+\begin{document}
+
+
+
+\frontmatter
+
+\title{ABSTRACT ALGEBRA II NOTES}
+
+%    Remove any unused author tags.
+
+%    author one information
+\author{BRENDAN WHITAKER}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+%    author two information
+\author{}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+\subjclass[2010]{12-XX}
+
+\keywords{}
+
+\date{SP18}
+
+\begin{abstract}
+A comprehensive set of notes for Professor Alexander Leibman's Abstract Algebra II course, taken SP18 at The Ohio State University. The material starts with Part III of Dummit and Foote's \textit{Abstract Algebra}, which covers Modules and Vector Spaces. 
+\end{abstract}
+
+\maketitle
+
+%    Dedication.  If the dedication is longer than a line or two,
+%    remove the centering instructions and the line break.
+%\cleardoublepage
+%\thispagestyle{empty}
+%\vspace*{13.5pc}
+%\begin{center}
+%  Dedication text (use \\[2pt] for line break if necessary)
+%\end{center}
+%\cleardoublepage
+
+%    Change page number to 6 if a dedication is present.
+\setcounter{page}{4}
+
+\tableofcontents
+
+%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+%\include{}
+
+\section{Review of Rings}
+
+We note here that $\mathbb{Z}[x]/(x^2 - 2) \cong \mathbb{Z}[\sqrt{2}]$, but we also have $\mathbb{Z}[x]/(x^2 - 4) \ncong \mathbb{Z}$. And it is not correct to say $x = \sqrt{2}$ in the former case because these are two distinct elements in the quotient ring. 
+
+\begin{Def}
+We denote the \textbf{group of units} of a ring $R$ as $R^\times$. 
+\end{Def}
+
+
+\begin{Def}
+An \textbf{integral domain} is a commutative, unital ring with no zero-divisors. 
+\end{Def}
+
+\begin{Def}
+We define the product $IJ$ of ideals $I,J$ as:
+$$
+IJ = \Set{i_1j_1 + \cdots i_nj_n|i_k \in I,j_k \in J}.
+$$
+\end{Def}
+
+\begin{Def}
+We define the sum $I+J$ of ideals $I,J$ as:
+$$
+I+J = \Set{i + j|i\in I,j \in J}.
+$$
+\end{Def}
+
+\begin{Def}
+A \textbf{Noetherian ring} $R$ is a ring in which any collection if ideals in $R$ has a maximal element. 
+\end{Def}
+
+\begin{Def}
+A \textbf{Noetherian ring} $R$ is a ring in which any ideal is finitely generated. 
+\end{Def}
+
+
+
+
+
+
+\mainmatter
+%    Include main chapters here.
+%\include{}
+\setcounter{part}{2}
+\part{Modules and Vector Spaces}
+\setcounter{chapter}{9}
+
+%========compile.fast==================================
+
+
+
+
+\textbf{Tuesday, February 20th}
+
+
+Let $V,W$ be finite-dimensional vector spaces over a field $F$. Let $\phi:V \to W$ be a linear mapping (homomorphism). Then if we choose a basis in $V,W$, we get a matrix for $\phi$. So can we choose a basis so that the matrix has an especially simple form?
+
+We choose a basis $\Set{u_1,...,u_n}$ in $V$ s.t. $\Set{u_1,...,u_k}$ is a basis in $ker \phi$. Consider the vectors $\Set{\phi(u_{k + 1}),...,\phi(u_n)} \sub W$. They are linearly independent, and generate $\phi(V)$. How do we know they are linearly independent? It's just because that the first $k$ were picked to be in the kernel. We have: 
+\bee
+a_{k + 1}\phi(u_{k + 1}) + \cdots + a_n\phi(u_n) &= 0\\
+\phi(a_{k + 1}u_{k + 1} + \cdots + a_nu_n) &= 0\\
+a_{k + 1}u_{k + 1} + \cdots + a_nu_n &\in ker\phi\\
+a_{k + 1}u_{k + 1} + \cdots + a_nu_n &= b_1u_1 + \cdots + b_ku_k,
+\eee
+for some $b_i$. So $a_{k + 1}= \cdots = a_n = 0$. So $\Set{\phi(u_{k + 1}),...,\phi(u_n)}$ is a basis in $\phi(V)$. Call them $v_1,...,v_{n - k}$ and add $v_{n - k + 1},...,v_m$ to get a basis in $W$. In the base $\Set{u_1,...,u_n}$,$\Set{v_1,...,v_m}$, the matrix of $\phi$ is:
+$$
+\lpar 
+\begin{tabular}{ccc|ccc}
+0 & $\cdots$ & 0 & 1 & 0 & 0\\
+\vdots & & \vdots & 0 & $\ddots$ & 0\\
+0 & $\cdots$ & 0 & 0 & 0 & 1\\
+\hline
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+$\vdots$ & & $\vdots$ &$\vdots$ & & $\vdots$\\
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+\end{tabular}
+\rpar.
+$$
+
+And if instead we choose $\Set{u_{k + 1},...,u_n,u_1,...,u_k}$, the matrix is:
+$$
+\lpar 
+\begin{tabular}{ccc|ccc}
+1 & 0 & 0 & 0 & $\cdots$ & 0 \\
+0 & $\ddots$ & 0 & \vdots & & \vdots  \\
+0 & 0 & 1 & 0 & $\cdots$ & 0 \\
+\hline
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+$\vdots$ & & $\vdots$ &$\vdots$ & & $\vdots$\\
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+\end{tabular}
+\rpar .
+$$
+In both, we have $m$ rows and $n$ columns, and the nonzero square has $n - k$ columns, so that is the rank of $\phi$. 
+
+\begin{rem}
+If $\phi:V \to W$ and $U \sub V$ is a subspace s.t. $\phi(U) \sub L$. Choose a basis $\Set{u_1,...,u_n}$ in $V$ s.t. $\Set{u_1,...,u_k}$ is a basis of $U$, and $\Set{v_1,...,v_m}$ in $W$ s.t. $\Set{v_1,..,v_l}$ is a basis in $L$. Then the matrix of $\phi$ has the form: 
+$$
+\lpar 
+\begin{tabular}{c|c}
+B & C\\
+\hline
+0 & D
+\end{tabular}
+\rpar ,
+$$
+where $\phi|_U:U \to L$ has matrix $B$. Also, $\phi$ induces a mapping $V/U \to W/L$. The matrix of this mapping is $D$, in bases $\Set{\bar{u_{k + 1}},...,\bar{u_n}}$, and $\Set{\bar{v_{l + 1}},...,\bar{v_m}}$. So $B$ maps $U \to L$, and $D$ maps $V/U \to W/L$. The bottom left hand corner is zero because we take a vector $\phi(u_1)$ and write it as a column vector in $W$, but actually it is in $L$, so after a certain point, all the rest of the entries of this vector are zero. 
+\end{rem}
+
+Consider $\phi:V \o V$. We ask the question of what is the simplest form of the matrix of $\phi$? Or given an $n \times n$ matrix $A$, what is the ``simplest" form of of $PAP^{-1}$ for all invertible $P$?
+
+\begin{rem}
+For $\phi:V \to W$, we consider all matrices $PAQ^{-1}$ for invertible $P,Q$. And $\forall A$, there exists $P,Q$ such that:
+$$
+PAQ^{-1} =  \lpar 
+\begin{tabular}{ccc|ccc}
+1 & 0 & 0 & 0 & $\cdots$ & 0 \\
+0 & $\ddots$ & 0 & \vdots & & \vdots  \\
+0 & 0 & 1 & 0 & $\cdots$ & 0 \\
+\hline
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+$\vdots$ & & $\vdots$ &$\vdots$ & & $\vdots$\\
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+\end{tabular}
+\rpar. 
+$$
+\end{rem}
+
+\begin{rem}
+if there is a basis $\Set{u_1,...,u_n}$ in $V$ s.t. $\phi(u_i) = \lambda_iu_i$ for all $i$ (\textbf{eigenbasis}), then in this basis, the matrix of $\phi$ is diagonal:
+$$
+\lpar 
+\begin{matrix}
+\lambda_1 & & 0\\
+ & \ddots & \\
+ 0 & & \lambda_n
+\end{matrix} \rpar. 
+ $$
+\end{rem}
+
+\begin{Ex}
+For the matrix:
+$$
+\lpar 
+\begin{matrix}
+0 & -1\\
+1 & 0
+\end{matrix} \rpar,
+$$
+there is no eigenbasis in $Mat_{2 \times 2}(\R)$. 
+\end{Ex}
+
+Consider $V$ as an $F[x]$-module, with $xu = \phi(u)$. Then:
+$$
+(a_nx^n + \cdots + a_1x + a_0)u = a_n\phi^n(u) + \cdots + a_1 \phi(u) + a_0u.
+$$
+And $F[x]$ is a PID. 
+
+\bb\bb
+Chapter 12 is about fundamental theorem of finitely generated modules over PIDs. 
+
+Consider $\z,F[x]$. 
+
+\begin{theorem}
+Any finitely generated abelian group is isomorphic to a group of the form:
+$$
+\z^k \times \z_{n_1} \times \cdots \times \z_{n_l}.
+$$
+\end{theorem}
+
+\begin{Def}
+We introduce the rank of a module, not necessarily free. The \textbf{rank} of a module $M$ over an ID is the maximal number of linearly independent elements in $M$. 
+\end{Def}
+
+\begin{lem}
+If $\Set{u_1,...,u_n}$ is a maximal linearly independent set, it don't have to generate $M$, but $M/R\Set{u_1,...,u_n}$ is a torsion module, because otherwise we could add one more element to this set and it would still be linearly independent. 
+\end{lem}
+
+\begin{proof}
+Suppose $M/R\Set{u_1,...,u_n}$ is not torsion. Then $\exists u' \in M/R\Set{u_1,...,u_n}$ s.t. $ru' \neq 0 \in M/R\Set{u_1,...,u_n}$ (i.e. $ru' \notin R\Set{u_1,...,u_n}$) for all $r \in R$. But this is exactly the definition of linear independence, so then $\Set{u_1,...,u_n,u'}$ is independent, which is a contradiction since we said $\Set{u_1,...,u_n}$ was maximal. 
+\end{proof}
+
+\begin{rem}
+Rank of a module is uniquely defined because we can multiply by the field of fractions. And it is equal to $\dim_FF \tens M$. Why is it equal? Because 
+$$
+0 \to R\Set{u_1,...,u_n} \to M \to M/R\Set{u_1,...,u_n} \to 0,
+$$
+where $R\Set{u_1,...,u_n}$ is free. So $F$ is flat, so:
+$$
+0 \to F^n \to F\tens M \to 0.
+$$
+\end{rem}
+
+\bb\bb
+
+\textbf{Wednesday, February 21st}
+
+\begin{Def}
+If $R$ is an integral domain, $M$ an $R$-module, the \textbf{rank} of $M$ is the cardinality of a maximal linearly independent subset of $M$. It is uniquely defined since we can extend it to the dimension of the vector space over field of fractions of $R$. 
+\end{Def}
+
+\begin{rem}
+If $M = M_1 \oplus M_2$, then $\rank M = \rank M_1 + \rank M_2$. The following is also true and a homework problem:
+$$
+0 \to M_1 \to M \to M_2 \to 0.
+$$
+\end{rem}
+
+\begin{rem}
+If $N$ is a submodule of $M$, then $\rank N \leq \rank M$. 
+\end{rem}
+
+\begin{Ex}
+$2 \z \subset \z$, but they both have rank $1$. So you can have a proper subset with the same rank as $M$, but not if they are vector spaces. 
+\end{Ex}
+
+\begin{theorem}\label{thm1213}
+Let $R$ be a PID, and $M$ be a free $R$-module of rank $n$. Let $N$ be a submodule of $M$. Then $N$ is free, of rank $k \leq n$, and there is a basis $\Set{u_1,...,u_n}$ in $M$ and elements $a_1,...,a_n \in R$ s.t. $\Set{a_1u_1,...,a_ku_k}$ is a basis in $N$, and $a_1|a_2|\cdots|a_k$. 
+\end{theorem}
+
+\begin{proof}
+By induction on $n$. If $n = 1$, $M \cong R$, and $N$ is an ideal in $R$. Since $R$ is a PID, we know $N = (a_1) = a_1R$. Then $\Set{1}$ is a basis in $M$, $a_1$ is a basis in $N$. 
+
+Now let $M \cong R^n$. Let $N \neq 0$. So $M$ has rank $n$. $\forall f\in M^*$, $f(N)$ is an ideal in $R$, so $f(N) = (a_f)$ for some $a_f \in R$. Note $f(N)$ is a linear form. Note:
+$$
+f(x_1,...,x_n) = c_1x_1 + \cdots + c_nx_n.
+$$
+For at least one $f$, this ideal is nonzero. So there exists $f$ s.t. $f(N) \neq 0$, so $a_f \neq 0$ for this $f$. Now, $R$ is a PID, so it's a Noetherian ring. So any collection of ideals in $R$ has a maximal element. Choose $h \in M^*$ s.t. $(a_h)$ is a maximal element (not maximal ideal) of the set $\Set{(a_f):f \in M^*}$. Call it $a_1 = a_h$. So $a_1$ is the minimal element you can get this way. There exists $v_1 \in N$ s.t. $a_1 = h(v_1)$. So $a_1$ is the ``minimal" element which can be obtained this way. It is maximal in the sense that it is not contained in any larger ideal. In fact this ideal is absolutely maximal, and $a_1$ is absolutely minimal element, but we do not need this now. 
+
+We now claim $\forall f \in M^*$, $a_1|f(v_1)$ (in fact, $a_1|f(v)$ $\forall v \in N$). If we apply linear forms to $v_1$, then $a_1$ divides all the results. 
+\begin{proof}
+Put $I = \Set{f(v_1):f \in M^*} = v_1(M^*)$, which is an ideal of $R$. So $I = (b)$ for some $b \in R$, since $R$ is a PID. Now $b|a_1 = h(v_1) \in I$. Also, there is $g \in M^*$ s.t. $g(v_1) = b$. So, $b \in g(N) = (a_g)$, and since $b|a_1$, $(a_1) = (a_h) \sub (a_g)$. But $h$ was chosen such that it was the maximal of all ideals of this sort, so $(a_h) = (a_g)$, so $(a_1) = (b) = I$. So $a_1|f(v_1)$ for all $f$. 
+\end{proof}
+
+In particular, if $M$ is identified with $R^n$, so if some basis in $M$ is chosen, then $a_1$ divides all coordinates of $v_1$. Remember that a \textbf{coordinate} is a linear form on $M = R^n$. It is a linear mapping from $M \to R$. So, there is $u_1 \in M$ s.t. $v_1 = a_1u_1$. And then, $h(u_1) = 1$, since $h(v_1) = a_1$. So what do we do, we consider all forms, linear forms on all elements of $N$, we find vector that gives us minimal result, then we claim that it is multiple of some vector with coefficient $a_1$. We find a minimal element and prove that all other elements are its multiples. 
+
+Let $K = ker h$. We claim $M = Ru_1 \oplus K$, $n = Ra_1u_1 \oplus (K \cap N)$. Note $Ra_1 = Rv_1$. 
+
+\begin{proof}
+$\forall u \in M$, $u = h(u)u_1 + (u - h(u)u_1)$. Note $h(u)u_1 \in Ru_1$, and $u - h(u)u_1 \in K$, because when we apply $h$ to this on the right, we get zero, since $h(u_1) = 1$. Also, $K \cap Ru_1 = 0$. 
+
+Also $\forall v \in N$, $v = h(v)u_1 + (v - h(v)u_1)$. Where the summand on the left is in $Ra_1u_1$, since $a_1|h(v)$, so $h(v)u_1 = \fracc{h(v)}{a_1}v_1$. And the summand on the right is in $K \cap N$. So $K \cap Ra_1u_1 = 0$. So this is direct sum. 
+\end{proof}
+Now, fix $M$, use induction on $\rank N$. Note $N = Rv_1 \oplus (K \cap N)$, and $\rank(K \cap N) = k - 1$, so by induction, $K \cap N$ is free. 
+
+Now $M = Ru_1 + (M \cap K)$. And $\rank(M \cap K) = n - 1$. And $M \cap K$ is free as a submodule of $M$, and this follows from above. 
+
+Now use induction on $n$, then $\exists$ a basis $\Set{u_2,...,u_n}$ in $M\cap K$ such that $\Set{a_2u_2,...,a_ku_k}$ is a basis in $N \cap K$, $a_2|\cdots|a_n$. Just prove $a_1|a_2$ and we are done. 
+
+So define $f \in M^*$ by $f(\sum x_iu_i) = x_1 + x_2$. Note $u_1,...,u_n$ is a basis in $M$. Then $f(a_1u_1) = a_1$, where $a_1u_1 = v_1 \in N$. So $(a_1) \sub f(N) = (a_f)$, so $(a_1) = f(N)$ by maximality. Also, $f(a_2u_2) = a_2$, so $a_2 \in f(N) = (a_1)$, so $a_1|a_2$. 
+\end{proof}
+
+\textbf{Thursday, February 22nd}
+
+We given an alternate, constructive proof of Theorem \ref{thm1213}, which works for Euclidean domains. 
+\begin{proof}
+Let $R$ be an ED, $M = R^n$, and let $N$ be a submodule of $M$. Then $N$ is finitely generated (\textbf{bonus problem to prove this}). A module is called \textbf{Noetherian } if any submodule is finitely generated, or equivalently, if any increasing sequence of submodules stabilizes. So $R^n$ is Noetherian if $R$ is Noetherian. Let $N$ be generated by $\Set{v_1,...,v_l}$. Then $N = \phi(R^l)$, where $\phi(e_i) = v_i$. Any finitely generated module is the image, factor module, of a free module. In coordinates in $R^n$, the matrix of $\phi$ in the natural basis of $R^n$ and the basis $e_i$ is $A = (v_1|v_2|...|v_l)$, where the $v$'s are the columns. Now we want to find a new bases $\Set{w_1,...,w_l} \in R^l$ and $\Set{u_1,...,u_n} \in R^n$ s.t. the matrix of $\phi$ has simplest form. We use elementary row operations. 
+
+\begin{Def}
+\textbf{Elementary operations:} if $\Set{u_1,...,u_n}$ is a basis in $R^n = M$, then switching the order $u_i \leftrightarrow u_j$ corresponds to switching the $i$-th and $j$-th rows. 
+
+\begin{Ex}
+Define:
+$$
+A = \lpar 
+\begin{tabular}{c|c|c|c}
+$a_{11}$ & $a_{12}$ & $\cdots$ & $a_{1l}$\\
+$\vdots$ & $\vdots$ & & $\vdots$\\
+$a_{n1}$ & $a_{n2}$ &$ \cdots$ &$ a_{nl}$
+\end{tabular} \rpar.
+$$
+So:
+$$
+v = \lpar 
+\begin{matrix}
+a_1\\
+\vdots\\
+a_n
+\end{matrix} \rpar.
+$$
+in $\Set{u_1,...,u_n}$. Where $v = a_1u_1 + \cdots + a_nu_n$. And the submodule is the block with $1$s on the diagonal:
+$$
+A =  \lpar 
+\begin{tabular}{ccc|ccc}
+1 & 0 & 0 & 0 & $\cdots$ & 0 \\
+0 & $\ddots$ & 0 & \vdots & & \vdots  \\
+0 & 0 & 1 & 0 & $\cdots$ & 0 \\
+\hline
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+$\vdots$ & & $\vdots$ &$\vdots$ & & $\vdots$\\
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+\end{tabular}
+\rpar. 
+$$
+And it is $k \times k$. 
+\end{Ex}
+
+Replacing $u_i$ by $u_i + cu_j$ corresponds to adding the $j$-th row multiplied by $c$ to the $i$-th row. 
+
+Usually an elementary operation is multiplying a row by a constant, but we cannot do this here because not all constants are units. You can multiply rows by units, but not non-units. 
+\end{Def}
+\begin{Def}
+Similar operations in $R^l$ correspond to \textbf{elementary column operations}. 
+\end{Def}
+\begin{enumerate}
+
+\item
+So assume there is an element in the first columm which is not divisible by $a_{11}$. If $a_{i1}$ is not divisible by $a_{11}$, find $c$ s.t. $a_{i1} = ca{11} + r$ with $N(r) < N(a_{i1})$ (Euclidean norm). Then the first entry of $row_i - crow_1$ is $r$. Switch row$_1$ and row$_i$ and get a smaller $(1,1)$ entry. Applying this to the first row, and column several times, we get all $a_{1k},a_{k1}$ to be divisible by $a_{11}$. This process cannot be infinite since $N(a) \in \n$. 
+\item Subtract multiples of row$_1$ from other rows, and the multiples of col$_1$ from other columns, and get:
+$$
+\newcommand*{\temp}{\multicolumn{1}{c|}{b_{21}}}
+\newcommand*{\tempq}{\multicolumn{1}{c|}{\vdots}}
+\newcommand*{\tempw}{\multicolumn{1}{c|}{0}}
+A = \lpar 
+\begin{matrix}
+b_{11} & 0 & \cdots & 0\\
+\cline{2-4}
+\temp & b_{22} & b_{23} & \cdots\\
+\tempq & \ast & \ast & \ast\\
+\tempw & \ast & \cdots & \ast
+\end{matrix} \rpar 
+$$
+\item Assume there exists $i,j$ s.t. $b_{ij}$ not divisible by $b_{11}$. Add col$_j$ to col$_1$  to get $b_{ij}$ in the first column. Go to step 1. After repeating steps 1,2,3 many times, all $b_{ij}$ will be divisible by $b_{11}$. 
+\item Pass to the submatrix:
+$$
+A = \lpar 
+\begin{array}{c|cc}
+b_{11} & 0 & \cdots\\
+\hline
+0 & B'
+\end{array} \rpar 
+$$
+and continue.
+\end{enumerate}
+In the end we get:
+$$
+\lpar 
+\begin{tabular}{ccc|ccc}
+$c_1$ & 0 & 0 & 0 & $\cdots$ & 0 \\
+0 & $\ddots$ & 0 & \vdots & & \vdots  \\
+0 & 0 & $c_k$ & 0 & $\cdots$ & 0 \\
+\hline
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+$\vdots$ & & $\vdots$ &$\vdots$ & & $\vdots$\\
+0 & $\cdots$ & 0 &0 & $\cdots$ & 0 \\
+\end{tabular}
+\rpar,
+$$
+with $c_1|c_2|...|c_k$. We have a new basis $\Set{u_1,...,u_n}$ in $M = R^n$ and $\Set{c_1u_1,...,c_ku_k}$ is a basis in $N = \phi(R^l)$. 
+\end{proof}
+
+\begin{Ex}
+Let $N$ be the submodule $\z^3$ generated by:
+$$
+\lpar 
+\begin{array}{cc}
+2 & 5\\
+3 & 11\\
+7 & 13
+\end{array} \rpar.
+$$
+So we have:
+$$
+\newcommand*{\tempw}{\multicolumn{1}{c|}{0}}
+\lpar 
+\begin{array}{cc}
+2 & 5\\
+3 & 11\\
+7 & 13
+\end{array} \rpar 
+\mapsto 
+\lpar 
+\begin{array}{cc}
+1 & 6\\
+2 & 5\\
+7 & 13
+\end{array} \rpar 
+\mapsto
+\lpar 
+\begin{array}{cc}
+1 & 6\\
+0 & -7\\
+0 & -29
+\end{array} \rpar 
+\mapsto
+\lpar 
+\begin{array}{cc}
+1 & 0\\
+\cline{2-2}
+\tempw & -7\\
+\tempw & -29
+\end{array} \rpar 
+$$
+$$
+\mapsto
+\lpar 
+\begin{array}{cc}
+1 & 0\\
+0 & -1\\
+0 & -7
+\end{array} \rpar 
+\mapsto
+\lpar 
+\begin{array}{cc}
+1 & 0\\
+0 & -1\\
+0 & 0
+\end{array} \rpar 
+\mapsto
+\lpar 
+\begin{array}{cc}
+1 & 0\\
+0 & 1\\
+0 & 0
+\end{array} \rpar.
+$$
+\end{Ex}
+
+\begin{Ex}
+Let $N = \z \cdot \Set{
+\lpar 
+\begin{matrix}
+1\\
+1
+\end{matrix} \rpar,
+\lpar 
+\begin{matrix}
+-1\\
+1
+\end{matrix} \rpar }.
+$
+And then:
+$$
+A = \lpar 
+\begin{matrix}
+1 & -1\\
+1 & 1
+\end{matrix} \rpar 
+\mapsto
+ \lpar 
+\begin{matrix}
+1 & -1\\
+0 & 2
+\end{matrix} \rpar 
+\mapsto
+ \lpar 
+\begin{matrix}
+1 & 0\\
+0 & 2
+\end{matrix} \rpar.
+$$
+\end{Ex}
+
+\begin{rem}
+Theorem \ref{thm1213} is not true if $R$ is not a PID:
+\end{rem}
+
+\begin{Ex}
+Consider $M = R = F[x,y]$, and $N = (x,y)$. Note $\rank (M) = 1$, and $M/(x)$ is a torsion module. It is not free since $x,y$ do not have a common divisor. Note $N$ is not free because it cannot be generated by one element. Note $x,y$ cannot be linearly independent, since $yx - yx = 0$. Where we treat $x,y$ as elements of $N$, and coefficients from $R$. 
+\end{Ex}
+
+\begin{Ex}
+Take $R = \z$, and $M = \z^n$. So $M$ is a lattice in $M$ in $n$-dimensional space. Assume we have a sublattice: we want to find a new basis such that the transformed sublattice aligns with the lattice formed by the points in $\z^n$. Let $u_2$ be the green vector, $u_1$ be the blue vector. Note $N = \z\Set{(1,1),(-1,1)}$. Where $(1,1) = u_1$, and $(-1,1) = 2u_2 - u_1$. Note $\Set{u_1,u_2}$ is a basis in $M$, and $\Set{u_1,2u_2}$ is a basis in $N$. 
+\end{Ex}
+
+\textbf{Thursday, February 22nd}
+
+\begin{theorem}
+If $R$ is a PID and $M$ is a finitely generated $R$-module, then $M$ is a product of cyclic modules, 
+$$
+M \cong R^r \oplus R/(a_1) \oplus \cdots \oplus R/(a_m).
+$$
+where $a_1,...,a_m \in R$ (non-units), and $a_1|a_2|...|a_m$,
+ $r,a_1,...,a_m$ are uniquely defined, $r = rank M$, $a_1,...,a_m$ are called the invariant factors of $M$. 
+\end{theorem}
+
+\begin{proof}
+$M$ is generated by $n$ elements. Then we have:
+$$
+0 \to N \to R^n \to M \to 0.
+$$
+$M = R^n/N$, where $N$ is a submodule of $R^n$. 
+
+Now find a basis $\Set{u_1,...,u_n}$ in $R^n$ s.t. $\Set{a_1u_1,...,a_ku_k}$ is a basis on $N$, and $a_1|a_2|...|a_l$. Now $M = R^n/N$. So $u_1,...,u_k,...,u_n$. 
+\end{proof}
+
+\textbf{Friday, February 23rd}
+
+We do some exercises. 
+
+\begin{lem}
+rank$(M)$ well-defined. 
+\end{lem}
+\begin{proof}
+
+Let $N = R\Set{x_1,...,x_n}$. Then $N$ is a maximal free submodule of $M$. Then we have:
+$$
+0 \to N \to M \to M/N \to 0.
+$$
+Where $M/N$ is torsion. Let $F$ be the field of fractions of $R$. Then $F$ is a flat module. So:
+$$
+0 \to N \tens F \to M \tens F \to (M/N) \tens F \to 0
+$$
+is exact. Note $M/N$ is torsion, so then tensor product with $F$ is zero, kills torsion. And $N \tens F \cong F^n$ because of freedom. 
+So we have:
+$$
+0 \to F^n \to M \tens F \to 0.
+$$
+So if $M$ has a maximal linearly independent set of cardinality $n$, then $M \tens F$ is an $n$-dimensional $F$-vector space. Since "$\dim$" is uniquely defined, $n$ is unique. So $F^n \cong M \tens F$ by exactness as well. 
+\end{proof}
+
+
+\begin{rem}
+Let $M$ be a module over an ID. Then Tor$(M)$ is a submodule. But $M/Tor(M)$ doesn't have to be free. 
+\end{rem}
+
+\begin{rem}
+If $N$ is a max free submodule, then $M/N$ is a torsion module, but it may be "larger" than Tor$(M)$. 
+\end{rem}
+
+\begin{Ex}
+Let $R = F[x,y]$. Consider $M = (x,y) \sub F[x,y]$. It is torsion free, but not free (factorize). Also if we let $N = (x)$, then $M/N$ is torsion module, but $Tor(M) = 0$. 
+\end{Ex}
+
+\begin{rem}
+If $R$ is a principal ideal, and $M$ is finitely generated, then:
+ $$
+ M \cong R^r \oplus [R/(a_1) \oplus \cdots \oplus R/(a_m)].
+ $$
+ Then:
+ $$
+ M = R^r \oplus R/(a_1) \oplus \cdots \oplus R/(a_m).
+ $$
+ Where $R^r$ is the free part, and the rest is the torsion part = Tor$(M)$. The free part is not uniquely defined. 
+\end{rem}
+
+\begin{rem}
+Let $R$ be a principal ideal domain, and $M$ be an $R$-module. Then $M$ is free if and only if it is torsion-free. 
+\end{rem} 
+
+\begin{rem}
+Let $R$ be a PID. Then $\forall a = p_1^{r_1}\cdots p_k^{r_k}$, distinct primes. Then $R/(a) \cong R/(p_1^{r_1}) \oplus \cdots \oplus R/(p_k^{r_k})$. By CRT.
+\end{rem}
+
+\begin{rem}
+if $M$ is a finitely generated $R$-module, then:
+\bee
+M &\cong R^r \oplus R/(a_1) \oplus \cdots \oplus R/(a_m)\\
+&\cong R^r \oplus  R/(p_1^{r_1}) \oplus \cdots \oplus R/(p_k^{r_k}),
+\eee
+for some primes $p_i$ not necessarily distinct. 
+\end{rem}
+
+\begin{Def}
+These $p_1^{r_1},...,p_k^{r_k}$ above are called \textbf{elementary divisors} of $M$. (You will prove in homework that they are uniquely defined)
+\end{Def}
+
+\begin{Def}
+Note:
+\bee
+M \cong R^r &\oplus \lpar R/(p_1^{r_1}) \oplus \cdots \oplus R/(p_1^{r_k})\rpar\\
+&\oplus \lpar R/(p_2^{s_1}) \oplus \cdots \oplus R/(p_2^{s_l})\rpar\\
+&\oplus \cdots \oplus \lpar • \rpar,
+\eee
+where $p_i$ are distinct now. So the first row in big parentheses is the $p_1$-primary component. And the stuff in second set of parentheses in second row is the $p_2$-primary component. 
+\end{Def}
+
+\begin{Def}
+\textbf{($P$) - primary component of $M$} is:
+$$
+\bigcup_{r = 1}^\infty \text{Ann}(p^r) =\text{Ann}(p^r):r = max\Set{r_1,...,r_k}.
+$$
+\end{Def}
+
+\begin{lem}
+The $p_i$-primary components are uniquely defined. 
+\end{lem}
+
+\begin{proof}
+To prove: given a finitely generated module annihilated by $p^r$ for some $r$, then it is isomorphic to $R/(p^{r_1}) \oplus \cdots \oplus R/(p^{r_k})$, where $r_1,...,r_k$ are uniquely defined. 
+\end{proof}
+
+\bb\bb
+
+\textbf{Monday, February 26th}
+
+\begin{theorem}
+
+If $M$ is finitely generated over a PID, then:
+$$
+M \cong R^r \oplus R/(p_1^{r_1}) \oplus \cdots \oplus R/(p_l^{r_l}),
+$$
+where $p_i$ are primes. These $p_i^{r_i}$ are uniquely defined. Two modules written this way are isomorphic if and only if all the summands are the same up to permutation. 
+
+\end{theorem}
+
+
+From this you can deduce that the invariant factors of $M$ are also uniquely defined. You have another isomorphism:
+$$
+M \cong R/(a_1) \oplus \cdots \oplus R/(a_m) \oplus R^r.
+$$
+$a_1,...,a_m$ are called \textbf{invariant factors of $M$} and are uniquely defined up to units. Note we have invariant factors $\Rightarrow$ elementary divisors. We have:
+\bee
+a_1  &=p_1^{r_{1,1}}\cdots p_{e_1}^{r_{1,l_1}}\\
+a_2  &=p_1^{r_{2,1}}\cdots p_{e_1}^{r_{2,l_2}}.\\
+&\vdots
+\eee
+some of the exponents maybe equal to zero, but these $a_i$ are the elementary divisors. So we are solving for the $p_i^{r_i}$'s. 
+
+And we can also go the other way around, find invariant factors from elementary divisors. We write:
+\bee
+&p_1^{r_{1,1}}\cdots p_{e_1}^{r_{1,s_1}},\\
+&p_2^{r_{2,1}}\cdots p_{e_1}^{r_{2,s_2}},\\
+&\vdots\\
+&p_k^{r_{k,1}}\cdots p_{e_1}^{r_{k,s_k}}\\
+\eee
+where $r_{1,1} \geq r_{1,2} \geq ...$, and so on for all $i$. Then put:
+\bee
+a_m &= p_1^{r_{1,1}}p_2^{r_{2,1}}\cdots p_k^{r_{k,1}}\\
+a_m &= p_1^{r_{1,2}}p_2^{r_{2,2}}\cdots p_k^{r_{k,2}}\\
+&\vdots
+\eee
+Then we have $a_1|a_2|\cdots|a_m$. 
+
+\begin{Ex}
+Let our invariant factors be $2,2\cdot 3,2^2\cdot 3,2^3\cdot 3^2$. This gives us elementary divisors:
+\bee
+2\\
+2,3\\
+2^2,3\\
+2^3,3^2.
+\eee
+So just take the biggest index of each distinct prime. 
+\end{Ex}
+
+Let $M$ be a finitely generated module over a PID $R$. Represent $M$ as a quotient module of $R^n$. Let $M \cong R^n/N$. So $N$ is free, so has a basis. Find such a basis $\Set{v_1,...,v_k}$ in $N$. And $A = (v_1|v_2|...|v_k)$. Note it's an $n \times k$ matrix. 
+\begin{Def}
+We have this matrix, it's called \textbf{the relation matrix of $M$}. 
+Why is it called that? Let $\Set{u_1,...,u_n}$ be the generating set of $M$ used to construct the homomorphism $R^n \to M$ given by $e_i \to u_i$. The $u_i$ are not linearly independent in general. Let:
+$$
+A = \lpar 
+\begin{matrix}
+a_{11} & \cdots & a_{k1}\\
+\vdots & & \vdots\\
+a_{1n} & \cdots & a_{kn}
+\end{matrix} \rpar. 
+$$
+Then it must be that 
+\bee
+a_{11}u_1 + \cdots + a_{1n}u_n &= 0\\
+\vdots \\
+a_{k1}u_1 + \cdots + a_{kn}u_n &= 0.
+\eee
+Indeed $a_{11}e_1 + \cdots + a_{1n}e_n  =v_1$, and $\phi(v_1)  =0$. This is the definition of a relation matrix. 
+\end{Def}
+
+So we want to find a basis $\Set{w_1,...,w_n}$ in $R^n$ s.t. $\Set{c_1w_1,...,c_mw_m}$ is a basis in $N$, with $c_1|c_2|...|c_m$. Then $M \cong R^n/N \cong R/(c_1) \oplus \cdots \oplus R/(c_m) \oplus R^{n - m}$, so $c_1,...,c_m$ are the invariant factors of $M$. In Euclidean domains, we use row-column operation to reduce $A$ to a form:
+$$
+\lpar 
+\begin{tabular}{ccc}
+$c_1$ & 0 & 0  \\
+0 & $\ddots$ & 0\\
+0 & 0 & $c_m$  \\
+\hline
+0 & $\cdots$ & 0  \\
+$\vdots$ & & $\vdots$ \\
+0 & $\cdots$ & 0  \\
+\end{tabular}
+\rpar,
+$$
+and ``protocol" all row operations you use. 
+
+A basis in $M$ will be $\Set{\phi(c_1w_1),...,\phi(c_mw_m),\phi(w_{m + 1}),...,\phi(w_n)}$. Where the stuff up to index $m$ generates the torsion part, and the stuff from $m + 1$ up generates $R^{n  -m}$. Now shouldn't the rank of $A$ be $k$, since the $v_i$'s are linearly independent? So we must have $m = k$, Professor made a mistake. 
+
+
+
+
+
+\section*{12.1 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{1}
+\item \textit{$B = \Set{x_1,...,x_n}$ be a maximal linearly independent set in $M$ if and only if $RB$ is free and $M/RB$ is torsion module. }
+
+\begin{proof}
+\begin{enumerate}
+\item 
+\textit{$\Set{x_1,...,x_n}$ is linearly independent if and only if $R\Set{x_1,...,x_n}$ is a free module with basis $\Set{x_1,...,x_n}$. }
+\begin{proof}
+Professor Leibman completed this proof in class. 
+\end{proof}
+\item Let $\Set{x_1,...,x_n}$ be a maximal linearly independent set. Let $y  \in M$. Then $\exists a_1,...,a_n,b$ s.t. $a_1x_1 + \cdots + a_nx_n + by = 0$ and not all of $a_1,...,a_n,b$ are zero. If $b = 0$, then $a_1x_1 + \cdots + a_nx_n = 0$, this is impossible, since $x_1,...,x_n$ are linearly independent. So $b \neq 0$, and $by=  0 \mod R\Set{x_1,...,x_n}$. So $b\bar{y} = 0 \in M/R\Set{x_1,....,x_n}$. So $\forall \bar{y} \in M/R\Set{...}$, $\exists b \neq 0$ s.t. $b\bar{y} = 0$. 
+
+Now we prove in the other direction. Assume that $M/R\Set{x_1,...,x_n}$ is a torsion module. Take $\forall y \in M$. Find $b \neq 0$ s.t. $b \bar{y} = 0$, that is, $by \in R\Set{x_1,...,x_n}$. So $by = a_1x_1 + \cdots + a_nx_n$ for some $a_i$, so $y,x_1,...,x_n$ are linearly dependent, so $\Set{x_1,...,x_n}$ is a maximal linearly independent set. We know this since we proved we could not add any other linearly independent element without making the whole set dependent. So it's maximal. 
+\end{enumerate}
+\end{proof}
+
+\setcounter{enumi}{3}
+\item \textit{Let $R$ be an integral domain, let $M$ be an $R$-module and let $N$ be a submodule of $M$. Suppose $M$ has rank $n$, $N$ has rank $r$ and the quotient $M/N$ has rank $s$. Prove that $n = r +s$. }
+Use:
+$$
+0 \to N \to M \to M/N \to 0.
+$$
+Multiply tensor by field of fractions. Use $rank(M) = rank(N) + rank(M/N)$. 
+
+\begin{proof}
+Let $A = \Set{x_1,...,x_s}$, a set of elements in $M$ whose images are a maximal independent set in $M/N$. And let $B = \Set{x_{s + 1},...,x_{s + r}}$ be a maximal independent set in $N$. We prove $A$ is independent in $M$. Suppose it weren't. Then there is $l \neq 0$ in $R$ and $x_i \in A$ s.t. $lx_i = \sum_{j \neq i, \leq s} r_jx_j$. But then under the natural projection we would have a similar equality for $\bar{x_i}$ which would contradict the independence of $\bar{A}$. 
+
+We wish to show that $A \cup B$ is a maximal linearly independent set. We first show it is independent. Let $x_i \in A$. Suppose there exists a nonzero $l \in R$ s.t. $lx_i = r_{s + 1}x_{s + 1} + \cdots + r_{s + r}x_{s + r}$ for $r_i \in R$. Then under the natural projection $\pi:M \to M/N$, we have $\pi(lx_i) = l\pi(x_i) = 0 \in M/N$. But note $\pi(x_i)$ is in $\bar{A	}$ which is an independent set in $M/N$ so we must have $\pi(x_i) \neq 0$ and that $\nexists l \in R$ s.t. $l\pi(x_i) = 0$. This is a contradiction, so we must have that there exists no such $l$, so every element in $A$ is independent of $B$. Now let $x_j \in B$ and suppose there exists a nonzero $l \in R$ s.t. $lx_j = r_1x_1 + \cdots + r_sx_s$. Then $\pi$ maps this to $0 \in M/N$ since $lx_j \in N$, but then since $\bar{A}$ is independent in $M/N$, we must have $r_1 = \cdots = r_s = 0$. Then we have $lx_j = 0$ which is a contradiction since $B$ cannot contain any torsion elements or it would not be independent. Then we have proved $A\cup B$ is independent. 
+
+
+
+Now we show $A \cup B$ is maximal. Let $y \in M$. Then since $\bar{A}$ is a maximal linearly independent set in $M/N$, we know there exist $c,c_1,...,c_s$ not all zero such that:
+$$
+c\bar{y} + c_1\bar{x_1} + \cdots + c_s\bar{x_s} = 0,
+$$
+ which implies:
+ $$
+ cy + c_1x_1 + \cdots + c_sx_s = n \in N.
+ $$
+Now since $B$ is a maximal linearly independent set in $N$, we know that since $n \in N$, there exists $k,c_{s + 1},...,c_{s + r} \in R$ not all zero s.t. 
+$$
+kn = k(cy + c_1x_1 + \cdots + c_sx_s) = c_{s + 1}x_{s + 1} + \cdots + c_{s + r}x_{s + r}.
+$$
+But if $k = 0$, then we must have $c_{s + 1},..,c_{s + r} = 0$ since $B$ is independent. So we must have $k \neq 0$, thus we can write:
+$$
+kcy = \sum_{i = 1}^s-kc_ix_i + \sum_{i = s + 1}^{s + r}c_ix_i.
+$$
+And since we know $c,c_1,...,c_s$ are not all zero, we have found a nonzero $kc \in R$ (since we are in an ID) s.t. $kcy$ is a linear combination of $x_1,...,x_{s + r}$. So we have shown that $A \cup B$ is a maximal independent set in $M$, since for any $y \in M$ there is $kc$ s.t. $kcy$ is a combination of elements in $A \cup B$. 
+
+Now we wish to show that $rank(M) = n = r + s$. So we use part (b) of Exercise 2 above. Note that $R^{r + s}$ is a submodule of $M$, since $x_1,...,x_{s + r}$ = $A \cup B$ is a maximal linearly independent set in $M$, and $R(A \cup B) = R^{r + s}$, and we have closure by ring action since $M$ is an $R$-module. 
+
+\begin{lem}
+If $\Set{u_1,...,u_n}$ is a maximal linearly independent set, it doesn't have to generate $M$, but $M/R\Set{u_1,...,u_n}$ is a torsion module, because otherwise we could add one more element to this set and it would still be linearly independent. 
+\end{lem}
+
+\begin{proof}
+Suppose $M/R\Set{u_1,...,u_n}$ is not torsion. Then $\exists u' \in M/R\Set{u_1,...,u_n}$ s.t. $ru' \neq 0 \in M/R\Set{u_1,...,u_n}$ (i.e. $ru' \notin R\Set{u_1,...,u_n}$) for all $r \in R$. But this is exactly the definition of linear independence, so then $\Set{u_1,...,u_n,u'}$ is independent, which is a contradiction since we said $\Set{u_1,...,u_n}$ was maximal. 
+\end{proof}
+
+So by the above Lemma, we know $M/R^{r + s}$ is torsion. Then by Exercise 2 part (b), we know $rank(M) = n = r+ s$. 
+\end{proof}
+
+\item \textit{Consider $\z[x] \sim F[x,y]$. Note $(2,x)$ is not principal. }
+Note $M$ has rank 1, is torsion free, but not free. It has rank 1 because if you take one of these elements, something linearly dependent maybe, idk. Consider $M/(2)$ then $x$ is a torsion element here since $2x = 0$. So it's a torsion module or something. And actually, it's true for any module over PID. 
+
+
+
+\setcounter{enumi}{8}
+\item \textit{Give an example of an integral domain $R$ and a nonzero torsion $R$-module $M$ such that $Ann(M) = 0$. Prove that if $N$ is a finitely generated torsion $R$-module, then $Ann(N) \neq 0$. }
+
+Let $R = \z$, an integral domain. Define:
+$$
+M = \bigoplus_{i = 1}^\infty \z/2^i\z.
+$$
+Then $\forall a \in M$, $\exists k \in \z$ such that:
+$$
+a = (a_1 + \z/2\z,...,a_k + \z/2^k\z,0,...)
+$$
+for some $a_1,...,a_k \in \z$. Thus $2^ka = 0 \in M$, so $M$ is a torsion module. We claim that Ann$(M) = 0$. Suppose there exists a nonzero $r \in \z$ s.t. $r \in Ann(M)$. Then choose $k \in \z$ s.t. $r < 2^k$. Then define:
+$$
+a = (0,...,0,1 + \z/2^k\z,0,...)
+$$
+where the nonzero entry is in the $k$-th position. Then since $ra = 0$, we must have $r = 0$ since $r$ will not annihilate the nonzero entry of $a$ since $r < 2^k$. This is a contradiction since we said $r \neq 0$. So we must have Ann$(M) = 0$. 
+
+\begin{proof}
+Let $R$ be a integral domain. Let $N$ be finitely generated torsion $R$-module. Then $N \sub R\Set{x_1,...,x_n}$. And since it is torsion, there exist $\Set{r_1,...,r_n}$ s.t. $r_ix_i = 0$, where $r_i \neq 0$ $\forall i$. Then since we have no zero divisors, $lcm(r_1,...,r_n) \neq 0$, and this is in the annihilator by commutativity in $R$. 
+\end{proof}
+
+\setcounter{enumi}{10}
+
+\item \textit{Let $R$ be a PID, let $a$ be a nonzero element of $R$ and let $M = R/(a)$. For any prime $p$ of $R$, prove that:
+$$
+p^{k - 1}M/p^kM \cong \begin{cases}
+R/(p) & \text{ if } k \leq n\\
+0 & \text{ if } k > n
+\end{cases},
+$$
+where $n$ is the power of $p$ dividing $a$ in $R$. 
+}
+
+\begin{proof}
+We first treat the case where $p \nmid a$. Then since $p$ is a prime in $R$, we know $\gcd(a,p) = 1$. So then we have $(p) \cap (a) = 0$. let $\pi:R \to R/(a) = M$. Then observe:
+$$
+\pi((p)) = (p)/(a) \cong [(p) + (a)]/(a) \cong (p)/((p) \cap (a)) \cong (p)/(0) \cong (p).
+$$
+But note that $(p) + (a) = (1) = R$, so we have shown $(p) = pM \cong R/(a) = M$, so $p^{k - 1}M = p^kM = M$ for all $k$, and thus since $M/M \cong 0$, we have the desired result. 
+
+Now let $p\mid a$, and assume $k \leq n$. Then we have $a = p^np_1^{c_1}\cdots p_l^{c_l}$, for some distinct primes $p_i$. Using the result of Exercise 12.1.7 and the Chinese remainder theorem, we have:
+\bee
+\fracc{p^{k - 1}M}{p^kM} &= \fracc{p^{k - 1}R/(a)}{p^kR/(a)}\\
+&\cong \fracc{p^{k -1} R/(p^n)(p_1^{c_1})\cdots(p_l^{c_l})  }{p^{k} R/(p^n)(p_1^{c_1})\cdots(p_l^{c_l})  }\\
+&\cong \fracc{ R/(p^{n -k +1})(p_1^{c_1})\cdots(p_l^{c_l})  }{R/(p^{n - k})(p_1^{c_1})\cdots(p_l^{c_l})  }\\
+&\cong \fracc{ R/(p^{n -k +1})\oplus R/(p_1^{c_1})\oplus \cdots\oplus R/(p_l^{c_l})  }{R/(p^{n - k})\oplus R/(p_1^{c_1})\oplus \cdots\oplus R/(p_l^{c_l})  }\\
+&\cong (R/(p^{n -k +1}))/(R/(p^{n -k})) \oplus (R/(p_1^{c_1}))/(R/(p_1^{c_1}) )\\
+&\oplus \cdots\oplus (R/(p_l^{c_l}))/(R/(p_l^{c_l}))\\
+&\cong (R/(p^{n -k +1}))/(R/(p^{n -k}))\oplus 0 \oplus \cdots \oplus 0\\
+&\cong (R/(p^{n -k +1}))/(R/(p^{n -k}))\\
+&\cong R/(p).
+\eee
+Now suppose $k > n$. Then $a|p^{k - 1} \Rightarrow p^{k - 1}M \cong raR/(a) \cong 0$. 
+\end{proof}
+
+\item \textit{Let $R$ be a PID and let $p$ be a prime in $R$. }
+
+\begin{enumerate}
+\item \textit{Let $M$ be a finitely generated torsion $R$-module. Use the previous exercise to prove that $p^{k - 1}M/P^kM \cong F^{n_k}$ where $F$ is the field $R/(p)$ and $n_k$ is the number of elementary divisors of $M$ which are powers $p^{\alpha}$ with $\alpha \geq k$. }
+
+\begin{proof}
+Recall that a module over a PID is free if and only if it is torsion free, so since $M$ is not torsion free, it is not free, and by Theorem 6, we have:
+$$
+M \cong R^r \oplus R/(p_1^{\alpha_1}) \oplus \cdots \oplus R/(p_l^{\alpha_l}),
+$$
+where the primes are not necessarily distinct, and all the $\alpha$'s are positive. But then by Theorem 5, since $M$ is torsion, we know $r = 0$. So we have:
+$$
+M \cong  R/(p_1^{\alpha_1}) \oplus \cdots \oplus R/(p_l^{\alpha_l}).
+$$
+Define $a = p_1^{\alpha_1} \cdots p_l^{\alpha_l}$. Now we apply the result of the previous exercise to each of these summands. Let $s$ be the power of $p$ dividing $p_i^{\alpha_i}$. We set $M' = R/(p_i^{\alpha_i})$. So we know:
+$$
+p^{k - 1}M'/P^kM' \cong \begin{cases}
+R/(p) & \text{ if } k \leq s\\
+0 & \text{ if } k > s
+\end{cases},
+$$
+So we have that $k \leq s$ for exactly $n_k$ of the elementary divisors $p_i^{\alpha_i}$, and so each of these summands is isomorphic to $F$, and the rest are zero. So we have:
+$$
+M \cong  F \oplus \cdots \oplus F \cong F^{n_k}. 
+$$
+
+\end{proof}
+
+\item \textit{Suppose $M_1$ and $M_2$ are isomorphic finitely generated torsion $R$-modules. Use (a) to prove that, for every $k \geq 0$, $M_1$ and $M_2$ have the same number of elementary divisors $p^\alpha$ with $\alpha \geq k$. Prove that this implies $M_1$ and $M_2$ have the same set of elementary divisors. }
+
+\begin{proof}
+Applying part (a), we have:
+$$
+F^{n_{k_1}} \cong F^{n_{k_2}}.
+$$
+which tells us $n_{k_1} = n_{k_2}$ since they are isomorphic vector spaces of those dimensions. And we are done, since we iterate over the list of primes $p_i$ in the list of elementary divisors $\Set{p_i^{\alpha_i}}$, and also iterate over $k$ from zero to $\alpha_i$ for each $p_i$, and observe that we have exactly the same elementary divisors for $M_1$ and $M_2$ by induction. 
+\end{proof}
+\end{enumerate}
+\end{enumerate}
+
+\section{Not sure what we're doing today but it's linear transformations. }
+
+Ask Paul for notes. 
+
+
+
+\textbf{Wednesday, February 28th}
+
+Let $\dim V = N$, $T:V \to V$. Then $\exists$ a basis in which the matrix of $T$ is:
+\bee
+$$
+\newcommand*{\temp}{\multicolumn{1}{c|}{b_{21}}}
+\newcommand*{\tempq}{\multicolumn{1}{c|}{\vdots}}
+\newcommand*{\tempw}{\multicolumn{1}{c|}{0}}
+A = \lpar 
+\begin{matrix}
+b_{11} & 0 & \cdots & 0\\
+\cline{2-4}
+\temp & b_{22} & b_{23} & \cdots\\
+\tempq & \ast & \ast & \ast\\
+\tempw & \ast & \cdots & \ast
+\end{matrix} \rpar 
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\appendix
+%    Include appendix "chapters" here.
+%\include{}
+
+\chapter{Category Theory}
+
+
+We discuss objects, morphisms. 
+
+$A \to B$. 
+
+We call this pair of an object and a morphism a \textbf{category}. An object $A$ is \textbf{repelling} if for any other object $B$, there is a single morphism from $A$ to this object. 
+
+And \textbf{attracting} if there exists a single morphism from $B \to A$. 
+
+Another terminology: \textbf{initial} and \textbf{terminal} objects. 
+
+If such an object exists in a category, it is unique. 
+
+\begin{lem}
+Any such (repelling or attracting) object is unique up to isomorphism.  
+
+\end{lem}
+\begin{proof}
+If there are two such universal objects, then there is a single unique morphism $\phi_1:A_1 \to A_2$. And a single unique morphism $\phi_2:A_2 \to A_1$ and their composition is a single morphism $\phi_1\phi_2:A_2 \to A_2$, which must be the identity on $A_2$, and $\phi_2\phi_1$ is the identity on $A_1$. 
+\end{proof}
+
+Consider the category of groups with $n$ marked elements, where a morphism between $(G,a_1,...,a_n)$ and $(H,b_1,...,b_n)$ is a hom-sm $\phi:G \to H$ s.t. $\phi(a_i) = b_i$ for all elements. 
+
+Then $F_n = \langle a_1,...,a_n \rangle$, the free group with $n$ generators, is a universal repelling object in this category. 
+
+Given $\forall H$, $b_1,...,b_n \in H$, we have a unique hom-sm $\phi:F_n \to H$ s.t. $\phi(a_i) = b_i$ $\forall i$. 
+
+So the category is a set of all pairs of objects an morphisms which satisfies the properties of the definition of the category. So the category above is the type of group (groups with n marked elements) and the type of morphism. 
+
+We define a new category, where $R$ is a unital ring:
+\begin{itemize}
+\item objects = $R$-modules with $n$ marked elements $(a_1,...,a_n)$. 
+\item morphisms = $R$-hom-sms s.t. $\phi(a_i) =b_i$ $\forall i$. 
+\end{itemize}
+Then the universal repelling object is:
+$$
+(R^n,e_1,...,e_n),
+$$
+where $e_1 = (1,0,...,0)$, $e_2 = (0,1,0,...,0)$ and so on. 
+
+Given $(M,u_1,...,u_n)$, define $\phi:R^n \to M$ by $(a_1,...,a_n) \to a_1u_1 + \cdots + a_nu_n$. And note that $\phi(e_i) = i_i$. 
+
+\begin{Def}
+The direct product of $R$-modules $M_1,M_2$ is:
+ $$
+M_1\times M_2 = \{(u_1,u_2):u_i \in M_i\},
+$$
+with:
+$$
+(u_1,u_2) + (v_1,v_2) = (u_1 + v_1, u_2 + v_2),
+$$
+$$
+a(u_1,u_2) = (au_1,au_2),
+$$
+where $a \in R$. It is also called the \textbf{direct sum}, and denoted by $M_1 \oplus M_2$. 
+\end{Def}
+
+Now we define the category. 
+
+\textbf{Category.} Objects are modules $M$ with hom-sms $\phi_1:M_1 \to M$, $\phi_2:M_2 \to M$. 
+
+Morphisms: hom-sms $\phi_1:M \to N$ identical on $M_1,M_2$:
+
+\begin{center}
+\begin{tikzcd}
+ & M_1 &  \\
+M \arrow[ru, "\phi_1"] \arrow[rr, "\phi"] &  & N \arrow[lu, "\psi_1"] \\
+ & M_2 \arrow[lu, "\phi_2"] \arrow[ru, "\psi_2"] & 
+\end{tikzcd}. 
+\end{center}
+
+
+
+
+
+
+
+\textbf{Friday, January 12th}
+
+
+We give an example of a category where the morphisms are not well-defined mappings. 
+
+Define:
+Objects = groups. 
+
+Morphisms = classes of conjugate hom-sms. 
+
+\begin{Def}
+Reacll that $\phi \equiv \psi$ (these two hom-sms are \textbf{conjugate}) if $\psi(g) = a\phi(g)a^{-1}$ for some $a \in H$, where $\phi,\psi:G \to H$. 
+\end{Def}
+
+We give an other example of a category: 
+
+Objects = topological spaces. 
+
+Morphisms = classes of homotopic continuous mappings. Note that these morphisms are not mappings because images of points are not uniquely defined. 
+
+
+\chapter{Sample problems to Midterm I}
+
+
+\begin{enumerate}[label=\arabic*.]
+\item \textit{Prove that if $R$ is an integral domain, then $Tor(M)$ is a submodule of $M$ (called the torsion submodule of $M$). }
+\begin{proof}
+We know Tor$(M)$ is a subset of $M$ by its definition. We first prove it is an additive subgroup. Let $m \in $ Tor$(M)$. Then $\exists r \in R$, $r \neq 0$ s.t. $rm = 0$. Then consider $-m \in M$. From exercise 1 we know 
+$
+-m = (-1)m$, so we have:
+$$
+r(-m) = r(-1)m = (-1)rm = (-1)0 = 0,
+$$
+ since $R$ is commutative. So we have that $-m \in $ Tor$(M)$ as well, hence we have additive inverses. We check that it has additive closure. Let $m,n \in $ Tor$(M)$. Then we have $r,s \in R$, neither being zero, s.t. $rm = 0, sn = 0$. Now consider $m + n$. We have:
+$$
+rs(m + n) = rsm + rsn = srm + rsn = s0 + r0 = 0.
+$$
+Since we have no zero divisors, since $R$ is an integral domain, we know $rs \neq 0$, so $m  +n \in $ Tor($M$), we have additive closure, and Tor$(M)$ is a subgroup of $M$. Now we need only check that it is closed under the left action of $R$. So let $r \in R$ and $m \in $ Tor$(M)$. Then consider $rm$. We assume $r \neq 0$, since otherwise $rm = 0$ which is in our subgroup. And we know $\exists s \in R$, $s \neq 0$ s.t. $sm = 0$. Now we have $srm = rsm = r0 = 0$, so $rm$ is in Tor$(M)$. So it's a submodule. 
+\end{proof}
+
+\begin{proof}
+An easier proof. Using the submodule criterion, we just need an $s \in R$ s.t. $s(x + ry) = 0$ by definition of $Tor(M)$ since we want to show an arbitrary $x  +ry \in Tor(M)$. But taking $s$ to be the product of the two annihilators of $x,y$ we have that $s$ and it is nonzero since integral domain. Done. 
+\end{proof}
+
+\item \textit{If $R$ is a PID and $M$ an $R$-module, and $a_1,a_2$ relatively prime, prove $Ann(a_1a_2) = Ann(a_1) \oplus Ann(a_2)$. }
+
+\begin{proof}
+Let $I = (a_1),J = (a_2)$. Then since we are in a PID, we know $Ann(a_1) = Ann(I)$ and the same for $J$. Then note that $I,J$ are comaximal since $a_1,a_2$ are relatively prime, and we are in a PID, thus $I + J = (1) = R$. Also note that $Ann(a_1a_2) = Ann(I \cap J)$ since $(a_1a_2) = (a_1) \cap (a_2)$.  Let $m \in Ann(I + J) = Ann((1)) = Ann(R)$ since $I,J$ are comaximal, and $R$ is commutative and unital. So $rm = 0$ for all $r \in R$. So then $m \in Ann(I)$, and since $0 \in Ann(J)$, we may write $m = m + 0$, so $m \in Ann(I) + Ann(J)$. And thus $Ann(I + J) \sub Ann(I) + Ann(J)$. The other inclusion is trivial. So we have that $Ann(a_1a_2) = Ann(a_1) + Ann(a_2)$. By Theorem \ref{thm10.67}, we have have that their intersection is trivial since if $m \neq 0$ and $a_1m = 0$ and $a_2m = 0$. Since $a_1,a_2$ are coprime we have $r,s \in R$ s.t. $ra_1 + sa_2 = 1$. So we also have $ra_1m = 0$ and $sa_2m = 0$.  So then we have:
+$$
+(ra_1 + sa_2)m = 1m = m = 0.
+$$
+So $Ann(a_1) \cap Ann(a_2) = 0$. So by Theorem \ref{thm10.67} we know $Ann(a_1a_2) = Ann(a_1) \oplus Ann(a_2)$. 
+\end{proof}
+
+\item \textit{Let $M$ be a module $S$ be a subset of $R$, and $I$ be the ideal generated by $S$. Prove that $Ann(S) = Ann(I)$ in $M$. }
+
+\begin{proof}
+Let $m \in Ann(S)$. Then $sm = 0$ $\forall s \in S$. Note $I = RS$. Let $i \in I$. Then $i = rs'$ for some $s' \in S$. Then we have: 
+$$
+im = rs'm = r\cdot 0 = 0,
+$$
+ since $m$ annihilates $s'$. Now let $m \in Ann(I)$. Then $im = 0$ $\forall i \in I$. Note $S \sub I$ since we just take $r = 1$ in the expression $rs$ which is the form taken by every element in $I$. So $m \in Ann(S)$. 
+\end{proof}
+
+\item 
+\begin{enumerate}
+\item 
+\textit{Give an example of a submodule that is not a direct summand: $L \sub M$, but $M = L \oplus N$ for no submodule $N$ of $M$. }
+
+Let $M = \z^2$. Note that two linearly independent vectors $(a,b),(c,d)$ span a direct summand if and only if the determinant of:
+$$\left(
+\begin{matrix}
+a & c\\
+b & d\\
+\end{matrix}
+\right)
+$$
+is $\pm 1$. Let $L = (2,3)$, the subgroup generated by $(2,3)$ and let $K = (2,5)$. Then we have:
+$$
+\det\left(
+\begin{matrix}
+2 & 2\\
+3 & 5\\
+\end{matrix}
+\right) = 4 \neq \pm 1,
+$$
+so the subgroup $L + K$ is not a direct summand. It is easy to see that it is in fact a submodule. \bb
+
+\textbf{BETTER EXAMPLE} Consider $2\z$. This is easily seen to be a submodule of $\z$ over itself. But $2\z$ is not a direct summand, since any other nontrivial submodule $K$ has $K \cap 2\z = 0$, since you can just multiply by $2$ since $2 \in \z = R$. 
+\bb
+\item \textit{Give an example of a torsion free module which is not a free module. }
+
+Consider $\Q$ over $\z$. It is not a free module since any two nonzero rationals are linearly dependent, we can find integers such that a linear combination of them is zero. And thus if it was free, it would be free of rank 1. But $Q \ncong \z$. And it is torsion free since the product of any two nonzero rationals is nonzero. 
+\end{enumerate}
+\bb
+
+\item \textit{Establish the universal property of the direct sum: for any module homomorphisms $\phi:M \to K$ and $\psi:N \to K$ there exists a unique homomorphism $\eta:M \oplus N \to K$ s.t. $\eta|_M = \phi$ and $\eta|_N = \psi$. }
+
+\begin{proof}
+Let $\phi:M \to K$ and let $\psi:N \to K$ be hom-sms. Let $\eta(m,n) = \phi(m) + \psi(n)$. Suppose there were another map $\nu$ which also has this property. Call it $
+\gamma$. Then we must have $\gamma(u,v) = \gamma(u,0) + \gamma(0,v) = \phi(u) + \psi(v) = \eta(u,v)$. So its unique. 
+\end{proof}
+
+\item \textit{Prove that for any three modules $M,N$ and $K$ we have:
+$$
+Hom(M \otimes N,K) \cong Hom(M,K) \oplus Hom(N,K).
+$$}
+
+\begin{proof}
+Let $H = \text{Hom}_R(A\times B,M)$, $H_A = \text{Hom}_R(A,M)$, and $H_B = \text{Hom}_R(B,M)$. Let $\Phi: H_A \times H_B\to H$ be given by $\Phi((\phi,\psi)) = \phi + \psi$, where $\phi \in H_A,\psi \in H_B$. We prove this is an isomorphism of $R$-modules. 
+
+\textbf{Homomorphism: }Observe: 
+\begin{equation}
+\begin{aligned}
+\Phi((\phi_1,\psi_1) + (\phi_2,\psi_2)) &= \Phi((\phi_1 + \phi_2,\psi_1 + \psi_2)) = \phi_1 + \psi_1 + \phi_2 + \psi_2\\ &= \Phi((\phi_1,\psi_1)) + \Phi((\phi_2,\psi_2)).
+\end{aligned}
+\end{equation}
+
+In the above expression, the first equality comes from the definition of addition in $H_A \times H_B$. The second and third equalities comes from the definition of $\Phi$. And we also know: 
+$$
+\Phi(r(\phi,\psi)) = \Phi((r\phi,r\psi)) = r\phi + r\psi = r(\phi + \psi) = r\Phi((\phi,\psi)),
+$$
+hence $\Phi$ preserves mult. by $R$, by the definition of scalar multiplication on the $R$-module $H_A \times H_B$, and the definition of $\Phi$. 
+
+\textbf{Surjectivity: } Let $\phi \in H$. Then $\phi:A\times B \to M$. So let $\phi \in H_A$ be given by $\phi(a) = \phi(a,0)$,
+and let $\psi \in H_B$ be given by $\phi(b) = \phi(0,b)$. Then we have: $\Phi((\phi,\psi)) = \phi$.  Then $\Phi$ is surjective. 
+
+
+\textbf{Injectivity: } Let $\Phi((\phi_1,\psi_1)) = \phi_1 + \psi_1 = \phi_2 + \psi_2 = \Phi((\phi_2,\psi_2)) \in H_A \times H_B$. Then note that 
+$$
+(\phi_1 + \psi_1)(a,0) = \phi_1(a) = \phi_2(a) = (\phi_2 + \psi_2)(a,0),
+$$
+and the same holds when we let $a = 0$, and use an arbitrary $b$ value, so we get that $\psi_1 = \psi_2$ as well. Hence $\Phi$ is injective. And thus it is an isomorphism. 
+\end{proof}
+
+\item \textit{If $M$ is an $R$-module, prove that $Hom_R(R^n,M) \cong M^n$ as $R$-modules. }
+
+\begin{proof}
+
+
+Now Hom$(R^n,M) \cong M^n$, since we map $\phi \mapsto (\phi(e_1),...,\phi(e_n))$. \textbf{THIS IS THE WAY TO DO IT, THE CHECKS ARE EASY, JUST REMEMBER BASIS BASIS BASIS. }Or we can use the exercise from the last homework:
+$$
+Hom(A \oplus B,M) \cong Hom(A,M) \oplus Hom(B,M),
+$$
+since:
+$$
+Hom(R^n,M) \cong Hom(R,M)^n \cong  Hom(R,M) \oplus \cdots \oplus Hom(R,M) \cong M^n,
+$$
+by induction using the above statement, and considering $R$ as an $R$-module over itself. 
+\end{proof}
+
+\item \textit{Assume that a module has a finite basis: a linearly independent set $B = \Set{u_1,...,u_n}$ that generates $M$, $M = RB$. Prove that $M$ is free, $M \cong R^n$. }\label{B.8}
+
+\begin{proof}
+Let $\phi:R^n \to M$ be given by $(e_1,...,e_n) \mapsto (u_1,...,u_n)$. Sapienti sat. 
+\end{proof}
+
+\item \textit{Let $M$ be a module and let $B$ be a maximal linearly independent subset of $M$ (exists by Zorn's lemma). }
+
+\begin{enumerate}
+\item \textit{Prove that the module $RB$ is free. }
+
+\begin{proof}
+Note $B$ doesn't have to generate $M$. So what can we say about the submodule generated by $B$. The submodule $RB$ has as basis $(B)$, a linearly independent system which generates this module. \textbf{So, it's free.} Since we can use the map defined in Exercise \ref{B.8} to show that $RB \cong R^n$ where $n$ is the cardinality of $B$ or $RB \cong \prod_{\alpha \in \Lambda} R_\alpha$ if $B$ is infinite. 
+\end{proof}
+
+\begin{proof}
+Leibman's proof. Any $u \in RB$ can be written:
+$$
+u = \sum_{\alpha \in \Lambda} a_\alpha v_\alpha,
+$$
+$a_\alpha \in R,v_\alpha \in B$, $a_\alpha = 0$ for all but finitely many $\alpha \in \Lambda$. It is unique since $B$ is linearly independent. Since if you have two representations, subtract one from the other, you have a linear combination, it will contradict some stuff. Isomorphism $RB \leftrightarrow \bigoplus_{\alpha \in \Lambda} R$ where $u \leftrightarrow (a_\alpha)_{\alpha \in \Lambda}$. 
+\end{proof}
+
+\item \textit{Prove that $M/RB$ is a torsion module. }
+
+\begin{proof}
+We assume $R$ is unital, since otherwise, $B$ may not be in $RB$. Or we could define $RB$ as $RB \cup B$. 
+Indeed, suppose for contradiction that $\exists u \in M$ s.t. $\overline{u} \equiv u \mod RB$ is not a torsion element, this means that $au \notin RB$ $\forall a \neq 0 \in R$. This is because "0" in the quotient module is the kernel, $RB$ so $au$ cannot be in $RB$. Then we just set these to zero, allowing the coefficients to be arbitrary, we are just trying to show that they are linearly independent:
+$$
+au + c_1v_1 + \cdots + c_kv_k = 0,
+$$
+ with $v_i \in B, c_i \in R, a \in R$, then $a = 0$, since if $a$ was nonzero, then:
+ $$
+ au = -c_1v_1 - \cdots - c_kv_k \in RB.
+ $$ 
+ so:
+ $$
+ c_1v_1 + \cdots c_kv_k = 0,
+ $$
+ so $c_i = 0$ for all $i$, so $\{u\}\cup B$ is linearly independent, contradiction, since $B$ was the largest linearly independent set in $M$. So we have a contradiction. 
+ 
+ So for any $u$, there exists a nonzero $a$ s.t. $a\bar{u} \in RB$, so $au + c_1v_1 + \cdots c_kv_k = 0$ for some $c_i \in R,v_i \in B$. Hence $a\bar{u} = 0 \in M/RB$, and thus $M/RB$ is a torsion module. 
+\end{proof}
+
+\begin{proof}
+Leibman's proof. $M/RB$ is torsion module. If $v \in M$ is such that $av \neq 0 \mod RB$ $\forall a \neq 0$, then $B \cup \Set{v}$ is linearly independent. Why? If $av + \sum a_\alpha v_\alpha = 0$ for some $a_\alpha,v_\alpha \in B$, then $a = 0$, so... Done. If $R$ has zero divisors then no element is linearly dependent, so you cannot find them, since we can divide 0. So must have $R$ is an integral domain. 
+\end{proof}
+\end{enumerate}
+\bb
+
+\item \textit{Prove that $\z_n \tens \z_m \cong \z_d$ as groups, where $d = \gcd(n,m)$. }
+
+\begin{proof}
+Define $\phi: \z_n \tens \z_m \to \z_d$ by $\phi(\bar{k}\tens \bar{l}) = kl \mod d$. If you add a multiple of $n$ to $k$, the result will be the same because $d|n$, and same for $m$ ($(\bar{k},\bar{l}) \mapsto kl \mod d$ is bilinear). Why is it a homomorphism? This is easy to check so we omit it, just check that the additive subgroup is preserved and the action of $\z$ is preserved.  Let's check that it is surjective. Note that $1 \tens 1 \mapsto 1$, and $1$ generates $\z_d$. So done: $\phi(1 \tens a) = a \mod d$, so $\phi$ is surjective. Or maybe better to just define an inverse, since injectivity looks hard to prove. So let $\phi(l \tens k) = lk \equiv 0 \mod d$. Then $lk = jd$ for some integer $j$. And note that we have:
+$$
+l \tens k = lk(1 \tens 1) = jd(1 \tens 1).
+$$
+And since $d$ is the gcd, we can write $d = xn + ym$ for some integers $x,y$. So we have:
+\bee
+l \tens k &= jd(1 \tens 1) = j(xn + ym)(1 \tens 1)\\
+&= j(xn(1 \tens 1) + ym(1 \tens 1))\\
+&= j(x(n \tens 1) + y(1 \tens m))\\
+&= j(0 \tens 0 + 0 \tens 0) = 0.
+\eee
+So $ker\phi = 0$ and it is injective, and hence an isomorphism. 
+\end{proof}
+\bb
+
+\item \textit{Let $G = \z_2 \oplus \z_2 \oplus \z_4 \oplus \z^2$. }
+\begin{enumerate}
+\item \textit{Find the dimension of the $\z_2$ vector space $\z_2 \tens_\z G$. }
+
+$\z_2 \tens G \cong (\z_2 \tens \z_2) \oplus (\z_2 \tens \z_3) \oplus (\z_2 \tens \z_4) \oplus (\z_2 \tens \z)^2$ by the next exercise 12. 
+
+So its $\cong \z_2 \oplus 0 \oplus \z_2 \oplus \z_2^2$. So its $\cong \z_2^4$. 
+
+\item
+
+When you multiply by $\Q$, it will kill all torsions, so we only have $\z^2$ left. And so we have $G \tens \Q \cong \Q^2$. 
+\end{enumerate}
+
+\item \textit{Prove that for any three modules $M,N,K$:
+$$
+(M \oplus N) \tens K \cong (M \tens K) \oplus (N \tens K).
+$$ }
+
+\begin{proof}
+Map $((m,n),k) \mapsto ((m \tens k) ,(n \tens k))$. This map is clearly seen to be bilinear, and so it induces a module hom-sm:
+ $$
+ \phi:(M \oplus N) \tens K \to (M \tens K) \oplus (N \tens K)
+ $$
+ given by $\sum_i(m_i,n_i) \tens k_i \to (\sum_i m_i \tens k_i,\sum_i n_i \tens k_i)$. Now consider the mappings $(m,k) \to (m,0) \tens k$ and $(n \tens k) \to (0,n) \tens k$, which map from $M \times K$ and $N \times K$ respectively to $(M \oplus N) \tens K$. These are also easily seen to be bilinear, and they induce module homomorphisms $\phi_1$,$\phi_2$ defined as expected. So define $\psi:(M \tens K) \oplus (N \tens K) \to (M \oplus N) \tens K$ for which:
+ \bee
+( m \tens k_1,n \tens k_2) \mapsto \phi_1(m \tens k_1) + \phi_2(n \tens k_2)& = (m,0) \tens k_1 + (0,n) \tens k_2\\
+ \eee
+ Now note that 
+ \bee
+ \phi(\psi(m \tens k_1,n \tens k_2) &= \phi((m,0) \tens k_1 + (0,n) \tens k_2)\\
+ &= (m \tens k_1 + 0 \tens k_2,0 \tens k_1 + n \tens k_2)\\
+ &= (m \tens k_1 + 0,0 + n \tens k_2)\\
+ &= (m \tens k_1,n \tens k_2).
+ \eee
+ And so $\phi = \psi^{-1}$. And so $\psi$ is invertible and thus is a module isomorphism. 
+\end{proof}
+
+
+\item \textit{Let $V$ be an $n$-dimensional vector space with basis $\Set{u_1,...,u_n}$. Explain why $\c \tens_\R V$ has structure of a $\c$-vector space. }
+
+Consider $V \cong \R^n$, basis $\Set{u_1,...,u_n}$. We have $\c$-basis in $\c \tens_\R V$ which is $\Set{1 \tens u_1,...,1 \tens u_n}$. And over $\R$ we have $\c \tens_\R V$: $\Set{1 \tens u_1,...,1 \tens u_n,i \tens u_1,...,i \tens u_n}$. Note $\R^2 \tens V \cong V^2 = V \oplus V$. This is because $R^2 = R \oplus R$. And then we have $(\R \oplus \R) \tens V = (\R \tens V) \oplus (\R \tens V)$. And since we are taking the tensor over $\R$ already $(\R \tens V) \cong V$.  
+
+Note that $V \cong R^n$ so $\c \tens V \cong (\c \tens_\R \R)^n \cong C^n$. So rewriting:
+$$
+\c \tens(\oplus\R u_i) \cong \oplus(\c \tens \R u_i) \cong \oplus \c u_i.
+$$
+
+
+
+\setcounter{enumi}{13}
+\item \textit{$\Q \tens_\z \Q \cong \Q$. }
+
+\begin{proof}
+Define an isomorphism by $\fracc{m}{n} \tens \fracc{k}{l} \mapsto \fracc{nk}{ml}$. Just check. But let's use our advanced knowledge instead:
+$$
+0 \to \z \to \Q \to \Q/\z \to 0,
+$$
+and multiply this by $\Q$:
+$$
+0 \to \z \tens \Q \to \Q \tens \Q \to (\Q/\z)\tens \Q \to 0.
+$$
+We have exactness on left since $\Q$ is flat. If $R$ integral domain field of fractions is flat refer to Lemma \ref{lem10.151}. So $0 \to \z \tens \Q \to \Q \tens \Q \to 0$ is exact. And $\Q/\z = 0$. So we have $\Q \cong \z \tens \Q \cong \Q \tens \Q$. 
+\end{proof}
+
+\setcounter{enumi}{15}
+
+\item \textit{Prove that $R[x] \tens R[x] \cong R[x,y]$ as $R$-algebras. }
+
+\begin{proof}
+Take $x^n \tens y^m \mapsto x^ny^m$. 
+\end{proof}
+
+\setcounter{enumi}{18}
+
+ \item 
+
+\begin{proof}
+$M = \bigoplus M_\alpha$. 
+$$
+0 \to A \to_\phi B.
+$$
+
+$$
+0 \to A \tens M \to_{|phi \tens Id} B \tens M \cong \bigoplus_{\alpha \in \Lambda}(A \tens M_\alpha) \o \bigoplus_{\alpha \in \Lambda}(B \tens M_\alpha).
+$$
+On the left we have $a \tens u \mapsto \phi(a) \tens u$, and on the right we have $(a \tens u_\alpha)_{\alpha \in \Lambda} \mapsto(\phi(a \tens u_\alpha)_{\alpha \in \Lambda}$. Because the map commutes with the direct sum, its injective if and only if each component is. So then we have:
+$$
+\bigoplus N_\alpha \overset{\psi}{\to} \bigoplus K_\alpha,
+$$
+where $(v_\alpha) \mapsto(\psi_\alpha(v_\alpha))$. $\psi$ is injective if and only if $\psi_\alpha$ are all injective. For all $\alpha$ $\psi_\alpha = \psi|_{N_\alpha}$. So if $\psi$ is injective, $\psi_\alpha$ is injective. If $\psi_\alpha$ are all injective:
+$$
+\psi((v_\alpha)_{\alpha \in \Lambda}) = (\psi_\alpha(v_\alpha))_{\alpha \in \Lambda} = 0.
+$$
+if and lonly if $\psi_\alpha(v_\alpha) = 0$ for all $\alpha$ if and only if $v_\alpha = 0$ for all $\alpha$. So $\psi$ is injective. 
+\end{proof}
+
+
+\setcounter{enumi}{20}
+\item \textit{Give an example of a non-flat torsion-free module. }
+
+Consider $M = I = (x,y) \sub R = F[x,y]$. Then we have:
+$$
+0 \to I \to R.
+$$
+And 
+$$
+M \tens I \to R \tens I \cong I
+$$
+ is not injective, since $x \tens y - y \tens x \mapsto 0$. \textbf{ASK LEIBMAN}
+ 
+
+
+
+\setcounter{enumi}{21}
+\item \textit{Every projective module is flat. }
+
+\begin{proof}
+First show it must be a direct summand of a free module, and this it is flat. 
+\end{proof}
+
+
+
+
+\end{enumerate}
+
+
+\chapter{Common exam mistakes}
+
+On 4(a). Define $(R/I) \tens M \to M$ by $\bar{a} \tens u \to au$. Take $b$ s.t. $\bar{b} = \bar{a}$. Then we have $\bar{b} \tens u \to bu$ but $bu \neq au$. 
+
+On 3, constructing $\phi:S \tens R[x] \to S[x]$. To prove injectivity, you can't just check simple tensors!!!!! You need to construct an inverse homomorphism. You define $sx^n \mapsto s \tens x^n$, since $S[x]$ is a free module over $S$. 
+
+Recall:
+\begin{Def}
+$A$ is an $S$-algebra if and only if it is an $S$-module and a ring s.t. $(s\alpha)\beta = \alpha(s\beta) = s(\alpha\beta)$ for $s \in S, \alpha,\beta \in A$. So $S[x]$ in the above is an $S$-algebra if $S$ is commutative. 
+\end{Def}
+
+\chapter{Tensors outside of algebra}
+
+\textbf{Wednesday, February 14th \heart}
+
+
+
+Let $M$ be an $R$-module. Consider $M \tens M^* \to R$ which is naturally induced by $u \tens f \mapsto f(u)$, which is bilinear. 
+
+\begin{Def}
+The above homomorphism is called \textbf{contraction of tensors}. 
+\end{Def}
+
+Let $M$ is a free module of finite rank (for example, a finite dimensional vector space). Usually we define contraction restricted to vector spaces. We choose a basis $\Set{u_1,...,u_n}$ in $M$ a dual basis $\Set{f_1,...,f_n}$ in $M^*$. Then what is contraction in coordinates? First what elements of $M \tens M^*$? Then:
+$$
+\Set{u_i \tens f_j:i,j = 1,..,n}
+$$
+form a basis in $M \tens M^*$. $\forall w \in M \tens M^*$:
+$$
+w = \sum_{i,j = 1}^n a_{ij}u_i \tens f_j.
+$$
+How do we know this is a basis in $M \tens M^*$? Recall: 
+$$
+(M_1 \oplus M_2) \tens N \cong (M_1 \tens N) \oplus (M_2 \tens N).
+$$
+Then let $M \oplus Ru_i,N = \oplus Rv_j$, then what is the tensor product of these? Obvious. Done. 
+
+Going back to the task at hand, we define $a_{ij}$ as the \textbf{coordinates of $w$}. 
+
+\begin{Def}
+The \textbf{contraction }of $w$ is:
+$$
+\sum a_{ij}f_j(u_i) = \sum a_{ij}\delta_{ij} = \sum_{i  =1}^na_{ij} = trace\lpar 
+\begin{matrix}
+a_{11}& \cdots& a_{1n}\\
+\vdots & & \vdots\\
+a_{n1}& \cdots& a_{nn}\\
+\end{matrix} \rpar.
+$$
+So "trace" is a function of a tensor, not its matrix. 
+\end{Def}
+
+Let $M,N$ be $R$-modules. Consider $N \tens M^*$. We have a homomorphism $N \tens M^* \to Hom(M,N)$ given by $v \tens f \mapsto \phi \in Hom(M,N)$, where $\phi(u) = f(u)v$. In fact this is a composition of contraction. We take $v \tens f \tens u$ and contract it to get $f(u)v$. So in fact we take $N \tens M^* \tens M$ and contract it. Note the above map is bilinear. In general it doesn't have to be an isomorphism. If $N,M$ are free modules of finite rank, then we claim that it is an isomorphism. 
+
+\begin{lem}
+If $N,M$ are free modules of finite rank, then $N \tens M^* \to Hom(M,N)$ given by $v \tens f \mapsto \phi \in Hom(M,N)$, where $\phi(u) = f(u)v$ is an isomorphism. 
+\end{lem}
+
+\begin{proof}
+let $M,N$ be free of ranks $m,n$ and let $\Set{u_1,...,u_n}$ and $\Set{v_1,...,v_m}$ be their bases. Let $\Set{f_1,...,f_n}$ be the dual basis in $M^*$. Then $\Set{v_j \tens f_i}$ is the basis in $N \tens M^*$ as proven above. So let's check what homomorphism corresponds to this tensor. For any $i,j$: $$
+v_j \tens f_i \mapsto \phi_{ij}, \phi_{ij}(u_k) = f_i(u_k)v_j = \delta_{ik}v_j = \begin{cases}
+v_j & i = k\\
+0 & i \neq k
+\end{cases}. 
+$$
+where the matrix of $\phi_{ij}$ is a matrix with $n$ rows and $m$ columns with zeroes everywhere except the $i$-th column of the $j$-th row, where there is a $1$. So $\Set{\phi_{ij}}$ is a basis in $Hom(M,N)$. So, $N \tens M^* \to Hom(M,N)$ is an isomorphism. 
+\end{proof}
+
+So homomorphisms $M \to N$ are tensors from $N \tens M^*$. 
+
+So we have $Hom(M,M) \cong M \tens M^*$. 
+
+"Trace" is defined on $m \tens M^*$. So in $Hom(M,M)$, and doesn't depend on the choice of basis. So "trace of a hom-sm" is well-defined. 
+
+\textbf{What is trace??}
+
+\begin{rem}
+You have a mapping $M \tens M^* \to R$ defined by $u \tens f \mapsto f(u)$. And note that this is independent of basis:
+\begin{center}
+\begin{tikzcd}
+ & M \otimes M^* \arrow[ldd] \arrow[r] & R \\
+ & u \otimes f \arrow[r, maps to] \arrow[ldd] & f(u) \\
+Hom(M,M) \arrow[ruu] &  &  \\
+\phi(v) = f(v)u \arrow[ruu] &  & 
+\end{tikzcd}.
+\end{center}
+\end{rem}
+
+Composition of homomorphisms: $M \to N \to K$ - they are given by tensors from $n \tens M^*$ and $K \tens N^*$. 
+
+\begin{Def}
+\textbf{Composition} is contraction of a tensor from $K \tens N^* \tens N \tens M^*$ with respect to $N$. 
+\end{Def}
+
+If we have $M \overset{\phi}{\to}N \overset{\psi}{\to}K$. Apply $\psi \circ \phi(u)$, take $\psi \in K \tens N^*$, and $\phi \in N \tens M^*$, and $u \in M$ so we have:
+$$
+\psi \tens (\phi \tens u).
+$$
+Contract $M^* \tens M$ and then $N^* \tens N$, so the composition $\psi \circ \phi$ is the result of contraction of $N^* \tens N$. 
+
+In coordinates: 
+\bee 
+\phi &\leftrightarrow (a_{ij})\\
+\psi &\leftrightarrow (b_{kl})\\
+\psi \tens \phi &\leftrightarrow (b_{kl}a_{ij})\\
+\psi \circ \phi &\leftrightarrow \lpar \sum_{i = 1}^nb_{ki}a_{ij} \rpar  = (c_{kj}).
+\eee
+
+
+\bb\bb\bb
+
+\begin{Def}
+A \textbf{bilinear form} is a mapping $\beta:M \times M \to R$ s.t. everything is preserved. 
+\end{Def}
+
+\begin{rem}
+Bilinear forms $\leftrightarrow$ tensors from $M^* \tens M^*$ given by $f \tens g \mapsto \beta$, and $\beta(u,v) = f(u) g(v)$. The trace is not defined here. \textbf{Seriously wtf is the trace?}. 
+\end{rem}
+
+\begin{Def}
+$M \tens M \tens \cdots \tens M \tens M^* \tens \cdots \tens M^*$ where we have $k$ copies of $M$ and $l$ copies of $M^*$ are called $(k,l)$-tensors, or tensors of $(k,l)$-type. And $\dim = n^{k + l}$, where $n = \dim M$. Then it is $k$-times contravariant and $l$ times covariant tensors. Bilinear forms are $(0,2)$-tensors. 
+\end{Def}
+
+\begin{rem}
+Each tensor from this space is represented by a $k + l$-dimensional matrix. $n \times n \times \cdots \times n$, $k + l$ times. There is a tradition to write coordinates: $$
+a_{j_1,...,j_l}^{i_1,...,i_k}.
+$$
+where contravariant on top, and covariant on bottom. 
+\end{rem}
+
+Consider $\nabla f = df$ - $(0,1)$-tensor, covector. Christofel symbols $\Gamma_{j,l}^i$. Curvature tensor: $R_{j,k,l}^i$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\backmatter
+%    Bibliography styles amsplain or harvard are also acceptable.
+\bibliographystyle{amsalpha}
+\bibliography{}
+%    See note above about multiple indexes.
+\printindex
+
+\end{document}
+
+%-----------------------------------------------------------------------
+% End of amsbook-template.tex
+%-----------------------------------------------------------------------

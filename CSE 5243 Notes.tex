@@ -1,0 +1,391 @@
+%% filename: amsbook-template.tex
+%% version: 1.1
+%% date: 2014/07/24
+%%
+%% American Mathematical Society
+%% Technical Support
+%% Publications Technical Group
+%% 201 Charles Street
+%% Providence, RI 02904
+%% USA
+%% tel: (401) 455-4080
+%%      (800) 321-4267 (USA and Canada only)
+%% fax: (401) 331-3842
+%% email: tech-support@ams.org
+%% 
+%% Copyright 2006, 2008-2010, 2014 American Mathematical Society.
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the American Mathematical
+%% Society.
+%%
+%% ====================================================================
+
+%    AMS-LaTeX v.2 driver file template for use with amsbook
+%
+%    Remove any commented or uncommented macros you do not use.
+
+\documentclass{amsbook}
+
+%    For use when working on individual chapters
+%\includeonly{}
+
+%    Include referenced packages here.
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}[chapter]
+\numberwithin{section}{chapter}
+\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+%    For a single index; for multiple indexes, see the manual
+%    "Instructions for preparation of papers and monographs:
+%    AMS-LaTeX" (instr-l.pdf in the AMS-LaTeX distribution).
+\makeindex
+
+\begin{document}
+
+\frontmatter
+
+\title{DATA MINING NOTES}
+
+%    Remove any unused author tags.
+
+%    author one information
+\author{BRENDAN WHITAKER}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+%    author two information
+\author{}
+\address{}
+\curraddr{}
+\email{}
+\thanks{}
+
+\subjclass[2010]{12-XX}
+
+\keywords{}
+
+\date{SP18}
+
+\begin{abstract}
+A comprehensive set of notes for Data Mining course, taken SP18 at The Ohio State University. 
+\end{abstract}
+
+  \maketitle
+
+%    Dedication.  If the dedication is longer than a line or two,
+%    remove the centering instructions and the line break.
+%\cleardoublepage
+%\thispagestyle{empty}
+%\vspace*{13.5pc}
+%\begin{center}
+%  Dedication text (use \\[2pt] for line break if necessary)
+%\end{center}
+%\cleardoublepage
+
+%    Change page number to 6 if a dedication is present.
+\setcounter{page}{4}
+
+\tableofcontents
+
+%    Include unnumbered chapters (preface, acknowledgments, etc.) here.
+
+
+
+
+\mainmatter
+%    Include main chapters here.
+
+\setcounter{part}{0}
+\part{}
+\setcounter{chapter}{0}
+\chapter{Introduction}
+
+\textbf{Wednesday, January 10th}
+
+Note $class = label = category$. These are the dependent variables, the stuff that our work is determining. 
+
+Ratio variables are your typical real-valued numbers, i.e. zero is meaningful. Interval variables have 0 as just another possible value, it is not the additive identity in this case. 
+
+
+\textbf{Monday, January 22nd}
+
+Review of stuff up to now. 
+
+\adjustbox{scale = 0.78,center}{
+\begin{tikzcd}
+ & Data \arrow[rr] \arrow[rd, no head] &  & Insights &  \\
+ &  & CRISP-DM \arrow[ru, no head] &  &  \\
+ &  & \text{Business Understanding} \arrow[r] & Data/Prep \arrow[rd] \arrow[ld] &  \\
+ &  & \text{Proximity Measures} \arrow[d] \arrow[rd] \arrow[ld] \arrow[lld] &  & Statistics \arrow[d] \\
+Cosine & Binary \arrow[d] \arrow[ld] & \text{Euclidean Distance} & \text{Minkowski Distance} & Univariate/Multivariate \arrow[d] \\
+SMC & Jacard &  &  & \text{Variety of datatypes} \\
+ & \text{Exploratory Data Analysis} \arrow[r] & Visualization &  & 
+\end{tikzcd}
+}
+
+Imputation: replacing missing data with the mean is one way we could do it. We could also use regression imputation to estimate the value of the missing variable using the data from other variables. You could also use a random value. 
+
+\textbf{Monday, January 29th}
+
+PCA - principal component analysis. 
+
+\textbf{Monday, Febrary 5th}
+We have: 
+$$
+P(+ | x) = \fracc{1}{1 + e^{-\beta_0 - \beta_1x_1 - \beta_2x_2}}.
+$$
+
+Okay so last time, we talked about how you might compute a ROC curve. Recall that a ROC curve plots false positive rate (FPR) on the $x$-axis and true positive rate (TPR) on the $y$-axis. So we are going to set our $t = 0$.
+
+
+
+\section{Exam 1}
+
+Need to know proximity measures, types of data (ratio). 
+
+\begin{itemize}
+\item Won't ask to compute covariance, that's mean. 
+\item Know bayes theorem for bayes classifiers. 
+\item PROXIMITY MEASURES, INFER IF WE'RE TALKING ABOUT A SIMILARITY VS DISSIMILARITY. 
+\item know minkowski distance. 
+\item don't know mahalaboni distance. 
+\item simple matching and jaccard coefficients, and cosine. 
+\item you use jacard when data is SPARSE, otherwise SMC. 
+\item Make a reference sheet to use on exam. 
+\item You'd use cosine when it is no longer binary data, but it can be used for anything. 
+\item SMC and Jaccard are for BINARY ONLY. 
+\item Know that the end of boxplots are 90 and 10. 
+\item Interpret this scatterplot or boxplot on exam. Any of the data vis types. 
+\item What is the difference between noise and outliers?
+\item Principal component analysis is going to be fair game, or part of the calculation, how do you do it, what does it mean, what are you trying to accomplish. 
+\item how many principal components do you keep given some type of data loss requirement. 
+\item Difference between dimensionality reduction, and feature subset selection. 
+\item Dimensionality reduction creates new features, no longer interpretable, the values are meaningless, each of the new dimensions are combinations/transformations of the old ones. 
+\item Feature subset selection just removes a subset of the n dimensions and uses those, which preserves the meaning of the dimensions/features. 
+\item When you run PCA, you aren't doing anything related to the class variable.
+\item But Feature subset selection on the other hand, is usually done relative to a classifier. 
+\end{itemize}
+
+
+Now let's talk about classification. 
+
+\begin{itemize}
+\item What is objective of classification: create a generalizeable, predictive model. It has to GENERALIZE!
+\item As you train your model and it becomes more complex, training error keeps dropping, but test error find a local min and then goes up again. 
+\item Producing a classification label is a two step process. 
+\begin{Ex}
+Suppose we're doing a binary classification. 
+
+\textbf{Step 1: }
+
+For a given record $x$, define:
+\bee
+P(+|x) &= 0.64\\
+P(-|x) &= 0.36
+\eee
+For logistic regression, we have:
+$$
+P(+|x) = \fracc{1}{1 + e^{-*\beta_0 + \beta_1x)}}.
+$$
+So x enters our model and get the the above posterior out of it. 
+
+\textbf{Step 2:}
+
+We set some threshold $t$ and say $x \in +$ if the posterior is $\geq t$ and in $-$ otherwise. And $0.5$ is our default $t$ value. You get an ROC curve only by varying $t$. Note the confusion matrix is dependent on the value of $t$. 
+\end{Ex}
+\item A ROC curve has FPR on x axis and TPR on y axis. 
+\item When we increase $t$, precision generally goes up because we expect the model to work better than random. 
+\item Recall precision is TP/(TP + FP), it is the top left box over the sum of the left half of the matrix. 
+\item You should know DECISION TREES, NAIVE BAYES, kNN. Ensembles just a little bit. Rule based classifier. 
+\item \textbf{What is reduced-error pruning? }
+Before we talk about that, normal pruning is just computing error for all nodes and removing nodes that don't give you lift (reduction of error rate). Reduced error pruning using validation data, you compute error rates for each node on the TEST DATA instead, then compute lift and decide to prune any nodes that don't give you a reduction in error. 
+\item for notes sheet just print a shitton of these pages. 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Final Notes}
+
+Study maximal and closed itemsets, there will be a question on the final on this. 
+
+
+\textbf{Monday, March 19th}
+
+
+
+\textbf{Wednesday, April 11th}
+
+Projects due the 18th of April. Exam is on the stuff from the second half of the course. 
+
+
+\section{Scratch work}
+
+
+\bee
+f(x) &= \begin{cases}
+\fracc{1}{k + 1} & \text{ if }x = \fracc{1}{k}, k \in \n\\
+x & \text{ otherwise}
+\end{cases}. 
+\eee
+
+
+
+
+\section{Exam 2}
+
+Know how to do hierarchical clustering with dendrograms from the book exercises. Make sure you know the difference between similarity vs dissimilarity algorithm. 
+
+
+DBSCAN doesn't deal well with differing densities. It has global parameters. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\appendix
+%    Include appendix "chapters" here.
+%\include{}
+
+\backmatter
+%    Bibliography styles amsplain or harvard are also acceptable.
+\bibliographystyle{amsalpha}
+\bibliography{}
+%    See note above about multiple indexes.
+\printindex
+
+\end{document}
+
+%-----------------------------------------------------------------------
+% End of amsbook-template.tex
+%-----------------------------------------------------------------------

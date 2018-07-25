@@ -1,0 +1,126 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Homework 6}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+\usepackage{braket}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\newtheorem*{e}{Exercise}
+\newtheorem{ee}{Exercise}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+
+
+
+\begin{document}
+
+\title{CSE 6331 Homework 2}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+\setcounter{Thm}{4}
+\begin{Thm}
+If $T(n)$ is asymptotically nondecreasing and $f(n)$ is smooth, then $T(n) = O(f(n)|n$ is a power of $b)$ implies $T(n) = O(f(n))$. 
+\end{Thm}
+\begin{enumerate}[label=\arabic*.]
+\item \textit{Show that Theorem 5 would not hold if $T(n)$ is not asymptotically nondecreasing. }
+
+
+Let $f(n) = n^2$, and let $b = 2$. We define: 
+$$
+T(n) = 
+\begin{cases}
+n^2 & n = 2^k, k \in \mathbb{N}\\
+n^n & otherwise
+\end{cases}. 
+$$
+Observe that $f(n) = n^2$ is smooth: $f(2n) = (2n)^2 = 4n^2 \leq 4 \cdot n^2,\forall n \in \mathbb{N}$, so $f(2n) \in O(n^2)$. Also $T(n) \in O(n^2|n$ is a power of $2)$, since $T(n) = n^2$ when $n$ is a power of $2$. We show $T(n) \notin O(n^2)$. Suppose for contradiction that there was a positive constant $c \in \mathbb{N}$ and $N \in \mathbb{N}$ s.t. $\forall n > N$, $T(n) \leq cn^2$. Then this must hold for all powers of $3$, so we restrict ourselves to the case when $n \in B = \{n: n= 3^k,k \in \mathbb{N}\}$. Then $n$ is not a power of $2$, so $T(n) = n^n$. So we have $n^n \leq cn^2,\forall n > N,n \in B$. Then we would have: 
+$$
+n^2 \cdot n^{n - 2} \leq cn^2,
+$$
+$$
+n^{n - 2} \leq c,
+$$
+for all $n > N,n \in B$, which is a contradiction, since $c$ is a constant. So we must have $T(n) \notin O(n^2)$. \\
+
+
+\item \textit{Show that Theorem 5 would not hold if $f(n)$ is nondecreasing but not smooth (even if $T(n)$ is asymptotically nondecreasing). }
+
+Let $f(n) = 2^n$. Let:
+$$
+T(n) = 2^{2^{\lceil log_2n \rceil}}.
+$$
+When $n$ is a power of $2$, $n = 2^k$, we have $\lceil log_2n \rceil= k$, so $T(n) = 2^n$, so $T(n) \in O(2^n)$ when $n$ is a power of $2$. But is $T(n) \in O(2^n)$ in general? Let $n = 2^k + 1$, so $n$ runs through the positive integers which are one more than a power of 2. Then for $k \in \mathbb{N}$ we have $T(n) = 2^{2^{k + 1}} = 2^{2 \cdot n} \notin O(2^n)$, so Theorem 5 does not hold in this case. 
+
+\item \textit{Prove \textbf{Theorem 6:} If $T(n)$ is asymptotically nondecreasing and $f(n)$ is smooth, then $T(n) = \Omega(f(n)|n$ is a power of $b)$ implies $T(n) = \Omega(f(n))$. }
+
+\begin{proof}
+We know $T(n) \geq c_1f(n)$ for $n$ sufficiently large and a power of $b$. And by definition of smooth, we know $f(bn) \in O(f(n)) \Rightarrow f(n) \in \Omega (f(bn))$. So we have $f(n) \geq c_2f(bn)$ for sufficiently large $n$, and $\forall n$ there is $k \in \mathbb{N}$ s.t. $b^k \leq n < b^{k + 1}$. When $n$ is sufficiently large, we have: 
+$$
+T(n) \geq T(b^k) \geq c_1f(b^k)  \geq c_1c_2f(b\cdot b^k) \geq c_1c_2f(b^{k + 1}) \geq c_1c_2f(n).
+$$
+Thus we know $T(n) \in \Omega(f(n))$. 
+\end{proof}
+\end{enumerate}
+
+
+
+
+
+
+
+
+\end{document}
+
+

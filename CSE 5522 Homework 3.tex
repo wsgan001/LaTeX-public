@@ -1,0 +1,538 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[12pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\vecc}{\mathbf}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+
+
+\title{CSE 5522 Homework 3}
+\date{SP18}
+\author[Brendan Whitaker]{Brendan Whitaker}
+\maketitle
+%\tableofcontents
+
+
+
+\begin{enumerate}[label=\arabic*.]
+
+\item \textit{Regularized linear regression. }
+
+\begin{enumerate}
+\item \textit{Regularized linear regression is the solution to:
+\bee
+\min_{\vecc{w}}Err(\vecc{w}) = \fracc{1}{N}||Y - X\vecc{w}||^2 + \fracc{\lambda}{2}||\vecc{w}||^2.
+\eee
+What is the gradient $\nabla_wErr(w)$?}
+
+Behold:
+\bee
+\nabla_wErr(\vecc{w}) &= \nabla_{\vecc{w}} \left[\fracc{1}{N}||Y - X\vecc{w}||^2 + \fracc{\lambda}{2}||\vecc{w}||^2\right]\\
+&= \nabla_{\vecc{w}} \left[
+\fracc{1}{N}(Y - X\vecc{w})^T(Y - X\vecc{w}) + \fracc{\lambda}{2}\vecc{w}^T\vecc{w}
+\right]\\
+&= \nabla_{\vecc{w}} \left[
+\fracc{1}{N}\lpar Y^TY - 2X^TY\vecc{w}^T + X^TX\vecc{w}^T\vecc{w} \rpar  + \fracc{\lambda}{2}\vecc{w}^T\vecc{w}
+\right]\\
+&= \fracc{1}{N}\left(
+-2X^TY + 2X^TX\vecc{w}
+\right) + \lambda\vecc{w}.
+\eee
+
+
+\item \textit{What is the closed-form solution of $\min_\vecc{w}Err(\vecc{w})$?}
+
+In order to minimize, we set the gradient equal to zero and solve for $\vecc{w}$. Observe:
+\bee
+\fracc{1}{N}\left(
+-2X^TY + 2X^TX\vecc{w}
+\right) + \lambda\vecc{w} &= 0\\
+-2X^TY + 2X^TX\vecc{w} + N\lambda \vecc{w} &= 0\\
+ 2X^TX\vecc{w} + N\lambda \vecc{w} &= 2X^TY\\
+  (2X^TX + N\lambda I) \vecc{w} &= 2X^TY\\
+  \vecc{w} &= \fracc{2X^TY}{2X^TX + N\lambda I}.
+\eee
+
+\end{enumerate}
+
+\item \textit{Logistic regression. }
+
+
+
+\begin{enumerate}
+
+\item \textit{Let $L$ be the logistic regression loss function $L(y,f(x)) = \log\lpar 1 + e^{-y\vecc{w}^Tx} \rpar $. Compute the gradient $\nabla_\vecc{w}L$ step-by-step to show that:
+\bee
+\nabla_\vecc{w}L = \fracc{-yx e^{-y\vecc{w}^Tx}}{1 + e^{-y\vecc{w}^Tx}}. 
+\eee}
+
+\begin{proof}
+We compute the gradient:
+\bee
+\nabla_\vecc{w}L(y,f(x)) &= \nabla_\vecc{w}\log\lpar 1 + e^{-y\vecc{w}^Tx} \rpar\\
+&= \fracc{\nabla_\vecc{w}\lpar 1 + e^{-y\vecc{w}^Tx}\rpar}{1 + e^{-y\vecc{w}^Tx}}\\
+&= \fracc{e^{-y\vecc{w}^Tx}\nabla_\vecc{w}\lpar -y\vecc{w}^Tx \rpar }{1 + e^{-y\vecc{w}^Tx}}\\
+&= \fracc{-yxe^{-y\vecc{w}^Tx} }{1 + e^{-y\vecc{w}^Tx}}.
+\eee
+\end{proof}
+
+\item \textit{Let $L$ be the softmax loss function $L(y,f(x)) = -\vecc{w}_y^Tx + \log\lpar \sum_k e^{\vecc{w}_k^Tx} \rpar$. Compute the gradient $\nabla_{\vecc{w}_k}L$ step-by-step to show that:
+\bee
+\nabla_{\vecc{w}_k}L = x\cdot\lpar -\mathbbm{1}_{y = k} + \fracc{e^{\vecc{w}_k^Tx}}{\sum_j e^{\vecc{w}_j^Tx}} \rpar.
+\eee}
+
+\begin{proof}
+Observe:
+\bee
+\nabla_{\vecc{w}_k} L(y,f(x)) &= \nabla_{\vecc{w}_k} \left[ 
+-\vecc{w}_y^Tx + \log\lpar \sum_j e^{\vecc{w}_j^Tx} \rpar
+\right].
+\eee
+Now note that $\nabla_{\vecc{w}_k} \vecc{w}_y^T = 0$ if $k \neq y$ since in this case we are not taking the gradient with respect to $\vecc{w}_y$, so $\vecc{w}_y$ is treated like a constant. Thus we have:
+\bee
+\nabla_{\vecc{w}_k} L(y,f(x)) &= -x\mathbbm{1}_{y = k} + \nabla_{\vecc{w}_k} \log\lpar \sum_j e^{\vecc{w}_j^Tx} \rpar\\
+&=-x\mathbbm{1}_{y = k} + \fracc{\nabla_{\vecc{w}_k}\sum_j e^{\vecc{w}_j^Tx} }{\sum_j e^{\vecc{w}_j^Tx}}.
+\eee
+Now here we note that when taking the gradient of the sum $\sum_j e^{\vecc{w}_j^Tx}$, since we are taking the gradient with respect to $\vecc{w}_k$, when $j \neq k$, we treat the term $e^{\vecc{w}_j^Tx}$ as a constant, hence its gradient is zero. And thus all the terms go to zero when we take the gradient except for the term where $j = k$, hence we have:
+\bee
+\nabla_{\vecc{w}_k} L(y,f(x)) &= -x\mathbbm{1}_{y = k} + \fracc{\nabla_{\vecc{w}_k}e^{\vecc{w}_k^Tx} }{\sum_j e^{\vecc{w}_j^Tx}}\\
+&= -x\mathbbm{1}_{y = k} + \fracc{xe^{\vecc{w}_k^Tx} }{\sum_j e^{\vecc{w}_j^Tx}}\\
+&= x\cdot \lpar -\mathbbm{1}_{y = k} + \fracc{e^{\vecc{w}_k^Tx} }{\sum_j e^{\vecc{w}_j^Tx}} \rpar.
+\eee
+\end{proof}
+\end{enumerate}
+
+\item \textit{Hard-margin Support Vector Machine: to make sure you understand the derivation of SVM in dual form, you will repeat the derivation from the slides yourself. }
+
+\begin{enumerate}
+\item \textit{Define the Lagrangian and the dual variables. }
+
+The Lagrangian is given by:
+\bee
+L(\vecc{w},b,\vecc{a}) &= \fracc{1}{2}||\vecc{w}||^2 - \sum_p a_p (y_p(\vecc{w}^T\vecc{x}_p + b) - 1)\\
+&= \fracc{1}{2}\vecc{w}^T\vecc{w} - \sum_p a_p (y_p\vecc{w}^T\vecc{x}_p + y_pb - 1)\\
+&= \fracc{1}{2}\vecc{w}^T\vecc{w} - \sum_p \lpar a_py_p\vecc{w}^T\vecc{x}_p + a_py_pb - a_p\rpar. \\
+\eee
+And the dual variables are $\vecc{a}$. 
+
+\item \textit{Find the dual function. }
+So we find the dual function ($= \inf_{\vecc{w},b}L(\vecc{w},b,\vecc{a})$) by taking derivatives of the Lagrangian and setting them equal to zero:
+\bee
+\fracc{\partial}{\partial\vecc{w}}L &= \vecc{w} - \sum_p a_py_p\vecc{x}_p = 0\\
+\vecc{w} &= \sum_p a_py_p\vecc{x}_p.\\
+\fracc{\partial}{\partial b}L &= \sum_p a_py_p = 0.
+\eee
+Now we plug these expressions back into the Lagrangian:
+\bee
+L(\vecc{w},b,\vecc{a}) &= \fracc{1}{2}\vecc{w}^T\vecc{w} - \sum_p \lpar a_py_p\vecc{w}^T\vecc{x}_p + a_py_pb - a_p\rpar\\
+&= \fracc{1}{2}\vecc{w}^T\vecc{w} - \sum_p  a_py_p\vecc{w}^T\vecc{x}_p -\sum_p a_py_pb +\sum_p a_p.
+\eee
+Plugging in the expression we derived for $\vecc{w}$, we have:
+\bee
+\vecc{w}^T\vecc{w} = \vecc{w}^T\sum_p a_py_p\vecc{x}_p = \sum_p  a_py_p\vecc{w}^T\vecc{x}_p = \sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q.
+\eee
+And then substituting this expression in the first two terms of the Lagrangian, we have:
+\bee
+L(\vecc{w},b,\vecc{a}) &= \lpar \fracc{1}{2} - 1\rpar \sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q -b\sum_p a_py_p +\sum_p a_p.
+\eee
+Then using the other equality we derived after taking the derivative with respect to $b$, the third term is annihilated:
+\bee
+L(\vecc{w},b,\vecc{a}) &= \lpar \fracc{1}{2} - 1\rpar \sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q +\sum_p a_p\\
+&= \fracc{1}{2}\sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q +\sum_p a_p. 
+\eee
+And this is exactly our dual function $\tilde{L}(\vecc{a}) = \fracc{1}{2}\sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q +\sum_p a_p$. 
+
+\item \textit{Write the dual problem. }
+
+
+Thus the dual form of the problem is to find $\max_\vecc{a} \tilde{L}(\vecc{a})$ such that $a_p \geq 0$ $\forall p$ and $\sum_p a_py_p = 0$. 
+\end{enumerate}
+
+\item \textit{Soft-margin Support Vector Machine: derive the soft-margin SVM in dual from similarly to the hard-margin SVM. }
+
+\begin{enumerate}
+\item \textit{Define the Lagrangian and the dual variables. }
+Define slack variables $\xi_1,...,\xi_N$ which are all nonegative. Note the primal problem is to solve:
+\bee
+\min_{\vecc{w},b,\Set{\xi_p\geq 0}}\fracc{1}{N}\sum_p\xi_p + \fracc{\lambda}{2}||\vecc{w}||^2
+\eee
+subject to $y_p(\vecc{w}^T\vecc{x}_p + b) \geq 1 - \xi_p$, $p = 1,...,N$. 
+We first define the Lagrangian multipliers $\vecc{a} = (a_1,...,a_N)$ where $a_p \geq 0$ $\forall p$. We also define a second set of dual variables $\vecc{c} = (c_1,...,c_N)$ which are nonnegative. Then our Lagrangian is:
+\bee
+L(\vecc{w},b,\Set{\xi_p},\vecc{a},\vecc{c}) &= \fracc{1}{N}\sum_p\xi_p + \fracc{\lambda}{2}||\vecc{w}||^2 - \sum_p a_p\lpar y_p(\vecc{w}^T\vecc{x}_p + b) - 1 + \xi_p \rpar - \sum_p c_p\xi_p\\
+&= \fracc{1}{N}\sum_p\xi_p + \fracc{\lambda}{2}\vecc{w}^T\vecc{w} - \sum_p a_p (y_p\vecc{w}^T\vecc{x}_p + y_pb - 1 + \xi_p) - \sum_p c_p\xi_p\\
+&= \fracc{1}{N}\sum_p\xi_p + \fracc{\lambda}{2}\vecc{w}^T\vecc{w} - \sum_p \lpar a_py_p\vecc{w}^T\vecc{x}_p + a_py_pb - a_p + a_p\xi_p\rpar - \sum_p c_p\xi_p.
+\eee
+And the dual variables will be $\vecc{a},\vecc{c}$. 
+
+\item \textit{Derive the dual function. }
+We take derivatives with respect to $\vecc{w},b,\xi$ and set equal to zero to derive relations:
+\bee
+\fracc{\partial}{\partial \vecc{w}}L &= \lambda\vecc{w} - \sum_pa_py_p\vecc{x}_p = 0\\
+\vecc{w} &= \fracc{1}{\lambda}\sum_pa_py_p\vecc{x}_p.\\
+\fracc{\partial}{\partial b}L &= -\sum_pa_py_p = 0.\\
+\fracc{\partial}{\partial \xi_p}L &=  \fracc{1}{N} -  a_p -  c_p = 0\\
+\fracc{1}{N} &= a_p + c_p\\
+c_p &= \fracc{1}{N} - a_p.
+\eee
+Note since we added the constraint that $c_p \geq 0$ $\forall p$, we know $\fracc{1}{N} - a_p \geq 0$ $\forall p$. 
+Note again we have:
+\bee
+\vecc{w}^T\vecc{w} &= \fracc{1}{\lambda}\sum_pa_py_p\vecc{w}^T\vecc{x}_p\\
+&= \fracc{1}{\lambda^2}\sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q. 
+\eee
+ Plugging these relations into our Lagrangian, we have:
+\bee
+L(\vecc{w},b,\Set{\xi_p},\vecc{a},\vecc{c}) &= \fracc{1}{2\lambda}\sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q - \fracc{1}{\lambda}\sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q\\
+&- b\sum_pa_py_p + \sum_pa_p  + \sum_p \fracc{1}{N}\xi_p - \sum_p a_p\xi_p - \sum_pc_p\xi_p\\
+&= -\fracc{1}{2\lambda}\sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q - b\cdot 0 + \sum_p a_p\\
+&+ \sum_p\xi_p\lpar \fracc{1}{N} - a_p - c_p \rpar\\
+&= -\fracc{1}{2\lambda}\sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q + \sum_p a_p. 
+\eee
+Thus the dual function is $\tilde{L}(\vecc{a}) = -\fracc{1}{2\lambda}\sum_p\sum_qa_pa_qy_py_q\vecc{x}_p^T\vecc{x}_q + \sum_p a_p$. 
+
+\item \textit{Write the dual problem. }
+
+The dual problem is to find $\max_{\vecc{a}}\tilde{L}(\vecc{a})$ subject to the constraints $a_p \geq 0$ for all $p$, $\sum_p a_py_p = 0$, and $\fracc{1}{N} - a_p \geq 0$ $\forall p$. 
+
+
+\end{enumerate}
+
+\item \textit{Soft-margin linear SVM in unconstrained form. }
+
+\begin{enumerate}
+\item \textit{Compute the gradient $\nabla_{\vecc{w}}f(\vecc{w})$ of the (regularized) empirical risk:
+\bee
+f(\vecc{w}) = \fracc{1}{N}\sum_p\max\Set{0,1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar } + \fracc{\lambda}{2}||\vecc{w}||^2. 
+\eee}
+
+\textbf{Case 1:} $1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar > 0$. Then we have:
+\bee
+\nabla_{\vecc{w}}f(\vecc{w}) &= \nabla_{\vecc{w}}\left[\fracc{1}{N}\sum_p\max\Set{0,1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar } + \fracc{\lambda}{2}||\vecc{w}||^2\right]\\
+&= \fracc{1}{N}\sum_p\nabla_{\vecc{w}}\max\Set{0,1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar } + \nabla_{\vecc{w}}\fracc{\lambda}{2}||\vecc{w}||^2\\
+&= \fracc{1}{N}\sum_p \nabla_{\vecc{w}}\lpar 1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar\rpar + \lambda\vecc{w}\\
+&= -\fracc{1}{N}\sum_p y_p\vecc{x}_p + \lambda\vecc{w}.
+\eee
+
+\textbf{Case 2:} $1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar < 0$. Then we have:
+\bee
+\nabla_{\vecc{w}}f(\vecc{w}) &= \nabla_{\vecc{w}}\left[\fracc{1}{N}\sum_p\max\Set{0,1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar } + \fracc{\lambda}{2}||\vecc{w}||^2\right]\\
+&= \fracc{1}{N}\sum_p\nabla_{\vecc{w}}\max\Set{0,1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar } + \nabla_{\vecc{w}}\fracc{\lambda}{2}||\vecc{w}||^2\\
+&= \fracc{1}{N}\sum_p \nabla_{\vecc{w}}\lpar 0\rpar + \lambda\vecc{w}\\
+&= \lambda\vecc{w}.
+\eee
+
+\textbf{Case 3:} $1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar = 0$. Then the gradient of the max is undefined, so the gradient of the entire function is undefined. 
+
+
+Let $\alpha = 1 - y_p\lpar \vecc{w}^T\vecc{x}_p \rpar$. So we have:
+\bee
+\nabla_{\vecc{w}}f(\vecc{w}) &= 
+\begin{cases}
+-\fracc{1}{N}\sum_p y_p\vecc{x}_p + \lambda\vecc{w} & \text{ if }\alpha > 0\\
+\lambda\vecc{w} & \text{ if }\alpha < 0\\
+\text{undefined} & \text{ otherwise }
+\end{cases}.
+\eee
+ \end{enumerate}
+
+\item \textit{Neural Network. }
+
+\begin{enumerate}
+\item \textit{Implement the logical OR with a single neuron, similar to the logical AND example from Lecture 10. In other words, find $w_0,w_1,w_2$. }
+
+Set $w_0 = 0.5,w_1 = 1,w_2 = 1$. We show this is a correct implementation of OR. Let $x_1 = 0,x_2 = 0$. Then $a = g(0.5(-1) + 1(0) + 1(0)) = g(-0.5) = 0$. Let $x_1 = 1,x_2 = 0$. Then $a = g(0.5(-1) + 1(1) + 1(0)) = g(0.5) = 1$. Let $x_1 = 0,x_2 = 1$. Then $a = g(0.5(-1) + 1(0) + 1(1)) = g(0.5) = 1$. Let $x_1 = x_2 = 1$. Then $a = g(0.5(-1) + 1(1) + 1(1)) = g(1.5) = 1$. So it is correct. 
+
+\item \textit{Implement the logical XOR with three neurons from Lecture 10, using the weights for AND and OR from previous problems. What are the missing values in the three empty boxes. }
+
+The first box should be $0.5$, the second should be -1, and the third 1. We let the weights for the first two $\wedge$ and $\vee$ neurons use weights $1.5,1,1$ and $0.5,1,1$ respectively, so they behave like OR and AND as proved in class and in the previous exercise. Then let $x_1 = 1,x_2 = 0$. Then the AND output is $0$, and the OR output is 0. So $a = g(0.5(-1) + -1(0) + 1(0)) = g(-0.5) = 0$. Let $x_1 = 1,x_2 = 0$. Then the AND output is 0, the OR output is 1. So we have $a = g(0.5(-1) + -1(0) + 1(1)) = g(0.5) = 1$, and we have the same case when $x_1 = 0,x_2 = 1$. Now let $x_1 = x_2 = 1$. Then the AND output is 1 and the OR output is 1. So we have $a = g(0.5(-1) + -1(1) + 1(1)) = g(-0.5) = 0$. So the XOR implementation is correct. 
+
+
+\end{enumerate}
+
+\item \textit{Multilayer Neural Network. }
+
+\begin{enumerate}
+\item \textit{Forward propagation. What are the values of $a_1,a_2,...,a_9$?}
+
+
+The first three are just inputs:
+\bee
+a_1 &= 1\\
+a_2 &= 0\\
+a_3 &= -1.
+\eee
+
+We compute the hidden layer, where $g(t) = \max\Set{0,t}$:
+\bee
+a_4 &= g\lpar w_{14}a_1 + w_{24}a_2 + w_{34}a_3 \rpar \\
+&= g\lpar 1(1) + 0 + -1(-1) \rpar \\
+&= g(2) = 2.\\
+a_5 &= g\lpar w_{15}a_1 + w_{25}a_2 + w_{35}a_3 \rpar \\
+&= g\lpar -1(1) + 0 + -1(-1) \rpar \\
+&= g(0) = 0.\\
+a_6 &= g\lpar w_{16}a_1 + w_{26}a_2 + w_{36}a_3 \rpar \\
+&= g\lpar 0 + 0 + 1(-1) \rpar \\
+&= g(-1) = 0.\\
+\eee
+
+We compute the output layer, where $g(t)$ is softmax:
+\bee
+n_7 &=  w_{47}a_4 + w_{57}a_5 + w_{67}a_6  \\
+&= 0\\
+n_8 &= w_{48}a_4 + w_{58}a_5 + w_{68}a_6  \\
+&= -2\\
+n_9 &= w_{49}a_4 + w_{59}a_5 + w_{69}a_6  \\
+&= 2.\\
+a_7 &= \fracc{e^{n_7}}{e^{n_7} + e^{n_8} + e^{n_9}}\\
+&= \fracc{1}{1 + e^{-2} + e^2}\\
+&= 0.117.\\
+a_8 &=  \fracc{e^{n_8}}{e^{n_7} + e^{n_8} + e^{n_9}}\\
+&= \fracc{e^{-2}}{1 + e^{-2} + e^2}\\
+&= 0.016.\\
+a_9 &= \fracc{e^{n_9}}{e^{n_7} + e^{n_8} + e^{n_9}}\\
+&= \fracc{e^{2}}{1 + e^{-2} + e^2}.\\
+&= 0.867.
+\eee
+
+\item \textit{Backward propagation. }
+
+
+We compute using $L = L_2 = L(y,f(x)) = ||y - f(x)||^2$:
+\bee
+L &= (y_1 - a_7)^2 + (y_2 - a_8)^2 + (y_3 - a_9)^2\\
+\fracc{\partial L}{\partial a_7} &= -2(y_1 - a_7)\\
+&= -2(1 - 0.117)\\
+&= -1.766\\
+\fracc{\partial L}{\partial a_8} &= -2(y_2 - a_8)\\
+&= -2(-1 - 0.016)\\
+&=2.032\\
+\fracc{\partial L}{\partial a_9} &= -2(y_3 - a_9)\\
+&= -2(1 - 0.867)\\
+&= -0.266.
+\eee
+
+\item \textit{What is the value of $\fracc{\partial L}{\partial w_{47}}$?}
+
+Observe we have:
+\bee
+\fracc{\partial L}{\partial w_{47}} &= \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}\fracc{\partial n_7}{\partial w_{47}}\\
+&= (-1.766)\fracc{\fracc{\partial}{\partial n_7}\lpar e^{n_7} \rpar \lpar e^{n_7} + e^{n_8} + e^{n_9} \rpar  - \fracc{\partial}{\partial n_7}\lpar e^{n_7} + e^{n_8} + e^{n_9} \rpar e^{n_7}}{\lpar e^{n_7} + e^{n_8} + e^{n_9} \rpar ^2} a_4\\
+&= (-1.766\fracc{e^{n_7}\lpar e^{n_8} + e^{n_9} \rpar }{\lpar e^{n_7} + e^{n_8} + e^{n_9} \rpar ^2} a_4\\
+&= (-1.766\fracc{e^{0}\lpar e^{-2} + e^{2} \rpar }{\lpar e^{0} + e^{-2} + e^{2} \rpar ^2} a_4\\
+&= (-1.766\fracc{\lpar e^{-2} + e^{2} \rpar }{\lpar 1 + e^{-2} + e^{2} \rpar ^2} a_4\\
+&= (-1.766)(0.104)\cdot 2\\
+&= -0.368.
+\eee
+
+\item \textit{What is the value of $\fracc{\partial L}{\partial a_4}$?}
+
+Observe by the chain rule we have:
+\bee
+\fracc{\partial L}{\partial a_4} &= 
+\fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{47} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{48} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{49}\\
+&=  (-1.766)(0.104)w_{47} + (2.032)\fracc{e^{n_8}\lpar e^{n_7} + e^{n_9} \rpar }{\lpar e^{n_7} + e^{n_8} + e^{n_9} \rpar ^2}w_{48} + (-0.266)\fracc{e^{n_9}\lpar e^{n_8} + e^{n_7} \rpar }{\lpar e^{n_7} + e^{n_8} + e^{n_9} \rpar ^2}w_{49}\\
+&= 0 + (2.032)(0.016)(-1) + (-0.266)(0.115)\\
+&= -0.062.
+\eee
+
+\item \textit{Finish formula for $\fracc{\partial L}{\partial a_1},\fracc{\partial L}{\partial a_2},\fracc{\partial L}{\partial a_3}$.}
+
+Behold:
+\bee
+\fracc{\partial L}{\partial a_1} &= \fracc{\partial L}{\partial a_4}\fracc{\partial a_4}{\partial n_4}w_{14} + 
+\fracc{\partial L}{\partial a_5}\fracc{\partial a_5}{\partial n_5}w_{15} + 
+\fracc{\partial L}{\partial a_6}\fracc{\partial a_6}{\partial n_6}w_{16}\\
+&= \lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{47} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{48} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{49} \rpar \fracc{\partial a_4}{\partial n_4}w_{14} \\
+&+ 
+\lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{57} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{58} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{59} \rpar\fracc{\partial a_5}{\partial n_5}w_{15} \\
+&+ 
+\lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{67} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{68} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{69} \rpar\fracc{\partial a_6}{\partial n_6}w_{16}.\\
+\fracc{\partial L}{\partial a_2} &= \fracc{\partial L}{\partial a_4}\fracc{\partial a_4}{\partial n_4}w_{24} + 
+\fracc{\partial L}{\partial a_5}\fracc{\partial a_5}{\partial n_5}w_{25} + 
+\fracc{\partial L}{\partial a_6}\fracc{\partial a_6}{\partial n_6}w_{26}\\
+&= \lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{47} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{48} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{49} \rpar \fracc{\partial a_4}{\partial n_4}w_{24} \\
+&+ 
+\lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{57} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{58} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{59} \rpar\fracc{\partial a_5}{\partial n_5}w_{25} \\
+&+ 
+\lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{67} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{68} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{69} \rpar\fracc{\partial a_6}{\partial n_6}w_{26}.\\
+\fracc{\partial L}{\partial a_3} &= \fracc{\partial L}{\partial a_4}\fracc{\partial a_4}{\partial n_4}w_{34} + 
+\fracc{\partial L}{\partial a_5}\fracc{\partial a_5}{\partial n_5}w_{35} + 
+\fracc{\partial L}{\partial a_6}\fracc{\partial a_6}{\partial n_6}w_{36}\\
+&= \lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{47} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{48} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{49} \rpar \fracc{\partial a_4}{\partial n_4}w_{34} \\
+&+ 
+\lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{57} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{58} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{59} \rpar\fracc{\partial a_5}{\partial n_5}w_{35} \\
+&+ 
+\lpar \fracc{\partial L}{\partial a_7}\fracc{\partial a_7}{\partial n_7}w_{67} + 
+\fracc{\partial L}{\partial a_8}\fracc{\partial a_8}{\partial n_8}w_{68} + 
+\fracc{\partial L}{\partial a_9}\fracc{\partial a_9}{\partial n_7}w_{69} \rpar\fracc{\partial a_6}{\partial n_6}w_{36}.\\
+\eee
+\end{enumerate}
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

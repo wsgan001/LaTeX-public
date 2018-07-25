@@ -1,0 +1,347 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[12pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+%\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{multirow}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\vecc}{\mathbf}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\inlinecode}{\texttt}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+
+\begin{abstract}
+We implement from scratch the $k$-means clustering algorithm and apply it to the \inlinecode{TwoDimHard} dataset which contains two numeric 
+independent variables with 4 true, slightly 
+overlapping clusters, and 400 examples. The dataset was sourced from the instructor for the course, Jason Van Hulse. We design a program which accepts as a parameter the number of clusters $k$, specified by the 
+user. We implement the standard Euclidean distance measure for use in the $k$-means algorithm. The output of the program will consist of two columns - (1) the row ID, and (2) the 
+cluster that each record belongs to, as determined by the clustering method. We also compute measures of cohesion and separation of the clusters to evaluate our algorithm. 
+\end{abstract}
+\title{An implementation of $\mathbf{k}$-means clustering}
+\date{SP18}
+\author[Brendan Whitaker]{Brendan Whitaker}
+\maketitle
+\tableofcontents
+
+
+\section{Data preprocessing and implementation}
+
+This program was designed in Google Colab, which is very similar to Jupyter notebook. It runs in Python 2. We initially had difficulty learning how to upload the data file (csv) since unlike Jupyter Notebook, Colab runs in the cloud and thus does not interface with a hard drive directory. Instead, it accesses any files in the user's Google Drive, but we're also able to write code to implement a direct upload to the Colab workspace, so that's what was done to load the CSV. It's important that the file-name the user uploads matches the original file-name ``TwoDimHard.csv", since otherwise the rest of the code won't function correctly. 
+
+\bb
+
+The first thing we did is implement a normalization of the dataset, so we set the mean to 0 and the standard deviation to 1. However, we found that this did not significantly improve the performance of the clustering algorithm, so it was commented out in the final program. 
+
+\bb
+
+Next, we implemented a GUI for the user of the program to select the number of clusters for the algorithm, i.e. to select the value of $k$. This keeps the entire program in full generality so that it can be used for an arbitrary dataset where you may want more or less than 4 clusters with minimal modification. 
+
+\bb
+
+After that, we implemented a short python function for Euclidean distance. Recall that Euclidean distance is defined for two vector $\vecc{x} = (x_1,...,x_n),\vecc{y} = (y_1,...,y_n)$ in $\R^n$ as:
+\bee
+d(\vecc{x},\vecc{y}) &= \sqrt{\sum_{i = 1}^n (y_i - x_i)^2}.
+\eee
+
+We ran into an issue during this implementation that amounted to the ``**" operation used for exponentiation not working for fractions, and so instead we had to use the \inlinecode{math.sqrt()} function. This issue resulted in an raw error count of over 200, which is quite bad since the dataset is only 400 rows long. But once we had finished fixing the Euclidean distance implementation, this dropped down to less than 100. 
+
+
+Now comes the implementation of the $k$-means algorithm itself. This is quite simple to write in pseudocode, but recomputing the centroids and getting the loop condition to update correctly proved to be quite difficult. The centroid computing function simply loops over $i$ up to $k$, and for each row in the database, it computes the mean using a running sum of the coordinates, and a count of the number of relevant datapoints. It then adds the new centroid to an array which is returned at the end. 
+
+For the loop, we loop over all rows to compute distances, and use a running minimum to find the correct cluster assignment. During this same loop, we also check if this new assignment is the same as the previous one. If this is true for all rows, then we terminate the loop, as this means that it has converged to the optimal clusters for these parameters. 
+
+\section{Post processing and results}
+
+This was where the lion's share of our bugs occurred. Our implementation of the algorithm was not guaranteed to use the same names for cluster labels as the true clusters given to us in the dataset. This proved to be quite a problem, since it is impossible to get an accurate measure of how closely the algorithm followed the true labels if the names don't match up. The way we solved this is through a relabeling algorithm, which uses frequency analysis on each cluster to determine out of all $k$ possible relabellings for this cluster, which provides the greatest gain in raw accuracy. So looping over each cluster, we get permutation of the clusters, which we then use a loop over all rows to implement. The result is a final output \inlinecode{DataFrame} whose cluster labels match the true labels of the dataset as much as possible. At then end of all this, we managed to yield a raw error count of 21 out of 400 rows, which is quite an improvement over the initial tests, which had error rates in the hundreds. 
+\bb
+
+We computed the cluster SSB (separation) array for the true clusters:
+\bee
+\begin{array}{llll}
+1 & 2 & 3 & 4\\
+\hline
+61.7 & 34.7 & 45.4 & 49.5
+\end{array},
+\eee
+And the cluster SSE (cohesion) array for the true clusters:
+\bee
+\begin{array}{llll}
+1 & 2 & 3 & 4\\
+\hline
+0.313 & 0.903 & 2.430 & 1.911
+\end{array},
+\eee
+And the total SSE for the true clusters, which was 5.556. 
+
+We also computed the cluster SSB (separation) array for the newly generated clusters (the ones generated by our algorithm):
+\bee
+\begin{array}{llll}
+1 & 2 & 3 & 4\\
+\hline
+60.6 & 34.1 & 48.9 & 53.2
+\end{array},
+\eee
+As well as the cluster SSE (cohesion) array for the new clusters:
+\bee
+\begin{array}{llll}
+1 & 2 & 3 & 4\\
+\hline
+0.500 & 1.076 & 1.845 & 1.471
+\end{array},
+\eee
+And the total SSE for the new clusters, which was 4.892. What's very interesting about these results is that the total sum of squared error (SSE) for the generated clusters from our new homebrew algorithm is actually lower than that of the true clusters. This reflects the truth that the distribution we are trying to model when doing data science is not always ``ideal" or ``nice", whereas our models tend to assume that it is. This is reflected in the side-by-side scatterplots of the two cluster assignments:
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.8]{rawKMeansPlot.png}
+\end{center}
+\caption{true clusters.}
+\end{figure}
+\begin{figure}
+
+\begin{center}
+\includegraphics[scale=0.8]{newKMeansPlot.png}
+\end{center}
+\caption{new clusters.}
+\end{figure}
+
+Observe that in the true clusters, there is some noise, like the lone black point in the sea of light gray points, and the few gray points which have encroached on the white cluster. But in the new clusters, none of this noise is present, the clustering is ``better", but it doesn't fit the true distribution perfectly. 
+
+\bb
+
+We can see these small discrepancies more clearly in the cross-tabulation matrix:
+\bee
+\begin{array}{l|llll}
+&1&2&3&4\\
+\hline
+1&89 & 0 & 0 &0\\
+2 & 2 & 98 & 0 & 0\\
+3 & 4 & 2 & 88 & 3\\
+4 & 0 & 8 & 2 & 104
+\end{array}.
+\eee
+
+\section{The $k = 3$ case.}
+
+We now move on to the discussion of the results when we reduce the number of clusters down to $k = 3$ in our implementation of $k$-means. Luckily, since the code was very generalizable, it was fairly simple to implement this change. We simply input the new value for $k$ and ran each code block in the Colab notebook in order down the file, and since we already wrote the code to compute the SSE array, total SSE, and SSB array, computing these for $k= 3$ was very quick. We give these results and compare to the case where $k = 4$. Our SSB (cohesion) array is:
+\bee
+\begin{array}{lll}
+1 & 2 & 3\\
+\hline
+52.8 & 27.8 & 36.0
+\end{array},
+\eee
+And our cluster SSE (cohesion) array for the new $k = 3$ clusters is:
+\bee
+\begin{array}{lll}
+1 & 2 & 3\\
+\hline
+0.870 & 1.667 & 7.855
+\end{array},
+\eee
+And the total SSE for the new clusters, which was 10.393. The SSB values are quite similar to the case where $k = 4$, and this makes sense, since removing a single cluster shouldn't affect the inter-cluster distances all too much. We would expect a great increase in inter-cluster distance (separation) if we went from a very high cluster value of $k$, 50 for example, to a lower cluster value of say $k = 4$. The SSE array is more telling, We had values hovering around 1-2 in the $k  = 4$ case, but in the $k = 3$ case we had one cluster which read more than 7, which is much higher than the highest entry from the $k = 4$ array. Similarly, the total SSE for the $k = 3$ case was about double that of the $k = 4$ case, at around $10$ compared to the 4.9 value of $k = 3$. 
+
+
+
+\section{Off-the-shelf algorithms}
+
+We used the \inlinecode{sklearn} $k$-means off-the-shelf clustering algorithm to compare my implementation. The code for the implementation is as follows:
+\begin{lstlisting}
+# Convert DataFrame to matrix
+mat = raw.as_matrix()
+# Using sklearn
+km = sklearn.cluster.KMeans(n_clusters=4)
+km.fit(mat)
+# Get cluster assignment labels
+labels = km.labels_
+# Format results as a DataFrame
+results = pd.DataFrame([raw.index,labels]).T
+print results
+\end{lstlisting}
+
+As seen above, there are no model parameters to tweak other than the value of $k$, which was set to 4 to make it easy to compare this implementation with the one made in this project. As we did with the homebrew algorithm, we compute the SSB and SSE arrays and the total SSE for this implementation to see how it compares:
+We have the SSB:
+\bee
+\begin{array}{llll}
+1 & 2 & 3 & 4\\
+\hline
+42.0 & 56.2 & 51.2 &32.0
+\end{array},
+\eee
+As well as the cluster SSE (cohesion) array for the new clusters:
+\bee
+\begin{array}{llll}
+1 & 2 & 3 & 4\\
+\hline
+3.694 & 1.168 & 1.666 & 2.306
+\end{array}
+\eee
+And the total SSE for the new clusters, which was 8.835. What's curious about this is that the error metrics are actually lower by a significant measure than the ones we computed for our new homemade $k$-means, although they are still quite close in the grand-scheme of things. They could be using a different distance metric other than Euclidean, which is probably the most likely reason for the difference. It could also be rounding error, or they could be using a slightly different termination criterion than we are. However, since our accuracy isn't lower than theirs, and this is a widely used implementation, we can safely assume that our algorithm works sufficiently well. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

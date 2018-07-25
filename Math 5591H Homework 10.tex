@@ -1,0 +1,267 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+
+
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+%\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{bbm}
+%\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+%\usepackage{tikz}
+%\usepackage{environ}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+%\usepackage[ruled,linesnumbered]{algorithm2e}
+%\usepackage{adjustbox}
+%\usepackage{changepage}
+%\usepackage{import}
+%\usepackage{newclude}
+\usepackage[all,cmtip]{xy}
+\usepackage[]{titlesec}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+
+
+
+
+
+
+
+\usepackage{hyperref}
+
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+
+
+
+
+
+
+
+
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+%NAMED THEOREMS
+\theoremstyle{plain}
+\newtheorem*{namedthm}{\namedthmname}
+\newcounter{namedthm}
+\makeatletter
+	\newenvironment{named}[2]
+	{\def\namedthmname{#1}
+	\refstepcounter{namedthm}
+	\namedthm[#2]\def\@currentlabel{#1}}
+	{\endnamedthm}
+\makeatother
+
+
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+\newcommand{\rank}{\text{rank}}
+\DeclareMathOperator{\coker}{coker}
+\newcommand*\pp{{\rlap{\('\)}}}
+
+
+
+
+
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+
+
+\title{Math 5591H Homework 10}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{13.5 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{4}
+
+\item \textit{For any prime $p$ and any nonzero $a \in \F_p$, prove that $x^p - x + a$ is irreducible and separable over $\F_p$. [For the irreducibility: One approach -- prove first that if $\alpha$ is a root then $\alpha + 1$ is also a root. Another approach -- suppose it's reducible and compute derivatives.]}
+
+\begin{proof}
+Suppose $\alpha$ is a root. Then we have $\alpha^p - \alpha + a = 0$. Behold: 
+\bee
+(\alpha + 1)^p - (\alpha + 1) + a &= \lpar\sum_{k = 0}^p \binom{p}{k}\alpha^k\rpar - \alpha - 1 + a\\
+&= \lpar \sum_{k = 1}^{p - 1} \binom{p}{k}\alpha^k \rpar + \alpha^p - \alpha + a\\
+&= \sum_{k = 1}^{p - 1} \binom{p}{k}\alpha^k \\
+&= \sum_{k = 1}^{p - 1} \fracc{p!}{k!(p - k)!}\alpha^k.
+\eee
+We claim that $\fracc{p!}{k!(p - k)!}$ is divisible by $p$ for all integer values of $k$ in the range $[1,p - 1]$. Note for these values of $k$ that $p\nmid (k!(p - k)!)$ but that $p|p!$, and the binomial coefficient is an integer, so we must have that $p|\lpar \fracc{p!}{k!(p - k)!} \rpar $. Thus: 
+$$
+\sum_{k = 1}^{p - 1} \fracc{p!}{k!(p - k)!}\alpha^k \mod p \equiv 0.
+$$
+And since we are over $\F_p$, we know that $\alpha + 1$ must then be a root. Now note that by induction, we have that if any $\alpha \in \F_p$ is a root, then all elements of $\F_p$ are roots, hence $0$ is a root. So we have:
+$$
+0^p - 0 + a = 0 \Rightarrow a = 0,
+$$
+which is a contradiction, since we said $a\neq 0$. So we must have that $\nexists \alpha \in \F_p$ such that $\alpha$ is a root of the given polynomial. So let $\alpha$ be a root, then $\alpha \notin \F_p$. Then consider the extension $\F_p(\alpha)$. It must contain $\alpha + k$, for all $k \in \F_p$. Then $f(x)$ must be the product of all minimal polynomials. Also since $\F_p(\alpha) \cong \F_p(\alpha + k)$ we know that they all have the same degree, say $m$. Then $p = km$, which tells us $k = 1$ since $p$ prime. Then we must have that the minimal polynomial is $f$ and it is irreducible. 
+Now we show that it is separable. Simply recall from Proposition 37 in the book that every irreducible polynomial over a finite field is separable. 
+\end{proof}
+
+
+
+
+\end{enumerate}
+
+\section*{13.6 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{5}
+\item \textit{Prove that for $n$ odd, $n> 1$, $\Phi_{2n}(x) = \Phi_n(-x)$. }
+
+\begin{proof}
+Let $n$ be odd, and let $\phi(x)$ be Euler's totient function. Then $\phi(n) = \phi(2n)$ since the only factor of $2n$ which is not already a factor of $n$ is 2, and $2\nmid n$ since $n$ is odd. So then $\Phi_{2n}(x)$ has the same degree as $\Phi_n(-x)$. So they both have the same number of roots. But note we know that if $\omega$ is an $n$-th root of unity, then we know that $-\omega$ is also an $n$-th root of unity and also a $2n$-th root of unity. Then the roots of $\Phi_{n}(-x)$ are also roots of $\Phi_{2n}(x)$, and since we already proved that they have the same number of roots, we know they are the same polynomial. (Note I got the idea for this proof from Jack Peltier)
+\end{proof}
+\end{enumerate}
+
+\section*{14.3 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{3}
+
+\item \textit{Construct a finite field of 16 elements and find a generator for the multiplicative group. How many generators are there?}
+
+We simply need to construct an irreducible polynomial of degree 4 over $\F_2$. Consider $f(x) = x^4 + x^3 + x^2 + x + 1$. Clearly $1,0$ are not roots. So we need to check if it is divisible by any irreducible quadratics. So it would have to b $(x^2 + x + 1)^2$, as this is the only such quadratic. We have:
+\bee
+(x^2 + x + 1)^2 &= x^4 + x^3 + x^2 + x^3 + x^2 + x + x^2 + x + 1\\
+&= x^4 + x^2 + 1.
+\eee
+
+So $f$ is irreducible. Thus $\F_2[x]/(f) \cong \F_{2^4}$, a finite field of $16$ elements. Note that the multiplicative group of this field is isomorphic to $\z_{15}$ since we have 15 nonzero elements. Since we want to know how many generators we have, recall that the generators of $\z_{15}$ are exactly those whose equivalence classes are coprime with the order. So we have $\phi(15) = 8$ generators. 
+
+\bee
+(x + 1)^2 &= x^2 + 1\\
+(x + 1)(x^2 + 1) &= x^3 + x + x^2 + 1\\
+(x + 1)(x^3 + x^2 + x + 1) &= x^4 + x^3 + x^2 + x + x^3 + x^2 + x + 1\\
+&= x^4 + 1\\
+(x + 1)^5 &= (x + 1)(x^4 + 1) = x^5 + x + x^4 + 1.\\
+\eee
+
+And since $\z_5$ is the largest subgroup in the lattice of $\z_15$, we know that the elements with largest order not equal to 15 have order 5, and this element has order $> 5$ since $(x + 1)^5 \neq 1$. So it must have order 15. Thus $x + 1$ is a generator. 
+
+
+
+\end{enumerate}
+
+
+\end{document}
+
+
+

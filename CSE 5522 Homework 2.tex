@@ -1,0 +1,458 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[12pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{framed}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\inlinecode}{\texttt}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+
+
+\title{CSE 5522 Homework 2}
+\date{SP18}
+\author[Brendan Whitaker]{Brendan Whitaker}
+\maketitle
+%\tableofcontents
+
+
+
+\begin{enumerate}[label=\arabic*.]
+
+\item \begin{enumerate}
+
+\item \textit{What is the $\log$-likelihood L of observing  $x_1,...,x_N$
+? Write the formula.}
+\bb
+
+
+Let $L$ denote the $\log$-likelihood. By definition of the Gaussian, we have: 
+\bee
+L &= logP(x_1,...,x_N) = log\lpar \prod_{i = 1}^B x_i\rpar  = \sum_{i = 1}^N log P(x_i)\\
+&= \sum_{i = 1}^N log \lpar \fracc{1}{\sqrt{2\pi}\sigma}e^{\fracc{-(x_i - \mu)^2}{2\sigma^2}} \rpar\\
+ &= \sum_{i = 1}^N log \lpar \fracc{1}{\sqrt{2\pi}\sigma}\rpar  + log\lpar e^{\fracc{-(x_i - \mu)^2}{2\sigma^2}} \rpar \\
+&= \sum_{i = 1}^N log \lpar \fracc{1}{\sqrt{2\pi}\sigma}\rpar  + \sum_{i = 1}^N log\lpar e^{\fracc{-(x_i - \mu)^2}{2\sigma^2}} \rpar \\
+&= N log \lpar \fracc{1}{\sqrt{2\pi}\sigma}\rpar  + \sum_{i = 1}^N \fracc{-(x_i - \mu)^2}{2\sigma^2} \\
+&=Nlog1 - Nlog\sqrt{2\pi} - Nlog\sigma  + \sum_{i = 1}^N \fracc{-(x_i - \mu)^2}{2\sigma^2} \\
+&=- Nlog\sqrt{2\pi} - Nlog\sigma  + \sum_{i = 1}^N \fracc{-(x_i - \mu)^2}{2\sigma^2} \\
+&= - Nlog\sqrt{2\pi} - Nlog\sigma  - \fracc{1}{2\sigma^2}\sum_{i = 1}^N (x_i - \mu)^2. \\
+\eee
+
+\item \textit{What is $\fracc{\partial L}{\partial \sigma}$?}
+
+\bb
+Observe:
+\bee
+\fracc{\partial L}{\partial \sigma} &= \fracc{\partial}{\partial \sigma}\lpar - Nlog\sqrt{2\pi} - Nlog\sigma  - \fracc{1}{2\sigma^2}\sum_{i = 1}^N (x_i - \mu)^2\rpar\\
+&=  -N \fracc{\partial}{\partial \sigma}log\sigma  -\fracc{1}{2}\sum_{i = 1}^N (x_i - \mu)^2 \fracc{\partial}{\partial \sigma}\fracc{1}{\sigma^2}\\
+&=  -N \fracc{1}{\sigma}  + \sum_{i = 1}^N (x_i - \mu)^2 \fracc{1}{\sigma^{3}}.\\
+\eee
+
+\item \textit{What is the MLE of $\sigma$?}
+
+\bb
+We set $\fracc{\partial L}{\partial \sigma} = 0$ and solve for $\sigma$:
+\bee
+0 &=  -N \fracc{1}{\sigma}  + \sum_{i = 1}^N (x_i - \mu)^2 \fracc{1}{\sigma^{3}}\\
+N \fracc{1}{\sigma} &= \sum_{i = 1}^N (x_i - \mu)^2 \fracc{1}{\sigma^{3}}\\
+N\sigma^2 &= \sum_{i = 1}^N (x_i - \mu)^2\\
+\hat{\sigma} &= \sqrt{\fracc{1}{N}\sum_{i = 1}^N (x_i - \mu)^2}. 
+\eee
+\end{enumerate}
+\bb
+\item \textit{Bayesian estimation for coin tosses. }
+\bb
+\begin{enumerate}
+\item \textit{Prove that $P(x_{m + 1} = H|x_1,...,x_m) = (\alpha + \#H)/(\alpha + \#H + \beta + \#T)$. }
+\bb
+\begin{proof}
+Define $\Theta$ to be a random variable representing the probability of heads, our prior. Also define the beta function:
+$$
+B(\alpha,\beta)  = \fracc{(\alpha - 1)!(\beta - 1)!}{(\alpha + \beta - 1)!}.
+$$ 
+Recall the definition of the beta probability density function on $[0,1]$:
+$$
+P_{Beta(\alpha,\beta)}(\Theta) = \fracc{1}{B(\alpha,\beta)}\Theta^{\alpha -1}(1 - \Theta)^{\beta - 1}.
+$$
+And since this is a probability density function, we know it integrates to 1 on this interval, which is a fact we will use later in the derivation. 
+
+We use the equality given in the problem statement:
+\bee
+P(x_{m + 1} = H,\Theta|x_1,...,x_m) &= P(x_{m + 1} = H|\Theta)P(\Theta|x_1,...,x_n).
+\eee
+Now we marginalize to find $P(x_{m + 1} = H|x_1,...,x_m)$:
+\bee
+& P(x_{m + 1} = H|x_1,...,x_m)\\
+ &= \int_0^1P(x_{m + 1} = H|\Theta)P(\Theta|x_1,...,x_n)d\Theta\\
+&= \int_0^1\Theta
+\fracc{1}{B(\#H + \alpha,\# T + \beta)}\Theta^{\# H + \alpha - 1}(1 - \Theta)^{\# T + \beta - 1}d\Theta\\
+&= \int_0^1
+\fracc{1}{B(\#H + \alpha,\# T + \beta)}\Theta^{(\# H + \alpha + 1) - 1}(1 - \Theta)^{\# T + \beta - 1}d\Theta\\
+&= \int_0^1
+\fracc{B(\#H + \alpha + 1,\# T + \beta)}{B(\#H + \alpha,\# T + \beta)}\fracc{1}{B(\#H + \alpha + 1,\# T + \beta)}\Theta^{(\# H + \alpha + 1) - 1}(1 - \Theta)^{\# T + \beta - 1}d\Theta\\
+&= \fracc{B(\#H + \alpha + 1,\# T + \beta)}{B(\#H + \alpha,\# T + \beta)}\int_0^1
+\fracc{1}{B(\#H + \alpha + 1,\# T + \beta)}\Theta^{(\# H + \alpha + 1) - 1}(1 - \Theta)^{\# T + \beta - 1}d\Theta\\
+&= \fracc{B(\#H + \alpha + 1,\# T + \beta)}{B(\#H + \alpha,\# T + \beta)}\int_0^1
+P_{Beta(\#H + \alpha + 1,\# T + \beta)}(\Theta)d\Theta\\
+&=\fracc{B(\#H + \alpha + 1,\# T + \beta)}{B(\#H + \alpha,\# T + \beta)}\\
+&= \fracc{(\#H + \alpha + 1 - 1)!(\# T + \beta - 1)!}{(\#H + \alpha + 1 + \# T + \beta - 1)!}\fracc{(\#H + \alpha + \# T + \beta - 1)!}{(\#H + \alpha - 1)!(\# T + \beta - 1)!}\\
+&= \fracc{(\#H + \alpha)!(\# T + \beta - 1)!}{(\#H + \alpha + \# T + \beta)!}\fracc{(\#H + \alpha + \# T + \beta - 1)!}{(\#H + \alpha - 1)!(\# T + \beta - 1)!}\\
+&= \fracc{(\#H + \alpha)!}{(\#H + \alpha + \# T + \beta)!}\fracc{(\#H + \alpha + \# T + \beta - 1)!}{(\#H + \alpha - 1)!}\\
+&= \fracc{(\#H + \alpha)}{(\#H + \alpha + \# T + \beta)!}(\#H + \alpha + \# T + \beta - 1)!\\
+&= \fracc{\#H + \alpha}{\#H + \alpha + \# T + \beta}.\\
+\eee
+\end{proof}
+\end{enumerate}
+
+\item 
+\begin{enumerate}
+\item \textit{Define the variance $var(X) = E((X - E(X))^2)$. Prove $E(X^2) = var(X) + E(X)^2$. }
+
+\begin{proof}
+Observe:
+\bee
+var(X) &= E((X - E(X))^2)\\
+&= E(X^2 - 2XE(X) + E(X)^2)\\
+&= E(X^2) - 2E(X)E(X) + E(X)^2\\
+&= E(X^2) - E(X)^2.\\
+\eee
+Hence:
+$$
+E(X^2) = var(X) + E(X)^2.
+$$
+\end{proof}
+
+\item \textit{Define the conditional variance $var(X|Y) = E((X - E(X|Y))^2|Y)$. Prove that $var(X) = E(var(X|Y)) + var(E(X|Y))$.  } 
+
+\begin{proof}
+Recall the law of total expectation:
+$$
+E(X) = E(E(X|Y)).
+$$
+Behold:
+\bee
+var(X) &= E(X^2) - E(X)^2\\
+&= E(E(X^2|Y)) - E(E(X|Y))^2\\
+&= E(var(X|Y) + E(X|Y)^2)  - E(E(X|Y))^2\\
+&= E(var(X|Y)) + E(E(X|Y)^2))  - E(E(X|Y))^2\\
+&= E(var(X|Y)) + var(E(X|Y)).
+\eee
+Note the second equality is by the law of total expectation, the third is by part (a), the fourth equality is by linearity of expectation, and the fifth is by the alternate definition of variance derived in part (a). 
+\end{proof}
+\end{enumerate}
+\bb
+\item \textit{Recall that KL-divergence is defined as:
+$$
+KL(q||p) = E_p\left[\log\fracc{p(Z)}{q(Z)} \right].
+$$}
+\begin{enumerate}
+\item \textit{Let $N(-1,1)$ and $N(1,1)$ be two univariate Gaussian distributions with mean $-1$ and $-1$ and unit variance. What is KL$(N(-1,1),N(1,1))$? What is KL$(N(1,1),N(-1,1))$? Are they the same?}
+\bb
+
+Observe:
+\bee
+&KL(N(\mu_1,1),N(\mu_2,1))\\
+ =& E_1\left[\log\fracc{\fracc{1}{\sqrt{2\pi}}e^{-\fracc{1}{2}(X - \mu_1)^2}}{\fracc{1}{\sqrt{2\pi}}e^{-\fracc{1}{2}(X - \mu_2)^2}} \right]\\
+=& E_1\left[\log\left(\fracc{1}{\sqrt{2\pi}}e^{-\fracc{1}{2}(X - \mu_1)^2}\right) - \log\left(\fracc{1}{\sqrt{2\pi}}e^{-\fracc{1}{2}(X - \mu_2)^2}\right) \right]\\
+=& E_1\left[\log\fracc{1}{\sqrt{2\pi}} + \log e^{-\fracc{1}{2}(X - \mu_1)^2} - \left[\log\fracc{1}{\sqrt{2\pi}} + \log e^{-\fracc{1}{2}(X - \mu_2)^2}\right] \right]\\
+=& E_1\left[\log\fracc{1}{\sqrt{2\pi}}  -\fracc{1}{2}(X - \mu_1)^2 - \left[\log\fracc{1}{\sqrt{2\pi}}  -\fracc{1}{2}(X - \mu_2)^2\right] \right]\\
+=& E_1\left[-\fracc{1}{2}log(2\pi)  -\fracc{1}{2}(X - \mu_1)^2 - \left[-\fracc{1}{2}log(2\pi)  -\fracc{1}{2}(X - \mu_2)^2\right] \right]\\
+=& E_1\left[-\fracc{1}{2}log(2\pi)  -\fracc{1}{2}(X - \mu_1)^2 +\fracc{1}{2}log(2\pi)  +\fracc{1}{2}(X - \mu_2)^2 \right]\\
+=& E_1\left[  -\fracc{1}{2}(X - \mu_1)^2   +\fracc{1}{2}(X - \mu_2)^2 \right]\\
+=& E_1\left[  \fracc{1}{2}\left[(X - \mu_2)^2 - (X - \mu_1)^2  \right] \right]\\
+=& \fracc{1}{2}\left[  E_1\left[(X - \mu_2)^2 - (X - \mu_1)^2  \right] \right]\\
+=& \fracc{1}{2}\left[  E_1[(X - \mu_2)^2] - E_1[(X - \mu_1)^2]  \right]\\
+=& \fracc{1}{2}\left[  E_1[(X - \mu_2)^2] - E_1[X^2 - 2X\mu_1 + \mu_1^2]  \right]\\
+=& \fracc{1}{2}\left[  E_1[(X - \mu_2)^2] - E_1[X^2] + 2\mu_1^2 - \mu_1^2 \right]\\
+=& \fracc{1}{2}\left[  E_1[(X - \mu_2)^2] - (\sigma_1^2 + \mu_1^2)+ \mu_1^2\right]\\
+=& \fracc{1}{2}\left[  E_1[(X - \mu_2)^2] - \sigma_1^2\right]\\
+=& \fracc{1}{2}\left[  E_1[(X - \mu_1 + \mu_1 - \mu_2)^2] - \sigma_1^2\right]\\
+=& \fracc{1}{2}\left[  E_1[(X - \mu_1)^2 + 2(X - \mu_1)(\mu_1 - \mu_2) + (\mu_1 - \mu_2)^2] - \sigma_1^2\right]\\
+=& \fracc{1}{2}\left[\sigma_1^2 + (\mu_1 - \mu_2)^2 - \sigma_1^2\right]\\
+=& \fracc{1}{2}\left[(\mu_1 - \mu_2)^2 \right]. \\
+\eee
+So plugging in $\mu_1 = -1$, $\mu_2 = 1$, we have:
+$$
+KL(N(\mu_1,1),N(\mu_2,1)) = \fracc{1}{2}\left[(-1 - 1)^2 \right] = 2.
+$$
+And plugging in $\mu_1 = 1$, $\mu_2 = -1$, we have:
+$$
+KL(N(\mu_1,1),N(\mu_2,1)) = \fracc{1}{2}\left[(1 +1)^2 \right] = 2.
+$$
+So they are the same. 
+\bb
+
+\item \textit{Let $P(x)$ be the probability distribution of a fair die $(P(x = 1)=\cdots =P(x = 6) = 1/6)$ and $Q(x)$ be the distribution of a biased die, with $Q(x = 1) = \cdots = Q(x = 4) = \fracc{1}{8}$ and $Q(x = 5) = Q(x = 6) = \fracc{1}{4}$. What is KL$(P||Q)$? What is KL$(Q||P)$? You will need a calculator for this. }
+Observe:
+\bee
+KL(P||Q) &= E_P\left[\log_2\fracc{P(X)}{Q(X)} \right]\\
+&= E_P\left[\log_2\fracc{1}{6Q(X)} \right]\\
+&= E_P\left[-\log_26Q(X) \right]\\
+&= \sum_{i = 1}^6\left[-\log_2(6Q(X = i))P(X = i) \right]\\
+&= 4\left[-\log_2(6\fracc{1}{8})\fracc{1}{6} \right] + 2\left[-\log_2(6\fracc{1}{4})\fracc{1}{6} \right]\\
+&\approx 0.277 + -.195\\
+&\approx 0.082.
+\eee
+\bee
+KL(Q||P) &= E_Q\left[\log_2\fracc{Q(X)}{P(X)} \right]\\
+&= E_Q\left[\log_2(6Q(X)) \right]\\
+&= \sum_{i = 1}^6\left[\log_2(6Q(X = i))Q(X = i) \right]\\
+&= 4\left[\log_2(6\fracc{1}{8})\fracc{1}{8} \right] + 2\left[\log_2(6\fracc{1}{4})\fracc{1}{4} \right]\\
+&\approx -0.207 + 0.292\\
+&\approx 0.085.
+\eee
+
+\end{enumerate}
+\bb
+\item \textit{Suppose there is a bag containing two biased coins $A$ and $B$ with probabilities of coming up heads of $0.4$, and $0.6$, respectively. You will draw a coin randomly from the bag, denoted $Y$, with an equal chance of $\fracc{1}{2}$, and then flip that coin three times, to get the outcomes $X_1,X_2,X_3$. Note that variable $Y$ can be either $A$ or $B$, and that $X_i$ can be either H(eads) or T(ails). }
+
+
+\vspace{200mm}
+
+\item 
+
+\begin{enumerate}
+
+\item \textit{E step. }
+
+Behold:
+\bee
+&P(\text{unobserved variables}|\text{observed variables},\pi_A,\Theta_A,\Theta_B)\\
+=& P(Y=A|X_1 = T,X_2 = H,X_3 = T,\pi_A,\Theta_A,\Theta_B)\\
+=& \frac{P(Y,X_1 = T,X_2 = H,X_3 = T|\pi_A,\Theta_A,\Theta_B)}{\sum_yP(Y = y,X_1 = T,X_2 = H,X_3 = T|\pi_A,\Theta_A,\Theta_B)}\\
+=& \frac{P(X_1 = T,X_2 = H,X_3 = T|A)\cdot P(Y = A)}{P(X_1 = T,X_2 = H,X_3 = T|A)P(Y = A) + P(X_1 = T,X_2 = H,X_3 = T|B)P(Y = B)}\\
+=& \frac{(1 - \Theta_A)^2\Theta_A\cdot \pi_A}{(1 - \Theta_A)^2\Theta_A\cdot \pi_A + (1 - \Theta_B)^2\Theta_B\cdot (1 - \pi_A)}. \\
+\eee
+
+\item \textit{M step. }
+We compute:
+\tiny
+\bee
+&\text{argmax}_{\pi_A,\Theta_A,\Theta_B}\sum_y P(Y = y|X_1 = T,X_2 = H,X_3 = T,\pi_A^{old},\Theta_A^{old}\Theta_B^{old})\log P(X_1 = T,X_2 = H,X_3 = T,Y=y|\pi_A,\Theta_A,\Theta_B)\\
+=&\text{argmax}_{\pi_A,\Theta_A,\Theta_B}\frac{(1 - \Theta_A^{old})^2\Theta_A^{old}\cdot \pi_A^{old}}{(1 - \Theta_A^{old})^2\Theta_A^{old}\cdot \pi_A^{old} + (1 - \Theta_B^{old})^2\Theta_B^{old}\cdot (1 - \pi_A^{old})}\log ((1 - \Theta_A)^2\Theta_A\cdot \pi_A)\\
++&\frac{(1 - \Theta_B^{old})^2\Theta_B^{old}\cdot (1 - \pi_A^{old})}{(1 - \Theta_A^{old})^2\Theta_A^{old}\cdot \pi_A^{old} + (1 - \Theta_B^{old})^2\Theta_B^{old}\cdot (1 - \pi_A^{old})}\log ((1 - \Theta_B^{old})^2\Theta_B^{old}\cdot (1 - \pi_A^{old})).
+\eee
+\end{enumerate}
+
+\item \textit{We perform two iterations of $k$-means, using the Lloyd's algorithm implementation. We define each of the points:
+\bee
+A &= (0.43,0.36)\\
+B &= (0.79,0.27)\\
+C &= (0.13,0.82)\\
+D &= (0.34,0.36)\\
+E &= (0.55,0.89)\\
+F &= (0.31,0.05).
+\eee
+And our centroids are initialized to:
+\bee
+C_1 &= (0.0,0.05)\\
+C_2 &= (1.0,0.5)
+\eee
+}
+\begin{enumerate}
+\item \textit{Iteration 1:}
+\bee
+d(C_1,A) &= 0.452\\
+d(C_1,B) &= 0.823\\
+d(C_1,C) &= 0.345\\
+d(C_1,D) &= 0.368\\
+d(C_1,E) &= 0.674\\
+d(C_1,F) &= 0.546.
+\eee
+\bee
+d(C_2,A) &= 0.587\\
+d(C_2,B) &= 0.311\\
+d(C_2,C) &= 0.927\\
+d(C_2,D) &= 0.675\\
+d(C_2,E) &= 0.595\\
+d(C_2,F) &= 0.824.
+\eee
+So Define the clusters $U_1,U_2$ corresponding to the centroids $C_1,C_2$, respectively. So we have:
+\bee
+U_1 &= \Set{A,C,D,F}\\
+U_2 &= \Set{B,E}.
+\eee
+So our new centroids are the midpoints of the points in these sets:
+\bee
+C_1' &= (0.30,0.40)\\
+C_2' &= (0.31,0.58).
+\eee
+
+\item \textit{Iteration 2:}
+\bee
+d(C_1',A) &= 0.136\\
+d(C_1',B) &= 0.507\\
+d(C_1',C) &= 0.453\\
+d(C_1',D) &= 0.057\\
+d(C_1',E) &= 0.550\\
+d(C_1',F) &= 0.350.
+\eee
+\bee
+d(C_2',A) &= 0.251\\
+d(C_2',B) &= 0.571\\
+d(C_2',C) &= 0.300\\
+d(C_2',D) &= 0.222\\
+d(C_2',E) &= 0.392\\
+d(C_2',F) &= 0.530.
+\eee
+So Define the clusters $U_1,U_2$ corresponding to the centroids $C_1,C_2$, respectively. So we have:
+\bee
+U_1 &= \Set{A,B,D,F}\\
+U_2 &= \Set{C,E}.
+\eee
+So our new centroids are the midpoints of the points in these sets:
+\bee
+C_1' &= (0.47,0.26)\\
+C_2' &= (0.34,0.86).
+\eee
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

@@ -1,0 +1,342 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[10pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}%{chapter}
+%\numberwithin{equation}%{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+
+
+\begin{document}
+
+\title{CSE 6331 Homework 6}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\begin{enumerate}[label=\arabic*.]
+
+\item We wish to compute the weight of the minimum weight sequence of moves by which a pawn can go from first to last row. Let $i$ the the index of the current row of the pawn. Then define $f(i,j)$ the be the weight of the minimum weight sequence from position $(i,j)$ to row $m$. Then we have the recurrence relation:
+\bee
+f(i,j) = \text{weight}(i,j) + \min \begin{cases}
+f(i + 1,j - 1)\\
+f(i + 1,j)\\
+f(i + 1,j + 1)
+\end{cases}.
+\eee
+where $1 \leq i,j \leq m$. And our boundary conditions are:
+\bee
+f(m + 1,j) &= 0\\
+f(i,0) &= \infty\\
+f(i,m + 1) &= \infty.
+\eee
+Our goal is to compute $f(1,1)$. We give a non-recursive algorithm to compute $f(1,1)$ by the array $F[1..m + 1,0..m + 1]$:
+\bb
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+\KwData{The weight matrix $Weight[1..m,1..m]$. }
+\KwResult{The array $F[i,j]$ computed for $1 \leq i,j \leq m$. }
+\Begin{
+\textbf{global array} $F[1..m + 1,0..m + 1]$\;
+\textbf{initialize} $F[i, m + 1] \longleftarrow 0,F[i,0] \longleftarrow 0$ for $1 \leq i \leq m + 1$;\\
+\textbf{initialize} $F[m + 1,j] \longleftarrow 0$ for $0 \leq j \leq m + 1$;
+
+\For{$i \leftarrow m$ \KwTo $1$}{
+	\For{$j \leftarrow m$ \KwTo $1$}{
+		$F[i,j] \longleftarrow Weight[i,j] + \min\Set{F[i + 1,j - 1],F[i + 1,j],F[i + 1,j + 1]}$;
+		
+	
+	}
+}
+}
+\caption{Chessboard-Array-$F$}
+\end{algorithm}
+\end{restoretext}
+The asymptotic running time is $\Theta(n^2)$. The problem statement says it is not necessary to actually print the sequence, but if we wanted to, we would simply use a while loop, saying while $i \neq m + 1$ starting at $i = 1$ and initializing $j = 1$, print $(i,j)$, then compute $F[i,j] - Weight[i,j]$ and then we know that one of the elements of $\Set{F[i + 1,j - 1],F[i + 1,j],F[i + 1,j + 1]}$ must be equal in value to this quantity. So we use an if-elseif-else statement to find the first of these which has the desired value, and then update $i,j$ values to match the chosen next move. 
+
+
+
+
+
+
+\bb
+
+
+
+
+
+
+\item We wish to compute the minimum number of operations needed to transform $A = a_1\cdots a_m$ into $B = b_1\cdots b_n$. We let $X_i$ be the decision to delete/add/change/not change the character $a_i$ such that it matches $b_i$, where we have at most $\max\Set{m,n}$ such decisions. Then let $f(i,j)$ be the minimum number of operations needed to transform $A_i = a_i\cdots a_m$ into $B_i = b_i \cdots b_n$. Then we have:
+\bee
+f(i,j) =  \begin{cases}
+1 + \min\begin{cases}
+f(i + 1,j) & (\text{delete } a_i)\\
+f(i, j + 1) & (\text{add new }a_i)\\
+f(i + 1,j + 1) & (\text{replace } a_i \text{ with } b_j)\\
+\end{cases} & \text{ if } a_i \neq b_j\\
+f(i + 1,j + 1) & \text{ if } a_i = b_j
+\end{cases},
+\eee
+where $1 \leq i \leq m$ and $1 \leq j \leq m$. And our boundary conditions are:
+\bee
+f(n + 1,m + 1) = 0,\\
+f(i,n + 1) = 1,\\
+f(m + 1,j) = 1,
+\eee
+where $1 \leq i \leq m$ and $1 \leq j \leq n$. 
+Our goal is to compute $f(1,1)$. We represent the values of $f(i,j)$ in an array $F[1..m + 1,1..n + 1]$, which we compute in the following algorithm:
+
+
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg2}
+\KwData{Two strings $A = a_1\cdots a_m$ and $B = b_1\cdots b_n$. }
+\KwResult{The array $F[i,j]$ computed for $1 \leq i \leq m, 1 \leq j \leq n$. }
+\Begin{
+\textbf{global array} $F[1..m + 1,1..n + 1]$\;
+\textbf{initialize} $F[m + 1, n + 1] \longleftarrow 0$;\\
+\textbf{initialize} $F[i, n + 1] \longleftarrow 1$ for $1 \leq i \leq m$;\\
+\textbf{initialize} $F[m + 1, j] \longleftarrow 1$ for $1 \leq j \leq n$;\\
+
+\For{$i \leftarrow m$ \KwTo $1$}{
+	\For{$j \leftarrow n$ \KwTo $1$}{
+		\uIf{$a_i = b_j$}{
+			$F[i,j] \longleftarrow F[i + 1,j + 1]$;
+		}\Else{
+			$F[i,j] \longleftarrow 1 + \min\Set{F[i + 1,j],F[i,j + 1]F[i + 1,j + 1]}$;
+		
+		}
+	}
+}
+}
+\caption{String-Array-$F$}
+\end{algorithm}
+\end{restoretext}
+The asymptotic running time is $\Theta(mn)$. The problem statement does not ask us to print out the actual number of operations, but if we wanted to, we would loop while $i \neq m  + 1$ and $j \neq n + 1$ starting from $i = j = 1$, and check if $a_i = a_j$. If it is, we increment both $i,j$ and go to next iteration, otherwise, we increment our operation counter, and find the minimum of $\Set{F[i + 1,j],F[i,j + 1]F[i + 1,j + 1]}$ and set $i,j$ to its indices, then go to next iteration. 
+
+
+
+
+
+\bb
+
+
+
+\item We have a set $J$ of $N$ jobs with corresponding processing time $t_i$ for each, rewards $p_i$ for finishing by time $T$, and penalties $q_i$ for not finishing by $T$. We wish to compute a subset of $S \sub J$ s.t.:
+\bee
+\sum_{i \in S} t_i &\leq T,
+\eee
+and we maximize:
+\bee
+f(S) = \sum_{i \in S}p_i - \sum_{i \notin S}q_i.
+\eee
+So let the $i$-th subproblem denote our decision of whether or not to include job $i$ in $S$. So define $g(i,t)$ to be the maximum profit of any subset $S_i$ of jobs in $J$ with index $\geq i$ s.t. $\sum_{k \in S_i} t_k \leq t$. We give a recurrence relation:
+\bee
+g(i,t) = \begin{cases}
+\max \begin{cases}
+p_i + g(i + 1,t + t_i)\\
+-q_i + g(i + 1,t)
+\end{cases} & \text{ if }t < T\\
+g(i,t) = -q_i + g(i + 1,t)  & \text{ if }t \geq T
+\end{cases}. 
+\eee
+where $1 \leq i \leq N$. Our boundary condition is:
+\bee
+g(N + 1,t) &= 0.
+\eee
+
+Our goal is to compute $g(1,0)$. We give a non-recursive algorithm:
+
+Define $t' = t - t_i$. 
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg3}
+\KwData{The set $J$ of $N$ jobs, sets $P,Q$ of rewards and penalties for each job, and the set $\mathcal{T}$ of times $t_i$ for each job. }
+\KwResult{The array $G[i,t]$ computed for $1 \leq i \leq N, 1 \leq j \leq T$. }
+\Begin{
+\textbf{global array} $G[1..N + 1,1..T]$\;
+\textbf{initialize} $G[N + 1, t] \longleftarrow 0$;\\
+
+\For{$i \leftarrow N$ \KwTo $1$}{
+	
+	\For{$t \leftarrow T$ \KwTo $0$}{
+		\textbf{int} $t' \longleftarrow t + t_i$;\\
+		\uIf{$t' \leq T$}{
+			$G[i,t] \longleftarrow \max\Set{P[i] + G[i + 1,t'],-Q[i] + G[i + 1,t]}$;\\
+		}\Else{
+			$G[i,t] \longleftarrow -Q[i] + G[i + 1,t]$;\\
+		
+		}
+	}
+}
+}
+\caption{Job-Array-$G$}
+\end{algorithm}
+\end{restoretext}
+The running time is $O(NT)$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

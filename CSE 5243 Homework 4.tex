@@ -1,0 +1,238 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[11pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+%\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{multirow}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\inlinecode}{\texttt}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+
+\begin{abstract}
+We analyze the \inlinecode{Adult} dataset which contains a wide variety of demographic characteristics for working-age adults, along with a class we wish to predict: salary $>50K$ or $\leq 50K$. The dataset was sourced from the UC Irvine Machine Learning Repository hosted by the Center for Machine Learning and Intelligent Systems. We first discuss our exploratory data analysis and transformations to prepare for classification. We then train five different classification models on our data and evaluate them on the provided test set to determine which is the preferred method, taking into account performance statistics such as accuracy and $F$-measure. 
+\end{abstract}
+\title{A potpourri of classification methods on the Adult dataset}
+\date{SP18}
+\author[Brendan Whitaker]{Brendan Whitaker}
+\maketitle
+\tableofcontents
+
+\section{Exploratory data analysis}
+
+We give some preliminary information about the data. The \inlinecode{Adult} dataset contains metadata for 32561 individuals from ages 17-90. There are 14 axes of demographic information like \inlinecode{education}, \inlinecode{marital-status}, \inlinecode{race}, \inlinecode{sex},.. etc, which can be utilized to predict the salary class. One of these is a \inlinecode{final-weight} real-valued variable which is supposed to be a ``aggregate" measure of the rest of the data points which should correlate with salary, so people with similar demographics should have similar final weights, according to the documentation for the dataset. The publishers also note that this statement is only true for individuals residing in the same state as an artefact of the way the data was collected. We will examine later on how useful this axis is for capturing the variation in the data. The data was imported and analyzed using \inlinecode{python 2.7} in the Jupyter Notebook web application. The \inlinecode{NumPy}, \inlinecode{Matplotlib}, and \inlinecode{pandas} python libraries were imported in order to aid in data exploration, cleaning, and predictive modeling. the data was imported in a \inlinecode{pandas} dataframe, a structure similar to an Excel workbook. 
+
+We note here one of the first pre-processing issues encountered with this dataset: the lack of pre-existing column headers in the \inlinecode{.csv} file. In fact, the dataset was not even saved on the source website with a file extension, so it was unclear at first if it was even this type of file at all. But a cursory examination in a text editor revealed comma delimiters. But dealing with the lack of column headers proved to be quite an issue due to a bit of bad luck. In attempt to remedy this, a line was added to the top of the document with the column headers from the data description on the source website. A great deal of frustration revealed that the column headers are whitespace-sensitive, and that if spaces are left after the commas in the header as is common in prose, one must also include these spaces in any attempt to reference the data. 
+
+\begin{figure}[H]
+\begin{adjustbox}{center}
+\includegraphics[scale=0.42]{categCharts2}
+\end{adjustbox}
+\caption{Categorical variable distributions continued.}
+\end{figure}
+
+\begin{figure}[H]
+\begin{adjustbox}{center}
+\includegraphics[scale=0.42]{categCharts1}
+\end{adjustbox}
+\caption{Categorical variable distributions. }
+\end{figure}
+
+
+
+
+
+We now give a more detailed summary of each of the variables, and perform any transformations before we begin training the models. We wish to omit any variables within which there is very little variation in the data, so we use visual analysis of the frequency distributions given above in Figures 1 and 2. Although the chart has too many different categories to include it in this report, the \inlinecode{native-country} feature has \inlinecode{United States} for around 29,000 of its entries, thus we omit it since there is very little variation captured by it. We can see from the rest of the bar charts that most of the other variables capture a good deal of variation, though if we wanted to eliminate another, a good candidate might be \inlinecode{race}, since a vast majority of the adults are \inlinecode{white}. \inlinecode{workclass} would also be a good candidate since a large majority of those entries fall under \inlinecode{private}. 
+
+\section{Data transformations}
+
+We choose not to omit any entries or attempt to reduce noise because these features of the dataset may well serve to be useful to the model and improve its performance on the test set. Deleting entries to solve issues like the missing/unidentified data in the \inlinecode{workclass} barchart may hurt the model more than it helps it, especially if the data on other axes of these removed entries were meaningful. 
+
+
+
+
+
+Since the model implementations only work with numeric data, we must first convert all the categorical data into numeric data. We will do this using a process known as label encoding. If there are $k$ distinct labels for a given categorical variable in our data, we assign each variable a number 0 through $k - 1$ and use this as our numeric data. 
+
+
+
+
+Below we see a table of simple summary statistics for the numerical variables from our set. Rather than looking at each of the pairwise correlations between these variables, we instead perform principal component analysis on it. We will reduce dimensionality as much as possible while preserving at least 95\% of the variation in our numerical data. PCA is a good idea here since we have a variable \inlinecode{final-weight} which allegedly already represents several of the other variables present. 
+
+\begin{table}[H]
+\begin{adjustbox}{center}
+\includegraphics[scale=.47]{adultNumericalSummary}
+\end{adjustbox}
+\caption{Summary statistics for numerical variables.}
+\end{table}
+
+We begin our PCA by creating a new DataFrame containing all of our numerical variables and the newly transformed categorical variables which are now real-valued thanks to our label-encoding. Thus we will be able to do PCA on all 13 remaining axes (we nixed the \inlinecode{native-country}). We will be using the \inlinecode{scikit-learn} library to standardize our feature values and perform the analysis. We note here that any transformations applied to the training data must also be applied in parallel to the test data so that we have sets with the same formatting when we go to test our models. So although we only fit PCA on the training data, we must apply it to both sets, and the same goes for our normalization. After applying PCA with 12 principal axes, we compute the percentage of variation of the original data preserves, which comes out to 96.58\%. So we are above our threshold, and thus we've successfully reduced dimensionality by 1. 
+
+
+
+
+
+\section{Model development}
+
+We note here our choice to use the training and test partition given to use by the source website instead of performing $n$-fold cross validation. We do this to avoid computation time issues since the dataset is quite large and the hardware at hand is sub-ideal. The five models we will be training are as follows:
+
+\begin{enumerate}
+\item Decision Tree Classifier
+\item 3-layer Neural Network
+\item Support Vector Machine
+\item Ensemble Classifier (Decision Tree using Random Forest)
+\item Logistic Regression
+\end{enumerate}
+
+We discuss the \inlinecode{scikit-learn} parameters used for each of the models. For the decision tree, we set a max depth of 3 and the minimum number node size to be 5 samples. As is intuitive, we found that a greater max depth yielded incrementally higher accuracy along with significantly longer training duration. Decreasing the min node size had a similar effect, and we conjecture that setting this to 1 or similarly low values for large datasets would make the model prone to overfitting. For the neural network, we used a 3-layer perceptron and with an arbitrary choice of 12 nodes per layer since we have 12 principal axes. We found that in testing numbers of layers ranging from 3-6, the training duration/computation time increased dramatically for larger numbers of layers. We found a similar effect for increasing the number of nodes per layer. However we settled on these relatively tame settings to make for a fair comparison between the five models. Significant increases in the nodes and layers gave us an increase in accuracy of less than 2 percent. For the SVM, we set the parameters $\gamma = 0.001$ and $C  = 100$. We obtained a small $<4$ percent increase in accuracy by using these settings over the default \inlinecode{scikit-learn} settings for the model. For the random forest, we set the number of trees to be 100 and the max number of features to be 3. Similar to the results with the neural net, we say a small increase in accuracy when increaseing the number of trees and the max number of features per node, but this was offset by a significant increase in computation time, and this the reason for the parameters chosen. The implementation of the logistic regression model we used did not support parameter tuning, and so we used the defaults. 
+
+Our results are summarized below (refer to figure), where \inlinecode{DTREE} is the decision tree model, \inlinecode{NN} is the neural network, \inlinecode{SVM} is the support vector machine, \inlinecode{RF} is the random forest ensemble classifier, and \inlinecode{LOGREG} is logistic regression. Immediately standing out is the performance of the neural net, which had both the highest accuracy of all 5 models and the highest F-measure. However there is one more factor to consider, which is computation time. The neural net, along with the decision tree and the logistic regression model were all remarkably quick to train, however the support vector machine and the random forest were quite slow in comparison, each taking roughly 5 times longer to compute than the other three combined. For this reason, the clear winner is the neural network, since it had marginally higher accuracy than all the others, it's F-measure was highest and only approached by the random forest, and it was able to complete training in a relatively short time period. At least as far as the data we have collected in this experiment is concerned, there don't seem to be any significant drawbacks to choosing the neural network over any of the others, but we should note that it's accuracy gains over the other models are nothing to write home about: all of the models are in the 79-85\% range, and they all have similarly close F-measures as well. One drawback to the methodology of the entire experiment is the slight loss in classifier accuracy incurred by using PCA. This, however, I think is often offset by quicker model training as a result of the lower dimensionality, especially with larger datasets with higher dimensionality, and when we are using complex models like the neural network or SVM. 
+
+
+
+\begin{figure}[H]
+\begin{adjustbox}{center}
+\includegraphics[scale=1]{classResults}
+\end{adjustbox}
+\caption{Results of classification model testing. }
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

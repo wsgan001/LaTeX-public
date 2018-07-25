@@ -1,0 +1,295 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+\title{Math 5591H Homework 4}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{Section 11.2 Exercises}
+
+
+
+\begin{enumerate}[label=\arabic*.]
+
+\setcounter{enumi}{10}
+
+\item \textit{Let $\phi$ be a linear transformation from the finite dimensional vector space $V$ to itself such that $\phi^2 = \phi$. }
+
+\begin{enumerate}
+\item \textit{Prove that $Image(\phi) \cap ker\phi = 0$. }
+
+\begin{proof}
+Note that $\phi:V \to V$. Let $I = Image(\phi)$ and let $K = ker\phi$. Let $a \in K$. Then $\phi(a) = 0$. Then let $a \in I$. Then there exists $b \in V$ s.t. $\phi(b) = a$. But then note:
+$$
+\phi^2(b) = \phi(\phi(b)) = \phi(a) = 0 = \phi(b) = a.
+$$
+So $a = 0$, hence $K \cap I = 0$. 
+\end{proof}
+
+\item \textit{Prove that $V = Image(\phi)\oplus ker\phi$. }
+
+\begin{proof}
+We prove that $V = Image\phi + ker\phi$. Since $Image\phi \sub V$ and $ker\phi \sub V$, we know that if $v \in Image\phi$ and $w \in ker\phi$, then $v,w \in V$, so $v + w \in V$. So $Image\phi + ker\phi \sub V$. We prove the other inclusion. Now let $a \in V$. If $a \in ker\phi$ then we are done. So let $a \notin ker\phi$. Then $\phi(a) = b \neq 0 \in V$. Then we have: 
+\bee
+\phi(b - a) &= \phi(b) - \phi(a) = \phi(b) - \phi^2(a)\\
+ &= \phi(b) - \phi(\phi(a)) = \phi(b) - \phi(b) = 0.
+\eee
+So we know that $b - a \in ker\phi$. So then $a - b \in ker\phi$ since $\phi$ is a linear transformation. Now note: 
+$$
+\phi(a) + (a - b) = b + a - b = a.
+$$
+and since $\phi(a) \in Image(phi)$ and $a - b \in ker\phi$, we have shown $V \sub Image\phi + ker\phi$. Thus $V = Image\phi + ker\phi$, and since we showed they have zero intersection in the last part, we have proved $V = Image\phi \oplus ker\phi$. 
+\end{proof}
+
+\item \textit{Prove that there is a basis of $V$ s.t. the matrix of $\phi$ with respect to this basis is a diagonal matrix whose entries are all $0$ or $1$. }
+
+\begin{proof}
+Let $A = \Set{v_1,...,v_k}$ be a basis for $\phi(V)$. Then let $B = \Set{v_{k + 1},...,v_n}$ be a basis for $ker\phi$. We know this basis must have $n - k$ elements since $A \cup B$ must be a basis for $V$ since we proved the direct sum in the last part. Now recall that the coefficient matrix of $\phi$ with respect to any basis $C$ is given by $(a_{ij})$ where $\phi(c_i) = \sum_j a_{ij}c_j$. So we find the matrix of $\phi$ with respect to $A \cup B$. Let $v_i \in A \cup B$. Suppose $v_i \in A$. Then $v_i = \phi(w)$ for some $w \in V$. So we have $\phi(v_i) = \phi^2(w) = \phi(w) = v_i$. So the $i$-th column of the $i$-th row must be a $1$ and all other entries in that column are zero. And since $v_i \in A$, we know that $i \leq k$. Now let $v_i \in B$. Remember they are disjoint by part (a). Then $\phi(v_i) = 0$, so the $i$-th column is all zeroes. Thus we have constructed the matrix of $\phi$ with respect to the basis $A \cup B$, and it is a diagonal matrix with only ones and zeroes along the diagonal.  
+\end{proof}
+\end{enumerate}
+
+\end{enumerate}
+
+\section*{Section 11.3 Exercises}
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{2}
+
+\item \textit{Let $S$ be any subset of $V^*$ for some finite dimensional space $V$. Define $Ann(S) = \Set{v \in V:f(v) = 0,\forall f \in S}$. ($Ann(S)$ is called the annihilator of $S$ in $V$. }
+
+\begin{enumerate}
+\item \textit{Prove that $Ann(S)$ is a subspace of $V$. }
+
+\begin{proof}
+Recall Definition \ref{def11.5}. Let $v,w \in Ann(S)$. Then $f(v) = f(w) = 0$ $\forall f \in S \sub Hom(V,F)$, where $V$ is a vector space over the field $F$. Then $f(v + w) = f(v) + f(w) = 0 + 0 = 0$ since $f$ is a homomorphism. So $v + w \in Ann(S)$. Now let $r \in F$. Then $f(rv) = rf(v) = r\cdot 0 = 0$ since again $f$ is a homomorphism. So $rv \in Ann(S)$. Thus $Ann(S)$ is a subspace by definition. 
+\end{proof}
+
+
+
+\item \textit{Let $W_1$ and $W_2$ be subspaces of $V^*$. Prove that $Ann(W_1 + W_2) = Ann(W_1) \cap Ann(W_2)$ and $Ann(W_1 \cap W_2) = Ann(W_1) + Ann(W_2)$. }
+
+\begin{proof}
+Recall: 
+$$
+Ann(W_1 + W_2) = \Set{v \in V:(f + g)(v)  =0,\forall f + g \in W_1 + W_2}.
+$$
+So let $v \in Ann(W_1 + W_2)$. Then with $g = 0$, we have $(f + g)(v) = f(v) = 0$, for all $f \in Ann(W_1)$. Now let $f = 0$, by same argument, $g(v) = 0$ for all $g \in W_2$, so $v \in Ann(W_1)$, so $v \in Ann(W_1) \cap Ann(W_2)$. Now let $v \in Ann(W_1) \cap Ann(W_2)$. Then $f(v) = 0$ and $g(v) = 0$ for all $f \in W_1,g \in W_2$. Then for arbitrary $f + g \in W_1 + W_2$. We have $(f + g)(v) = f(v) + g(v) = 0 + 0 = 0$. So $v \in Ann(W_1 + W_2$. So we have proved both inclusions: $Ann(W_1 + W_2) = Ann(W_1) \cap Ann(W_2)$. 
+
+Now we prove the second equality: recall:
+$$
+Ann(W_1 \cap W_2) = \Set{v \in V: f(v) = 0,\forall f \in W_1\cap W_2}.
+$$
+Let $u \in Ann(W_1)$ and $v \in Ann(W_2)$. Then for any $f \in W_1 \cap W_2$, $f(u) = 0$ and $f(v) = 0$, so $f(u + v) = f(u) + f(v) = 0 + 0 = 0$, since $f$ is a homomorphism. So $u + v \in Ann(W_1 \cap W_2)$, so $Ann(W_1) + Ann(W_2) \sub Ann(W_1 \cap W_2)$. 
+
+Now we apply the result of part (c). We want to show $Ann(W_1 \cap W_2) \sub Ann(W_1) + Ann(W_2)$. By this result we know this is equivalent to showing:
+$$
+Ann(Ann(W_1 \cap W_2)) = W_1 \cap W_2 \sub Ann(Ann(W_1) + Ann(W_2)).
+$$
+So let $B_V$ be a basis for $V$, and let $B_{V^*}$ be a basis for $V^*$. Then let $\Set{f_1,...,k}$ be a basis for $W_1$ and define $\Set{f_l,...,f_m}$ as basis for $W_2$, without loss of generality, where $m,k \leq n = \dim V = \dim V^*$. Then by part (f) we know $Ann(W_1) = F(B_V \setminus \Set{f_1,...,f_k})$ and $Ann(W_2) = F(B_V \setminus \Set{f_l,...,f_m})$. So $Ann(W_1) + Ann(W_2) = A =  F(B_V \setminus (\Set{f_l,...,f_m}\cap \Set{f_1,...,f_k}))$. And by part (f) again we know $Ann(A) = F(B_{V^*} \setminus (B_{V^*} \setminus F(\Set{f_l,...,f_m}\cap \Set{f_1,...,f_k}))) = W_1 \cap W_2$. So we have proved the other inclusion, and we are done.  
+\end{proof}
+\bb
+\item \textit{Let $W_1$ and $W_2$ be subspaces of $V^*$. Prove that $W_1 = W_2$ if and only if $Ann(W_1) = Ann(W_2)$. }
+\bb
+
+\begin{proof}
+Let $\Set{g_1,...,g_n}$ be a basis of $V^{**}$. And we have the natural isomorphism which sends $g_i \mapsto v_i \in B_V$, the basis of $V$. So $V \cong V^{**}$. So $V^*$ must have a basis $\Set{f_1,...,f_n}$ and let $\Set{f_1,...,f_k}$ be a basis for $W_1$. By part (f), we know $Ann(Ann(W_1)) = Ann(F\Set{v_{k + 1},...,v_n})$.  But again by part $F$ and since $v_i(f_j) = f_j(v_i) = 0,\forall i\neq j$, we know $ Ann(F\Set{v_{k + 1},...,v_n}) = F\Set{f_1,...,f_k}$. But this is exactly $W_1$, so $Ann(Ann(W)) = W$, and so since $Ann(W_1) = Ann(W_2)$, we know $Ann(Ann(W_1)) = Ann(Ann(W_2)) \Rightarrow W_1 = W_2$. 
+\end{proof}
+
+\bb
+
+\item \textit{Prove that the annihilator of $S$ is the same as the annihilator of the subspace of $V^*$ spanned by $S$. }
+
+\bb
+
+\begin{proof}
+Note $Ann(S) = \Set{v \in V: f(v) = 0, \forall f \in S}$. And note that 
+$$
+Ann(FS) = \Set{v \in F:f(v) = 0,\forall f \in FS}.
+$$
+ Now $V^*$ is finite dimensional since we know how to generate the dual basis, and the dimension of $V^*$ is the same as the dimension of $V$. So $S$ has a finite maximal linearly independent set $B_S = \Set{f_1,...,f_k}$. Let $v \in Ann(FS)$. Then since $1 \in F$, we know $S \sub FS$, so $f(v) = 0,\forall f \in S$, so $Ann(FS) \sub Ann(S)$. 
+ 
+ 
+ 
+ 
+ Now let $v \in Ann(S)$. Then since $B_S \sub S$, we know $v \in Ann(B_S)$. Then 
+ $$
+ FS \sub FB_S = F\Set{f_1,...,f_k} = \Set{r_1f_1 + \cdots + r_kf_k:r_i \in F, f_i \in B_S}.
+ $$
+  Then $f_i(v) = 0$ for all $i$ since they are in $B_S$, and $r_i \cdot 0 = 0$, so $v \in Ann(FB_S) \sub Ann(FS)$ since $FS \sub FB_S$. Hence $Ann(S) \sub Ann(FS)$, and so they are equal. 
+\end{proof}
+
+\bb
+
+\item \textit{Assume $V$ is finite dimensional with basis $v_1,...,v_n$. Prove that if $S = \Set{v_1^*,...,v_k^*}$ for some $k \neq n$, then $Ann(S)$ is the subspace spanned by $\Set{v_{k + 1},...,v_n}$. }
+
+\bb
+
+\begin{proof}
+Note that $S$ is some subset of the dual basis, so let's change notation to be consistent with lecture. Let $S = \Set{v_1^*,...,v_k^*} = \Set{f_1,...,f_k}$. Note since $k \neq n$, $\Set{v_{k + 1},...,v_n}$ is nonempty. Let $v = r_1v_1 + \cdots + r_nv_n \in Ann(S)$. Then $f_i(v) = 0$, $1 \leq i \leq k$. We want to show $v \in F\Set{v_{k + 1},...,v_n}$. Suppose $v \notin  F\Set{v_{k + 1},...,v_n}$, then since $v \in V$, we know there exists $i \leq k$ s.t. the coefficient of $v_i$ in $r_1v_1 + \cdots + r_nv_n$ is nonzero. But if this is true, we would have $f_i(r_1v_1 + \cdots + r_nv_n) \neq 0$ since each of the basis vectors is linearly independent. This is a contradiction, since $f_i(v) = 0$ for all $v \in Ann(S)$. So we must have that $v \in  F\Set{v_{k + 1},...,v_n}$. And hence $Ann(S) \sub F\Set{v_{k + 1},...,v_n}$. 
+
+Now let $v \in F\Set{v_{k + 1},...,v_n}$. Then $v = r_{k + 1}v_{k + 1} + \cdots + r_nv_n$. Chose arbitrary $f_i \in S$. Then $i \leq k$, so $f(r_jv_j) = r_jf(v_j) = f_j\cdot 0 = 0$ for all $j > k$, by definition of $f_i$, since $i \neq j$. Thus $f_j(v) = 0$ since $j > k$ for all $v_j \in \Set{v_{k + 1},...,v_n}$. So since this holds for all $f_j \in S$, $v \in Ann(S)$, so $F\Set{v_{k + 1},...,v_n} \sub Ann(S)$. 
+\end{proof}
+
+\bb
+
+\item \textit{Assume $V$ is finite dimensional. Prove that if $W^*$ is any subspace of $V^*$, then $\dim Ann(W^*) = \dim V - \dim W^*$. }
+
+\bb
+
+\begin{proof}
+We have a basis of $\Set{v_1,...,v_n}$ of $V$.  Let $\Set{f_1,...,f_n}$ be the corresponding basis of the finite dimensional $V^*$ (since $V$ is finite dimensional), and without loss of generality, let $\Set{f_1,...,f_k}$ be a basis for $W^*$, which we know has a basis since it is a subspace. By the previous exercise, $Ann(W^*) = F\Set{v_{k + 1},...,v_n}$. So it has dimension $n - k$, and since $\dim V = n$ and $\dim W^* = k$, we are done. 
+\end{proof}
+
+\bb
+
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

@@ -1,0 +1,327 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+
+
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+%\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{bbm}
+%\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+%\usepackage{tikz}
+%\usepackage{environ}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+%\usepackage[ruled,linesnumbered]{algorithm2e}
+%\usepackage{adjustbox}
+%\usepackage{changepage}
+%\usepackage{import}
+%\usepackage{newclude}
+\usepackage[all,cmtip]{xy}
+\usepackage[]{titlesec}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+
+
+
+
+
+
+
+\usepackage{hyperref}
+
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+
+
+
+
+
+
+
+
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+%NAMED THEOREMS
+\theoremstyle{plain}
+\newtheorem*{namedthm}{\namedthmname}
+\newcounter{namedthm}
+\makeatletter
+	\newenvironment{named}[2]
+	{\def\namedthmname{#1}
+	\refstepcounter{namedthm}
+	\namedthm[#2]\def\@currentlabel{#1}}
+	{\endnamedthm}
+\makeatother
+
+
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+\newcommand{\rank}{\text{rank}}
+\DeclareMathOperator{\coker}{coker}
+\newcommand*\pp{{\rlap{\('\)}}}
+\newcommand{\counter}{\setcounter}
+\newcommand{\gal}{\text{Gal}}
+\newcommand{\aut}{\text{Aut}}
+\newcommand{\fix}{\text{Fix}}
+\newcommand{\qwe}{\sqrt}
+\newcommand{\wer}{\sqrt}
+
+
+
+
+
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+
+
+\title{Math 5591H Homework 11}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{14.2 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\counter{enumi}{2}
+\item \textit{Determine the Galois group of $(x^2 - 2)(x^2 - 3)x^2 - 5)$. Determine all the subfields of the splitting field of this polynomial.  }
+
+
+We draw the subfield lattice of $\Q(\sqrt{2},\sqrt{3},\sqrt{5})/\Q$. Note that every nonidentity element is of order 2, and the whole group is of order 8, so the Galois group is isomorphic to $\z_2^3$. 
+
+\begin{center}
+\begin{adjustbox}{center,width=10cm}
+\begin{tikzcd}
+ &  &  & \mathbb{Q}(\sqrt{2},\sqrt{3},\sqrt{5}) \arrow[llld, no head] \arrow[lld, no head] \arrow[ld, no head] \arrow[rrrddd, no head] \arrow[rd, no head] \arrow[rrrd, no head] \arrow[rrd, no head] \arrow[d, no head] &  &  &  \\
+\mathbb{Q}(\sqrt{2},\sqrt{3}) \arrow[rdd, no head] \arrow[rrrrdd, no head] \arrow[dd, no head] & \mathbb{Q}(\sqrt{3},\sqrt{5}) \arrow[dd, no head] \arrow[rrdd, no head] \arrow[rdd, no head] & \mathbb{Q}(\sqrt{2},\sqrt{5}) \arrow[rrrdd, no head] \arrow[lldd, no head] \arrow[dd, no head] & \mathbb{Q}(\sqrt{6},\sqrt{10}) \arrow[rdd, no head] \arrow[rrdd, no head] \arrow[dd, no head] & \mathbb{Q}(\sqrt{30},\sqrt{2}) \arrow[rrdd, no head] \arrow[lllldd, no head] \arrow[ldd, no head] & \mathbb{Q}(\sqrt{30},\sqrt{5}) \arrow[rdd, no head] \arrow[llldd, no head] \arrow[ldd, no head] & \mathbb{Q}(\sqrt{30},\sqrt{3}) \arrow[dd, no head] \arrow[llllldd, no head] \arrow[ldd, no head] \\
+ &  &  &  &  &  &  \\
+\mathbb{Q}(\sqrt{2}) \arrow[rrrd, no head] & \mathbb{Q}(\sqrt{3}) \arrow[rrd, no head] & \mathbb{Q}(\sqrt{5}) \arrow[rd, no head] & \mathbb{Q}(\sqrt{15}) \arrow[d, no head] & \mathbb{Q}(\sqrt{6}) \arrow[ld, no head] & \mathbb{Q}(\sqrt{10}) \arrow[lld, no head] & \mathbb{Q}(\sqrt{30}) \arrow[llld, no head] \\
+ &  &  & \mathbb{Q} &  &  & 
+\end{tikzcd}.
+\end{adjustbox}
+\end{center}
+
+\counter{enumi}{9}
+
+\item \textit{Determine the Galois group of the splitting field over $\Q$ of $x^8 - 3$. }
+
+\bb
+
+Let $\alpha = \sqrt[8]{3}$ and $\omega = e^{2\pi i/8}$. Note:
+$$
+\omega^2 = e^{2\pi i/4} = e^{\pi i/2} = \sqrt{e^{\pi i}} = \sqrt{-1} = i.
+$$
+And $\omega = \sqrt{e^{2\pi i / 4}} =\sqrt{i} = \fracc{1 + i}{\sqrt{2}}$.  Note $\sqrt{2} = \fracc{1 + i}{\omega} = \fracc{1 + \omega^2}{\omega}$. So $\sqrt{2} \in \Q(\omega)$. Now the roots of $f(x) = x^8 - 3$ are $\alpha\omega^k$ where $k = 0,...,7$, and thus the splitting field is $\Q(\alpha,\omega)$. We write out our options for constructing the automorphisms in the Galois group. We have 8 options to map $\alpha$ to and 4 options to map $\omega$ to (since $\phi(8) = 4$):
+\bee
+\alpha &\mapsto \alpha\omega^k, k = 0,...,7\\
+\omega & \mapsto \omega,\omega^3,\omega^5,\omega^7.
+\eee
+Since none of these combinations give us equivalent maps, we have exactly $8\cdot 4 = 32$ automorphisms in our group, thus $|\gal(f(x))| = |G| = 32$. So let $\phi_{k_1,l_1},\phi_{k_2,l_2} \in G$, where $\phi_{k,l}:\alpha \mapsto \alpha\omega^k,\phi_{k,l}:\omega \mapsto \omega^l$. Then we have:
+\bee
+\phi_{k_2,l_2}\circ\phi_{k_1,l_1}(\alpha) &= \phi_{k_2,l_2}(\alpha\omega^{k_1}) = \alpha\omega^{k_2}\omega^{k_1l_2} = \alpha\omega^{k_2 + k_1l_2}\\
+\phi_{k_2,l_2}\circ\phi_{k_1,l_1}(\omega) &= \phi_{k_2,l_2}(\omega^{l_1}) = \omega^{l_1l_2}.
+\eee
+Thus $\phi_{k_2,l_2}\circ\phi_{k_1,l_1} = \phi_{k_2 + k_1l_2 \mod 8,l_1l_2\mod 8}$, and this multiplication rule completely defines the Galois group. Furthermore, from this we see $G \cong \z_8 \semi V_4$, the nontrival semidirect product of $\z_8$ and the Klein 4-group. 
+
+\counter{enumi}{12}
+
+\item \textit{Prove that if the Galois group of the splitting field of a cubic over $\Q$ is the cyclic group of order 3, then all the roots of the cubic are real. }
+
+\begin{proof}
+Suppose the Galois group of the splitting field of a cubic $f(x)$ is $\z_3$. Note since this is a group of the form $\z_p$ for $p$ prime, we know that it has non nontrivial proper subgroups. Suppose we had an non-real root. Then we know that if $K/\Q$ is the splitting field of $f$, then $i \in K \Rightarrow$ $\Q(i)/\Q$ is a subextension of $K$. But note that $\Q(i)/\Q$ has degree 2, and the Galois theorem gives us a bijection between nontrivial subgroups of the Galois group and nontrivial subextensions, hence $[K:\Q] = 3$. If $\Q(i)$ were a subextension of $K$, we would have $2|3$, a contradiction, so all roots must be real. 
+\end{proof}
+
+\item \textit{Show that $K = \Q(\qwe{2 + \qwe{2}})$ is a cyclic quartic field, i.e., is a Galois extension of degree 4 with a cyclic Galois group. }
+
+\begin{proof}
+Recall that an extension is Galois if and only if it is the splitting field of a separable polynomial. Note that $\alpha = \qwe{2 + \qwe{2}}$ is a root of $f(x) = (x^2 - 2)^2 - 2 = x^4 - 4x^2 + 2$. We show that this is the minimal polynomial of $\alpha$ by showing it is irreducible. Note that $2 \nmid 1$, the leading coefficient, and $2|-4,2$, and $2^2\nmid 2$, so it is irreducible by Eisenstein's criterion. So $\deg \alpha = 4 \Rightarrow [K:\Q] = 4$. Note the roots of $f$ are $\pm \qwe{2 \pm \qwe{2}}$, and so it has no multiple roots $\Rightarrow$ it is separable. So we need only prove that $K$ is the splitting field of $f$. Clearly we have $x - \alpha$ and $x + \alpha$ for the roots of the form $\pm\qwe{2 + \qwe{2}}$. So we need only show $\qwe{2 - \qwe{2}} \in K$. Note since $\alpha^2 = 2 + \qwe{2}$, we know $\qwe{2} \in K$. But $\fracc{\qwe{2}}{\qwe{2 + \qwe{2}}} \fracc{\qwe{2 - \qwe{2}}}{\qwe{2 - \qwe{2}}} = \fracc{\qwe{2}\qwe{2 - \qwe{2}}}{\qwe{4 - 2}} =\qwe{2 - \qwe{2}} = \beta$, thus $\pm\beta \in K$, and hence $K$ is the splitting field of $f$, so $K$ is Galois. Now note since all 3 conjugates of $\alpha$ also have degree 4, we know that all automorphsims of $K$ are given by $\alpha \mapsto \alpha,-\alpha, \beta, -\beta$. Denote these by $1,\phi_1...,\phi_3$, respectively. Then we know:
+\bee
+\beta = \fracc{\alpha^2 - 2}{\alpha}.
+\eee
+So:
+\bee
+\phi_2(\beta) = \phi_2\lpar\fracc{\alpha^2 - 2}{\alpha}\rpar = \fracc{\beta^2 - 2}{
+\beta} = -\fracc{\qwe{2}}{\beta} = -\alpha.
+\eee
+Thus the order of $\phi_2$ is $> 2$ which means it must be 4 since our group has order 4, so we know that our group must be isomorphic to $\z_4$.
+\end{proof}
+
+\item \textit{(Biquadratic Extensions) Let $F$ be a field of characteristic $\neq 2$. }
+\begin{enumerate}
+\item \textit{if $K = F(\qwe{D_1},\qwe{D_2})$ where $D_1,D_2 \in F$ have the property that none of $D_1,D_2,D_1D_2$ is a square in $F$, prove that $K/F$ is a Galois extension with $\gal(K/F)$ isomorphic to the Klein 4-group. }
+
+\begin{proof}
+Since $D_1,D_2$ are not squares, we know $F(\qwe{D_1})/F$ and $F(\qwe{D_2})/F$ are both extensions of degree 2. And since $D_1D_2$ is not a square, we know that $F(\qwe{D_2})/F(\qwe{D_1})$ is a nontrivial extension (has degree 2). Thus we know that $K/F$ has degree 4.  We wish to first show it is Galois. Let $\alpha = \qwe{D_1},\beta = \qwe{D_2}$. Then $m_{\alpha,F} = x^2 - D_1,m_{\beta,F} = x^2 - D_2$. And since the roots of these are $\pm\alpha,\pm \beta$, we know they are both separable, so $\alpha,\beta$ are separable, so $K/F$ is separable. Also, $K$ is normal since the only conjugates of $\alpha,\beta$ are $-\alpha,-\beta$, so $K/F$ is normal and separable, thus it is Galois. We enumerate the automorphisms of $K$ in the Galois group $G$. We have choices of mappings:
+\bee
+\alpha &\mapsto \alpha,-\alpha\\
+\beta &\mapsto \beta,-\beta.
+\eee
+So we have:
+\bee
+1&:\alpha \mapsto \alpha, && \beta \mapsto \beta\\
+\phi_1&:\alpha \mapsto -\alpha, && \beta \mapsto \beta\\
+\phi_2&:\alpha \mapsto \alpha,  && \beta \mapsto -\beta\\
+\phi_3&: \alpha \mapsto -\alpha,  && \beta \mapsto -\beta.
+\eee
+Clearly, each has order 2, so it is $V_4$. 
+\end{proof}
+\bb
+
+\item \textit{Conversely, suppose $K/F$ is a Galois extension with $\gal(K/F)$ isomorphic to $V_4$. Prove that $K = F(\qwe{D_1},\qwe{D_2})$ where $D_1,D_2 \in F$ have the property that none of $D_1,D_2,D_1D_2$ is a square in $F$. }
+
+\begin{proof}
+Suppose $K/F$ is Galois with $G = \gal(K/F)$ isomorphic to $V_4$. By the Galois theorem, we know that the subgroup lattice of $G$ is in (flipped) bijection with the subextension lattice of $K/F$. So since we know the lattice of $V_4$, we know the structure of the subextensions of $K$:
+\begin{center}
+\begin{tikzcd}
+ & 1 \arrow[ld, "2"', no head] \arrow[d, "2", no head] \arrow[rd, "2", no head] &  &  & K/F \arrow[ld, "2"', no head] \arrow[d, "2", no head] \arrow[rd, "2", no head] &  \\
+A \cong \z_2 \arrow[rd, "2"', no head] & B \cong \z_2 \arrow[d, "2", no head] & C \cong \z_2 \arrow[ld, "2", no head] & L_1 \arrow[rd, "2"', no head] & L_2 \arrow[d, "2", no head] & L_3 \arrow[ld, "2", no head] \\
+ & V_4 &  &  & F & 
+\end{tikzcd}.
+\end{center}
+Since they are of degree 2, all of $L_1,L_2,L_3$ must be of the form $F(\qwe{D_i})$ for some $D_i$ not a square in $F$. Furthermore $D_iD_j$ cannot be a square in $F$, otherwise $L_i,L_j$ are the same extension, which is a contradiction. 
+\end{proof}
+\end{enumerate}
+\end{enumerate}
+
+\section*{14.3 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\counter{enumi}{7}
+
+\item \textit{Determine the splitting field of the polynomial $f(x) = x^p - x - a$ over $\F_p$ where $a \neq 0,a \in \F_p$. Show explicitly that the Galois group is cyclic. [Show $\alpha \mapsto \alpha + 1$ is an automorphism.]}
+
+\begin{proof}
+Suppose $\alpha$ is a root. Then we have $\alpha^p - \alpha + a = 0$. Behold: 
+\bee
+(\alpha + 1)^p - (\alpha + 1) - a &= \lpar\sum_{k = 0}^p \binom{p}{k}\alpha^k\rpar - \alpha - 1 - a\\
+&= \lpar \sum_{k = 1}^{p - 1} \binom{p}{k}\alpha^k \rpar + \alpha^p - \alpha - a\\
+&= \sum_{k = 1}^{p - 1} \binom{p}{k}\alpha^k \\
+&= \sum_{k = 1}^{p - 1} \fracc{p!}{k!(p - k)!}\alpha^k.
+\eee
+We claim that $\fracc{p!}{k!(p - k)!}$ is divisible by $p$ for all integer values of $k$ in the range $[1,p - 1]$. Note for these values of $k$ that $p\nmid (k!(p - k)!)$ but that $p|p!$, and the binomial coefficient is an integer, so we must have that $p|\lpar \fracc{p!}{k!(p - k)!} \rpar $. Thus: 
+$$
+\sum_{k = 1}^{p - 1} \fracc{p!}{k!(p - k)!}\alpha^k \mod p \equiv 0.
+$$
+And since we are over $\F_p$, we know that $\alpha + 1$ must then be a root. The roots of $f$ are $\alpha + k$ for $k = 0,...,p - 1$, hence $f$ is separable, and so $\F_p(\alpha)$ is the splitting field of a separable polynomial, and thus is Galois. And we have an automorphism $\phi:\alpha \mapsto \alpha + 1$ because an inverse is given by $\alpha \mapsto \alpha - 1 = \alpha + p - 1$, these are both field homomorphisms, and they map $\F_p(\alpha) \to \F_p(\alpha)$, so then $G$ must be cyclic since any other automorphism maps $\alpha \mapsto \alpha + k$ which is $\phi^k$. 
+\end{proof}
+\end{enumerate}
+
+\end{document}
+
+
+

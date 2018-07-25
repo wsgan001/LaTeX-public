@@ -1,0 +1,316 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%-------------PREAMBLE----------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+
+
+
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+\title{Math 5591H Homework 6}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{Section 11.4 Exercises}
+
+
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{1}
+\item \textit{Let $F$ be a field and let $A_1,A_2,...,A_n$ be (column) vectors in $F^n$. Form the matrix $A$ whose $i$-th column is $A_i$. Prove that these vectors form a basis of $F^n$ if and only if $\det A \neq 0$. }
+
+\begin{proof}
+Recall Corollary 27 from Dummit and Foote, which states that if $R$ is an integral domain, then $\det A \neq 0$ for $A \in M_n(R)$ if and only if the columns of $A$ are $R$-linearly independent as elements of the free $R$-module of rank $n$. 
+
+
+Now since $F^n$ is a vector space, we know that if we have a set of $n$ linearly independent vectors, it must be a basis. So let the column vectors $A_i$ form a basis of $F^n$. Then they must be linearly independent. So by the corollary, we know $\det A \neq 0$. Now let $\det A \neq 0$. Then by the corollary, we know $A_i$ are linearly independent over $F$ as elements of $F^n$, since $F$ is field, thus an integral domain. So then since $F^n$ is a vector space of $\dim F^n = n$, they must form a basis, since if they didn't, we would need some other linearly independent vector to generate the missing elements of $F^n$, which would contradict the fact that $\dim F^n = n$. 
+\end{proof}
+
+\item \textit{Let $R$ be any commutative ring with $1$, let $V$ be an $R$-module and let $x_1,...,x_n \in V$. Assume that for some $A \in M_{n \times n}(R)$,
+$$
+A\lpar 
+\begin{matrix}
+x_1\\
+\vdots\\
+x_n
+\end{matrix} \rpar  = 0.
+$$
+Prove that $(\det A)x_i = 0$, for all $i \in \Set{1,2,...,n}$. }
+
+\begin{proof}
+Recall Theorem 30 from Dummit and Foote, which states that if $B$ is the transpose of the matrix of cofactors of $A$, then $AB = BA = (\det A) I$. So note:
+$$
+0 = B0 = BA\lpar 
+\begin{matrix}
+x_1\\
+\vdots\\
+x_n
+\end{matrix} \rpar = (\det A)I\lpar 
+\begin{matrix}
+x_1\\
+\vdots\\
+x_n
+\end{matrix} \rpar = (\det A)\lpar 
+\begin{matrix}
+x_1\\
+\vdots\\
+x_n
+\end{matrix} \rpar.
+$$
+And this is zero if and only if $(\det A)x_i = 0$ for all $i$. 
+\end{proof}
+
+
+
+\end{enumerate}
+
+\section*{Section 11.5 Exercises}
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{4}
+\item \textit{Prove that if $M$ is a free $R$-module of rank $n$, then $\Lambda^k(M)$ is a free $R$-module of rank $\binom{n}{k}$ for $k = 0,1,2,...$} 
+Let $B = \Set{u_1,...,u_n}$ be a basis in $M$. Equivalently, we claim:
+\begin{lem}
+ The basis in $\Lambda^k(M)$ is:
+ 
+ $$
+ \Lambda^k(B) = \Set{u_{i_1} \wedge u_{i_2} \wedge \cdots \wedge u_{i_k}: i_1 < i_2 < ... < i_k}.
+ $$
+\end{lem}
+Note this set has $\binom{n}{k}$ elements since we are choosing $k$ from $n$, since $|B| = n$. 
+\begin{proof}
+ Note that $\Lambda^k(M)$ has a universal property: If $\Phi:M^k \to N$ is a $k$-linear alternating mapping, then there is a hom-sm $\beta:\Lambda^k(M) \to N$ such that: 
+ $$
+ \beta(v_1 \wedge \cdots \wedge v_k) = \Phi(v_1,...,v_k), \forall v_i \in M.
+ $$
+ And since this basis is obtained from the natural projection of $B$, we know $\Lambda^k(B)$ generates $\Lambda^k(M)$.
+
+
+Let $i_1 < i_2 < ... < i_k$. Define a $k$-linear mapping from $M^k \to R$ by sending: 
+$$
+\Phi(u_{j_1},...,u_{j_k}) = \begin{cases}
+sign(\sigma) & \text{ if }(j_1,...,j_k) = \sigma(i_1,...,i_k) \text{ for some }\sigma \in S_k\\
+0 & \text{otherwise}
+\end{cases}
+$$
+So we have basis vectors $u_{j_1}\wedge \cdots \wedge u_{j_k}$ and we want to send them to $sign(\sigma)$ only if they are some permutation of our $i$'s. Then $\Phi$ induces a homomorphism $\beta:\Lambda^k(M) \to R$ such that:
+$$
+ \beta(v_1 \wedge \cdots \wedge v_k) = \Phi(v_1,...,v_k), \forall v_i \in M.
+ $$
+And $\beta(u_{j_1}  \wedge \cdots \wedge u_{j_k}) = 0$, $\forall j_1 < ...< j_k$ if $\neq (i_1,...,i_k)$. So we only define $\Phi$ on basis vectors and expand it to the whole space by $k$-linearity. Now we have a hom-sm which maps our chosen vector to $sign(\sigma)$ and all other vectors to zero. So suppose 
+$$
+s = r_1v_1 + \cdots + r( u_{i_1} \wedge u_{i_2} \wedge \cdots \wedge u_{i_k}) + \cdots + r_{\binom{n}{k}}v_{\binom{n}{k}} = 0.
+$$
+Then $\beta(s) = \beta(r( u_{i_1} \wedge u_{i_2} \wedge \cdots \wedge u_{i_k})) = 0$, since $\beta$ maps all other vectors to zero. So we must have $r \neq 0$ since our basis vector is nonzero. 
+ This implies that $u_{i_1}  \wedge \cdots \wedge u_{i_k}$ is not a linear combination of other vectors from $\Lambda^k(B)$. So what we proved is that any element from $\Lambda^k(B)$ is not a linear combination of the others, so we proved this set is linearly independent and thus a basis. 
+\end{proof}
+
+\begin{comment}
+
+\begin{proof}
+Recall $T = \mc{T}^k(M) = M \tens \cdots \tens M$. Then we have a basis for $T$ given by: 
+$$
+B = \Set{m_{i_1} \tens \cdots \tens m_{i_n}: 1 \leq i_j \leq n},
+$$
+and $m_i = (0,...0,1,0,...,0) \in M$ where the $1$ is in the $i$-th position, the $i$-th standard basis vector of $M$. Recall: 
+$$
+L = \Lambda^k(M) = \mc{T}^k(M)/\mc{A}^k(M) = T/A.
+$$
+Now let $\pi:T \to L$ be the natural projection homomorphism given by:
+$$\pi(v_1 \tens \cdots \tens v_n) = (v_1 \tens \cdots \tens v_n) \mod A.
+$$
+Now note that $B/A$ generates $L$. We conjecture that $B/A$ is linearly independent, and thus a basis for $L$. So we know that $B/A$ is just the set where all $i_{j_1} \neq i_{j_2}$ for all $j_1 \neq j_2$. 
+ 
+\end{proof}
+\end{comment}
+
+\setcounter{enumi}{11}
+
+\item 
+\begin{enumerate}
+\item \textit{Prove that if $f(x,y)$ is an alternating bilinear map on $V$ (i.e. $f(x,x) = 0$ for all $x \in V$) then $f(x,y) = -f(x,y)$ for all $x,y \in V$. }
+
+\begin{proof}
+Observe: 
+\bee
+0 &= f(x + y,x + y) = f(x + y,x) + f(x + y,y) \\
+&= f(x,x) + f(y,x)  + f(x,y) + f(y,y) = f(y,x) + f(x,y).
+\eee
+So adding $-f(x,y)$ to both sides we have: 
+$$
+-f(x,y) = f(y,x).
+$$
+\end{proof}
+
+\item \textit{Suppose that $-1 \neq 1$ in $F$. Prove that $f(x,y)$ is an alternating bilinear map on $V$ (i.e. $f(x,x) = 0$ for all $x \in V$) if and only if $f(x,y) = -f(y,x)$ for all $x,y \in V$. }
+
+\begin{proof}
+The forward direction follows from part (a). For the second direction, assume $f(x,y)  = -f(y,x)$. So we have $f(x,x) = -f(x,x)$. Since $-1 \neq 1$, we know $1 + 1 = r \neq 0 \in F$. So we have: 
+$$
+rf(x,x) = 0.
+$$
+Suppose $f(x,x) \neq 0 \in W$, where $W$ is the vector space which $f$ maps to. Then since $r \neq 0$ we have a contradiction since $\Set{f(x,x)}$ is linearly independent. So $f(x,x) = 0$ for all $x \in V$. 
+\end{proof}
+
+\item \textit{Suppose that $-1 = 1$ in $F$. Prove that every alternating bilinear form $f(x,y)$ on $V$ is symmetric (i.e. $f(x,y) = f(y,x)$ for all $x,y \in V$). Prove that there is a symmetric bilinear map on $V$ that is not alternating. [One approach: show that $C^2(V) \sub \mc{A}^2(V)$ and $C^2(V) \neq \mc{A}^2(V)$ by counting dimensions. Alternatively, construct an explicit symmetric map that is not alternating. ]}
+
+\begin{proof}
+For the first part, we use part (a), so we know :
+$$
+f(x,y) = -f(y,x) = f(y,x),
+$$
+ since $1 = -1$. For the second part, consider $f:V \to F$ given by $f(x,y) = x \cdot y$, the dot product. It is symmetric since addition in $F$ is abelian, but it is not alternating. Note $f(x,x) = 0$ if and only if $x = 0$. 
+\end{proof}
+
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

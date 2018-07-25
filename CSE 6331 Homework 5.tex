@@ -1,0 +1,283 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+
+\documentclass[10pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%--------PREAMBLE---------------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}%{chapter}
+%\numberwithin{equation}%{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+
+
+\begin{document}
+
+\title{CSE 6331 Homework 5}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\begin{enumerate}[label=\arabic*.]
+\item \textit{Consider the single-pair shortest path problem.  We solved the problem using the
+forward approach.  Now, solve it using the backward approach.  Your answer must
+include:  the definition of $f(x)$, a recurrence, boundary conditions, and the goal.}
+
+Recall that the problem is to find the shortest path from node $u$ to node $v$ in a directed acyclic graph. The graph $G = (V,E)$ is represented by a matrix: 
+$$
+d(i,j) = \begin{cases}
+length(i,j) & (i,j) \in E\\
+0 & i = j\\
+\infty & otherwise
+\end{cases}.
+$$
+Define $f(x)$ to be the shortest distance from node $u$ to node $x$. Then $f(x)$ is given by the recurrence: 
+$$
+f(x) = \min\Set{d(y,x) + f(y):indegree(y) \neq 0,y \neq u}. 
+$$
+Our boundary conditions are: 
+$$
+f(x) = \begin{cases}
+\infty & x \neq u, indegree(x) = 0\\
+0 & x = u
+\end{cases}.
+$$
+And the goal is to compute $f(v)$. 
+\bb
+
+\item \textit{Implement the
+third approach
+of dynamic programming to the longest common
+subsequence problem.  Your algorithm needs to print the actual longest common
+subsequence.  Specifically, write two procedures:  (1) a
+non-recursive
+procedure
+to  compute $L(i,j),1 \leq i,j \neq n$,  and  (2)  a
+recursive
+procedure  Longest$(i,j)$
+such that Longest$(1,1)$ will print the longest common subsequence.}\\
+
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg1}
+\KwData{Two sequences:$A = (a_1,...,a_n),B = (b_1,...,b_n)$. }
+\KwResult{The array $L(i,j)$ computed for $1 \leq i,j \leq n + 1$. }
+\Begin{
+\textbf{global array} $L[1..n + 1,1..n + 1],\phi[1..n,1..n]$\;
+\textbf{initialize} $L[i, n + 1] \longleftarrow,L[n + 1,j] \longleftarrow 0$ for $1 \leq i,j \leq n + 1$;
+
+\For{$i \leftarrow n$ \KwTo $1$}{
+	\For{$j \leftarrow n$ \KwTo $1$}{
+		\uIf{$a_i \neq b_j$}{
+			$L[i,j] \longleftarrow \max\Set{L[i + 1,j],L[i,j + 1]}$;
+		} \Else {
+			$L[i,j] \longleftarrow 1 + L[i + 1,j+ 1]$;
+		
+		
+		}
+		
+	
+	}
+}
+}
+\caption{Compute-Array-$L$}
+\end{algorithm}
+\end{restoretext}
+
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg2}
+\KwData{The computed array $L[1..n+1,1..n+1]$.}
+\KwResult{Prints the longest common subsequence of $A$ and $B$. }
+\Begin{
+\tcc{Assume $L[1..n + 1,1..n + 1]$ has already been computed. }
+	\uIf{$L[i,j] = 1 + L[i + 1,j + 1]$}{
+		\textbf{print} $a_i$;
+		
+		Longest$(i + 1,j + 1)$;
+		
+	} \uElseIf{$L[i,j] = L[i + 1,j]$}{
+		Longest$(i + 1,j)$;
+	} \Else{
+		Longest$(i,j + 1)$;
+	}
+}
+\caption{Longest$(i,j)$}
+\end{algorithm}
+\end{restoretext}
+
+\bb
+
+\item \textit{Consider the all-pair shortest paths problem. Suppose
+global
+arrays $D^k[1..n,1..n]$ and $P^k[1..n,1..n]$ $1 \leq k \leq n$,  have  been  computed  as  in  the  straightforward
+implementation.   Write  a
+recursive
+procedure  Path$(k,i,j)$  such  that  a  call  to Path$(n,i,j)$ will print the shortest path from $i$ to $j$.
+  Note:  a path is a sequence
+of vertices.  You may print a vertex more than once (e.g., it is OK to print a path
+$(a,b,c,d)$ as $(a,a,b,c,c,c,d)$.)}
+
+\bb
+
+\begin{restoretext}
+\begin{algorithm}[H]\label{alg3}
+\KwData{The pre-computed arrays $D[1..n,1..n]$ and $P[1..n,1..n]$.}
+\KwResult{Prints the shortest path from $i$ to $j$. }
+\Begin{
+\tcc{Assume $D[1..n,1..n]$ and $P[1..n,1..n]$ have already been computed. }
+	\uIf{$P[i,j] = 0$} {
+		\Return;
+	}\Else{
+		\textbf{print} $i$;
+		
+		\uIf{$i = j$} {
+			\Return;
+		}\Else {
+			Path$(P[i,j],j)$;
+		}
+	}
+}
+\caption{Path$(i,j)$}
+\end{algorithm}
+\end{restoretext}
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

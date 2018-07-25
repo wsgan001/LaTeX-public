@@ -1,0 +1,221 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+\usepackage{braket}
+\usepackage{tikz-cd}
+\usepackage{adjustbox}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\newtheorem*{e}{Exercise}
+\newtheorem{ee}{Exercise}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+
+
+
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+
+
+
+\begin{document}
+
+\title{CSE 6331 Homework 3}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*.]
+\item \textit{A function $T(n)$ satisfies: 
+$$
+T(n) = 
+\begin{cases}
+c, &  n \leq 1\\
+3T(\lfloor n/4 \rfloor) + n, &  n > 1
+\end{cases},
+$$
+where $c$ is a positive constant. Prove that $T(n)$ is asymptotically nondecreasing. }
+
+\begin{proof}
+We use induction. Let $n = 1$. Then 
+$$
+T(n + 1) = T(2) = 3T(\lfloor 2/4 \rfloor) + 2 = 3T(0) + 2 = 3c + 2 > c.
+$$
+So $T(1) = c \leq 3c + 2 = T(2)$. So the base case holds. Now fix $n$ and assume $T(k) \leq T(k + 1),\forall k \leq n$. We wish to show that $T(n + 1) \leq T(n + 2)$. We know 
+$T(n + 2) = 3T(\lfloor (n + 2)/4 \rfloor) + n + 2$. And $T(n + 1) = 3T(\lfloor (n + 1)/4 \rfloor) + n + 1$. \\
+\textbf{Case 1: }$n + 1 \equiv 3 \mod 4$. Then we know $(n + 2)/4$ is an integer, so let $l + 1 = (n + 2)/4$. Then we have: $\lfloor (n + 1)/4 \rfloor = l$, and then $T(n + 2) = 3T(l + 1) + n + 2$, and $T(n + 1) = 3T(l) + n + 1$. Now since $l \leq n$, we know $T(l) \leq T( l + 1)$. So we have: 
+$$
+T(n + 1) = 3T(l) + n + 1 \leq 3T(l + 1) + n + 2 = T(n  +2).
+$$
+\textbf{Case 2: }$n + 1 \nequiv 3 \mod 4$. Then $\lfloor (n + 1)/4 \rfloor = \lfloor (n + 2)/4 \rfloor = l \in \z$. So we have: 
+$$
+T(n + 1) = 3T(l) + n + 1 \leq 3T(l) + n + 2 = T(n  +2).
+$$
+Hence we know $T(n + 1) \leq T(n + 2)$ in all cases, so by induction this is true for all $n \in \n$. So $T(n)$ is nondecreasing for positive integers. In particular it is asymptotically nondecreasing. 
+\end{proof}
+
+\item \textit{Determine the tight asymptotic complexity of the following function:
+$$
+T(n) = 
+\begin{cases}
+b, &  n \leq 3\\
+T(\lfloor n/2 \rfloor) + T(\lfloor n/4 \rfloor) + cn, &  n > 3
+\end{cases}.
+$$
+}
+We claim $T(n) \in \Theta(n)$. 
+\begin{proof}
+Assume $n$ is a power of $4$. We use a recursion tree to observe that at each level $i$, the time to divide and combine is $(\frac{3}{4})^in$: 
+
+
+\adjustbox{scale = 0.78,center}{
+\begin{tikzcd}
+ &  &  &  & cn \arrow[rrd] \arrow[lld] &  &  &  & =cn \\
+ &  & cn/2 \arrow[ld] \arrow[rd] &  &  &  & cn/4 \arrow[ld] \arrow[rd, dotted] &  & =(3/4)cn \\
+ & cn/4 \arrow[ldd, dotted] &  & cn/8 &  & cn/8 &  & cn/16 & =(3/4)^2cn \\
+ & {} \arrow[rrrrrr, no head, dotted] &  &  &  &  &  & {} &  \\
+(3/4)^{\log_2n}T(1) &  &  &  &  &  &  &  & =(3/4)^{\log_2n}b
+\end{tikzcd}
+}
+
+
+ And since the height of the tree is given by the longest path to a leaf node, which is along the side with all recursive calls to $T(\lfloor n/2 \rfloor )$, we know the height is $\log_2(n)$. So we have: 
+\bee
+T(n) &= cn + \left(\frac{3}{4} \right)cn
++ \left(\frac{3}{4} \right)^2cn
++ \cdots
++ \left(\frac{3}{4} \right)^{\log_2n}b\\
+&\leq 
+ cn \left(1
++ \left(\frac{3}{4} \right)
++ \left(\frac{3}{4} \right)^2
++ \cdots \right)\\
+&= 4cn \in O(n).\\
+T(n) & \geq cn \in \Omega(n).
+\eee
+So we know $T(n) \in \Theta(n)$. 
+\end{proof}
+
+
+\item \textit{Determine the tight asymptotic complexity of the following function:
+$$
+T(n) = 
+\begin{cases}
+b, &  n \leq 3\\
+T(\lfloor n/2 \rfloor) + 2T(\lfloor n/4 \rfloor) + cn, &  n > 3
+\end{cases}.
+$$
+}
+We claim $T(n) \in \Theta(n\log(n))$. 
+\begin{proof}
+Again, we use a recurrence tree: 
+
+\adjustbox{scale = 0.8,center}{
+\begin{tikzcd}
+ &  &  &  & cn \arrow[d] \arrow[llld] \arrow[rrrd] &  &  &  &  & =cn \\
+ & cn/2 \arrow[ld] \arrow[d] \arrow[rd] &  &  & cn/4 \arrow[ld] \arrow[d] \arrow[rd] &  &  & cn/4 \arrow[ld] \arrow[d] \arrow[rd] &  & =cn \\
+cn/4 & cn/8 & cn/8 & cn/8 & cn/16 & cn/16 & cn/8 & cn/16 & cn/18 & =cn \\
+{} \arrow[rrrrrrrr, no head, dashed] &  &  &  &  &  &  &  & {} & =cn \\
+T(1) &  &  &  &  &  &  &  &  & =b
+\end{tikzcd}
+}
+
+So we have that the time to divide and combine on each level of the tree adds to $cn$. And the height of the tree is $\log_2n$ since the longest path to a tree node is along the left hand side, where all the recursive calls are $T(n/2)$. So we have: 
+\bee
+T(n) &= cn + cn + \cdots + b\\
+&= \log_2n(cn) \in \Theta(n\log n). 
+\eee
+\end{proof}
+
+\item \textit{Use the master method to solve the following recurrences. }
+
+\begin{enumerate}
+\item $T(n) = 4T(n/2) + n^2$. 
+
+Note $a = 4,b = 2,f(n) = n^2$, and $n^{\log_2(4)} =n^2 = \Theta(n^2)$. So by the master method, this is \textbf{Case 3}, and hence $T(n) \in Theta(n^2\log n)$. 
+\item $T(n) = 4T(n/2) + n^2\log^2n$. 
+
+Note $a = 4,b = 2,f(n) = n^2\log^2n$. And $n^{\log_2(4)} = n^2$, and $n^2\log^2n \in \Theta(n^2\log^2n)$, so this is \textbf{Case 4}. Hence $T(n) \in \Theta(n^2\log^3n)$. 
+\item $T(n) = 4T(n/2) + n^3$. 
+
+Note $a = 4,b = 2,f(n) = n^3$. And $n^{\log_2(4)} = n^2$. So we know $f(n) = n^3 >> n^2$, and thus this is \textbf{Case 2}. So we know $T(n) \in \Theta(n^3)$. 
+\end{enumerate}
+\item \textit{The running time of an algorithm $A$ is described by the recurrence $T(n) = 7T(n/2) + n^2$. A competing algorithm $A'$ has a running time of $T'(n) = aT'(n/4) + n^2$. What is the largest integer value for $a$ such that $A'$ is asymptotically faster than $A$?}
+
+We apply the master theorem. Note that for $T(n)$, we have $a = 7,b = 2,f(n) = n^2$. And since $n^{\log_2(7)} >> n^2$, we are in \textbf{Case 1}, and $T(n) \in \Theta(n^{\log_2(7)})$. For $T'(n)$, we have $a,b = 4,f(n) = n^2$. If we choose $a = 17$, we have $n^{\log_4(17)} >> n^2 = n^{\log_4(16)}$, and since:
+$$
+ \log_4(17) < 2.05 < 2.80 < \log_2(7),
+ $$
+ we know we are in \textbf{Case 1} for $T'(n)$ as well, and $T'(n) \in \Theta(n^{\log_4(a)})$. Observe that $\log_4(7^2) = 2\log_4(7) = 2\fracc{\log_2(7)}{\log_2(4)} = \log_2(7)$. So when we let $a = 7^2 = 49$, we have $T'(n) = \Theta(T(n))$. So we let $a = 7^2 - 1 = 48$, and then $T'(n) \in \Theta(n^{\log_4(48)})$, so since $n^{\log_4(48)} << n^{\log_2(7)}$, we know 48 is the largest integer $a$ s.t. $T'(n)$ is asymptotically faster than $T(n)$. 
+\end{enumerate}
+
+
+
+
+
+
+
+
+\end{document}
+
+

@@ -1,0 +1,111 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge CSE 2221 Homework 16 \linebreak \\\\ \Large Professor Bucci}
+
+\date{31 March 2017}
+\documentclass[10pt]{article}
+
+
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{listings}
+
+%\usepackage[margin=1in]{geometry}&
+
+
+\begin{document}
+\maketitle
+
+\paragraph{1. } We implement the given static method: 
+\begin{list}{}
+\item{\textbf{i.}} False
+\item{\textbf{ii.}} False
+\item{\textbf{iii.}} \{ 'x', 'y', 'z' \}
+\item{\textbf{iv.}} \{'w', 'x', 'y', 'z' \}
+\item{\textbf{v.}} \{'x', 'y'\}
+\item{\textbf{vi.}} \{ \}
+\item{\textbf{vii.}} \{'z'\}
+\item{\textbf{viii.}} \{ \}
+\item{\textbf{ix.}} True
+\item{\textbf{x.}} False
+\item{\textbf{xi.}} 3
+\item{\textbf{xii.}} \{'a', 'b', 'c'\}\\
+\end{list}
+\paragraph{2. }
+Step 1: \\
+CTGTTTTCGTTA\\
+AGCTGTTTTCGTT\\
+10 character overlap: CTGTTTTCGTT\\
+AGCTGTTTTCGTTA\\
+
+Step 2: \\
+AGCTGTTTTCGTTA\\
+TTTCGTTATACAT\\
+8 character overlap: TTTCGTTA\\
+AGCTGTTTTCGTTATACAT\\
+
+Step 3: \\
+AGCTGTTTTCGTTATACAT\\
+CATTTTAGCTGTT\\
+7 character overlap: AGCTGTT\\
+CATTTTAGCTGTTTTCGTTATACAT\\
+
+Step 4: \\
+CATTTTAGCTGTTTTCGTTATACAT\\
+CACTCCATTTTA\\
+7 character overlap: CATTTTA\\
+CACTCCATTTTAGCTGTTTTCGTTATACAT\\
+
+Step 5: \\
+CACTCCATTTTAGCTGTTTTCGTTATACAT\\
+TATACAT\\
+7 character overlap: TATACAT\\
+ CACTCCATTTTAGCTGTTTTCGTTATACAT\\
+ 
+
+\paragraph{3. } Instance
+
+\begin{lstlisting}
+    public void flip() {
+        Queue<Integer> q1 = new Queue1L<Integer>();
+        q1.transferFrom(this);
+        for (int i = 0; i < q1.length(); i++) {
+            int entry = this.dequeue();
+            q1.enqueue(entry);
+        }
+        this.transferFrom(q1);
+    }
+\end{lstlisting}
+
+\paragraph{4. } Static
+
+\begin{lstlisting}
+    public static void flip(Queue<Integer> q) {
+        Queue<Integer> q1 = new Queue1L<Integer>();
+        q1.transferFrom(q);
+        for (int i = 0; i < q1.length(); i++) {
+            int entry = q.dequeue();
+            q1.enqueue(entry);
+        }
+        q.transferFrom(q1);
+    }
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

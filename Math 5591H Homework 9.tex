@@ -1,0 +1,400 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+
+
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+%\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{bbm}
+%\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+%\usepackage{tikz}
+%\usepackage{environ}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+%\usepackage[ruled,linesnumbered]{algorithm2e}
+%\usepackage{adjustbox}
+%\usepackage{changepage}
+%\usepackage{import}
+%\usepackage{newclude}
+\usepackage[all,cmtip]{xy}
+\usepackage[]{titlesec}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+
+
+
+
+
+
+
+\usepackage{hyperref}
+
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+
+
+
+
+
+
+
+
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+%NAMED THEOREMS
+\theoremstyle{plain}
+\newtheorem*{namedthm}{\namedthmname}
+\newcounter{namedthm}
+\makeatletter
+	\newenvironment{named}[2]
+	{\def\namedthmname{#1}
+	\refstepcounter{namedthm}
+	\namedthm[#2]\def\@currentlabel{#1}}
+	{\endnamedthm}
+\makeatother
+
+
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+\newcommand{\rank}{\text{rank}}
+\DeclareMathOperator{\coker}{coker}
+\newcommand*\pp{{\rlap{\('\)}}}
+
+
+
+
+
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+
+
+
+\title{Math 5591H Homework 9}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{13.1 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+
+\setcounter{enumi}{2}
+
+\item \textit{Show that $x^3 + x + 1$ is irreducible over $\mathbb{F}_2$ and let $\theta$ be a root. Compute the powers of $\theta$ in $\mathbb{F}_2(\theta)$. } 
+
+\begin{proof}
+Suppose $p(x) = x^3 + x + 1$ were reducible over $\F_2$. Then since it has degree $3$, we would have $(x - 1)|p(x)$ or $x|p(x)$. Since we have a nonzero constant term, we know the second of these two options does not hold. Also note $p(1) = 1^3 + 1 + 1 = 1 + 1 + 1 = 1 \neq 0$, so $(x - 1) \nmid p(x)$. Thus it must be irreducible over $\F_2$ since this field only has these two elements. 
+\end{proof}
+
+Now consider $\F_2(\theta) = \Set{a + b\theta + c\theta^2: a,b,c \in \F_2}$, since $\theta$ is a root of degree 3. Note $\theta^3 = -\theta - 1$. We have:
+\bee
+\theta^0 &= 1\\
+\theta^1 &= \theta\\
+\theta^2 &= \theta^2\\
+\theta^3 &= -\theta - 1\\
+\theta^4 &= \theta^2 - \theta\\
+\theta^5 &= (-\theta - 1) - \theta^2\\
+&= -\theta^2 - \theta - 1\\
+\theta^6 &= \theta + 1 - \theta^2 - \theta\\
+&= 1 - \theta^2\\
+\theta^7 &= \theta - (-\theta - 1)\\
+&= 1.
+\eee
+\end{enumerate}
+
+
+
+\bb\bb
+
+
+\section*{13.2 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{7}
+
+\item \textit{Let $F$ be a field of characteristic $\neq 2$. Let $D_1$ and $D_2$ be elements of $F$, neither of which is a square in $F$. Prove that $F(\sqrt{D_1},\sqrt{D_2})$ is of degree $4$ over $F$ if $D_1D_2$ is not a square in $F$ and is of degree $2$ over $F$ otherwise. When $F(\sqrt{D_1},\sqrt{D_2})$ is of degree $4$ over $F$, the field is called a \textbf{biquadratic extension of $F$}. }
+
+\begin{proof}
+Assume $D_1D_2$ is not a square. Suppose $\sqrt{D_1},\sqrt{D_2}$ are linearly dependent. Then we have $\sqrt{D_1} = \alpha\sqrt{ D_2} + \beta$ for some $\alpha,\beta \in F$. Suppose for contradiction that $\beta = 0$. Then we have:
+\bee
+\sqrt{D_1} &= \alpha \sqrt{D_2}\\
+D_1 &= \alpha^2D_2\\
+D_1D_2 &= \alpha^2D_2^2.
+\eee
+But we said $D_1D_2$ is not a square, so we have a contradiction, so we must have that $\beta \neq 0$. And $\alpha \neq 0$ since otherwise $\sqrt{D_1} \in F \Rightarrow D_1$ is a square in $F$. 
+
+Then: 
+$$
+D_1 = (\alpha\sqrt{ D_2} + \beta)^2 = \alpha^2D_2 + 2\alpha\beta\sqrt{D_2} + \beta^2,
+$$
+and since we are over a field of characteristic $\neq 2$, we know that $2\neq 0 \Rightarrow 2\alpha\beta \neq 0$, so we must have that $\sqrt{D_2} \in F$ which means that $D_2$ is a square in $F$, contradiction, so $\sqrt{D_1},\sqrt{D_2}$ must be linearly independent over $F$. Thus $m_{\sqrt{D_1},F(\sqrt{D_2}} = x^2 - D_1$, and so the degree of $F(\sqrt{D_1},\sqrt{D_2})$ over $F(\sqrt{D_2})$ is $2$. Since $D_2$ is not a square in $F$, we know $m_{\sqrt{D_2},F} = x^2 - D_2$, which as degree $2$, so $F(\sqrt{D_2})$ has degree 2 over $F$, and note these are both finite extensions. Recall that if $E/K$, $K/F$ are finite, then $E/F$ is finite, and we have $[E:F] = [E:K][K:F]$. So $[F(\sqrt{D_1},\sqrt{D_2}):F] = 4$. 
+
+
+If $D_1D_2$ is a square, we would have $\sqrt{D_1}\sqrt{D_2} = a$ for some integer $a$. Thus $\sqrt{D_1} = \fracc{a}{\sqrt{D_2}}$, and so $F(\sqrt{D_1},\sqrt{D_2}) = F(\sqrt{D_2})$. Then we showed $F(\sqrt{D_2})$ has degree 2 over $F$, so $[F(\sqrt{D_1},\sqrt{D_2}):F] = 2$. 
+\end{proof}
+
+\item \textit{Let $F$ be a field of characteristic $\neq 2$. Let $a,b$ be elements of the field $F$ with $b$ not a square in $F$. Prove that a necessary and sufficient condition for $\sqrt{a + \sqrt{b}} = \sqrt{m} + \sqrt{n}$ for some $m$ and $n$ in $F$ is that $a^2 - b$ is a square in $F$. Use this to determine when the field $\Q(\sqrt{a + \sqrt{b}})(a,b \in \Q)$ is biquadratic over $\Q$. }
+
+\begin{proof}
+Let $a^2 - b$ be a square in $F$. Then:
+\bee
+\lpar \sqrt{a + \sqrt{b}} \rpar^2 \lpar \sqrt{a - \sqrt{b}} \rpar^2 = (a + \sqrt{b})(a - \sqrt{b}) = a^2 - b = c^2,
+\eee
+for some $c \in F$. Then we have $\sqrt{a^2 - b} \in F$. Define $m = \fracc{a + \sqrt{a^2 - b}}{2}$ and $n = \fracc{a - \sqrt{a^2 - b}}{2}$, which are well defined since we said the characteristic of our field is not 2. Then we have:
+\bee
+m &= \fracc{2a + 2\sqrt{a^2 - b}}{4}\\
+&= \fracc{(a + \sqrt{b}) + 2\sqrt{a^2 - b} + (a - \sqrt{b})}{4}\\
+&= \lpar \fracc{\sqrt{a + \sqrt{b}} + \sqrt{a - \sqrt{b}}}{2} \rpar^2\\
+\Rightarrow \sqrt{m} &= \fracc{\sqrt{a + \sqrt{b}} + \sqrt{a - \sqrt{b}}}{2}.
+\eee
+Similarly, we have:
+\bee
+\sqrt{n} &=  \fracc{\sqrt{a + \sqrt{b}} - \sqrt{a - \sqrt{b}}}{2}
+\eee
+Thus:
+\bee
+\sqrt{m} + \sqrt{n} &= \fracc{\sqrt{a + \sqrt{b}} + \sqrt{a - \sqrt{b}}}{2} + \fracc{\sqrt{a + \sqrt{b}} - \sqrt{a - \sqrt{b}}}{2} = \sqrt{a + \sqrt{b}}.
+\eee
+So we have shown the claim holds in the first direction.
+
+
+
+Assume we have the following:
+\bee
+\sqrt{a + \sqrt{b}} &= \sqrt{m} + \sqrt{n}\\
+a + \sqrt{b} &= m + n + 2\sqrt{mn}.
+\eee
+Now we claim we must have $a = m + n$ and $b = 4mn$. Suppose $\sqrt{b} = c + 2\sqrt{mn}$ for some $c \in F$. Then $b = c^2 + 4c\sqrt{mn} + 4mn$. Since char$F \neq 2$, and $b \in F$, we know we must have either $\sqrt{mn} \in F$, or $c = 0$. If $\sqrt{mn} \in F$, then $\sqrt{b} \in F$, which means $b$ is a square, contradiction. So we must have $c = 0$, thus the claim holds. Then we have:
+\bee
+a^2 - b &= (a + \sqrt{b})(a - \sqrt{b})\\
+&= (m + n + 2\sqrt{mn})(m + n - 2\sqrt{mn})\\
+&= m^2 + mn - 2m\sqrt{mn} + mn + n^2 - 2n\sqrt{mn} + 2m\sqrt{mn} + 2n\sqrt{mn} - 4mn\\
+&= m^2 + n^2 - 2mn\\
+&= (m - n)^2.
+\eee
+Thus if $a^2 - b$ is a square, then we have:
+\bee
+\Q(\sqrt{a + \sqrt{b}}) &= \Q(\sqrt{m} + \sqrt{n}) = \Q(\sqrt{m},\sqrt{n}).
+\eee
+Clearly the degree is either 2 or 4, but if it is 2, then we would have $m = n$ which would give us $b$ is a square, contradiction, so the degree is 4. So $\Q(\sqrt{a + \sqrt{b}})$ is biquadratic. 
+\end{proof}
+
+\setcounter{enumi}{12}
+
+\item \textit{Suppose $F = \Q(\alpha_1,\alpha_2,...,\alpha_n)$ where $\alpha_i^2 \in \Q$ for $i = 1,2,...,n$. Prove that $\sqrt[3]{2} \notin F$. }
+
+\begin{proof}
+Since these roots are all quadratic, we know that the degree of $\Q(\alpha_i)$ over $\Q(\alpha_1,...,\alpha_{i - 1})$ is at most 2, and if $\alpha_i$ is generated by $\alpha_1,...,\alpha_{i - 1}$ then the degree is 1. Thus these are all finite extensions, and then by induction, we know that $F/\Q$ has finite degree, and it's degree is the product of all the extensions $\Q(\alpha_i)/\Q(\alpha_1,...,\alpha_{i - 1})$. Since these are all $1$ or $2$, we know $[F:\Q] = 2^k$ for some integer positive integer $k$ (positive since the first extension has degree $2$ over $\Q$). But $[\Q(\sqrt[3]{2}):\Q] = 3$, and if $\sqrt[3]{2} \in F$, then we would have $[\Q(\sqrt[3]{2}):\Q]|2^k$, which is not the case. Thus $\sqrt[3]{2} \notin F$. 
+\end{proof}
+
+\setcounter{enumi}{15}
+
+\item \textit{Let $K/F$ be an algebraic extension and let $R$ be a ring contained in $K$ and containing $F$. Show that $R$ is a subfield of $K$ containing $F$. }
+
+\begin{proof}
+Since $K/F$ is algebraic, we know that $\forall \alpha \in K$, $\alpha$ is algebraic over $F$. So $\alpha$ is the root of some polynomial $p(x) \in F[x]$. So let $r \in R$, nonzero, we wish to construct an inverse $r^{-1}$ for $r$. Then we have:
+\bee
+p(r) &= a_nr^n + \cdots + a_1r + a_0 = 0\\
+a_0 &= -a_nr^n - \cdots - a_2r^2 - a_1r\\
+1 &= -\fracc{a_n}{a_0} r^n - \cdots - \fracc{a_2}{a_0}r^2 - \fracc{a_1}{a_0}r\\
+\fracc{1}{r} &= -\fracc{a_n}{a_0} r^{n- 1} - \cdots - \fracc{a_2}{a_0}r - \fracc{a_1}{a_0}. 
+\eee
+This is well defined since $r$ is nonzero. Thus we have found $r^{-1}$, and it is an element of $r$ since $a_i \in F \sub R$, and since we have additive and multiplicative closure in $R$. Thus we have inverses in $R$ and it is a field. 
+\end{proof}
+
+\setcounter{enumi}{19}
+
+\item \textit{Show that if the matrix of the linear transformation ``multiplication by $\alpha$" considered in the previous exercise is $A$ then $\alpha$ is a root of the characteristic polynomial of $A$. This gives an effective procedure for determining an equation of degree $n$ satisfied by an element $\alpha$ in an extension of $F$ of degree $n$. Use this procedure to obtain the monic polynomial of degree 3 satisfied by $\sqrt[3]{2}$ and by $1 + \sqrt[3]{2} + \sqrt[3]{4}$. }
+
+\begin{proof}
+Let $c_A = a_nx^n + \cdots + a_1x + a_0$ be the characteristic polynomial of the matrix $A$ of multiplication by $\alpha$. Then we know:
+\bee
+c_A(A) &= a_nA^n + \cdots + a_1A + a_0 = 0,
+\eee
+where $0$ represents the 0 matrix. Then replacing $A$ with $\alpha$, we have:
+\bee
+c_A(\alpha) &= a_n\alpha^n + \cdots + a_1\alpha + a_0 = 0,
+\eee
+which makes sense since $\alpha$ must be an eigenvalue of $A$ since $Ar = \alpha r$. So it must be a root by definition.
+\end{proof}
+
+
+
+Now we find a monic polynomial of degree 3 satisfied by $\sqrt[3]{2}$. We have a basis $\Set{1,\sqrt[3]{2},\sqrt[3]{4}}$. We set $k = \lpar 
+\begin{matrix}
+a\\b\\c
+\end{matrix} \rpar$. We solve for $A$ knowing:
+\bee
+A\lpar 
+\begin{matrix}
+a\\b\\c
+\end{matrix} \rpar &= \sqrt[3]{2}\lpar 
+\begin{matrix}
+a\\b\\c
+\end{matrix} \rpar\\
+&= (\sqrt[3]{2}a + \sqrt[3]{4}b + 2c)\\
+\Rightarrow A &= \lpar 
+\begin{matrix}
+0 & 0 & 2\\
+1 & 0 & 0\\
+0 & 1 & 0
+\end{matrix} \rpar.
+\eee
+And the characteristic polynomial of $A$ is $x^3 - 2$. 
+
+
+Using the exact same basis, we find that for $\alpha = 1 + \sqrt[3]{2} + \sqrt[3]{4}$, 
+\bee
+A = \lpar 
+\begin{matrix}
+1 & 2 & 2\\
+1 & 1 & 2\\
+1 & 1 & 1
+\end{matrix} \rpar
+\eee
+Thus the characteristic polynomial is given by $x^3 - 3^2 - 3x - 1$. 
+
+
+\end{enumerate}
+
+\bb\bb
+
+
+\section*{13.4 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{1}
+\item \textit{Find the splitting field and its degree over $\Q$ for $x^4 + 2$. }
+
+We have four roots in the plane. Observe:
+\bee
+x^4 &= -2\\
+x^2 &= \pm i\sqrt{2}\\
+x &= \pm \sqrt{i \sqrt{2}}, \pm i\sqrt{i\sqrt{2}}\\
+&= \pm \sqrt{i}\sqrt[4]{2},\pm i\sqrt{i}\sqrt[4]{2}.
+\eee
+We adjoin them and this will be the splitting field. It is $\Q(\sqrt{i}\sqrt[4]{2}, i)$. The first root $\sqrt{i}\sqrt[4]{2}$ is of degree 4 since $x^4 + 2$ has degree 4 and it is a root of this irreducible polynomial. And $i$ has degree 2 and is linearly independent, so we know the splitting field has degree 8 over $\Q$. 
+
+\end{enumerate}
+
+
+
+
+\end{document}
+
+
+

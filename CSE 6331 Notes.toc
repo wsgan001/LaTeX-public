@@ -1,0 +1,9 @@
+\contentsline {part}{Part\ 1. \enspace \noindent }{1}{part.1}
+\contentsline {chapter}{\tocchapter {Chapter}{1}{Mathematical Foundations}}{3}{chapter.1}
+\contentsline {section}{\tocsection {}{1.1}{2331 HW2}}{4}{section.1.1}
+\contentsline {chapter}{\tocchapter {Chapter}{2}{Dynamic Programming}}{7}{chapter.2}
+\contentsline {chapter}{\tocchapter {Chapter}{3}{Greedy algorithms}}{11}{chapter.3}
+\contentsline {chapter}{\tocchapter {Chapter}{4}{Graph algorithms}}{13}{chapter.4}
+\contentsline {chapter}{\tocchapter {Chapter}{5}{Maximum Flow}}{15}{chapter.5}
+\contentsline {section}{\tocsection {}{5.1}{Generic Push-Relabel}}{16}{section.5.1}
+\contentsline {section}{\tocsection {}{5.2}{Analysis of Generic}}{17}{section.5.2}

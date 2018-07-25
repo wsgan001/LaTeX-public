@@ -1,0 +1,173 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Homework 7}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\title{CSE 2321 Homework 8}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{enumerate}[label=]
+
+\item 
+
+\begin{enumerate}
+
+\item 
+
+\begin{equation}
+\begin{aligned}
+t &= \sum_{i = n}^{2n}\sum_{j = 10i + 5}^{11i + 5}c = \sum_{i = n}^{2n} (11i + 5 - (10i + 5) + 1)c = \sum_{i = n}^{2n} (i + 1)c = \sum_{n + 1}^{2n + 1} ic \\
+&= \sum_{i  =1}^{2n  +1}ic - \sum_{i = 1}^n ic.
+\end{aligned}
+\end{equation}
+Now, making use of arithmetic series, we have
+\begin{equation}
+\begin{aligned}
+t &= \frac{(2n + 1)(2n + 2)}{2}c - \frac{n(n  +1)}{2}c = (2n + 1)(n + 1)c - (1/2)n(n+ 1)c \\
+&= c((2n^2 + 3n + 1) - (\frac{1}{2}n^2 + \frac{1}{2}n)) = \boxed{\frac{3}{2}cn^2} + \frac{5}{2}cn + c
+\end{aligned}
+\end{equation}
+
+\item 
+
+\begin{equation}
+\begin{aligned}
+t &= \sum_{i = 1}^{n^2}\sum_{j = i}^{n^2}c = \sum_{i = 1}^{n^2}(n^2 - i + 1)c = c\sum_{i = 1}^{n^2}n^2 - c\sum_{i = 1}^{n^2}i + c\sum_{i = 1}^{n^2}1.
+\end{aligned}
+\end{equation}
+Again, making use of arithmetic series, we have
+\begin{equation}
+\begin{aligned}
+t &= c(n^2n^2) - c\frac{n^2(n^2 + 1)}{2} + cn^2 = cn^4 - \frac{c}{2}(n^4 + n^2) + cn^2 = \boxed{\frac{1}{2}cn^4} + \frac{1}{2}cn^2.
+\end{aligned}
+\end{equation}
+
+\item 
+
+\begin{equation}
+\begin{aligned}
+t &= \sum_{i = 4n}^{6n^3}\sum_{j = 4}^{i}\sum_{k = j}^i c = \sum_{i = 4n}^{6n^3}\sum_{j = 4}^{i}(i - j + 1) c = c\sum_{i = 4n}^{6n^3}\left(\sum_{j = 4}^{i}i - \sum_{j = 4}^{i}j + \sum_{j = 4}^{i}1 \right).
+\end{aligned}
+\end{equation}
+And by arithmetic series we have
+\begin{equation}
+\begin{aligned}
+t &= c\sum_{i = 4n}^{6n^3}\left((i - 3)i - \left(\sum_{j = 1}^{i}j - \sum_{j = 1}^{3}j \right) + (i - 3) \right) \\
+&= c\sum_{i = 4n}^{6n^3}\left((i - 3)i - \left(\frac{i(i + 1)}{2} - 6 \right) + (i - 3) \right) \\
+&= c\sum_{i = 4n}^{6n^3}\left(i^2 - 2i - 3 - \frac{1}{2}i^2 - \frac{1}{2}i + 6 \right) = c\sum_{i = 4n}^{6n^3}\left(\frac{1}{2}i^2 - \frac{5}{2}i + 3 \right).
+\end{aligned}
+\end{equation}
+We find an upper bound by plugging in $6n^3$ for $i$
+\begin{equation}
+\begin{aligned}
+t &\leq c\sum_{i = 4n}^{6n^3}\left(\frac{1}{2}(6n^3)^2 - \frac{5}{2}(6n^3) + 3 \right) \leq c\sum_{i = 4n}^{6n^3}\left(18n^6 + 3 \right) = (6n^3 - 4n + 1)(18n^6 + 3)\\
+&\leq (6n^3 + 1)(18n^6 + 3) = \boxed{108n^9 }+ 18n^3 + 18n^6 + 3.
+\end{aligned}
+\end{equation}
+Similarly, we find a lower bound by splitting the summation
+\begin{equation}
+\begin{aligned}
+t &= c\sum_{i = 4n}^{n^3 - 1}\left(\frac{1}{2}i^2 - \frac{5}{2}i + 3 \right)  + c\sum_{i = n^3}^{6n^3}\left(\frac{1}{2}i^2 - \frac{5}{2}i + 3 \right)\\
+&\geq c\sum_{i = n^3}^{6n^3}\left(\frac{1}{2}i^2 - \frac{5}{2}i + 3 \right) \geq c\sum_{i = n^3}^{6n^3}\left(\frac{1}{2}i^2 - \frac{5}{2}i \right).
+\end{aligned}
+\end{equation}
+Plugging in $n^3$ for $i$ we get
+\begin{equation}
+\begin{aligned}
+t &\geq c\sum_{i = n^3}^{6n^3}\left(\frac{1}{2}(n^3)^2 - \frac{5}{2}n^3 \right) = c(6n^3 - n^3 + 1)\left(\frac{1}{2}n^6 - \frac{5}{2}n^3 \right)\\
+&\geq c(5n^3)\left(\frac{1}{2}n^6 - \frac{5}{2}n^3 \right) = \boxed{\frac{5}{2}cn^9} - \frac{25}{2}cn^6.
+\end{aligned}
+\end{equation}
+Thus $\boxed{t = c'n^9}$ where $\frac{5}{2}c \leq c' \leq 108$. 
+\item 
+
+\begin{equation}
+\begin{aligned}
+t &= \sum_{i = \lfloor n/5 \rfloor}^{n}\sum_{j = i}^{n}c = \sum_{i = \lfloor n/5 \rfloor}^{n}(n - i + 1)c \\
+&= c \sum_{i = \lfloor n/5 \rfloor}^{n}n + c\sum_{i = \lfloor n/5 \rfloor}^{n}1 - c\sum_{i = \lfloor n/5 \rfloor}^{n}i\\
+&= c(n - \frac{n}{5} + 1)n + c(n - \frac{n}{5} + 1)- c\sum_{i = \lfloor n/5 \rfloor}^{n}i \\
+&= c(\frac{4}{5}n + 1)n + c(\frac{4}{5}n  +1)  -c \sum_{i = \lfloor n/5 \rfloor}^{n}i\\
+&= c \left( \frac{4}{5}n^2 + \frac{9}{5}n + 1\right) -c \sum_{i = \lfloor n/5 \rfloor}^{n}i \\
+&= c \left( \frac{4}{5}n^2 + \frac{9}{5}n + 1\right) - c\left(\sum_{i = 1}^ni - \sum_{i = 1}^{\lfloor n/5 \rfloor - 1}i \right).\\
+\end{aligned}
+\end{equation}
+Again making use of arithmetic series
+\begin{equation}
+\begin{aligned}
+t&= c \left( \frac{4}{5}n^2 + \frac{9}{5}n + 1\right) - c\left(\frac{n(n + 1)}{2} - \frac{(n/5 - 1)(n/5)}{2} \right)\\
+&= c \left( \frac{4}{5}n^2 + \frac{9}{5}n + 1\right) - c\left(\frac{12}{25}n^2 + \frac{3}{5}n \right)\\
+&=  \boxed{\frac{8}{25}cn^2} + \frac{6}{5}cn + c. 
+\end{aligned}
+\end{equation}
+
+
+
+
+\end{enumerate}
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

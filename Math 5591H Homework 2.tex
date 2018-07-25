@@ -1,0 +1,323 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{Lem}[theorem]{Lemma}
+\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+
+
+
+
+\begin{document}
+
+\title{Math 5591H Homework 2}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{Section 10.2 Exercises}
+
+
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{5}
+\item \textit{Prove that Hom$_\z(\z/n\z,\z/m\z) \cong \z/(n,m)\z$. }
+
+\begin{proof}
+Let $H = $ Hom$_\z(\z_n,\z_m)$, and let $K = \z/(n,m)$. Also, let $l = \gcd(n,m)$. Then $K = \z_l$. So let $\phi \in H$. Then $\phi:\z_n \to \z_m$. We note here that $\phi$ is completely determined by where it sends $1 \in \z_n$, since we must have $\phi(n\cdot 1) = \phi(0) = 0$ by the definition of a group homomorphism, thus we must have that $n\phi(1) = 0 \in \z_m$. In order to have $n\phi(1) = 0$, we need $\phi(1)$ to be a multiple of $m$. So we need $\phi(1)$ to be a multiple of $m/l$, since every prime factor in $l$ is also in the factorization of $n$, so we need only the prime factors of $m$ which are not in $l$, hence $\phi(1)$ must be a multiple of $m/l$. Now note there are exactly $l$ multiples of $m/l$ in $\z_m$. We denote these $a_0,...,a_{l - 1}$. So we have exactly $l$ distinct homomorphisms in $H$, so we denote these $\phi_0,...,\phi_{l - 1}$, where $\phi_i(1) = a_i = im/l \in \z_m$. Then let $\Phi: H \to K$ be given by:
+$$
+\Phi(\phi_i) = i \in \z_l.
+$$
+We prove this map is an isomorphism. 
+\textbf{Homomorphism: } Observe: 
+$$
+\Phi(\phi_i + \phi_j) = \Phi(\phi_{i + j \mod l}) = i + j = \Phi(\phi_i) + \Phi(\phi_j) \in \z_l.
+$$
+The first equality is by the additive operation on the $\z$-module $H$, and the other equalities follow from the definition of $\Phi$ and the additive operation on $\z_l$. Since $\phi_i$ is a homomorphism of $R$-modules, it preserves multiplication by scalars, so we have $z\phi_i(1) = \phi_i(z) = za_i$, and since $\{a_i\} \cong \z_l$ as a group, we know $za_i = a_{zi \mod l}$. So we have:
+$$
+\Phi(z\phi_i) = zi = z\Phi(\phi_i) \in \z_l.
+$$
+So $\Phi$ preserves scalar mult, and hence it is a homomorphism. \\
+\textbf{Surjectivity: } Let $i \in \z_l$. Then consider $\psi \in H$ s.t. $\psi(1) = im/l$, but this is exactly how we defined $\phi_i$, so we know $\phi_i = \psi$, and then $\Phi(\psi) = \Phi(\phi_i) = i$. So $\Phi$ is surjective. \\
+\textbf{Injectivity: }Let: 
+$$
+\Phi(\psi) = \Phi(\xi),
+$$
+then since we enumerated all the elements of $H$, we know we must have $\psi = \phi_i$ and $\xi = \phi_j$ for some $0 \leq i,j \leq l - 1$. Then we have: 
+$$
+\Phi(\phi_i) = i = j = \Phi(\phi_j) \in \z_l,
+$$
+so $i \equiv j \mod l$, but since both these numbers are between $0$ and $l - 1$, we know $i  =j$, so $\psi = \xi$, and $\Phi$ is injective. Hence it is an isomorphism. 
+\end{proof}
+
+\setcounter{enumi}{10}
+\item \textit{Let $A_1,A_2,...,A_n$ be $R$-modules and let $B_i$ be a submodule of $A_i$ for each $i = 1,2,...,n$. Prove that: 
+$$
+(A_1 \times \cdots \times A_n)/(B_1 \times \cdots \times B_n) \cong (A_1/B_1) \times \cdots \times (A_n/B_n).
+$$}
+
+\begin{proof}
+So let $A = (A_1 \times \cdots \times A_n)$, $B = (B_1 \times \cdots \times B_n)$, and $C = (A_1/B_1) \times \cdots \times (A_n/B_n)$. Note that: 
+$$
+A/B = \Set{(a_1,...,a_n) + B}.
+$$
+We know $B$ is a submodule of $A$ since it is clearly a subset since each component $b_i$ of $(b_1,...,b_n)$ is also in $A_i$. Also: 
+$$
+(b_1,...,b_n) + r(d_1,...,d_n) = (b_1,...,b_n) + (rd_1,...,rd_n) = (b_1 + rd_1,...,b_n + rd_n),
+$$
+because of how we defined add. and mult. by $R$ in the $R$ -module $B$, and because each $B_i$ is a submodule of $A_i$. 
+Then we know $A/B$ is an $R$-module since we may factorize by any submodule of $A$. , so we let $\phi: A/B \rightarrow C$ be given by $$\phi((a_1,a_2,...,a_n) + B) = (a_1+B_1,a_2+B_2,...,a_n+B_n).$$ 
+We prove that $\phi$ is an isomorphism.\\
+\textbf{Homomorphism: } Let $(x_1,x_2,...,x_n) + B,(y_1,y_2,...,y_n) + B \in A/B$, then 
+\begin{equation}
+\begin{aligned}
+	\phi(((x_1,x_2,...,x_n) + B)
+	+((y_1,y_2,...,y_n) + B)) 
+	&= \phi(((x_1,x_2,...,x_n)
+	+(y_1,y_2,...,y_n)) + B)\\ 
+	&= \phi((x_1+y_1,x_2+y_2,...,x_n+y_n) + B) \\
+	&= (x_1+y_1+B_1,x_2+y_2+B_2,...,x_n+y_n+B_n)\\
+ 	&= (x_1+B_1,x_2+B_2,...,x_n+B_n)\\
+ 	&+(y_1+B_1,y_2+B_2,...,y_n+B_n)\\
+  	&= \phi((x_1,x_2,...,x_n) + B)+\phi((y_1,y_2,...,y_n) + B), 
+\end{aligned}
+\end{equation}
+by the direct product operation on $A/B$ and $C$. And for multiplication, we have: 
+
+\bee
+	\phi(r((x_1,...,x_n) + B)) 
+	&= \phi(r(x_1,...,x_n) + B)\\
+	&= \phi(rx_1,...,rx_n) + B)\\
+	&= (rx_1 + B,...,rx_n + B)\\
+	&= r(x_1 + B,...,x_n + B)\\
+	&= r\phi((x_1,...,x_n) + B),
+\eee
+ so $\phi$ is a homomorphism. \\ 
+\textbf{Injection: } Let $(x_1,x_2,...,x_n) + B,(y_1,y_2,...,y_n) + B \in A/B$, and let 
+\begin{equation}
+\begin{aligned}
+\phi((x_1,x_2,...,x_n) + B) &= \phi((y_1,y_2,...,y_n) + B)\\
+\Rightarrow  (x_1+B_1,x_2+B_2,...,x_n+B_n)&=(y_1+B_1,y_2+B_2,...,y_n+B_n). 
+\end{aligned}
+\end{equation}
+So then we have that $x_i+B_i = y_i+B_i$ for all $i$, thus
+ \begin{equation}
+\begin{aligned}(y_1,y_2,...,y_n) + B &= (y_1,y_2,...,y_n)+(B_1 \times B_2 \times \cdots \times B_n)=
+(y_1+B_1 \times y_2+B_2 \times \cdots \times y_n+B_n) \\
+&= (x_1+B_1 \times x_2+B_2 \times \cdots \times x_n+B_n) = (x_1,x_2,...,x_n) + B
+\end{aligned}
+\end{equation}
+ by the direct product operation, so $\phi$ is in injective. \\
+\textbf{Surjection: } Let $(a_1+B_1,a_2+B_2,...,a_n+B_n) \in C$. Then we must have that $a_i \in A_i$ for all $i$ by definition of $C$ and the quotient modules $A_i/B_i$, so $(a_1,a_2,...,a_n) \in A \Rightarrow (a_1,a_2,...,a_n) + B \in A/B$, and $\phi((a_1,a_2,...,a_n) + B) = (a_1+B_1,a_2+B_2,...,a_n+B_n)$, so $\phi$ is surjective by definition. Hence $\phi$ is an isomorphism, and $A/B \cong C$. 
+\end{proof}
+
+
+\end{enumerate}
+
+\section*{Section 10.3 Exercises}
+
+
+\begin{enumerate}[label=\arabic*.]
+
+\setcounter{enumi}{14}
+\item \textit{An element $e \in R$ is called a \textbf{central idempotent} if $e^2 = e$ and $er = re$ for all $r \in R$. If $e$ is a central idempotent in $R$, prove that $M = eM \oplus (1 - e)M$. }
+
+\begin{proof}
+So we wish to show that $M$ is the direct sum of the two specified submodules. Note that we know that these sets are both submodules by Exercise 14 of Section 1, which tells us that $zM$ is a submodule for any $z$ in the center of $R$. We know $e$ is in the center since it is a central idempotent. And $(1 - e)r = r - er = r - re = r(1 - e)$. So it is also in the center. Now we need only show that $M = eM + (1 - e)M$, and that $eM \cap (1 - e)M = 0$. 
+
+
+Let $m \in M$. Then $m = em + (1 - e)m = em + m - em$, where $em \in eM$, and $(1 - e)m \in (1 - e)M$, so $m \in eM + (1 - e)M$. Now let $em + (1 - e)n \in eM + (1 - e)M$. Then we have $em + n - en = n + e(m - n)$. So we know $M = eM + (1 - e)M$. So let $m \in eM \cap (1 - e)M$. Then $m = en_1 = (1 - e)n_2$ for some $n_1,n_2 \in M$. Then we have: 
+$$
+m = en_1 = (1 - e)n_2 = e^2n_1 = e(1 - e)n_2 = (e - e^2)n_2 = (e - e)n_2 = 0,
+$$
+so we have shown that if $m \in eM \cap (1 - e)M$, $m = 0$, so $eM \cap (1 - e)M = 0$. And thus $M = eM \oplus (1 - e)M$ by definition. 
+\end{proof}
+
+\setcounter{enumi}{21}
+ \item \textit{Let $R$ be a Principal Ideal Domain, let $M$ be a torsion $R$-module, and let $p$ be a prime in $R$ (do not assume $M$ is finitely generated, hence it need not have a nonzero annihilator). The \textbf{p-primary component of $M$} is the set of all elements of $M$ that are annihilated by some positive power of $p$. }
+ \begin{enumerate}
+ \item \textit{Prove that the $p$-primary component is a submodule. }
+ \begin{proof}
+ Let $N$ denote the $p$-primary component of $M$. Note that: 
+ $$
+ N = \Set{m \in M: \exists k\in \n,p^km = 0}. 
+ $$
+We apply the submodule criterion. Note that $N \neq \varnothing$ since $0 \in N$. Let $x,y \in N$, and let $r \in R$. Then we know $\exists k,l \in \n$ s.t. $p^kx = p^ly = 0$. Observe: 
+$$
+p^kp^l(x + ry) = p^lp^kx + rp^kp^ly = p^l0 + rp^k0 = 0,
+$$
+so we know $x + ry \in N$, hence by the submodule criterion, $N$ is a submodule of $M$. 
+ \end{proof}
+ 
+ \item \textit{Prove that this definition of $p$-primary component agrees with the one given in Exercise 18 when $M$ has a nonzero annihilator. }
+ \begin{proof}
+ Assume $M$ has a nonzero annihilator $a$, and this is the minimal such element. Then let $p^\alpha$ be a prime power factor in the prime factorization of $a$. Let:
+ $$
+ N = \Set{m \in M: \exists k\in \n,p^km = 0}.
+ $$
+ In Exercise 18, the definition given for the annihilator of $p^\alpha$ is: 
+ $$
+ A = Ann_M(p^\alpha) = \{m \in M: p^\alpha m = 0\}.
+ $$
+ So clearly any element of $A$ is in $N$; just let $k =\alpha$. So let $m \in N$. Then $\exists k \in \n$ s.t. $p^km = 0$. Suppose $k > \alpha$. Then since $am = 0$, we must have some other product of primes $r = r_1\cdots r_l\mid a$ s.t. $r \nmid p^{\alpha}$. But since we proved that $N$ is a submodule in part (a), we know $Ann(N) = \Set{r \in R: rm = 0,\forall m \in N}$ is an ideal in $R$. Note then that $r,p^k \in Ann(N)$. But since $p^k \nmid r$ since otherwise we would have $p^k \mid a$, which is impossible since we said $r > \alpha$. So then $r \notin Rp^k$, hence $Ann(N)$ is not a principal ideal, but this is impossible, since we are in a PID, so we must have $k \leq \alpha$. Hence $m \in A$, and thus $N \sub A$, and the definitions are equivalent, because the sets are equal. 
+ 
+\begin{comment}
+  \textbf{This is sketchy, couldn't you just have that $m$ is also annihilated by some power of some other prime in $a$?}
+ 
+ \textbf{The case of finitely many components (when $M$ is annihilated by a nonzero element of $R$) was considered in class; in fact, the general case can be reduced to it, since $M$ is a torsion module and thus every element of $M$ is contained in an annihilator submodule of some nonzero element of $R$.}
+
+\textbf{The annihilator of a single element $m$ need not be a power of a prime element of $R$ -- a direct sum of submodules is not the union of these submodules, and $m$ does not have to belong to one of these submodules. You have to show that $m$ is a sum, $m=m_{1}+...+m_{k}$ where for each $i$, $m_{i}$ is contained in a primary component of $M$.}
+\end{comment}
+ \end{proof}
+ 
+ \item \textit{Prove that $M$ is the (possibly infinite) direct sum of its $p$-primary components $\Set{M_i}$, as $p$ runs over all primes of $R$. }
+ 
+ \begin{proof}
+ Let $\Set{p_i}$ be all the primes in $R$. $\forall i$, let $a_i = \prod_{j \neq i}p_j^{r_j}$. Then $a_iM \sub M_i$, since $p_i^{r_i}(a_iM) = \prod_{j = 1}^\infty p_j^{r_j}M = 0$ (since $M$ is a torsion module, and hence $\forall m \in M$ there exists a nonzero $r \in R$ s.t. $rm = 0$, and the prime decomposition of $r$ is in $\prod_{j = 1}^\infty p_j^{r_j}$). Then: 
+ $$
+ gcd(a_1,a_2,...) = 1,
+ $$
+ so there exists $c_1,c_2,... \in R$ not necessarily all nonzero s.t. $c_1a_1 + \cdots = 1$. So $\forall u \in M$,
+ $$
+ u = \sum_{i = 1}^\infty c_ia_i \in M_1 + M_2 + \cdots.
+ $$
+ Now let $u \in M_i \cap (\sum_{j \neq i}M_j)$. Then $p_i^{r_i},a_i \in Ann(u)$. So, $(p_i^{r_i}) = (1) \sub Ann(u)$, so $u = 0$. So $\forall i,M_i \cap (\sum_{j \neq i}M_j) = 0$. So since we know $M = M_1 + M_2 + \cdots$, and the pairwise intersection of each of these is $0$, we know that $M = M_1 \oplus M_2 \oplus \cdots$. 
+ \end{proof}
+ 
+ \end{enumerate}
+ 
+  \setcounter{enumi}{-1}
+ \item \textit{Let $M$ be an $R$-module and let $I,J$ be ideals in $R$. }
+ 
+ \begin{enumerate}
+ \item \textit{Prove that Ann$(I + J) = Ann(I) \cap Ann(J)$. }
+ \begin{proof}
+ Let $m \in Ann(I + J)$. Then $(i + j)m = 0$ for all $i \in I,j \in J$. Then letting $i = 0$, we know $m \in Ann(J)$, and letting $j = 0$, we know $m \in Ann(I)$. So $Ann(I + J) \sub Ann(I) \cap Ann(J)$. Now let $m \in Ann(I) \cap Ann(J)$. Then $im = 0,\forall i \in I$, and $jm = 0, \forall j \in J$. Then we have: 
+ $$
+ (i + j)m = im + jm = 0 + 0 = 0,
+ $$
+ by he definition of an $R$-module. So $Ann(I) \cap Ann(J) \sub Ann(I + J)$. Hence they are equal. 
+ \end{proof}
+ \item \textit{Prove that $Ann(I) + Ann(J) \sub Ann(I \cap J)$.  }
+ 
+ \begin{proof}
+ Let $m \in Ann(I) + Ann(J)$. Then $m = n + k$ for some $n \in Ann(I),k \in Ann(J)$. Let $i \in I \cap J$. Then we know: 
+ $$
+ im = i(n + k) = in + ik = 0 + 0 = 0,
+ $$
+  by the distributivity of the action of $R$ on $M$, and since $i \in I$, and $i \in J$, and since $n,k$ are in the respective annihilators. Thus $m \in Ann(I \cap J) \Rightarrow  Ann(I) + Ann(J) \sub Ann(I \cap J)$. 
+ \end{proof}
+ \item \textit{Give an example where the inclusion in part (b) is strict. }
+ 
+ Let $R$ be the ring of continuous functions $f:[0,1] \to \R$. Note this is not an integral domain since we can construct zero divisors in the form of a pair piecewise functions, one of which is zero on half the interval, and the other being zero on the other half. We consider the $R$-module of $R$ over itself. Then let $I$ be the ideal of functions which are zero on $[0,1/2]$, and $J$ be the ideal of functions which are zero on $[1/2,1]$. Now note that $I + J \neq R$ since $f(x) = 1$ is in $R$, but not in $I + J$, since all functions in $I + J$ are zero at $1/2$. But $I \cap J = 0$, since these functions must be zero across both halves, and so $Ann(I \cap J) = R$, and so $Ann(J) + Ann(I) = I + J \subsetneq R = Ann(I \cap J)$. 
+ 
+ \item \textit{If $R$ is commutative and unital and $I,J$ are comaximal, prove that $Ann(I \cap J) = Ann(I) + Ann(J)$. }
+ 
+ \begin{proof}
+ Assume $R$ is commutative and unital, and $I,J$ are comaximal. 
+ Let $m \in Ann(I + J) = Ann((1)) = Ann(R)$ since $I,J$ are comaximal, and $R$ is commutative and unital. So $rm = 0$ for all $r \in R$. So then $m \in Ann(I)$, and since $0 \in Ann(J)$, we may write $m = m + 0$, so $m \in Ann(I) + Ann(J)$. And thus $Ann(I + J) \sub Ann(I) + Ann(J)$. So they are equal by the result of part (b). 
+ \end{proof}
+ 
+ \end{enumerate}
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

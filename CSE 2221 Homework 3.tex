@@ -1,0 +1,136 @@
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{\Huge Brendan Whitaker}
+
+
+
+\author{\huge CSE 2221 Homework 3 \linebreak \\\\ \Large Professor Bucci}
+
+\date{1/18/2017}
+\documentclass[10pt]{article}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsmath}
+\usepackage{listings}
+
+
+\begin{document}
+\maketitle
+
+
+\paragraph{1. }
+\begin{list}{} {}
+\item {a. }
+\begin{lstlisting}
+	int i = 0;
+	while ((i*i) < n) {
+		out.print(i*i + " ");
+		i++;
+	}
+\end{lstlisting}
+\item {b. }
+\begin{lstlisting}
+	int i = 1;
+	while ((10*i) < n) {
+		out.print(10*i + " ");
+		i++;
+	}
+\end{lstlisting}
+\item {c. }
+\begin{lstlisting}
+	//we assume non-negative integer powers of n. 
+	int i = 0;
+	while ((Math.pow(2, i)) < n) {
+		out.print(Math.pow(2, i) + " ");
+		i++;
+	}
+\end{lstlisting}
+\end{list}
+\hfill
+\hfill
+\hfill
+\hfill
+\hfill
+\hfill
+\hfill
+\hfill
+\hfill
+\hfill
+\hfill\\
+\hfill\\
+
+
+
+\paragraph{3. } { }
+We rewrite the given for loop into a while loop: \\
+\begin{lstlisting}
+	int i = 1, s = 0;
+	while (i <= 10) {
+		s += i;
+		i++;
+	}
+\end{lstlisting}
+
+\paragraph{4. } { }
+The following snippet of code sums the first n terms in the Gregory-Leibniz series: \\
+\begin{lstlisting}
+	int i = 0;
+	while (i <= n) {
+		pi += Math.pow(-1, i)/((2*n) + 1);
+		i++;
+	}
+	pi *= 4;
+\end{lstlisting}
+
+\paragraph{5. } { }
+The following snippet of code assigns to sum the result of adding up all integers of the form $n^2 + m^2$ where:
+\begin{itemize}
+\item both n and m are at least 1
+\item $n^2 <$  areaBound
+\item $m^2 <$  areaBound
+\end{itemize}
+
+\begin{lstlisting}
+	int n = 1;
+	int m;
+	while (n*n < areaBound) {
+		m = 1;
+		while (m*m < areaBound) {
+			sum += (n*n) + (m*m);
+			m++;
+		}
+		n++;
+	}
+\end{lstlisting}
+
+\hfill\\
+\hfill\\
+
+\paragraph{6. } { }
+The following snippet of code keeps adding terms until the difference between two consecutive estimates is less than some predefined tolerance, say double epsilon = 0.0001: \\
+
+\begin{lstlisting}
+	int i = 0;
+	double currentTerm = 1.0;
+	while (currentTerm > epsilon) {
+		currentTerm = Math.pow(-1, i)/((2*n) + 1);
+		pi += currentTerm;
+	}
+	pi *= 4;
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+

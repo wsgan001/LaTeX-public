@@ -1,0 +1,446 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[12pt,oneside,reqno]{amsart}
+
+%-------------------------------------
+%-------------PREAMBLE----------------
+
+%    Include referenced packages here.
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+%\usepackage{adjustbox}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+\usepackage{changepage}
+
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}%[chapter]
+%\numberwithin{section}{chapter}
+%\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\newcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+\newcommand{\inlinecode}{\texttt}
+
+
+
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+%---------END-OF-PREAMBLE---------
+%---------------------------------
+
+
+
+
+
+\begin{document}
+\title{CSE 5243 Homework 3}
+\date{SP18}
+\author[Brendan Whitaker]{Brendan Whitaker}
+\maketitle
+\section*{Chapter 2 Exercises}
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{18}
+
+\item \textit{We compute several measures of similarity for the given vectors. }
+
+\begin{enumerate}
+\item $x = (1,1,1,1), y = (2,2,2,2)$. We compute cosine similarity, correlation, and Euclidean distance. 
+\bee
+\text{sim}_{\cos}(x,y) &= \fracc{x \cdot y}{||x||||y||} = \fracc{2 + 2 + 2 + 2}{\sqrt{4}\sqrt{16}} = \fracc{8}{8} = 1.\\
+\bar{x} &= \fracc{1}{4}(1 + 1 + 1 + 1) = 1.\\
+\bar{y} &= \fracc{1}{4}(2 + 2 + 2 + 2)= 2. \\
+s_{xy} &= \fracc{1}{3}(0 + 0 + 0 + 0) = 0.\\
+s_x &= \sqrt{\fracc{1}{3}(0 + 0 + 0 + 0)} = 0.\\
+s_y &= \sqrt{\fracc{1}{3}(0 + 0 + 0 + 0)} = 0.\\
+\text{corr}(x,y) &= \fracc{s_{xy}}{s_x s_y} = \fracc{0}{0} = \text{Undef.}
+\eee
+Note since we are in the odd case where the standard deviations of both vectors are zero since all their components are the same, we get zero in the denominator, but since our covariance is also zero, by convention we take corr$(x,y) = 0$. 
+\bee
+d(x,y) = \sqrt{(2 - 1)^2 +(2 - 1)^2 +(2 - 1)^2 +(2 - 1)^2} = \sqrt{4}= 2. 
+\eee
+
+\item $x = (0,1,0,1), y = (1,0,1,0)$. We compute cosine similarity, correlation, Euclidean distance, and Jaccard coefficient. 
+\bee
+\text{sim}_{\cos}(x,y) &= \fracc{x \cdot y}{||x||||y||} = \fracc{4(0)}{\sqrt{2}\sqrt{2}}  = 0.\\
+\bar{x} &= \fracc{1}{4}(2) = \fracc{1}{2}.\\
+\bar{y} &= \fracc{1}{4}(2)= \fracc{1}{2}. \\
+s_{xy} &= \fracc{1}{3}(-\fracc{1}{4}\cdot 4) = -\fracc{1}{3}.\\
+s_x &= \sqrt{\fracc{1}{3}(4 \cdot \fracc{1}{4})} =\sqrt{ \fracc{1}{3}}.\\
+s_y &= \sqrt{\fracc{1}{3}(4 \cdot \fracc{1}{4})} = \sqrt{ \fracc{1}{3}}.\\
+\text{corr}(x,y) &= \fracc{s_{xy}}{s_x s_y} = \fracc{-\fracc{1}{3}}{\sqrt{ \fracc{1}{3}}\sqrt{ \fracc{1}{3}}} = \fracc{-\fracc{1}{3}}{\fracc{1}{3}} = -1.\\
+d(x,y) &= \sqrt{(0 - 1)^2 +(1 - 0)^2 +(0 - 1)^2 +(1 - 0)^2} = \sqrt{4}= 2. \\
+J(x,y) &= \fracc{f_{11}}{f_{01}+ f_{10} + f_{11}} = \fracc{0}{2 + 2 + 0} = 0.
+\eee
+
+\item $x = (0,-1,0,1), y = (1,0,-1,0)$. We compute cosine similarity, correlation, Euclidean distance.
+\bee
+\text{sim}_{\cos}(x,y) &= \fracc{x \cdot y}{||x||||y||} = \fracc{4(0)}{\sqrt{2}\sqrt{2}}  = 0.\\
+\bar{x} &= \fracc{1}{4}(0) = 0.\\
+\bar{y} &= \fracc{1}{4}(0)= 0. \\
+s_{xy} &= \fracc{1}{3}(4 \cdot 0) = 0.\\
+s_x &= \sqrt{\fracc{1}{3}(2 \cdot 1)} =\sqrt{ \fracc{2}{3}}.\\
+s_y &= \sqrt{\fracc{1}{3}(2 \cdot 1)} =\sqrt{ \fracc{2}{3}}.\\
+\text{corr}(x,y) &= \fracc{s_{xy}}{s_x s_y} = \fracc{0}{\sqrt{ \fracc{2}{3}}\sqrt{ \fracc{2}{3}}} = 0.\\
+d(x,y) &= \sqrt{(0 - 1)^2 +(-1 - 0)^2 +(0 + 1)^2 +(1 - 0)^2} = \sqrt{4}= 2. \\
+\eee
+
+\bb\bb\bb\bb\bb\bb
+
+\item $x = (2,-1,0,2,0,-3), y = (-1,1,-1,0,0,-1)$. We compute cosine similarity, correlation. 
+
+\bee
+\text{sim}_{\cos}(x,y) &= \fracc{x \cdot y}{||x||||y||} = \fracc{-2 - 1 + 0 + 0 + 0 + 3}{\sqrt{4 + 1 + 0 + 4 + 0 + 9}\sqrt{1 + 1 + 1 + 1}}\\
+ &= \fracc{0}{\sqrt{18}\sqrt{4}} = 0.\\
+\bar{x} &= \fracc{1}{6}(2 - 1 + 2 - 3) = 0.\\
+\bar{y} &= \fracc{1}{6}(-2)=-\fracc{1}{3}. \\
+s_{xy} &= \fracc{1}{5}(-2\fracc{2}{3} - 1\fracc{4}{3} + 0 + 2\fracc{1}{3} + 0 + 3\fracc{2}{3})\\
+&= \fracc{1}{5}(-\fracc{8}{3} + \fracc{2}{3} + 2) = 0.\\
+s_x &= \sqrt{\fracc{1}{5}(4 + 1 + 4 + 9)} =\sqrt{ \fracc{18}{5}}.\\
+s_y &= \sqrt{\fracc{1}{5}(4)} =\sqrt{ \fracc{4}{5}}.\\
+\text{corr}(x,y) &= \fracc{s_{xy}}{s_x s_y} = \fracc{0}{\sqrt{ \fracc{18}{5}}\sqrt{ \fracc{4}{5}}} = 0.\\
+\eee
+
+
+\end{enumerate}
+\end{enumerate}
+
+\bb\bb
+\section*{Chapter 4 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{1}
+\item \textit{Consider the binary classification problem given by Table 4.7.}
+
+\begin{enumerate}
+\item \textit{We compute the Gini index of overall collection. }
+
+Let $t_0$ be the root node of the entire collection of training examples. Observe:
+\bee
+Gini(t_0) &= 1 - \sum_{i = 0}^1[p(i|t_0)]^2\\
+&= 1 - \lpar \lpar \fracc{1}{2} \rpar ^2 + \lpar \fracc{1}{2} \rpar ^2 \rpar\\
+&= 1 - \lpar \fracc{1}{4} + \fracc{1}{4} \rpar \\
+&= 1 - \fracc{1}{2}\\
+&= \fracc{1}{2}. 
+\eee
+
+\item \textit{We compute the Gini index of \inlinecode{Customer ID}. }
+
+Let $t_j$ be the $j$-th \inlinecode{Customer ID} node. Since each node only has a single data point, the sum will be equal to 1, since one of the probabilities $p(i|t_j)$ will be 1, and the other 0. So $Gini(t_j) = 0$ for all $j$. Hence the Gini index is 0. 
+
+\item \textit{We compute the Gini index of \inlinecode{gender}. }
+
+Let $t_M$ be the male node and $t_F$ be the female node. We have:
+\bee
+Gini(t_M) &= 1 - \sum_{i = 0}^1[p(i|t_M)]^2\\
+&= 1 - \lpar \lpar \fracc{4}{10} \rpar ^2 + \lpar \fracc{6}{10} \rpar^2 \rpar\\
+&= 1 - \lpar \fracc{4}{25} + \fracc{9}{25} \rpar \\
+&= 1 - \fracc{13}{25}\\
+&= \fracc{12}{25}. \\
+Gini(t_F) &= 1 - \sum_{i = 0}^1[p(i|t_F)]^2\\
+&= 1 - \lpar \lpar \fracc{4}{10} \rpar ^2 + \lpar \fracc{6}{10} \rpar^2 \rpar\\
+&= 1 - \lpar \fracc{4}{25} + \fracc{9}{25} \rpar \\
+&= 1 - \fracc{13}{25}\\
+&= \fracc{12}{25}. 
+\eee
+So the Gini index is $\fracc{10}{20}\fracc{12}{25} + \fracc{10}{20}\fracc{12}{25} = \fracc{12}{25} = 0.48$. 
+
+\bb\bb
+
+\item \textit{We compute the Gini index of \inlinecode{car type}. }
+
+Let $t_F$ be the family node and $t_S$ be the sports node, and let $t_L$ be the luxury node. We have:
+\bee
+Gini(t_S) &= 1 - \sum_{i = 0}^1[p(i|t_S)]^2\\
+&= 1 - \lpar \lpar \fracc{10}{10} \rpar ^2 + \lpar \fracc{0}{10} \rpar^2 \rpar\\
+&= 1 - 1 \\
+&= 0. \\
+Gini(t_F) &= 1 - \sum_{i = 0}^1[p(i|t_F)]^2\\
+&= 1 - \lpar \lpar \fracc{1}{4} \rpar ^2 + \lpar \fracc{3}{4} \rpar^2 \rpar\\
+&= 1 - \lpar \fracc{1}{16} + \fracc{9}{16} \rpar \\
+&= 1 - \fracc{5}{8}\\
+&= \fracc{3}{8}. \\
+Gini(t_L) &= 1 - \sum_{i = 0}^1[p(i|t_L)]^2\\
+&= 1 - \lpar \lpar \fracc{1}{8} \rpar ^2 + \lpar \fracc{7}{8} \rpar^2 \rpar\\
+&= 1 - \lpar \fracc{1}{64} + \fracc{49}{64} \rpar \\
+&= 1 - \fracc{25}{32}\\
+&= \fracc{7}{32}. 
+\eee
+So the Gini index is $\fracc{8}{20}0+ \fracc{4}{20}\fracc{3}{8} + \fracc{8}{20}\fracc{7}{32} = 0.1625$. 
+
+
+\bb\bb
+
+
+
+
+
+
+\item \textit{We compute the Gini index of \inlinecode{shirt size}. }
+
+Let $t_S$ be the small node and $t_M$ be the medium node, and let $t_L$ be the large node, and $t_E$ be the extra large node. We have:
+\bee
+Gini(t_S) &= 1 - \sum_{i = 0}^1[p(i|t_S)]^2\\
+&= 1 - \lpar \lpar \fracc{3}{5} \rpar ^2 + \lpar \fracc{2}{5} \rpar^2 \rpar\\
+&= 1 - \lpar \fracc{9}{25} + \fracc{4}{25} \rpar\\ 
+&= 1 - \fracc{13}{25} \\
+&= \fracc{12}{25}. \\
+Gini(t_M) &= 1 - \sum_{i = 0}^1[p(i|t_M)]^2\\
+&= 1 - \lpar \lpar \fracc{3}{7} \rpar ^2 + \lpar \fracc{4}{7} \rpar^2 \rpar\\
+&= 1 - \lpar \fracc{9}{49} + \fracc{16}{49} \rpar \\
+&= 1 - \fracc{25}{49}\\
+&= \fracc{24}{49}. \\
+Gini(t_L) &= 1 - \sum_{i = 0}^1[p(i|t_L)]^2\\
+&= 1 - \lpar \lpar \fracc{2}{4} \rpar ^2 + \lpar \fracc{2}{4} \rpar^2 \rpar\\
+&= 1 - \lpar \fracc{1}{4} + \fracc{1}{4} \rpar \\
+&= 1 - \fracc{1}{2}\\
+&= \fracc{1}{2}. \\
+Gini(t_E) &= 1 - \sum_{i = 0}^1[p(i|t_E)]^2\\
+&= 1 - \lpar \lpar \fracc{2}{4} \rpar ^2 + \lpar \fracc{2}{4} \rpar^2 \rpar\\
+&= 1 - \lpar \fracc{1}{4} + \fracc{1}{4} \rpar \\
+&= 1 - \fracc{1}{2}\\
+&= \fracc{1}{2}. 
+\eee
+So the Gini index is $\fracc{5}{20}\fracc{12}{25}+ \fracc{7}{20}\fracc{24}{49} + \fracc{4}{20}\fracc{1}{2} + \fracc{4}{20}\fracc{1}{2}= 0.3914$. 
+
+\item \textit{Which of these 3 is preferred?}
+
+Car type is preferred since its Gini index is lowest at 0.1625.
+
+\item \textit{Explain why \inlinecode{customer ID} should not be used even though it's genie index is zero. }
+
+\inlinecode{customer ID} should not be used since it only has a single data point per node, so it's likely that the customer ID's in any test data will not be ones we have already seen, assuming customer ID is unique, so we won't be able to use our model to gain any new information about the test set. 
+
+
+\end{enumerate}
+
+\item \textit{Consider the information in Table 4.8 for a binary classification problem. }
+
+\begin{enumerate}
+\item \textit{Find entropy of examples with respect to positive class. }
+Observe:
+\bee
+Entropy &= -\sum_{i = 0}^1 p(i)\log_2 p(i)\\
+&= -\lpar \fracc{4}{9}\log_2\fracc{4}{9}  + \fracc{5}{9}\log_2\fracc{5}{9}\rpar\\
+&= -\lpar -.52 - .471 \rpar\\
+&= 0.991.
+\eee
+
+\item \textit{What are the information gains of $a_1$ and $a_2$ relative to these training examples? }
+Let $I$ be entropy. 
+Recall:
+\bee
+\Delta_{info} &= I - \sum_{j = 1}^k \fracc{N(v_j)}{N}I(v_j)\\
+\eee
+So we have:
+\bee
+\Delta_{info} &= 0.991 - \sum_{j = 1}^2 \fracc{N(a_i)}{9}I(a_i)\\
+\eee
+We compute:
+\bee
+I(a_1 = T) &= -\sum_{i = 0}^1 p(i|a_1 = F)\log_2 p(i|a_1= F)\\
+&= -\lpar -.5  - .311\rpar\\
+&= 0.811.\\
+I(a_1 = F) &= -\sum_{i = 0}^1 p(i|a_1=F)\log_2 p(i|a_1=F)\\
+&= 0.971\\
+I(a_2=T) &= -\sum_{i = 0}^1 p(i|a_2=T)\log_2 p(i|a_2=T)\\
+&= -\lpar -.529  - .442\rpar\\
+&= 0.971\\
+I(a_2=F) &= -\sum_{i = 0}^1 p(i|a_2=F)\log_2 p(i|a_2=F)\\
+&= 1.
+\eee
+Then:
+\bee
+\Delta_{info}(a_1) &= 0.991 - \sum_{j = 1}^2 \fracc{N(a_i)}{9}I(a_i)\\
+&= 0.991 - \lpar \fracc{4}{9}0.811 + \fracc{5}{9}0.971 \rpar\\
+&= 0.091.\\
+\Delta_{info}(a_2) &= 0.991 - \sum_{j = 1}^2 \fracc{N(a_i)}{9}I(a_i)\\
+&= 0.991 - \lpar \fracc{4}{9}1 + \fracc{5}{9}0.971 \rpar\\
+&= 0.016.
+\eee
+
+\item \textit{We compute info gain for every possible split of $a_3$. }
+
+Let $\Delta_i$ denote the info gain of the split $\leq i$ and $>i$. 
+Then we have:
+\bee
+\Delta_{1.5} 
+&= 0.991\\
+\Delta_2 &= 0.991 - \lpar \fracc{1}{9}0 + \fracc{8}{9}(.954) \rpar\\
+&= 0.143\\
+\Delta_{3.5} &= 0.991 - \lpar \fracc{2}{9} + \fracc{7}{9}(.985) \rpar\\
+&= 0.0025\\
+\Delta_{4.5} &= 0.991 - \lpar \fracc{3}{9}(.918) + \fracc{6}{9}(.918) \rpar\\
+&= 0.073\\
+\Delta_{5.5} &= 0.991 - \lpar \fracc{5}{9}(.971) + \fracc{4}{9} \rpar\\
+&= 0.0071\\
+\Delta_{6.5} &= 0.991 - \lpar \fracc{6}{9} + \fracc{3}{9}(.918) \rpar\\
+&= 0.018\\
+\Delta_{7.5} &= 0.991 - \lpar \fracc{8}{9}0 + \fracc{1}{9}0 \rpar\\
+&= 0.991\\
+\Delta_{8.5} 
+&= 0.991.\\
+\eee
+
+\item 
+The best split of all three is $\Delta_2$ on $a_3$ because it is non trivial, and it has the highest information gain. 
+
+\item $a_1$ is better out of first two since it has a lower classification rate. 
+
+\item Gini of T for $a_1$ is 3/8. Gini of F for $a_1$ is 8/25. So $Gini(a_1) = 4/9 * 3/8 + 5/9 * 8/25 = 0.344$. 
+
+Gini of $T$ for $a_2$ is 12/25, and for $F$ is 1/2. So $Gini(a_2) = 5/9 * 12/25 + 4/9 * 1/2 = 0.489$. And so $a_1$ is better again. 
+\end{enumerate}
+
+\setcounter{enumi}{7}
+\item We omit writing out some computations because they are very simple, for brevity. 
+\begin{enumerate}
+\item Optimistic estimate is $1/2$. 
+\item Pessimistic is $7/10$. 
+\item Using validation set, gen error is $1/5$. 
+\end{enumerate}
+
+
+
+\end{enumerate}
+
+\section*{Chapter 5 Exercises}
+
+\begin{enumerate}
+\item
+\begin{enumerate}
+\item 
+We do $R1$. It is $9.2$ since we have 12 pos, 3 neg, and 50 total in the set, with 21 neg and 29 pos. Similarly, we have $0.547$ for $R3$ and $.886$ for $R2$. So $R1$ is best. 
+
+\item Laplace for $R1$ is 0.765, for $R2$ is 
+2/3. And for R3 is 0.643. So R1 is best. 
+\item The mestimate is $0.774$, $0.68$ and $.654$ for R 1,2,3 respectively. So R1 is still best. 
+\item For the next 3 parts, R1 has accuracy 0.8, and R2 has accuracy 0.7. If we discard none, R3 has accuracy 1/3. 
+\item If we discard the positives covered by R1 is has accuracy 6/10. 
+\item if we discard both covered by R1, it has accuracy 0.75. R1 is best in all three cases. 
+\end{enumerate}
+
+\item \textit{We compute statistics for the given confusion matrix C. }
+
+\begin{enumerate}
+\item Accuracy is 0.686. Error rate is 0.313. TPR is 0.742. FPR is 0.339. Precision is 0.504. F measure is 0.6. 
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

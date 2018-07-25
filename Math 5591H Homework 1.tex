@@ -1,0 +1,286 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{Math 5590H Bonus}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{Lem}[theorem]{Lemma}
+\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+
+
+
+
+\begin{document}
+
+\title{Math 5591H Homework 1}
+
+\date{SP18}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+
+
+\section*{Section 10.1 Exercises}
+
+
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{7}
+\item \textit{An element $m$ of the $R$-module $M$ is called a torsion element if $rm = 0$ for some nonzero element $r \in R$. The set of torsion elements is denoted: }
+$$
+Tor(M) = \{m \in M:rm = 0 \text{ for some nonzero } r \in R\}. 
+$$
+
+\begin{enumerate}
+\item \textit{Prove that if $R$ is an integral domain, then $Tor(M)$ is a submodule of $M$ (called the torsion sobumodle of $M$). }
+\begin{proof}
+We know Tor$(M)$ is a subset of $M$ by its definition. We first prove it is an additive subgroup. Let $m \in $ Tor$(M)$. Then $\exists r \in R$, $r \neq 0$ s.t. $rm = 0$. Then consider $-m \in M$. From exercise 1 we know 
+$
+-m = (-1)m$, so we have:
+$$
+r(-m) = r(-1)m = (-1)rm = (-1)0 = 0,
+$$
+ since $R$ is commutative. So we have that $-m \in $ Tor$(M)$ as well, hence we have additive inverses. We check that it has additive closure. Let $m,n \in $ Tor$(M)$. Then we have $r,s \in R$, neither being zero, s.t. $rm = 0, sn = 0$. Now consider $m + n$. We have:
+$$
+rs(m + n) = rsm + rsn = srm + rsn = s0 + r0 = 0.
+$$
+Since we have no zero divisors, since $R$ is an integral domain, we know $rs \neq 0$, so $m  +n \in $ Tor($M$), we have additive closure, and Tor$(M)$ is a subgroup of $M$. Now we need only check that it is closed under the left action of $R$. So let $r \in R$ and $m \in $ Tor$(M)$. Then consider $rm$. We assume $r \neq 0$, since otherwise $rm = 0$ which is in our subgroup. And we know $\exists s \in R$, $s \neq 0$ s.t. $sm = 0$. Now we have $srm = rsm = r0 = 0$, so $rm$ is in Tor$(M)$. So it's a submodule. 
+\end{proof}
+
+\vspace{3mm}
+\item \textit{Give an example of a ring $R$ and an $R$-module $M$ such that $Tor(M)$ is not a submodule (consider the torsion elements in the $R$-module $R$). }
+
+So from the previous exercise, we know we must choose some $R$ which is not an integral domain. We consider the torsion elements in the $R$-module $R$, which are:
+$$
+\text{Tor}(R) = \{r \in R: sr = 0 \text{ for some nonzero }s \in R\},
+$$
+but these are exactly the right zero divisors of $R$. We consider the ring $R = \mathbb{Z}_6 \cong \z/6\z$, and the module of $R$ over itself. Note that in $R$, $2 \cdot 3 = 6 = 0$, $4\cdot 3 = 12 = 0$, and $1,5$ are not zero divisors, so we have:
+$$
+\text{Tor}(R) = \{0,2,3,4\}.
+$$
+So note that $2,3\in \text{Tor}(R)$ and $1 \in R$, but $2 + 1\cdot 3 = 5 \notin \text{Tor}(R)$, so by the submodule criterion, it is not a submodule. 
+
+\vspace{3mm}
+\item \textit{If $R$ has zero divisors, show that every nonzero $R$-module has nonzero torsion elements. }
+
+\begin{proof}
+Suppose $R$ has zero divisors. So $\exists r,s \in R$ nonzero such that $rs = 0$. Now let $M$ be an $R$-module. We wish to show that $\exists m \in M$ s.t. $m \neq 0$, $tm = 0$ for some nonzero $t \in R$. Let $n \in M$ s.t. $n \neq 0$. Now consider $sn \in M$ and $r \in R$. Now note that $rsn = 0$ and that $r$ and $sn$ are both nonzero, so $sn$ is a nonzero torsion element. 
+\end{proof}
+\end{enumerate}
+\vspace{3mm}
+\item \textit{If $N$ is a submodule of $M$, the annihilator of $N$ in $R$ is defined to be: 
+$$
+\text{Ann}_R(N) = \{r \in R:rn = 0 \text{ for all }n \in N\}.
+$$
+Prove that the annihilator of $N$ in $R$ is a two-sided ideal of $R$. 
+}
+
+\begin{proof}
+Let $A = \text{Ann}_R(N)$. We first show that $A$ is an additive subgroup of $R$. We know it is nonempty since $0 \in A$, and it is a subset of $R$ by construction. Now let $x,y \in A$. Consider $x(-y) = -xy$. Note $-xyn = -x(yn) = -x0 = 0$ $\forall n \in N$, so by the subgroup criterion, $A$ is a subgroup. Let $r \in R$, $n \in N$, and $a \in A$. Observe:
+$$
+ran = r(an) = r0 = 0,
+$$
+$$
+arn = a(rn) = 0,
+$$
+since $a$ annihilates $n$, and $N$ is closed under the action of $R$, so $rn \in N$, and hence $a$ also annihilates $(rn)$. Since our $n$ was arbitrary, this holds for all $n \in N$. Thus $ra \in A$ and $ar \in A$, and thus $RA \sub A$ and $AR \sub A$, so since it's also an additive subgroup, $A$ is a two-sided ideal. 
+\end{proof}
+
+\vspace{3mm}
+
+\item \textit{If $I$ is a right ideal of $R$, the annihilator of $I$ in $M$ is defined to be: 
+$$
+\text{Ann}_M(I) = \{m \in M:am = 0 \text{ for all }a \in I\}.
+$$
+Prove that the annihilator of $I$ in $M$ is a submodule of $M$. 
+}
+\begin{proof}
+Since $I$ is a right ideal, we know $Ir \sub I$ $\forall r \in R$. Let $A = \text{Ann}_M(I)$ which we know is nonempty since $0 \in M$ since it is an abelian group, and $a0 = 0$ $\forall a \in I$. Let $m,n \in A$, let $a \in I$, and let $r \in R$. Observe: 
+$$
+a(m + rn) = am + arn = 0 + arn = (ar)n = 0,
+$$
+since $a \in I \Rightarrow ar \in I$ ($I$ is right ideal), hence $n$ annihilates $(ar)$. Thus $(m + rn) \in A$. Then by the submodule criterion, since this holds for arbitrary $m,n  \in A$, $r \in R$, and $A$ is nonempty, we know $A$ is a submodule of $M$. 
+\end{proof}
+\end{enumerate}
+
+\section*{Section 10.2 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{8}
+\item \textit{Let $R$ be a commutative ring. Prove that Hom$_R(R,M)$ and $M$ are isomorphic as left $R$-modules. [Show that each element of Hom$_R(R,M)$ is determined by its value on the identity of $R$.]}
+
+\begin{proof}
+Recall:
+$$
+H = \text{Hom}_R(R,M) = \{\phi:R \to M\},
+$$
+where $R$ and $M$ are $R$-modules. Let $\phi \in H$. Recall that from the definition of $H$, we know:
+$$
+\phi(rs + t) = r\phi(s) + \phi(t),
+$$
+for all $r,s,t \in R$. So note that $\forall r \in R$, we have:
+$$
+\phi(r) = r\phi(1_R),
+$$
+hence $\phi$ is complete determined by its value on $1_R$. Also observe that $\phi(1_R) \in M$, so define a map $\Phi:M \to H$ by $\Phi(m) = \phi_m$, where we define $\phi_m(1_R) = m$. We prove this map is an R-module isomorphism. We first prove it is an $R$-module homomorphism. So let $m,n \in M$, then we have:
+$$
+\Phi(m) + \Phi(n) = \phi_m + \phi_n
+$$
+Now we prove surjectivity. So let $\psi \in H$, then $\psi(1_R) = m$ for some $m \in M$, so we know $\psi = \phi_m$. Then note that $\Phi(m) = \phi_m$, so $\Phi$ is surjective. 
+\end{proof}
+\end{enumerate}
+
+\section*{Section 10.3 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{6}
+\item \textit{Let $N$ be a submodule of $M$. Prove that if both $M/N$ and $N$ are finitely generated, then so is $M$. }
+\begin{proof}
+Suppose $M$ is not finitely generated. Then we have:
+$$
+M/N = RA,
+$$
+where $A = \{x_1 + N,...,x_n + N\}$. And since $N$ is also finitely generated, we know $N = RA_N$, and $M -N$ is not finitely generated. 
+Now we know $x_i \in M - N$ since otherwise we would have $x_i + N = N$. So then since $M$ is not finitely generated, we know $\exists y \in M - N$ s.t. $y \notin R\{x_i\}$, hence $y + N \notin RA = \{(rx_1) + N,...,(rx_n)+ N\}$, but since $y \in M - N$ we know $y + N \neq N$, hence $y + N \in M/N$. But we said $M/N = RA$, so this is a contradiction, so we must have that $M$ is finitely generated. 
+\end{proof}
+
+\setcounter{enumi}{11}
+\item \textit{Let $R$ be a commutative ring and let $A,B$, and $M$ be $R$-modules. Prove the following isomorphisms of $R$-modules: }
+\begin{enumerate}
+\item \textit{$Hom_R(A\times B,M) \cong Hom_R(A,M) \times Hom_R(B,M)$.}
+\begin{proof}
+Let $H = \text{Hom}_R(A\times B,M)$, $H_A = \text{Hom}_R(A,M)$, and $H_B = \text{Hom}_R(B,M)$. Let $\Phi: H_A \times H_B\to H$ be given by $\Phi((\phi,\psi)) = \phi + \psi$, where $\phi \in H_A,\psi \in H_B$. We prove this is an isomorphism of $R$-modules. 
+
+\textbf{Homomorphism: }Observe: 
+\begin{equation}
+\begin{aligned}
+\Phi((\phi_1,\psi_1) + (\phi_2,\psi_2)) &= \Phi((\phi_1 + \phi_2,\psi_1 + \psi_2)) = \phi_1 + \psi_1 + \phi_2 + \psi_2\\ &= \Phi((\phi_1,\psi_1)) + \Phi((\phi_2,\psi_2)).
+\end{aligned}
+\end{equation}
+In the above expression, the first equality comes from the definition of addition in $H_A \times H_B$. The second and third equalities comes from the definition of $\Phi$. And we also know: 
+$$
+\Phi(r(\phi,\psi)) = \Phi((r\phi,r\psi)) = r\phi + r\psi = r(\phi + \psi) = r\Phi((\phi,\psi)),
+$$
+hence $\Phi$ preserves mult. by $R$, by the definition of scalar multiplication on the $R$-module $H_A \times H_B$, and the definition of $\Phi$. 
+
+\textbf{Surjectivity: } Let $\varphi \in H$. Then $\varphi:A\times B \to M$. So let $\phi \in H_A$ be given by $\phi(a) = \varphi(a,0)$,
+and let $\psi \in H_B$ be given by $\phi(b) = \varphi(0,b)$. Then we have: $\Phi((\phi,\psi)) = \varphi$.  Then $\Phi$ is surjective. 
+
+
+\textbf{Injectivity: } Let $\Phi((\phi_1,\psi_1)) = \phi_1 + \psi_1 = \phi_2 + \psi_2 = \Phi((\phi_2,\psi_2)) \in H_A \times H_B$. Then note that 
+$$
+(\phi_1 + \psi_1)(a,0) = \phi_1(a) = \phi_2(a) = (\phi_2 + \psi_2)(a,0),
+$$
+and the same holds when we let $a = 0$, and use an arbitrary $b$ value, so we get that $\psi_1 = \psi_2$ as well. Hence $\Phi$ is injective. And thus it is an isomorphism. 
+\end{proof}
+\item \textit{$Hom_R (M,A \times B) \cong Hom_R(M,A) \times Hom_R(M,B)$.}
+\begin{proof}
+Let $H = \text{Hom}_R(M, A\times B)$, $H_A = \text{Hom}_R(M,A)$, and $H_B = \text{Hom}_R(M,B)$. Let $\Phi:H_A \times H_B \to H$ be given by $\Phi((\phi,\psi)) = (\phi,\psi) \in H$, where $\phi \in H_A$, and $\psi \in H_B$. We prove this map is an isomorphism. 
+
+\textbf{Homormorphism: }Observe: 
+\begin{equation}
+\begin{aligned}
+\Phi((\phi_1,\psi_1) + (\phi_2,\psi_2)) &= \Phi((\phi_1 + \phi_2,\psi_1 + \psi_2)) = (\phi_1 + \phi_2,\psi_1 + \psi_2)\\ &=(\phi_1,\psi_1) + (\phi_2,\psi_2) =  \Phi((\phi_1,\psi_1)) + \Phi((\phi_2,\psi_2)).
+\end{aligned}
+\end{equation}
+The first equality follows from addition in the $R$-module $H_A \times H_B$, the second comes from the definition of $\Phi$, the third comes from addition in $H$, and the last again comes from the definition of $\Phi$.  And we also know: 
+$$
+\Phi(r(\phi,\psi)) = \Phi((r\phi,r\psi)) = (r\phi,r\psi) = r(\phi , \psi) = r\Phi((\phi,\psi)),
+$$
+by the definition of scalar mult. in $H$, hence since $\Phi$ preserves addition and scalar multiplication, we know it is a homomorphism. 
+
+\textbf{Surjectivity: } Let $\varphi \in H$, then we know $\varphi: M \to A \times B$. Then the image of any element of $M$ under $\varphi$ is a two dimensional vector whose first component lives in $A$, and whose second component lives in $B$. So let $\phi:M \to A$ be given by $\phi(m) = \varphi(m)_1$, the first component of $\varphi(m)$. and let $\psi(m) = \varphi(m)_2$. Then $\Phi((\phi,\psi)) = (\phi,\psi) = \varphi$. Hence $\Phi$ is surjective. 
+
+\textbf{Injectivity: } Let $\Phi((\phi_1,\psi_1)) =(\phi_1,\psi_1) = (\phi_2,\psi_2) =  \Phi((\phi_2,\psi_2))$. Then we must have $\phi_1 = \phi_2$, and $\psi_1 = \psi_2$, since otherwise we do not have equality of these ordered pairs of hom-sms in $H$. But then we have shown that the arguments of $\Phi$ are equal in this case, so $\Phi$ must be injective. 
+\end{proof}
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

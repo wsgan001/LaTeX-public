@@ -1,0 +1,194 @@
+
+
+%	options include 12pt or 11pt or 10pt
+%	classes include article, report, book, letter, thesis
+
+\title{CSE 2321 Homework 5}
+
+
+
+\author{Brendan Whitaker}
+
+\date{AU17}
+\documentclass[10pt,oneside,reqno]{amsart}
+
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+
+
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Cor}[Thm]{Corollary}
+\newtheorem{Prop}[Thm]{Proposition}
+\newtheorem{Lem}[Thm]{Lemma}
+\newtheorem{Prob}[Thm]{Problem}
+\newtheorem{Def}[Thm]{Definition}
+\newtheorem{Q}[Thm]{Question}
+\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+\newtheorem{Ex}[Thm]{Example}
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+
+\begin{document}
+
+\title{CSE 2321 Homework 5}
+
+\date{AU17}
+
+\author[Brendan Whitaker]{Brendan Whitaker}
+
+\maketitle
+
+\begin{enumerate}[label=\arabic*.]
+
+\item 
+
+\begin{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item It is not possible to prove that the graph has a Hamiltonian cycle using Dirac's Theorem, since it requires that the degree of each vertex is $\geq \lceil \frac{n}{2} \rceil $, where $n$ is the number of vertices in the graph. In this case, $n = 11$, and the $\text{deg}(B) = 4 < \lceil \frac{n}{2} \rceil$. Thus the theorem doesn't apply. And so we cannot conclude anything about the existence of a Hamiltonian cycle, since Dirac's Theorem gives us a sufficient, but not necessary condition. \\
+
+\item It is bipartite, since it is $2$-colorable. It is not complete-bipartite, since the two partitions have cardinality $5,6$ and deg$(C) = 2$. There is no Hamiltonian cycle, since the partitions differ in size. We cannot determine whether or not there is a Hamiltonian path, since the graph is not complete-bipartite, and the partition sizes differ by $1$.  \\
+
+\vspace{100mm}
+
+\item It is not possible to find a Hamiltonian cycle by trial and error. 
+\begin{proof}
+Since the cycle must hit all vertices, it must hit $A,C,I,J$ which all have degree $2$. This means that for the cycle to return to any starting point in the graph, it must traverse all $8$ edges on the ``outside" of the graph. But since it must also hit the vertices $F,D,G$, it cannot be simple, because it will hit at least one vertex twice before returning to its starting point. 
+\end{proof}
+Hamiltonian path: $(G,D,F,E,I,K,J,H,C,B,A)$. \\
+
+\vspace{100mm} 
+
+\end{enumerate}
+
+\item 
+
+
+\end{enumerate}
+
+\item 
+\begin{Prop}
+If a graph is disconnected, then it does not have a Hamiltonian cycle. 
+\end{Prop}
+
+\begin{proof}
+Note that any such cycle must traverse all the points in each connected component. But since these components are not connected by any edges, there can be no such cycle, since a cycle can only move from one vertex to another if there is an edge connecting them. 
+
+
+\end{proof}
+
+\begin{Prop}
+If a graph is complete-bipartite, and the partition sizes differ by $1$, then it does not contain a Hamiltonian cycle. 
+\end{Prop}
+\begin{proof}
+Let partition $A$ have $n$ vertices and partition $B$ have $n+1$ vertices. Then all vertices in $A$ have degree $n + 1$, and all vertices in $B$ have degree $n$. Thus the graph has $2n  +1$ total vertices. \\
+\textbf{Case 1:} Suppose the cycle begins in the smaller partition. Then it can traverse at most $2n - 1$ edges before it ends up in the larger partition having already hit all vertices in the smaller partition, but having one vertex left in the larger partition which has not yet been visited. So it is impossible to construct a Hamiltionian cycle starting from the smaller partition. \\
+\textbf{Case 2:} If the cycle begins in the smaller partition, it can traverse at most $2n$ edges before it ends up in the larger partition, having hit all vertices, but not being able to return to the starting point because it is also in the larger partition, and the graph is bipartite. 
+\end{proof} 
+
+\item 
+
+\begin{enumerate}
+
+\vspace{40mm}
+
+\item There are $9$ paths from vertex $A$ to vertex $K$. 
+
+\begin{list}{•}{•}
+\item $(A,E,F,G,K)$
+\item $(A,E,F,G,D,K)$
+\item $(A,E,F,I,J,K)$
+\item $(A,B,E,F,G,K)$
+\item $(A,B,E,F,G,D,K)$
+\item $(A,B,E,F,I,J,K)$
+\item $(A,B,C,E,F,G,K)$
+\item $(A,B,C,E,F,G,D,K)$
+\item $(A,B,C,E,F,I,J,K)$\\
+
+\end{list}
+
+\item The graph is weakly connected because if we replace all directed edges with undirected edges, we see that the every vertex is reachable from every other vertex, i.e. the graph is "one piece" and such it would be connected, and thus the directed version is weakly connected by definition. \\
+
+\item The graph is not strongly connected, since $A$ is a source. \\
+
+\item 
+
+\begin{enumerate}
+
+\item Infinitely many paths. We may loop around the cycle $(G,D,K,G$ as many times as we like within a path from $A$ to $K$. For each $n$ where $n$ is the number of loops taken, we have a unique path. As this holds for all $n \in \mathbb{N}$, we have infinitely many paths from $A$ to $K$. \\
+
+\item We now have $6$ paths from vertex $A$ to vertex $K$. 
+
+\begin{list}{•}{•}
+
+\item $(A,E,F,G,D,K)$
+\item $(A,E,F,I,J,K)$
+
+\item $(A,B,E,F,G,D,K)$
+\item $(A,B,E,F,I,J,K)$
+
+\item $(A,B,C,E,F,G,D,K)$
+\item $(A,B,C,E,F,I,J,K)$\\
+
+
+\end{list}
+
+\item No, $A$ is still a source. \\
+
+\end{enumerate}
+
+
+
+
+
+
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}
+
+\item The simple, undirected graph with the most possible vertices is $K_n$, in which the degree of each vertex is $n - 1$. And by Euler's third theorem, we know that the sum of the degrees of the graph, which is given by $n(n-1)$, since we have $n$ vertices each with degree $n -1$, is equal to twice the number of edges. Thus we have $\frac{n(n-1)}{2}$ edges. So max$|E| = \frac{n(n-1)}{2}$. The minimum number of edges is $0$ since we are not requiring the graph to be connected. So we just consider the graph with $n$ isolated vertices. \\
+
+\item The maximum number of edges in a simple, directed graph is still $\frac{n(n-1)}{2}$ since again we cannot have more than one edge between any two vertices. We can simply draw $K_n$, as a directed graph, where the directions of the vertices are irrelevant. It is simple, directed, and adding any more vertices violates its simplicity. And again the minimum number of edges is $0$ since we are not requiring it to be connected, by the same reasoning as above. 
+
+\end{enumerate}
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
