@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6600 64-bit) (preloaded format=xelatex 2018.2.27)  18 MAR 2018 14:58
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6600 64-bit) (preloaded format=xelatex 2018.2.27)  6 AUG 2018 05:14
 entering extended mode
 **"./CSE 5243 Homework 2.tex"
 ("CSE 5243 Homework 2.tex"
@@ -988,10 +988,7 @@ Overfull \hbox (3.96895pt too wide) in paragraph at lines 187--187
 []\TU/lmr/bx/n/7 mean| 
  []
 
-[2]
-File: datamining2.jpg Graphic file (type bmp)
-<datamining2.jpg>
- [3] [4] [5] [6]
+[2] [3] [4] [5] [6]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 338.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 338.
  ("CSE 5243 Homework 2.aux")
@@ -1004,10 +1001,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 338.
  ) 
 Here is how much of TeX's memory you used:
- 24466 strings out of 427834
- 423992 string characters out of 3152461
- 514906 words of memory out of 3000000
- 27897 multiletter control sequences out of 15000+200000
+ 24455 strings out of 427834
+ 423894 string characters out of 3152461
+ 514905 words of memory out of 3000000
+ 27894 multiletter control sequences out of 15000+200000
  11580 words of font info for 57 fonts, out of 3000000 for 9000
  1489 hyphenation exceptions out of 8191
  61i,11n,82p,1380b,387s stack positions out of 5000i,500n,10000p,200000b,50000s

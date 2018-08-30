@@ -1,0 +1,1715 @@
+\documentclass[12pt]{amsbook}
+
+\usepackage{}
+\usepackage[margin=0.75in]{geometry}
+%\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+%\usepackage{bbm}
+%\usepackage{cancel}
+\usepackage{verbatim}
+\usepackage{amsrefs}
+\usepackage{enumitem}
+%\usepackage{tikz}
+%\usepackage{environ}
+\usepackage{tikz-cd}
+%\usepackage[pdf]{pstricks}
+\usepackage{braket}
+\usetikzlibrary{cd}
+%\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{adjustbox}
+%\usepackage{changepage}
+%\usepackage{import}
+%\usepackage{newclude}
+\usepackage[all,cmtip]{xy}
+
+\usepackage[]{titlesec}
+
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{MnSymbol}
+\usepackage[makeroom]{cancel}
+\usepackage{imakeidx}
+\makeindex
+
+\usepackage{hyperref}
+
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = red
+}
+
+
+
+\titlespacing{\section}{0mm}{7mm}{5mm}[0mm]
+\titleformat{\section}[frame]
+{\normalfont\scshape}
+{\filright
+\footnotesize
+\enspace SECTION \thesection\enspace}
+{8pt}
+{\Large\scshape\filcenter}
+
+
+
+\titleformat{\chapter}[display]
+{\scshape\LARGE}
+{\filleft\MakeUppercase{\chaptertitlename} \Huge\thechapter}
+{4ex}
+{\titlerule
+\vspace{2ex}%
+\filright}
+[\vspace{2ex}%
+\titlerule]
+
+
+
+
+
+
+
+
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\theoremstyle{plain}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Prob}[Thm]{Problem}
+%\theoremstyle{definition}
+\newtheorem{Remark}[Thm]{Remark}
+\newtheorem{Tech}[Thm]{Technical Remark}
+\newtheorem*{Claim}{Claim}
+%----------------------------------------
+%CHAPTER STUFF
+\newtheorem{theorem}{Theorem}[chapter]
+\numberwithin{section}{chapter}
+\numberwithin{equation}{chapter}
+%CHAPTER STUFF
+%----------------------------------------
+\newtheorem{lem}[theorem]{Lemma}
+%\newtheorem{Q}[theorem]{Question}
+\newtheorem{Prop}[theorem]{Proposition}
+\newtheorem{Cor}[theorem]{Corollary}
+
+
+
+\theoremstyle{definition}
+\newtheorem{e}{Exercise}
+\newtheorem{Def}[theorem]{Definition}
+\newtheorem{Ex}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[theorem]{Remark}
+%NAMED THEOREMS
+\theoremstyle{plain}
+\newtheorem*{namedthm}{\namedthmname}
+\newcounter{namedthm}
+\makeatletter
+	\newenvironment{named}[2]
+	{\def\namedthmname{#1}
+	\refstepcounter{namedthm}
+	\namedthm[#2]\def\@currentlabel{#1}}
+	{\endnamedthm}
+\makeatother
+
+
+
+
+
+
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\newcommand{\norm}{\trianglelefteq}
+\newcommand{\propnorm}{\triangleleft}
+\newcommand{\semi}{\rtimes}
+\newcommand{\sub}{\subseteq}
+\newcommand{\nsub}{\nsubseteq}
+\newcommand{\fa}{\forall}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\n}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\c}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\bb}{\vspace{3mm}}
+\newcommand{\heart}{\ensuremath\heartsuit}
+\newcommand{\mc}{\mathcal}
+\newcommand{\bee}{\begin{equation}\begin{aligned}}
+\newcommand{\eee}{\end{aligned}\end{equation}}
+\renewcommand{\nequiv}{\not\equiv}
+\newcommand{\lc}[2]{#1_1 + \cdots + #1_{#2}}
+\newcommand{\lcc}[3]{#1_1 #2_1 + \cdots + #1_{#3} #2_{#3}}
+\newcommand{\ten}{\otimes} %tensor product
+\newcommand{\fracc}{\frac}
+\newcommand{\tens}{\otimes}
+\newcommand{\lpar}{\left(}
+\newcommand{\rpar}{\right)}
+\newcommand{\floor}{\lfloor}
+\newcommand{\Tau}{\mc{T}}
+\newcommand{\rank}{\text{rank}}
+\DeclareMathOperator{\coker}{coker}
+\newcommand*\pp{{\rlap{\('\)}}}
+\newcommand{\counter}{\setcounter}
+\newcommand{\gal}{\mathrm{Gal}}
+\newcommand{\aut}{\mathrm{Aut}}
+\newcommand{\fix}{\mathrm{Fix}}
+\newcommand{\qwe}{\sqrt}
+\newcommand{\wer}{\sqrt}
+\newcommand{\tilda}{\tilde}
+
+
+
+
+
+
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\tt}{\text}
+\renewcommand{\rm}{\normalshape}%text inside math
+\renewcommand{\Re}{\operatorname{Re}}%real part
+\renewcommand{\Im}{\operatorname{Im}}%imaginary part
+\renewcommand{\bar}{\overline}%bar (wide version often looks better)
+\renewcommand{\phi}{\varphi}
+
+
+\makeatletter
+\newenvironment{restoretext}%
+    {\@parboxrestore%
+     \begin{adjustwidth}{}{\leftmargin}%
+    }{\end{adjustwidth}
+     }
+\makeatother
+
+\begin{document}
+
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE BRENDAN WHITAKER }\\[0.3cm] % Name of your university/college
+\textsc{\LARGE THE OHIO STATE UNIVERSITY  }\\[0.3cm]
+%\textsc{\Large JALANDHAR-144011, PUNJAB(INDIA) }\\[0.3cm]
+\textsc{\Large Mathematics}\\[0.5cm] % Major heading such as course name
+ % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \Huge \bfseries HONORS ANALYSIS I\\
+\vspace{1mm}  (MATH 4181H)}\\[0.03cm] % Title of your document
+\HRule \\[1.5cm]
+
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+%\begin{minipage}{0.4\textwidth}
+%\begin{flushleft} \large
+%emph{Author:}\\
+%Brendan Whitaker \\Undergraduate\\3rd Year % Your name
+%\end{flushleft}
+%\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{center} \large
+\emph{Instructor:} \\
+Liz Vivas\\Professor\\Dept. of Mathematics % Supervisor's Name
+\end{center}
+\end{minipage}\\[1cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+
+{\large \hspace{1mm} August-December, 2018 \\ \hspace{3mm} Lecture Notes}\\[1cm]
+% Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+\vspace{15mm}
+\includegraphics[scale=0.15]{osuLogo.png}\\[1cm] % Include a department/university logo - this will require the graphicx package
+ 
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\section{Introduction}
+Office: MW710\\
+Email: vivas.3@osu.edu\\
+Office Hours: 10:15-11:15am (every day)\\
+Mentoring Sessions: Ryan McConnell, Vilas Winstein (Thurs: 6:30-8:30pm, Sun: 2-4pm)\\
+Starting tomorrow, all classes will be in \texttt{MW154}. 
+
+
+\chapter{Prologue}
+
+\section{Basic properties of numbers}
+
+\textbf{Tuesday, August 21st}
+
+\textbf{Quick introduction to real numbers: }
+
+\bee
+\n &= \Set{1,2,3,4,5,...} & \text{addition, subtraction}\\
+\z &= \Set{...,-3,-2,-1,0,1,2,3,...} & \text{multiplication, division}\\
+\mathbb{Q} &= \Set{\fracc{p}{q}:p,q \in \z, q \neq 0}\\
+\R &= 
+\begin{cases}
+\boxed{\text{closed algebraic field}}\\
+\boxed{\text{Dedekind cuts}}
+\end{cases}. 
+\eee
+
+Note that we're being a bit imprecise here with our definition of $\Q$. With this construction, $\fracc{1}{2}$ and $\fracc{2}{4}$ are not the same element. But this does not reflect the true nature of $\mathbb{Q}$. In both cases with $\R$, we are talking about ``limits". Note $\qwe{2} \in \R, \qwe{2} \notin \Q$. \\
+
+\textbf{Axiomatic way: }
+
+
+\begin{Ex}
+We define the natural numbers as the numbers we use for counting. A set has \boxed{$n$} elements. So the natural numbers are the space of all possible cardinalities of finite sets. 
+\end{Ex}
+
+Then we start deducing properties. 
+
+\begin{Ex}
+Two sets that have $m$ and $n$ elements; when put together, they'll have $m + n$ elements. 
+\end{Ex}
+
+
+\begin{Def}
+The axiomatic properties of the natural numbers $\n$, i.e. the \textbf{Peano Axioms}. Let $s: \n \to \n$ be the successor function. 
+\begin{enumerate}
+\item Axiom 1: $s: \n \to \n$ is injective. 
+\item Axiom 2: $\n \setminus s(\n) = \Set{a \in \n: a \notin s(\n)}$ has exactly one element, which is called $1$. 
+\item Axiom 3: If $X \sub \n$, is a set such that $1 \in X$ and $\forall x \in X$, $s(x) \in X$, then $X = \n$. 
+\end{enumerate}
+\end{Def}
+
+So then we can say $\n = \Set{1,2,3,...} = \Set{1, s(1), s(s(1)),...}$. And we can define addition as
+\bee
+m + n = s(...s(s(n))),
+\eee
+where we have a composition of $m$ instances of $s$. 
+
+\begin{Def}
+\textbf{Properties of Numbers (AXIOMS): }
+Given two numbers $a$ and $b$, we define the sum of $a$ and $b$ and denote it by $a + b$. 
+\begin{enumerate}
+\item \textbf{P1 (Associativity):} If $a,b,c$ are any numbers, then
+\bee
+(a + b) + c = a + (b + c). 
+\eee
+Consequences: 
+\bee
+a + b + c + d &= (a + b) + (c + d)\\
+&= (a + (b + c)) + d. 
+\eee
+
+\item \textbf{P2 (Identity):} There exists an element $0$ such that if $a$ is any number, then
+\bee
+a + 0 = 0 + a = a. 
+\eee
+\item \textbf{P3 (Inverses):} For every number $a$, there exists a number $-a$ such that
+\bee
+a + (-a) = (-a) + a = 0.
+\eee
+\end{enumerate}
+\end{Def}
+
+\begin{e}
+Prove that $(a + b) + (c + d) = (a + (b + c)) + d$. 
+\end{e}
+\begin{proof}
+We'll use \textbf{P1:} $(x + y) + z = x + (y + z)$. So first let $a + b = x$, $c = y$, and $d = z$. Then we get
+\bee
+((a + b) + c) + d = (a + b) + (c + d).
+\eee
+Now let $a = x$, $b = y$, and $c = z$. So then for the left hand side, we get
+\bee
+(a + b) + c = a + (b + c),
+\eee
+which tells us
+\bee
+(a + b) + (c + d) &= ((a + b) + c) + d\\
+&= (a + (b + c)) + d. 
+\eee
+\end{proof}
+
+\begin{e}
+The identity element $0$ is unique. If there exists $y$ such that for \textbf{some} (note that we do not need this to be true for all) number $a$, $a + y = a$, then $y = 0$. 
+\end{e}
+
+\begin{proof}
+Take $a$ such that $a + y = a$. Since we know $(-a)$ exists by \textbf{P3}, we have
+\bee
+(-a) + a + y &= (-a) + a.
+\eee
+Note we have to add $(-a)$ on the same side on both sides of the equation, because we do not know whether our addition operation is abelian or not. This tells us
+\bee
+y = 0
+\eee
+since by \textbf{P3}, we know $(-a) + a = 0$, and by \textbf{P2}, we know $0 + y = y$. 
+\end{proof}
+
+\begin{Ex}
+Let $\F_2 = \Set{0,1}$. Define
+\bee
+0 + 0 &= 0\\
+0 + 1 &= 1\\
+1 + 0 &= 1\\
+1 + 1 &= 0.
+\eee
+So prove that $(\F_2, +)$ satisfies \textbf{P1-P3}. 
+\end{Ex}
+
+\textbf{Wednesday, August 22nd}
+
+We're listing properties \textbf{(P1) - P(12)}. 
+
+Note $\R$ is a complete ordered field. ``Complete" has to do with limits. The term ``ordered" has to do with properties \textbf{P10) - (P12)}. And the term field is defined via properties \textbf{(P1) - (P9)}. 
+
+\begin{enumerate}[label=(\textbf{P\arabic*)}]
+\item $a + (b + c) = (a + b) + c$.
+\item $a + 0 = 0 + a = a$. 
+\item For every $a$ there exists $-a$ such that
+\bee
+a + (-a) = (-a) + a = 0. 
+\eee
+\end{enumerate}
+
+\textbf{Consequences: } 
+\begin{itemize}
+\item $0$ is unique. 
+\item Additive inverse is unique. 
+\end{itemize}
+
+
+\begin{enumerate}[label=(\textbf{P\arabic*)}]
+\setcounter{enumi}{3}
+\item $a + b = b + a$. 
+\end{enumerate}
+
+\begin{Ex}
+Consider
+\bee
+M_{2 \times 2} = \Set{\lpar 
+\begin{array}{cc}
+a & b\\
+c & d
+\end{array} \rpar : a,b,c,d \in \R}.
+\eee
+And we have the sum operation
+\bee
+\lpar 
+\begin{array}{cc}
+a & b\\
+c & d
+\end{array} \rpar + \lpar 
+\begin{array}{cc}
+e & f\\
+g & h
+\end{array} \rpar = 
+\lpar 
+\begin{array}{cc}
+a + e & b + f\\
+c + g & d + h
+\end{array} \rpar,
+\eee
+which satisfies \textbf{(P1) - (P4)}. Note 
+\bee
+0 &= \lpar 
+\begin{array}{cc}
+0 & 0\\
+0 & 0
+\end{array} \rpar\\
+1 &= \lpar 
+\begin{array}{cc}
+1 & 0\\
+0 & 1
+\end{array} \rpar.
+\eee
+\end{Ex}
+
+\begin{Def}
+Any set which satisfies \textbf{(P1) - (P4)} is a group. 
+\end{Def}
+
+\begin{Def}
+\textbf{Multiplication: } given any two numbers $a$ and $b$, $ab$ is the product of $a,b$. 
+\end{Def}
+
+
+\begin{enumerate}[label=(\textbf{P\arabic*)}]
+\setcounter{enumi}{4}
+\item $a \cdot (b \cdot c) = (a \cdot b) \cdot c$. 
+\item There exists an identity element for multiplication, $1$. And we have
+\bee
+a \cdot 1 = 1 \cdot a = a.
+\eee
+And we also require $1 \neq 0$. Why?
+\begin{proof}
+Let $1 = 0$. Then the same element (*) satisfies \textbf{(P2)} and \textbf{(P6)}. Then we have
+\bee
+(*) + a = a + (*) = a\\
+a\cdot(*) = (*) \cdot a = a. 
+\eee
+Thus every element is $(*)$. 
+\end{proof}
+\item There exists a multiplicative inverse for $a \neq 0$. 
+\item $a \cdot b = b \cdot a$. 
+\item $a \cdot (b + c) = a \cdot b + a \cdot c$. 
+\end{enumerate}
+
+\begin{Def}
+We say any set which satisfies all 9 properties is called a \textbf{field}. 
+\end{Def}
+
+\begin{Ex}
+\begin{enumerate}
+\item $\n$ is not a group. 
+\item $\z$ is a group, but not a field, because it does not satisfy \textbf{(P7)}. 
+\item $\Q$ is a field. Recall
+\bee
+\Q &= \Set{\fracc{p}{q}: p,q \in \z, q \neq 0},\\
+\fracc{1}{q} = q^{-1}.
+\eee
+\item $M_{n \times m}$ matrices with real entries is a group under addition, not a field. 
+\item $\F_2$ is a field. BONUS: check that it is. 
+\item Define
+\bee
+\Q(i) = \Set{(a,b): a,b \in \Q}. 
+\eee
+We define addition:
+\bee
+(a,b) + (c,d) &= (a + c,b + d)\\
+(a,b) \cdot (c,d) &= (ac - bd, ad + bc). 
+\eee
+And $\Q(i),+,\cdot)$ is a field. If $(c,d) = (1,0$, then we have
+\bee
+(a,b) \cdot (1,0) = (a - 0,0 + b) = (a,b).
+\eee
+Every element $(a,b) \neq (0,0)$ has a multiplicative inverse. To find it, we solve
+\bee
+(a,b)\cdot(c,d) &= (1,0)\\
+ac  - bd &= 1\\
+ad + bc &= 0.
+\eee
+Solve for $c$ and $d$ in terms of $a$ and $b$. You get
+\bee
+c &= \fracc{a}{a^2 + b^2},\\
+d &= \fracc{-b}{a^2 + b^2}.
+\eee
+\end{enumerate}
+\end{Ex}
+
+Consequences of \textbf{(P1) - (P9)}. 
+
+\begin{lem}
+Let $K$ be a field (satisfies \textbf{(P1) - (P9)}). Then if $a \cdot b = 0$, then $a = 0$ or $b = 0$, i.e. a field is torsion-free. 
+\end{lem}
+\begin{proof}
+Let $a \cdot b = 0$, and suppose for contradiction that $a \neq 0$, $b \neq 0$. Then both $a^{-1},b^{-1}$ exist. So then we may multiply both sides by $a^{-1}$ to get
+\bee
+a^{-1} \cdot a \cdot b &= a^{-1} \cdot 0\\
+1 \cdot b &= 0\\
+b &= 0.
+\eee
+The proof follows similarly for $a$. 
+\end{proof}
+
+\begin{e}\label{exercise3}
+Prove that $a \cdot (-b) = -(a \cdot b)$. 
+\end{e}
+
+\begin{proof}
+Note $-(a \cdot b)$ is the additive inverse of $a \cdot b$. We already know this is unique, so what remains to be shows is that $a \cdot (-b)$ is also this additive inverse. Observe
+\bee
+(a \cdot b) + (a \cdot (-b)) &= a \cdot (b + (-b))\\
+&= a \cdot 0\\
+&= 0.
+\eee
+\end{proof}
+
+\begin{lem}
+Additive inverses are unique. 
+\end{lem}
+\begin{proof}
+Suppose
+\bee
+a + b &= 0 && (*)\\
+a + c &= 0 && (**)
+\eee
+Then we have
+\bee
+(a + b) + c &= 0 + c\\
+(b + a) + c &= c\\
+b + (a + c) &= c && \text{ by }(**)\\
+b + 0 &= c\\
+b &= c.
+\eee
+\end{proof}
+
+\begin{e}
+Prove that multiplicative inverses are also unique. 
+\end{e}
+
+\begin{e}
+Prove that $(-a)\cdot(-b) = a \cdot b$. 
+\end{e}
+
+\begin{proof}
+By Exercise \ref{exercise3}, we know
+\bee
+(-a)\cdot(-b) &= - ((-a) \cdot b)\\
+&=- ( - (a \cdot b)) = a \cdot b. 
+\eee
+Then we need only show that $-(-x)) = x$. Note that $x + (-x) = (-x) + x = 0$, so $x$ is the additive inverse of $(-x)$. So $-(-x)) = x$, since additive inverses are unique. 
+\end{proof}
+
+Common mistake:
+$a < b$ \& $c < d$ $\Rightarrow$ $ac < bd$. This is WRONG. 
+
+Next class, we'll talk about the symbol $<$. The next 3 properties are about \textit{order}. 
+
+\textbf{Thursday, August 23rd}
+
+\begin{Ex}
+We give an example of a field. Consider 
+\bee
+\Q(t) &= \Set{\fracc{p(t)}{q(t)}:p,q \in \Q[t], q \neq 0}\\
+\fracc{t^2}{1 + t} + \fracc{t^3 - 1}{2t} &= \fracc{t^2(2t) + (t^3 - 1)(1 + t)}{2t(1 + t)}\\
+\fracc{p(t)}{q(t)} + \fracc{r(t)}{s(t)} &= \fracc{p(t)s(t) + r(t)q(t)}{q(t)s(t)}. 
+\eee
+\end{Ex}
+
+\begin{Def}
+Let $K$ be a field, thus \textbf{(P1)-(P9)} are satisfied, then we say $k$ is an \textbf{ordered field} if there exists a subset $P \sub K$ such that
+\begin{enumerate}[label=(\textbf{P\arabic*)}]
+\setcounter{enumi}{9}
+\item Every $a \in K$, either
+\begin{enumerate}
+\item $a \in P$,
+\item or $-a \in P$,
+\item or $a = 0$.
+\end{enumerate}
+\item If $a,b \in P \Rightarrow a + b \in P$.
+\item If $a,b \in P \Rightarrow a\cdot b \in P.$. 
+\end{enumerate}
+\end{Def}
+
+\begin{Ex}
+\begin{enumerate}
+\item $\Q$ is a field. Let $P \sub \Q$ such that $P = \Set{\fracc{p}{q}>0}$. 
+\item $\Q(i) = \Set{(a,b): a,b \in \Q}$, as yesterday, is not an ordered field. Later we will prove it. 
+\item $\Q(t)$ is an ordered field. Define
+\bee
+P  = \Set{\fracc{p(t)}{q(t)}:q \neq 0, \text{ largest coefficient of }(pq) \text{ is }>0}. 
+\eee
+\end{enumerate}
+\end{Ex}
+
+So how can we check that something is an ordered field? \\
+
+\textbf{Consequences of \textbf{(P10)-(P12)}}
+
+\begin{Prop}\label{ordered1}
+$1 \in P$ and $-1 \notin P$. 
+\end{Prop}
+\begin{proof}
+Let $K$ be an ordered field. Recall that $1 \neq 0$. Then $1 \in P$ or $-1 \in P$. By \textbf{(P12)}, If $1 \in P$, then $1 \cdot 1 \in P$. So nothing important is found. Then suppose $-1 \in P$. Then we get $(-1)(-1) \in P$, so $1 \in P$. Then $-1,1 \in P$. So $1 + (-1) \in P \Rightarrow 0 \in P$. This is impossible by \textbf{(P10)}. 
+\end{proof}
+
+\begin{Prop}
+For every $a \in K$, $a \neq 0 \Rightarrow a^2 \in P$. 
+\end{Prop}
+\begin{proof}
+Since $a \neq 0$, we know $a \in P$ or $-a \in P$. In either case by \textbf{(P12)}, we know that $a \cdot a \in P$, or $(-a)(-a) \in P$, which tells us $a^2 \in P$. 
+\end{proof}
+
+\begin{Prop}\label{negonesquared}
+In any ordered field, $-1$ is not the square of any number. 
+\end{Prop}
+\begin{proof}
+Note that if $-1 = a^2$, then $-1 \in P$. But this contradicts Proposition \ref{ordered1}. 
+\end{proof}
+
+We revisit Example 2. We discussed $\Q(i)$. We defined multiplication by
+\bee
+(a,b) \cdot (c,d) = (ac - bd, ad + bc).
+\eee
+And thus
+\bee
+(a,b) \cdot (1,0) = (a,b). 
+\eee
+Thus the zero element is $(0,0)$. Then the $-1$ element is $(-1,0)$. And turns out that
+\bee
+(0,1)^2 = (-1,0). 
+\eee
+Thus $-1 = a^2$ for some $a \in \Q(i)$, so by Proposition \ref{negonesquared}, $\Q(i)$ cannot be an ordered field. 
+
+\begin{Ex}
+$\F_2$ is not an ordered field. 
+\end{Ex}
+\begin{proof}
+Note that $-1 = 1$. And thus $1 \in P$, so $1 + 1 \in P$, and thus $0 \in P$ which is impossible. 
+\end{proof}
+
+\textbf{Application to $\R$:}
+
+For real numbers, $P = \Set{x>0}$. 
+\begin{enumerate}[label=(\textbf{P\arabic*)}]
+\setcounter{enumi}{9}
+\item For every $x \in \R$, either $x>0$, or $-x > 0$, or $x = 0$. 
+\item If $x > 0,y>0$, then $x + y > 0$.
+\item If $x>0,y>0$, then $xy > 0$. 
+\end{enumerate}
+
+\begin{rem}
+We say $x < y$ if $y - x \in P$, i.e. if $y - x > 0$. 
+\end{rem}
+
+\begin{rem}
+\textbf{Transitivity:} If $x < y$ and $y < z$, then $x < z$. 
+\end{rem}
+\begin{proof}
+Let $x <y$ and $y < z$. Then we know $y - x \in P$ and $z - y \in P$. We want to know if $z - x \in P$. But by \textbf{(P11)}, we know 
+\bee
+y - x + z - y = z - x \in P.
+\eee
+Thus $x < z$. 
+\end{proof}
+
+\begin{rem}
+If $x < y$ and $z$ is any number, then $x + z < y + z$. $(*)$. 
+\end{rem}
+
+\begin{proof}
+Observe
+\bee
+y - x &\in P\\
+(y + 0) - x &\in P\\
+(y + (z + (-z)) -x &\in P\\
+(y + z) + (-z -x) &\in P\\
+(y + z) - (x + z) &\in P\\
+x + z < y + z.
+\eee
+\end{proof}
+
+\begin{rem}
+
+\bb
+
+\begin{enumerate}
+\item If $x < y$ and $z \in P \Rightarrow xz < yz$. 
+\item If $x < y$ and $-z \in P \Rightarrow yz < xz$. 
+\end{enumerate}
+
+\end{rem}
+\begin{proof}
+For (1), $y - x \in P$, $z \in P$ so 
+\bee
+(y - x)\cdot z \in P\\
+yz - xz \in P\\
+xz < yz.
+\eee
+(2) follows similarly. 
+\end{proof}
+
+\begin{rem}
+Given $x,y$, then either $y > x$, $x > y$, or $x = y$. 
+\end{rem}
+\begin{proof}
+Consider $y - x$ is either in $P$, it's negative is in $P$, or it is $0$, by \textbf{(P10)}. 
+\end{proof}
+
+\begin{Def}
+For any ordered field $k$, we can define for $x \in K$ a value that is called the \textbf{absolute value} $|x|$:
+\bee
+|x| = \begin{cases}
+x & x \in P\\
+-x & -x \in P\\
+0 & x = 0
+\end{cases}.
+\eee
+\end{Def}
+
+\begin{Ex}
+Consider $\Q(t)$. Take $\alpha = \fracc{1}{t}, \beta = \fracc{2 - t^2}{t^3} \in \Q(t)$. Recall that $P \sub \Q(t)$ is defined as
+\bee
+P = \Set{a \in \Q(t):\text{ coefficient of }pq\text{ with largest degree is positive}}. 
+\eee
+
+Note that
+\bee
+\alpha \in P && (1t = t; 1>0)\\
+\beta \notin P && (2t^3 - t^5; -1 < 0).
+\eee
+So we have
+\bee
+\left|\fracc{1}{t} \right| &= \fracc{1}{t},\\
+\left|\fracc{2 - t^2}{t^3}\right| &= \fracc{t^2 - 2}{t^3}. 
+\eee
+\end{Ex}
+
+\begin{Def}
+We say $x \leq y$ if $x < y$ or $x = y$. 
+\end{Def}
+
+\begin{theorem}
+Let $x,y \in K$ for some ordered field $K$. Then \bee
+|x + y| \leq |x| + |y|. 
+\eee
+\end{theorem}
+
+\begin{proof}
+If $x = 0 \Rightarrow |x + y| = |y|$, then $|x| = 0$, and we are done. Same if $y = 0$. 
+
+\bb
+
+If $x,y \in P$, then $|x| = x,|y| = y$, then $x + y \in P$, and so $|x + y| = x + y$. The proof for when $-x,-y \in P$ is the same. Two more cases. 
+\end{proof}
+
+\textbf{Friday, August 24th}
+
+\begin{theorem}
+Let $F$ be an ordered field. Then $|a + b| \leq |a| + |b|$. 
+\end{theorem}
+
+\begin{proof}
+Let $a > 0$ and $b < 0$. Then we have $|a| = a$ and $|b| = -b$. Then we have three cases:
+\bee
+|a + b| = \begin{cases}
+a + b & \leq a - b\\
+-a - b & \leq a - b
+\end{cases}
+\eee
+
+\textbf{Case 1:} $a > 0, b < 0$. Since $b < 0 \Rightarrow -b \in P$. \\
+$\Rightarrow (-b) + (-b) \in P$\\
+$\Rightarrow (-b) + (-b) > 0$\\
+$\Rightarrow b + ((-b) + (-b)) > b$\\
+$\Rightarrow (b + (-b)) + (-b) > b$\\
+$\Rightarrow -b > b \Rightarrow a a - b > a + b$\\
+But $|a| + |b| = a - b$, so $|a| + |b| > a + b$. We also know that since $a > 0$, $a \in P$, we have
+$\Rightarrow a + a \in P$\\
+$\Rightarrow a + a > 0$\\
+$\Rightarrow (a + a) + (-a) > -a$\\
+$a > -a$\\
+$\Rightarrow a - b > -a - b$. So we have $|a| + |b| > -a - b$. But we also have $|a| + |b| > a + b$. And since 
+\bee
+|a + b| = \begin{cases}
+a + b\\
+-a - b
+\end{cases},
+\eee
+We know that $|a + b| < |a| + |b|$ in this case. 
+\end{proof}
+
+\begin{Prop}
+For all $a,b \in F$
+\begin{enumerate}[label=\roman*)]
+\item $a < b,b < c \Rightarrow a < c$. 
+\item $a \leq b,b \leq c \Rightarrow a\leq c$. 
+\end{enumerate}
+\end{Prop}
+\begin{proof}
+We prove the second part. Note that $a \leq b \Leftrightarrow a < b$ or $a = b$. Thus $b - a \in P$ or $b = a$. And $b \leq c \Leftrightarrow c - b \in P$ or $b = c$. Then we have 
+\bee
+c - a = \begin{cases}
+(b - a) + (c - b) \in P\\
+b - a \in P\\
+c - b \in P\\
+0.
+\end{cases}
+\eee
+In all these cases $c - a \in P$ or $a = c$, so $a \leq c$. 
+\end{proof}
+
+\begin{Prop}
+\textbf{(PROP 8)} $a > 0 \Rightarrow a^{-1} > 0$. 
+\end{Prop}
+
+\begin{proof}
+Equivalently, we want to show $a \in P \Rightarrow a^{-1} \in P$. Let $a \in P$. Then we know $a \neq 0$ by \textbf{(P10)}. Therefore $a^{-1}$ is well defined. By \textbf{(P10)}, either i) $a^{-1} \in P$, ii) $-a^{-1} \in P$, or iii) $a^{-1} \in P$. If ii) is true, then $-a^{-1} \in P$ and $a \in P$ which by \textbf{(P12)} tells us that $(-a^{-1})a = - (a^{-1}a) = -1 \in P$ which is not possible. If iii), then $a^{-1} = 0$, so $aa^{-1} = a \cdot 0 \Rightarrow 1 = 0$ which is a contradiction. So $a^{-1} \in P$ and $a^{-1} > 0$. 
+\end{proof}
+
+\begin{Prop}
+\textbf{(PROP 9)}
+\begin{enumerate}[label=\roman*)]
+\item $a < b \Rightarrow -b < -a$
+\item $a \leq b \Rightarrow -b \leq -a$
+\end{enumerate}
+\end{Prop}
+
+\begin{Prop}
+\textbf{(PROP 10)}
+\begin{enumerate}[label=\roman*)]
+\item $- < a < b \Rightarrow 0 < b^{-1} < a^{-1}$. 
+\item $0 < a \leq b \Rightarrow 0 < b^{-1} \leq a^{-1}$. 
+\end{enumerate}
+\end{Prop}
+
+\begin{proof}
+By proposition 7 on the handout, which is that $a < b$ and $c > 0 \Rightarrow ac < bc$. If $a < 0 \Rightarrow a^{-1} \in P$. If $b > 0 \Rightarrow b^{-1} \in P$. Then we have $a^{-1}b^{-1} \in P$. So we use Proposition 7 and we get
+\bee
+0 < a(a^{-1}b^{-1}) < b(a^{-1}b^{-1})\\
+0 < b^{-1} < a^{-1}.
+\eee
+Part ii) follows by adding the $a = b$ case to the above proof. 
+\end{proof}
+
+\begin{Prop}
+\textbf{(PROP 11)} If $a \geq 0, b \geq 0$, $n \in \n$, then
+\begin{enumerate}[label=\roman*)]
+\item $ a < b \Leftrightarrow a^n < b^n$ $(*)$,
+\item $a \leq b \Leftrightarrow a^n \leq b^n$.
+\end{enumerate}
+\end{Prop}
+
+\begin{proof}
+Use induction. Define
+\bee
+S = \Set{n \in \n: (*) \text{ is satisfied for }n}. 
+\eee
+We need to prove
+\begin{enumerate}[label=\roman*)]
+\item $1 \in S$
+\item If $k \in S$, then $k + 1 \in S$. 
+\end{enumerate}
+Then $S = \n$, by Peano's third axiom of $\n$. 
+
+\textbf{Base case:} Let $n = 1$. Then $a < b \Leftrightarrow a^1 < b^1$. 
+
+\textbf{Inductive hypothesis:} Assume $k \in S$, i.e. $a < b \Rightarrow a^k < b^k$. We want to prove that $a < b \Rightarrow a^{k + 1} < b^{k + 1}$. Note that the other direction is trivial because if $a^n < b^n$ for every $n$, then it is true for $n = 1$. Because $a^k < b^k$, we may multiply on both sides by $a$ to get $a^ka \leq  b^ka$. Now we multiply by $b^k$ on both sides of the inequality: $a < b$ to get $ab^k < b^{k + 1}$. Then we get
+\bee
+ a^{k + 1} = a^ka  \leq b^ka = ab^k < b^{k + 1}. 
+\eee
+\end{proof}
+
+\textbf{Some notation:}
+\begin{itemize}
+\item Let $F$ be an ordered field, $\forall a \in F$. 
+\item $\exists a \in F$... (= there exists $a \in F$). 
+\item $\exists! a \in F$... (= there exists a unique $a \in F$). 
+\item $\Rightarrow\Leftarrow$ $ = $ impossible = contradiction.
+\end{itemize}
+
+
+\textbf{Monday, August 27th}
+
+\begin{lem}
+The following are equivalent
+\bee
+|x - y| < a \Leftrightarrow y - a < x < y + a. 
+\eee
+\end{lem}
+
+\begin{proof}
+\textbf{Claim:} $|x| < a \Leftrightarrow -a < S < a$. If we can prove that, then we just apply it for $a = x - y$. If $|a| < a$, we have $a \in P$. Then we have $|s| \in P$ or $|s| = 0$, and $a - |s| \in P$. And $a = |s| + a - |s| \in P$.
+ 
+\textbf{Case i)} $s \in P \Rightarrow s < a$ since $|s| < a$. We want to prove $-a < s$ also. Since $s \in P$, $a \in P$, then $s + a \in P$, therefore $s -(-a) \in P \Rightarrow -a < S$. And thus $-a < s < a$. 
+
+\textbf{Case ii)} $s = 0$. Then $a > 0 \Leftrightarrow -a < 0 < a$. Obvious. 
+
+\textbf{Case iii)} $-s \in P$. Then let $t = -s$. Then $t \in P$. So we have by Case i) that $-a < t < a$. But recall we had 
+\bee
+|s| < a &\Leftrightarrow |-t| < a\\
+&\Leftrightarrow |t| < a.
+\eee
+\textbf{Claim 2:} $|-t| = |t|$ for any $t \in F$. 
+Then by Case i) we have
+\bee
+-a < t < a &\leftrightarrow -a < -s < a\\
+&\Leftrightarrow -a < s < a.
+\eee
+
+Proof of Claim 2: 
+\textbf{Case 1)} If $t \in P \Rightarrow |t| = t$. Since $t \in P \Rightarrow -(-t) \in P \Rightarrow |-t| = -(-t) = t$. 
+
+\textbf{Case 2)} If $-t \in P \Rightarrow |-t| = -t \Rightarrow |t| = -t$. 
+
+\textbf{Case 3)} $t = 0 \Rightarrow -t = 0 \Rightarrow|t| = |-t| = 0$. 
+\end{proof}
+
+\section{Numbers of various sorts}
+
+
+\begin{rem}
+\textbf{Properties of Natural Numbers:} If $m,n.p \in \n$,
+\begin{enumerate}
+\item $(m + n) + p = m + (n + p)$
+\item $m + n = n + m$
+\item $m + n = m + p \Rightarrow n = p$. 
+\end{enumerate}
+\end{rem}
+
+Using the 3rd Peano axiom, i.e. induction, we can prove many facts. 
+
+\begin{Ex}
+Prove that for $n = 0$ and $n \in \n$, $1 + 3 + 5 = \cdots + (2 n + 1) = (n + 1)^2$ $(*)$,
+\end{Ex}
+
+\begin{proof}
+$n = 0 \Rightarrow 1 = 1 \Rightarrow 1 = (0 + 1)^2$ which is $(*)$ for $n = 0$. 
+
+For $n \in \n$, we use Peano's 3rd axiom. Define
+\bee
+A = \Set{n \in \n: (*)\text{ is valid}}.
+\eee
+\textbf{Base case:} And we have
+\bee
+4 = 4 \Leftrightarrow 1 = 3 = 2^2 \Leftrightarrow 1                                                                                               + (2(1) + 1) = (1 + 1)^2. 
+\eee
+So $(*)$ is valid for $n = 1$, and $1 \in A$. 
+
+Suppose $k \in A$; we'll prove $k + 1 \in A$. Then we have
+\bee
+1 + 3 + 5 + \cdots + (2k + 1) &= (k + 1)^2\\
+&=1 + 3 + 5 + \cdots + (2k + 1) + (2k + 3)\\
+&= (k + 1)^2 + (2k + 3)\\
+&= k^2 + 2k + 1 + 2k + 3\\
+&= k^2 + 4k + 4\\
+&= (k + 2)^2. 
+\eee
+And also
+\bee
+1 + 3 + 5 + \cdots + (2(k + 1) + 1) = ((k + 1) + 1)^2. 
+\eee
+So $(*)$ is valid for $k + 1$. Therefore $k + 1 \in A$. Then $A = \n$. 
+\end{proof}
+
+\begin{Ex}
+Issues: If $n,p \in \n$, $mn = mp$ does NOT imply $n = p$. Take $m = 0$. 
+\end{Ex}
+
+\begin{rem}
+\textbf{Notation: }
+\bee
+\sum_{k = 0}^n (2k + 1) &= 1 + 3 + 5 + \cdots + (2n + 1)\\
+&= \sum_{k = 1}^{n + 1} (2k - 1).
+\eee
+\end{rem}
+
+
+
+\begin{Def}
+\begin{enumerate}
+\item We say that $n \in \n$ is \textbf{even} if there exists $m \in \n$ such that $n = m + m = 2m$. 
+\item We say $n \in \n$ is \textbf{odd} if there exists $p \in \n$ such that $n = 2p - 1$. 
+\end{enumerate}
+\end{Def}
+
+\begin{e}
+Prove that every natural number is either even or odd. 
+\end{e}
+
+\begin{proof}
+Let $A = \Set{n \in \n:n \text{ is either even or odd}}$. 
+\begin{enumerate}
+\item $1 \in A$. Note $1$ is odd, because $1 = 2(1) - 1$, so in the definition of odd, $n = p = 1$. 
+\item Assume $k \in A$, we want to prove that $k + 1 \in A$. $k \in A \Rightarrow$ $k$ is either even or odd. So if $k$ is even, then by definition, there exists $m \in \n$ such that $k = 2m$. Then 
+\bee
+k + 1 = 2m + 1 = 2(m + 1) - 1,
+\eee
+thus $k + 1$ is odd because $m + 1 \in \n$. 
+If $k + 1$ is even, then by definition, we have $m \in \n$ such that 
+\bee
+k &= 2m - 1\\
+k + 1 &= 2m
+k + 1 &= 2m
+\eee
+Then $k + 1$ is even (in the definition with $m \in \n$). Therefore $m + 1$ is either even or odd which tells us $m + 1 \in A$, and thus $A = \n$. 
+\end{enumerate}
+\end{proof}
+
+\begin{theorem}[\textbf{(Complete induction)}]
+Let $A \sub \n$ be a set such that $1 \in A$, and if $A$ contains all natural numbers less than $n$, then $A$ contains $n$. Then $A = \n$. 
+\end{theorem}
+
+Conclusion is that complete induction is equivalent to Peano's 3rd axiom. 
+
+\begin{theorem}
+Let $A \sub \n$ and let $A$ be nonempty, then there exists a lower bound for $A$. 
+\end{theorem}
+
+\begin{Def}
+$A \sub \n$ has a \textbf{lower bound} if $\exists p \in A$ such that $p \leq q$ for all $q \in A$. 
+\end{Def}
+
+\textbf{Tuesday, August 28th}
+
+We do some more simple induction proofs. 
+
+\begin{e}[\textbf{Bernoulli's Inequality}]
+Let $K$ be an ordered field. Let $n \in \n, x \in K,x \geq -1$. Then 
+\bee
+(1 + x)^n \geq 1 + nx. & (*)
+\eee
+\end{e}
+
+\begin{proof}
+By induction on $n$. So define
+\bee
+A = \Set{n \in \n: \text{satisfy }(*),\forall x \in K}. 
+\eee
+\textbf{Base case: }Note that $1 \in A$, because 
+\bee
+1 + x &\geq 1 + x\\
+(1 + x)^1 &\geq 1 + 1x.
+\eee
+\textbf{Induction hypothesis:} Let $k \in A$. 
+\textbf{Inductive step:} Because $k \in A$, we know
+\bee
+(1 + x)^k \geq 1 + kx. & (\alpha)\\
+\eee
+From the conditions on $x$, we know $x \geq -1$, so we know $1 + x \geq 0$. Using one of the lemmas we proved, we can multiply to each side in $(\alpha)$. So we get
+\bee
+(1 + x)^{k + 1} &\geq (1 + kx)(1 + x)\\
+(1 + x)^{k + 1} &\geq 1 + (k + 1)x + kx^2.
+\eee
+For any $x \in K$, we know $x^2 > 0 \Rightarrow kx^2 > 0, k \in \n$. So then we have
+\bee
+(1 + x)^{k + 1} \geq 1 + (k + 1)x + kx^2 \geq 1 + (k + 1)x.
+\eee
+Thus $k + 1 \in A$, therefore $A = \n$. 
+\end{proof}
+
+Given an ordered field $K$, we have the identity element, we call it $1$. But remember my field might be fractions, it might be pairs of numbers, it might be very different objects than numbers. So for today, to avoid confusion with the natural number $1$, we will instead notate the multiplicative identity in $K$ as $\tilde{1}$. So we have
+\bee
+a \cdot \tilde{1} = a,
+\eee
+for all $a \in K$. 
+
+\begin{Ex}
+On $\F = \Q(i)$, we have that $\tilde{1} = (1,0)$. 
+\end{Ex}
+
+From the fact that $K$ is ordered, we know  $\tilde{1} > 0$. Using the fact that the sum of positives is positive, we know
+\bee
+... > \tilde{1} + \tilde{1} + \tilde{1} + \tilde{1} > \tilde{1} + \tilde{1} + \tilde{1} > \tilde{1} + \tilde{1} > \tilde{1} > 0.
+\eee
+For every ordered field, we have a copy of $\n$ as a subset. That means there exists $\phi:\n \to K$ that is injective, and that 
+\bee
+\phi(a + b) = \phi(a) + \phi(b).
+\eee
+
+We define $\phi(1) = \tilde{1}$. And then
+\bee
+\phi(s) = \tilde{1} + \tilde{1} + \cdots \tilde{1},
+\eee
+where $\tilde{1}$ is repeated $s$ times. 
+
+\begin{Ex}
+Let
+\bee
+K = \Set{\fracc{p(t)}{q(t)}:p,q \text{ polynomials in }t }. 
+\eee
+On $K$, the multiplicative identity is $1 = \fracc{t}{t} = \fracc{t^2}{t^2}$. So $\n \sub K$. 
+\end{Ex}
+
+Because (a copy of) $\n$ is always included in any ordered field $K$, and because the negative of any $n \in \n$ is also in $K$, we obtain (a copy of) $\z$ in $K$. 
+
+\bee
+\z
+\begin{cases}
+\begin{array}{c|rc|l}
+&&&K\\
+& 3 & \leftarrow &  \tilde{1} + \tilde{1} + \tilde{1}\\
+\n & 2 & \leftarrow &  \tilde{1} + \tilde{1}\\
+& 1 & \leftarrow & \tilde{1}\\
+\hline
+& 0 & & 0\\
+\hline
+& -1 & & -\tilde{1}\\
+& -2 & & -\tilde{1} - \tilde{1}
+\end{array}
+\end{cases}.
+\eee
+
+Every element $a \neq 0$ in $k$ has a multiplicative inverse $a \in \n \Rightarrow \phi(a) \in K$. So there exists $(\phi(a))^{-1} \in K$. And this represents $\fracc{1}{a} \in \Q$. 
+
+
+So we have a copy of $\Q$ in $K$. 
+
+In other words, $\phi: \Q \to K$ such taht
+\bee
+\phi(1) &= \tilde{1}\\
+\phi(0) &= 0\\
+\phi(a + b) &= \phi(a) + \phi(b)\\
+\phi(ab) &= \phi(a)\phi(b).  
+\eee
+
+\begin{Ex}
+Let 
+\bee
+K = \Set{\fracc{p(t)}{q(t)}:p,q \text{ polynomials in }t }. 
+\eee
+Then there exists $\phi: \Q \to K$ given by
+\bee
+x \mapsto x = \fracc{a}{b}:a,b \in \z,b \neq 0.
+\eee
+\end{Ex}
+
+\begin{Ex}
+Consider $K$, the field of the last example. Let $A \sub K$, $A = \Set{1,2,3,4,5,...}$. Ten there exists an element in $K$, call it $x$ such that $x > y$ for all $y \in A$. 
+
+Indeed $x = t \in K$. Note $t = \fracc{t}{1}$, where $t,1$ are polynomials in $t$. 
+
+\textbf{Claim: }$t - n > 0$ for every $n \in \n$. 
+
+Recall that for $K$, we call
+\bee
+P = \Set{\fracc{p(t)}{q(t)}: p(t)q(t) \text{ has a positive coefficient in front of the largest degree term}}. 
+\eee
+And clearly $t - n \in P$. 
+\end{Ex}
+
+\begin{e}
+Check that there exists $\alpha \in K$, where $K$ is from the last example, such that 
+\bee
+\alpha < n, \forall n \in \z.
+\eee
+\end{e}
+
+Note $\Q(t)$ is not a nice field for this reason. It is not Archimedean. 
+
+\begin{theorem}
+Let $K$ be an ordered field. The following are equivalent:
+\begin{enumerate}
+\item $\n \sub K$ is not bounded from above.
+\item Given any two $a,b \in K,a > 0$, there exists $n \in \n$ such that $na > b$.
+\item Given any $a > 0$ in $K$, there exists $n \in \n$ such that $0 < \fracc{1}{n} < a$. 
+\end{enumerate}
+\end{theorem}
+
+\begin{Def}
+We say that $K$ is an \textbf{Archimedean} field if it satisfies any of the equivalent statements in the theorem above. 
+\end{Def}
+
+\begin{Ex}
+\begin{enumerate}
+\item $\Q$ is an Archimedean field. 
+\item $\R$ is an Archimedean field. 
+\item $\Q(t)$ is not an Archimedean field. 
+\end{enumerate}
+
+\end{Ex}
+
+
+\textbf{Wednesday, April 28th}
+
+
+Given $F$ an ordered field, let $X \sub F$. 
+
+\begin{Def}
+We say $X$ has a \textbf{least element} if there exists $p \in X$ such that $p \leq q$ for all $q \in X$. And we say $X$ has a \textbf{greatest element} if there exists $p \in X$ such that $p \geq q$ for all $q \in X$. 
+\end{Def}
+
+\begin{Def}
+We say $X$ has a \textbf{lower bound} if there exists $p \in F$ such that $p \leq q$ for any $q \in X$. And we say $X$ has an \textbf{upper bound} if there exists $p \in F$ such that $p \geq q$ for all $q \in X$. 
+\end{Def}
+
+\begin{rem}
+\begin{itemize}
+\item The set $X$ might have an upper bound, but no greatest element. 
+\begin{Ex}
+Let $X = \n \sub \Q(t)$. Note $\n$ does not have a greatest element, but has an upper bound (for every $n \in \n$, we have $n \leq t \in \Q(t)$, where $\leq$ means that $t - n = 0$ or $t - n \in P$, for the definition of $P$ specific to this field). 
+\end{Ex}
+\item If $X$ has a least element, then it is unique. 
+\begin{proof}
+Suppose $p,\tilde{p}$ are both least elements of $X$. Then $p \leq \tilda{p}$, because $p$ is a least element. And also $\tilda{p} \leq p$, because $\tilda{p}$ is a least element. Thus $p = \tilda{p}$. 
+\end{proof}
+
+\begin{e}
+Prove that the greatest element is unique. 
+\end{e}
+\end{itemize}
+
+\end{rem}
+
+\begin{theorem}[\textbf{Well-ordered principle}]
+Let $A \sub \n$, $A \leq \emptyset$. Then $A$ has a least element. 
+\end{theorem}
+
+\begin{proof}
+Consider $I_n = \Set{p \in \n: p \leq n}$. Then we have
+\bee
+I_1 &= \Set{1},\\
+I_2 &= \Set{1,2},\\
+I_3 &= \Set{1,2,3},...
+\eee
+Let $B = \n \setminus A$. Then we know $B \neq \n$ because $A \neq \emptyset$. Let 
+\bee
+X = \Set{n \in \n: I_n \sub B}.
+\eee
+
+\textbf{Case 1: }Note that if $A$ contains $1$, then we are done, because $1$ is the least element of $\n$, and therefore it is the least element of any subset of $\n$ containing it. So suppose we had $A = \Set{1,3,7}, B = \Set{2,4,5,6,...}$. This tells us that $X = \emptyset$. 
+
+\textbf{Case 2:} If $A$ does not contain $1$, then that means that $1 \in B$. Thus $1 \in X$. Note $X \neq \n$ because that would make $A$ empty. 
+
+$X$ cannot satisfy the third Peano axiom, which says that $1 \in X$, and $q \in X \Rightarrow q + 1 \in X$ implies $X = \n$. Since $1 \in X$, and $X \neq \n$, we must have that there exists $q \in X$ such that $q + 1 \notin X$. Note that $q \in X$ means $I_q \sub B$, and $q + 1 \notin X$ means that $I_{q + 1} \nsub B$. Then we have
+\bee
+\Set{1,2,3,...,q} &\sub B\\
+\Set{1,2,3,...,q + 1} \nsub B.
+\eee
+Thus we have $1,2,3,...,q \notin A$ and $q + 1 \in A$. Thus $A$ has a least element, namely $q + 1$. 
+\end{proof}
+
+Recall Peano's third axiom (PSI). It states that if $X \sub \n$ such that
+\begin{enumerate}
+\item $1 \in X$
+\item $\forall q \in X \Rightarrow q + 1 \in X$
+\end{enumerate}
+then $X = \n$. 
+
+\textbf{Complete induction (PCI): }If $X \sub \n$ such that 
+\begin{enumerate}[label=($\tilda{\arabic*})$]
+\item $1 \in X$
+\item $\forall q \in X$ such that $1,2,3,...,q \in X \Rightarrow q + 1 \in X$
+\end{enumerate}
+then $X = \n$. 
+
+We prove that they are equivalent. 
+
+\begin{proof}
+\textbf{PCI $\Rightarrow$ PSI:} Suppose PCI holds. Then we know that if $X \sub \n$ such that $1 \in X$, and $(\tilda{2})$ is true implies $X = \n$. We want to show PSI holds. So let $Y \sub \n$ such that $1 \in Y$, and $\forall q \in Y \Rightarrow q + 1 \in Y$. We want to show that $Y = \n$. But note that $(2)$ is a stronger condition than $(\tilda{2})$. Because if all numbers up to and including $q$ are in $Y$, then certainly $q$ is in $y$. So then we know $Y = \n$ by PCI. So PSI holds. Note we made 3 claims. We know that $1,2,...,q \in X \Rightarrow q \in X$. And using this, we know $(2) \Rightarrow (\tilda{2})$. And using this we know PCI $\Rightarrow$ PSI. 
+
+\textbf{PSI $\Rightarrow$ PCI} Let $X \sub \n$ such that $1 \in X$ and $(\tilda{2})$ holds. We want to show that $X = \n$. Consider 
+\bee
+Y = \Set{n \in \n:I_n \sub X}. 
+\eee
+Note that $1 \in X \Rightarrow I_1 \sub X \Rightarrow 1 \in Y$. And $I_q \sub X \Rightarrow I_{q + 1} \sub X$. Then we know that $q \in Y \Rightarrow q + 1 \in Y$. So by PSI, we know $Y = \n$, but we wanted to show $X = \n$. But by the definition of $Y$, we know $X = \n$. 
+\end{proof}
+\begin{center}
+\begin{tabular}{l|l}
+PSI & PCI\\
+\hline
+$X \sub \n$ such that & $X \sub \n$ such that\\
+1) $1 \in X$ & 1) $1 \in X$\\
+2) $a \in X \Rightarrow a + 1 \in X$ & $\tilda{2}$) $1,2,...,a \in X \Rightarrow a + 1 \in X$\\
+$\Rightarrow X = \n$ & $\Rightarrow X = \n$. 
+\end{tabular}
+\end{center}
+
+
+
+\begin{Ex}
+Let $a_1 = 1,a_2 = 1;a_{n + 1} = a_n + a_{n - 1}$. We have
+\bee
+a_1 &= 1\\
+a_2 &= 1\\
+a_3 &= 2\\
+a_4 &= 3\\
+a_5 &= 5\\
+a_6 &= 8\\
+a_7 &= 13\\
+a_8 &= 21.
+\eee
+Prove that $a_n \geq 2n - 4$ for all $n \geq 6$. 
+\end{Ex}
+
+\begin{proof}
+We use PSI first. Note 
+\bee
+a_6 = 8 \geq 2(6) - 4 = 12 - 4 = 8\\
+a_7 = 13 \geq 2(7) - 4 = 14 - 4 = 10. 
+\eee
+Now we show that $a_n \geq 2n - 4 \Rightarrow a_{n + 1} \geq 2(n + 1) - 4 = 2n  -2$. If $a_{n - 1} = 1$, we have trouble. $a_{n + 1} = a_n + a_{n - 1} \geq 2n  -3$. This is because we cannot assume anything about $a_{n - 1}$. 
+
+So instead we use PCI. We have
+\bee
+a_6 &\geq 8\\
+a_7 = 13 &\geq 2(7) - 4 = 10\\
+a_n &\geq 2n - 4\\
+a_{n - 1} &\geq 2(n - ) - 4
+\eee
+And we get
+\bee
+a_{n + 1} = a_n + a_{n - 1} \geq 4n - 10. 
+\eee
+Then our goal was to show $a_{n - 1} \geq 2(n + 1) - 4 = 2n - 2$. So from above, we know $a_{n + 1} \geq 4n  - 10$. So we claim
+\bee
+4n - 10 \geq 2n - 2.
+\eee
+But note
+\bee
+n &\geq 4\\
+2n &\geq 8\\
+4n - 2n &\geq 10 - 2\\
+4n - 10 &\geq 2n - 2.
+\eee
+Thus we get $a_{n +1 } \geq 2n - 2$. 
+\end{proof}
+
+
+\textbf{Thursday, August 30th}
+
+\textbf{Logic:}\\
+\textbf{A: }a number $x$ is positive and an integer. \\
+\textbf{B: }a number $x$ is an integer. 
+
+A is stronger than B. If A is true, then B is true. $A \Rightarrow B$. 
+
+\begin{rem}
+PSI = 3rd Peano axiom\\
+WOP = Every set $A \neq \emptyset, A \sub \n$ has a least element. \\
+PCI
+
+PSI $\Rightarrow$ WOP. Also PSI $\Leftrightarrow$ PCI.
+\end{rem}
+
+\begin{rem}
+The well-ordering principle implies the principle of complete induction. 
+\end{rem}
+\begin{proof}
+If $X \sub \n$, 1)$1 \in X$, $\tilda{2})$ $1,...,a \in X \Rightarrow a + 1 \in X$. Consider the set $A = \n \setminus X$, $A \sub \n$. We want to prove that $A = \emptyset$. Suppose $A \neq \emptyset$. Then $A$ has a least element by the well-ordered principle. Note $1 \notin A$. Let $a > 1$ be the least element of $A$. Then $1,2,3,...,a - 1 \in X$ by $\tilda{2}) \Rightarrow a \in X \Rightarrow a \notin X$, which is a contradiction. Therefore $A = \emptyset$. Then $X = \n$. 
+\end{proof}
+
+\begin{Def}
+Given any ordered field $F$, we denote
+\bee
+(a,b) &= \Set{x \in F: a < x < b}\\
+[a,b) &= \Set{x \in F: a \leq x < b}\\
+(a,b] &= \Set{x \in F: a < x \leq b}\\
+[a,b] &= \Set{x \in F: a \leq x \leq b}\\
+(a,\infty) &= \Set{x \in F: a < x}\\
+(-\infty,b) &= \Set{x \in F:x < b}.
+\eee
+\end{Def}
+\begin{lem}
+In an ordered field
+\bee
+|x| \leq a \Leftrightarrow -a \leq x \leq a (\Leftrightarrow x \in [-a,a]).
+\eee
+\end{lem}
+
+$\Q$ is an ordered field. Consider the set 
+\bee
+A = \Set{x \in \Q:x > 0,x^2 < 2}. 
+\eee
+$A$ is bounded by above = $A$ has an upper bound. Because if $x \in A \Rightarrow x^2 < 2 < 4 \Rightarrow x^2 < 4 \Rightarrow x < 2$. Note that we can try to find a best upper bound in $\Q$, but it is impossible. The real numbers $\R$ are the set which completes $\Q$ so that every set has a least upper bound and greatest lower bound. 
+
+
+\textbf{Construction of $\R$}: 
+\begin{enumerate}
+\item Cauchy sequences [we'll explain this through the semester].
+\item Dedekind cuts (handouts). 
+\item Forcing the principle of best upper bound or lower bound. 
+\item Surreals and hyperreals. 
+\end{enumerate}
+
+\textbf{Pythagoras.} The equation $x^2 = 2$ has no solution for $x \in \Q$. 
+
+\begin{proof}
+Suppose there exists $p,q \in \z$ such that $x = \fracc{p}{q}$, and $x^2 = 2$. Assume they are coprime. Then we have
+\bee
+p^2 = 2q^2.
+\eee
+Thus $p^2$ is even which means $p$ is even. And then $p = 2\cdot r$ for some integer $r$. Then we get
+\bee
+(2r)^2 &= 2q^2\\
+4r^2 &= 2q^2\\
+2r^2 &= q^2.
+\eee
+So $q^2$ is even which means $q$ is even which is impossible, since we said $p,q$ coprime. So there exist no such $p,q \in \z$. 
+\end{proof}
+
+\begin{Claim}
+A similar proof can be written to show that $x^2 = 3$ does not have any solution in $\Q$. 
+\end{Claim}
+
+
+
+
+
+
+
+
+\section*{Section 1 Exercises}
+
+\begin{enumerate}[label=\arabic*.]
+\setcounter{enumi}{10}
+\item \textit{Solve}
+\begin{enumerate}[label=\roman*)]
+\item $|x - 3| = 8$
+\item $|x - 3| < 8$
+\item $|x + 4| < 2$
+\item $|x - 1| + |x - 2| < 1$
+\item $|x - 1| + |x + 1| < 2$
+\end{enumerate}
+\end{enumerate}
+\begin{rem}
+Note $|a| \leq b \Leftrightarrow a \leq b$ and $-a \leq b \Leftrightarrow -b \leq a \leq b$. 
+\end{rem}
+\textbf{Solutions:}
+\begin{enumerate}[label=\roman*)]
+\item We have $x - 3 = 8$ or $-x + 3 = 8$. In the first case, $x = 11$, and in the second case, $x = -5$. 
+\item $-8 < x - 3 < 8 \Rightarrow -5 < x < 11$. 
+\item 
+\item So consider the case where $x < 1$ and $x < 2$. Then we have $1 - x + 2 - x < 1$. So then $2 < 2x \Rightarrow 1 < x$. But this is a contradiction since we said $x < 1$ so there is no solution. 
+
+\setcounter{enumi}{4}
+\item \textit{Prove the following: }
+\begin{enumerate}[label=(\roman*)]
+
+\bb
+\setcounter{enumii}{1}
+\item \textit{If $a < b$, then $-b < -a$. }
+\begin{proof}
+Since $a < b$, then we know $b - a \in P$ by definition. We want to show that $-b < -a$, so by definition, we must show that $-a - (-b) \in P$. We show that $-(-b)) = b$. Note that $b + (-b) = (-b) + b = 0$ by \textbf{(P3)}, so $b$ is the additive inverse of $(-b)$. So $-(-b)) = b$, since additive inverses are unique. Observe:
+\bee
+-a - (-b) &= -a + b && \text{by \textbf{(P3)}}\\
+		  &= b - a  && \text{by \textbf{(P4)}.}\\
+\eee
+But we know that $b - a \in P$. So $-a - (-b) \in P$, and thus by definition, $-b < -a$. 
+\end{proof}
+
+\bb
+\setcounter{enumii}{3}
+\item \textit{If $a < b$ and $c > 0$, then $ac < bc$. }
+\begin{proof}
+Let $a < b$. Then by definition, we know $b - a \in P$. Since $c > 0$, we know $c \in P$, so $c(b - a) \in P$ by \textbf{(P12)}. Then we have
+\bee
+c(b - a) &= cb - ca && \text{by \textbf{(P9)}}.
+\eee
+And so $cb - ca \in P$ which means $ca < cb$. Then by \textbf{(P8)}, we know $ac < bc$. 
+\end{proof}
+
+
+\bb
+\setcounter{enumii}{5}
+\item \textit{If $a > 1$, then $a^2 > a$. }
+\begin{proof}
+Since $1 < a$, we know $a - 1 \in P$. Note that $0 < 1$ and $1 < a$ give us $0 < a$ by the following:
+\begin{rem}
+\textbf{Transitivity:} If $x < y$ and $y < z$, then $x < z$. 
+\end{rem}
+\begin{proof}
+Let $x <y$ and $y < z$. Then we know $y - x \in P$ and $z - y \in P$. We want to know if $z - x \in P$. But by \textbf{(P11)}, we know 
+\bee
+y - x + z - y = z - x \in P.
+\eee
+Thus $x < z$. 
+\end{proof}
+And since $0 < a \Rightarrow a - 0 = a \in P$ by \textbf{(P2)}, $a \in P$. Then we have
+\bee
+a \in P,a - 1 \in P \Rightarrow a(a - 1) \in P && \text{by \textbf{(P12)}}\\
+a(a - 1) = a^2 - a && \text{by \textbf{(P9)}}\\
+a^2 - a = a(a - 1) \in P \Rightarrow a < a^2 && \text{by definition.}
+\eee
+Alternatively, upon proving that $a > 0$ you could simply apply part (iv), noting that $1 < a$, $a > 0 \Rightarrow a < a^2$ by \textbf{(P6)}. 
+\end{proof}
+\end{enumerate}
+\setcounter{enumi}{7}
+\item \textit{Suppose that \textbf{(P10)-(P12)} were replaced by}
+\begin{enumerate}[label=\textbf{(P$'$\arabic*)}]
+\setcounter{enumii}{9}
+\item \textit{For any numbers $a$ and $b$, one, and only one of the following holds:}
+\begin{enumerate}
+\item $a = b$,
+\item $a < b$,
+\item $b < a$. 
+\end{enumerate}
+\item \textit{For any numbers $a,b$, and $c$, if $a < b$ and $b < c$, then $a < c$. }
+\item \textit{For any numbers $a,b$, and $c$, if $a < b$, then $a + c < b + c$. }
+\item \textit{For any numbers $a,b$, and $c$, if $a < b$ and $0 < c$, then $ac < bc$. }
+\end{enumerate}
+\textit{Show that \textbf{(P10)-(P12)} can then be deduced as theorems. }
+
+\begin{proof}
+We derive \textbf{(P10)}. Applying \textbf{(P$'$10)}, we define the positive numbers $P = \Set{x: x > 0}$. Let $a$ be a number. Following \textbf{(P$'$10)}, we have
+
+\textbf{Case 1:} $a = 0$. 
+
+\textbf{Case 2:} $a > 0$. Then by our definition of $P$, $a \in P$. 
+
+\textbf{Case 3:} $a < 0$. Then manipulating the definition of $<$, we have $0 - a > 0$. Then by \textbf{(P4),(P2)}, we know $-a + 0 = -a > 0$. Then by our definition, $-a \in P$. 
+Thus we have derived \textbf{(P10)}. \\
+
+Now we will derive \textbf{(P11)}. Let $a,b \in P$. Then we know $a,b > 0$ by our definition of $P$. We want to show $a + b \in P$. So we must show $a + b > 0$. We show that $-b < a$. First we prove that $-b < 0$. Note that by \textbf{(P$'$10)}, we know that either $-b < 0,-b > 0$, or $-b = 0$. We cannot have $-b = 0$, since then $b + -b = b + 0 = b = 0$, by \textbf{(P3)}. And this contradicts \textbf{(P$'$10)} because we said $b > 0$. Now if $-b > 0$, then applying \textbf{(P$'$12)} because $0 < -b$, we have
+\bee
+0 + b < b + (-b) \Rightarrow b < 0 && \text{by \textbf{(P2)}}
+\eee
+which is a contradiction because we said $b > 0$. So we must have $-b < 0$. Then applying \textbf{(P$'$11)}, we have $-b < a$ since $-b < 0$ and $0 < a$. Now we may apply \textbf{(P$'$12)} and get
+\bee
+-b + b < a + b \Rightarrow 0 < a + b && \text{by \textbf{(P2)}}
+\eee
+And so $a + b \in P$, so we have derived \textbf{(P11)}. \\
+
+Finally, we derive \textbf{(P12)}. Let $a,b \in P$. Then we know by our definition of $P$ that $a,b > 0$. We wish to show $a\cdot b \in P$. So equivalently, we must show that $a \cdot b > 0$. So since $0 < a$ and $0 < b$, applying \textbf{(P$'$13)}, we know
+\bee
+0 \cdot c < a \cdot b \Rightarrow 0 < a \cdot b && \text{by \textbf{(P6)}}. 
+\eee
+Then we know $a \cdot b \in P$. 
+\end{proof}
+
+
+\setcounter{enumi}{6}
+\item \textit{Prove that if $0 < a < b$, then}
+\bee
+a < \qwe{ab} < \fracc{a + b}{2} < b. 
+\eee
+\begin{proof}
+We show that $a < \qwe{ab}$. Observe:
+\bee
+a = \qwe{a^2} && \text{by definition of $\qwe{  }$}\\
+b - a \in P && \text{by definition of $<$}\\
+a < b \Rightarrow a^2 < ab && \text{by 5(iv), since $a > 0$}\\
+a^2 < ab \Rightarrow \qwe{a^2} < \qwe{ab} && \text{by 5(x)}\\
+\qwe{a^2} < \qwe{ab} \Rightarrow a < \qwe{ab} && \text{by definition of }\qwe{ }.
+\eee
+Next we show that $\qwe{ab} < \fracc{a + b}{2}$. Let $b - a = \epsilon > 0$, since $a < b$. Observe:
+\bee
+\epsilon > 0 \Rightarrow \epsilon^2 > 0 && \text{by \textbf{(P12)}}\\
+\epsilon^2 > 0 \Rightarrow 2a^2 + 2a\epsilon + \epsilon^2 > 2a^2 + 2a\epsilon && \text{by \textbf{(P11),(P12)}}\\
+\Rightarrow a^2 + (a + \epsilon)^2 > 2a(a + \epsilon) && \text{by \textbf{(P9)}}\\
+\Rightarrow a^2 + b^2 > 2ab && \text{by definition of }\epsilon\\
+\Rightarrow \fracc{a^2 + b^2}{4} > \fracc{ab}{2} && \text{by 5(iv), since }4^{-1} > 0\\
+\Rightarrow \fracc{a^2 + b^2}{4} + \fracc{ab}{2} > \fracc{ab}{2} + \fracc{ab}{2} = ab && \text{by 5(i)}\\
+\Rightarrow ab < \fracc{a^2 + 2ab + b^2}{4} = \lpar \fracc{a + b}{2} \rpar^2 && \text{by 3(ii)}\\
+\Rightarrow \qwe{ab} < \fracc{a + b}{2} && \text{by 5(x)}.
+\eee
+Finally, we prove that $\fracc{a + b}{2} < b$. 
+Since $a < b$, we know $\fracc{1}{2}a < \fracc{1}{2}b$ by 5(iv) since $\fracc{1}{2} > 0$ since $2 > 0$. So then we have
+\bee
+\fracc{a + b}{2} &= \fracc{1}{2}a + \fracc{1}{2}b\\
+&< \fracc{1}{2}b + \fracc{1}{2}b\\
+&= b. 
+\eee
+Thus all together, we have $a < \qwe{ab} < \fracc{a + b}{2} < b$. 
+\end{proof}
+\setcounter{enumi}{11}
+\item \textit{Prove the following: }
+\begin{enumerate}[label=(\roman*)]
+\setcounter{enumii}{3}
+\item \textit{$|x - y| \leq |x| + |y|$. (Give a very short proof.)}
+\begin{proof}
+We proved in class that $|a + b| \leq |a| + |b|$. Simply take $a = x$ and $b = -y$. Then we have
+\bee
+ |x - y| = |x + (-y)| \leq |x| + |-y| = |x| + |y|. 
+\eee
+
+Note this proof assumes that $|y| = |-y|$, but this is proved below in 14(a). 
+\end{proof}
+
+\bb
+\item \textit{$|x| - |y| \leq |x - y|$. (A very short proof is possible, if you write things in the right way.)}
+\begin{proof}
+If either of $x,y$ is $0$, then we have the desired result immediately, since $|x| \leq |x|$ and $|y| \leq |y|$. So we assume $x,y \neq 0$, and we assume $x \neq y$, in which case we have $0\leq 0$. 
+
+
+\textbf{Case 1:} $x,y \in P$. Then $|x| = x,|y| = y$, so $|x| - |y| = x - y$. Now if $x - y \in P$, then $|x - y| = x - y = |x| - |y|$. And if $x - y \notin P$, then $|x - y| = y - x \in P$. Then we have 
+\bee
+|x| - |y| = x - y < 0 < y - x = |x - y|.
+\eee
+In either case, $|x| - |y| \leq |x - y|$. 
+
+\textbf{Case 2:} $x,y \notin P$. Then $|x| = -x,|y| = -y$, so $|x| - |y| = y - x$. Now if $y - x \in P$, then $|x - y| = |y - x|= y - x = |x| - |y|$, since $|-a| = |a|$ by 14(a). And if $y - x \notin P$, then $|x - y| = x - y \in P$. Then we have 
+\bee
+|x| - |y| = y - x < 0 < x - y = |x - y|.
+\eee
+In either case, $|x| - |y| \leq |x - y|$. 
+
+\textbf{Case 3:} $x \in P,y \notin P$. Then $|x| = x,|y| = -y$. So then 
+\bee
+|x| - |y| = x + y.
+\eee
+And 
+\bee
+|x - y| &= ||x| -(-|y|)|\\
+ &= ||x| + |y|| \\
+ &= |x| + |y|.
+\eee
+But then $x \leq |x|$ and $y \leq |y|$ so we have
+\bee
+|x| - |y| = x + y \leq |x| + |y| = |x - y|. 
+\eee
+\textbf{Case 4:} $x \notin P,y \in P$, then 
+\bee
+|x| - |y| = -(x + y),
+\eee
+and again we have
+\bee
+|x| - |y| = -x - y \leq |x| + |y| = |x - y|. 
+\eee
+since $-x \leq |x|$ and $-y \leq |y|$. 
+\end{proof}
+
+\bb
+\item \textit{$|(|x| - |y|)| \leq |x - y|$. (Why does this follow immediately from (v)?)}
+\begin{proof}
+Note that by 14(a) below, we have
+\bee
+|x - y| = |y - x|.
+\eee
+So then note that 
+\bee
+|(|x| - |y|)| = \begin{cases}
+|x| - |y| & \text{if }|x| > |y|\\
+|y| - |x| & \text{if }|y| > |x|
+\end{cases}.
+\eee
+In the first case, then the result follows from 12(v) above, since $|(|x| - |y|)| = |x| - |y|$. In the second case, simply swap $y$ and $x$ and apply 12(v), noting that $|y - x| = |x - y|$. 
+\end{proof}
+\end{enumerate}
+\setcounter{enumi}{13}
+
+\bb
+\item 
+\begin{enumerate}
+\item \textit{Prove that $|a| = |-a|$. (The trick is not to become confused by too many cases. First prove the statement for $a \geq 0$. Why is it then obvious for $a \leq 0$?)}
+\begin{proof}
+If $a = 0$, then $a = -a = 0$, and $|0| = 0$, so we have the desired result. 
+Let $a > 0$. Then $|a| = a$, and $|-a| = a$, since $-a < 0 \Rightarrow |-a| = -(-a) = a$. Now let $a < 0$. Simply let $b = -a$. We want to show $|a| = |-a|$, or equivalently, $|-b| = |b|$, since $-b = -(-a) = a$. But then we know $-b < 0 \Rightarrow b > 0$. So we simply apply the case where $a > 0$ to $b$, and we have the desired result. 
+\end{proof}
+
+\bb
+\item \textit{Prove that $-b \leq a \leq b$ if and only if $|a| \leq b$. In particular, it follows that $-|a| \leq a \leq |a|$. }
+\begin{proof}
+Let $-b \leq a \leq b$. Then we must have that $b \geq 0$, since otherwise $b \leq -b$. If $b = 0$, then we must have $a = 0$, so the result is trivial, since $|0| = 0 \leq 0$. And if $a = 0$, then $|a| = |0| = 0 \leq b$, since $b \geq 0$. So we assume $a \neq 0, b > 0$. 
+
+\textbf{Case 1:} $a > 0$. Then $|a| = a$. And then since $|a| = a \leq b$, we are done. 
+
+\textbf{Case 2:} $a < 0$. Then $|a| = -a$. Note 
+\bee
+a - (-b) = a + b = b - (-a) = b - |a|. 
+\eee
+Now since $-b \leq a$, then we know $a -(-b) \in P$ by definition, so $a - (-b) \geq 0 \Rightarrow b - |a| \geq 0 \Rightarrow |a| \leq b$. 
+\end{proof}
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
